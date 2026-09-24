@@ -1,164 +1,450 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>TN Warriors - Government Jobs</title>
 
+
   <style>
-    body {
+
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
+    }
+
+
+    body {
       background: #f4f6f8;
       color: #222;
     }
+
 
     header {
       background: #111827;
       color: white;
       text-align: center;
-      padding: 25px 15px;
+      padding: 28px 15px;
     }
+
 
     header h1 {
-      margin: 0;
-      font-size: 30px;
+      font-size: 32px;
     }
 
+
     header p {
-      margin: 8px 0 0;
+      margin-top: 8px;
       color: #d1d5db;
     }
+
 
     nav {
       background: #1f2937;
       text-align: center;
-      padding: 15px;
+      padding: 15px 10px;
     }
+
 
     nav a {
+      display: inline-block;
       color: white;
       text-decoration: none;
-      margin: 0 12px;
+      margin: 5px 10px;
+      padding: 7px 10px;
       font-weight: bold;
+      border-radius: 6px;
     }
+
+
+    nav a:hover {
+      background: #374151;
+    }
+
 
     .hero {
-      background: #2563eb;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
       color: white;
       text-align: center;
-      padding: 45px 20px;
+      padding: 55px 20px;
     }
+
 
     .hero h2 {
-      font-size: 32px;
-      margin: 0 0 10px;
+      font-size: 34px;
+      margin-bottom: 12px;
     }
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 25px 15px;
+
+    .hero p {
+      font-size: 16px;
+      line-height: 1.7;
     }
+
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 15px;
+    }
+
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+
+    .section-title h2 {
+      font-size: 28px;
+      color: #111827;
+    }
+
+
+    .section-title p {
+      margin-top: 8px;
+      color: #6b7280;
+    }
+
+
+    .job-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
 
     .job {
       background: white;
-      padding: 20px;
-      margin-bottom: 18px;
+      padding: 25px;
       border-radius: 15px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s;
     }
+
+
+    .job:hover {
+      transform: translateY(-5px);
+    }
+
 
     .job h3 {
-      margin-top: 0;
       color: #1d4ed8;
+      margin-bottom: 12px;
+      font-size: 20px;
     }
+
 
     .job p {
-      line-height: 1.6;
+      color: #555;
+      line-height: 1.7;
     }
 
-    .apply {
+
+    .job-button {
       display: inline-block;
+      margin-top: 15px;
       background: #2563eb;
       color: white;
-      padding: 10px 18px;
+      padding: 10px 17px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
     }
 
-    footer {
+
+    .job-button:hover {
+      background: #1d4ed8;
+    }
+
+
+    .info {
       background: #111827;
       color: white;
       text-align: center;
-      padding: 22px;
-      margin-top: 30px;
+      padding: 40px 20px;
     }
+
+
+    .info h2 {
+      margin-bottom: 12px;
+    }
+
+
+    .info p {
+      max-width: 700px;
+      margin: auto;
+      color: #d1d5db;
+      line-height: 1.7;
+    }
+
+
+    footer {
+      background: #0b1120;
+      color: white;
+      text-align: center;
+      padding: 22px 15px;
+    }
+
+
+    footer p {
+      color: #d1d5db;
+      font-size: 14px;
+    }
+
+
+    @media (max-width: 600px) {
+
+      header h1 {
+        font-size: 26px;
+      }
+
+
+      nav a {
+        margin: 3px;
+        font-size: 14px;
+      }
+
+
+      .hero {
+        padding: 45px 18px;
+      }
+
+
+      .hero h2 {
+        font-size: 28px;
+      }
+
+
+      .job-grid {
+        grid-template-columns: 1fr;
+      }
+
+
+      .job {
+        padding: 20px;
+      }
+
+    }
+
   </style>
+
 </head>
+
 
 <body>
 
-<header>
-  <h1>🛡️ TN WARRIORS</h1>
-  <p>Jobs • Exams • Defence Updates</p>
-</header>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="jobs.html">Jobs</a>
-  <a href="exams.html">Exams</a>
-  <a href="defence.html">Defence</a>
-</nav>
+  <header>
 
-<section class="hero">
-  <h2>Government Jobs</h2>
-  <p>Latest job notifications, eligibility and important updates.</p>
-</section>
+    <h1>🛡️ TN WARRIORS</h1>
 
-<div class="container">
+    <p>Jobs • Exams • Defence Updates</p>
 
-  <div class="job">
-    <h3>📢 Government Job Updates</h3>
+  </header>
+
+
+  <nav>
+
+    <a href="index.html">Home</a>
+
+    <a href="jobs.html">Jobs</a>
+
+    <a href="exams.html">Exams</a>
+
+    <a href="defence.html">Defence</a>
+
+  </nav>
+
+
+  <section class="hero">
+
+    <h2>📢 Government Jobs</h2>
+
     <p>
-      Latest Central and State Government job notifications,
-      eligibility details and important dates.
+      Find government job notifications, eligibility,
+      vacancies and important recruitment updates.
     </p>
-    <a class="apply" href="#">View Details</a>
-  </div>
 
-  <div class="job">
-    <h3>📝 SSC Jobs</h3>
+  </section>
+
+
+  <section class="container">
+
+
+    <div class="section-title">
+
+      <h2>🔥 Job Categories</h2>
+
+      <p>
+        Choose a category to find relevant government job updates.
+      </p>
+
+    </div>
+
+
+    <div class="job-grid">
+
+
+      <div class="job">
+
+        <h3>🏛️ Central Government Jobs</h3>
+
+        <p>
+          Central Government recruitment notifications,
+          eligibility, vacancies and important dates.
+        </p>
+
+        <a class="job-button" href="#">
+          View Jobs →
+        </a>
+
+      </div>
+
+
+      <div class="job">
+
+        <h3>🏢 Tamil Nadu Government Jobs</h3>
+
+        <p>
+          TNPSC and other Tamil Nadu Government recruitment
+          notifications and updates.
+        </p>
+
+        <a class="job-button" href="#">
+          View Jobs →
+        </a>
+
+      </div>
+
+
+      <div class="job">
+
+        <h3>🪖 Defence Jobs</h3>
+
+        <p>
+          Army, Navy, Air Force, Agniveer and other
+          defence recruitment opportunities.
+        </p>
+
+        <a class="job-button" href="defence.html">
+          View Defence →
+        </a>
+
+      </div>
+
+
+      <div class="job">
+
+        <h3>🚆 Railway Jobs</h3>
+
+        <p>
+          Railway recruitment notifications, eligibility,
+          vacancies and examination information.
+        </p>
+
+        <a class="job-button" href="railway-exams.html">
+          View Railway →
+        </a>
+
+      </div>
+
+
+      <div class="job">
+
+        <h3>📝 SSC Jobs</h3>
+
+        <p>
+          SSC GD, SSC CHSL, SSC CGL, SSC MTS and other
+          Staff Selection Commission opportunities.
+        </p>
+
+        <a class="job-button" href="ssc-exams.html">
+          View SSC →
+        </a>
+
+      </div>
+
+
+      <div class="job">
+
+        <h3>🎓 10th / 12th Pass Jobs</h3>
+
+        <p>
+          Government job opportunities for candidates who
+          have completed 10th or 12th standard.
+        </p>
+
+        <a class="job-button" href="#">
+          View Jobs →
+        </a>
+
+      </div>
+
+
+      <div class="job">
+
+        <h3>🎓 Diploma Jobs</h3>
+
+        <p>
+          Government recruitment opportunities for
+          diploma-qualified candidates.
+        </p>
+
+        <a class="job-button" href="#">
+          View Jobs →
+        </a>
+
+      </div>
+
+
+      <div class="job">
+
+        <h3>🎓 Degree Jobs</h3>
+
+        <p>
+          Government recruitment opportunities for
+          graduates and degree-qualified candidates.
+        </p>
+
+        <a class="job-button" href="#">
+          View Jobs →
+        </a>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+  <section class="info">
+
+    <h2>🛡️ Stay Updated</h2>
+
     <p>
-      SSC GD, SSC CHSL, SSC CGL and other Staff Selection Commission
-      exam updates.
+      TN Warriors will provide useful information about
+      government jobs, eligibility, important dates,
+      selection processes and official application links.
     </p>
-    <a class="apply" href="#">View Details</a>
-  </div>
 
-  <div class="job">
-    <h3>🚆 Railway Jobs</h3>
-    <p>
-      Railway recruitment notifications, eligibility,
-      vacancies and exam updates.
-    </p>
-    <a class="apply" href="#">View Details</a>
-  </div>
+  </section>
 
-  <div class="job">
-    <h3>🏛️ Tamil Nadu Government Jobs</h3>
-    <p>
-      TNPSC and other Tamil Nadu government recruitment updates.
-    </p>
-    <a class="apply" href="#">View Details</a>
-  </div>
 
-</div>
+  <footer>
 
-<footer>
-  © 2026 TN Warriors. All Rights Reserved.
-</footer>
+    <p>© 2026 TN Warriors. All Rights Reserved.</p>
+
+  </footer>
+
 
 </body>
+
 </html>
