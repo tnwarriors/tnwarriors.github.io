@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>TN Warriors</title>
+  <title>TN Warriors - Jobs, Exams & Defence</title>
 
   <style>
 
@@ -18,100 +18,247 @@
       font-family: Arial, sans-serif;
     }
 
+
     body {
       background: #f4f6f8;
       color: #222;
     }
 
+
     header {
       background: #111827;
       color: white;
-      padding: 22px 15px;
       text-align: center;
+      padding: 28px 15px;
     }
 
+
     header h1 {
-      font-size: 30px;
+      font-size: 32px;
+      letter-spacing: 1px;
     }
+
 
     header p {
       margin-top: 8px;
       color: #d1d5db;
+      font-size: 15px;
     }
+
 
     nav {
       background: #1f2937;
-      padding: 12px;
+      padding: 15px 10px;
       text-align: center;
     }
+
 
     nav a {
+      display: inline-block;
       color: white;
       text-decoration: none;
-      margin: 0 8px;
-      font-size: 14px;
+      margin: 5px 10px;
+      padding: 7px 10px;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 6px;
     }
+
 
     nav a:hover {
-      text-decoration: underline;
+      background: #374151;
     }
+
 
     .hero {
-      background: #2563eb;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
       color: white;
-      padding: 45px 20px;
       text-align: center;
+      padding: 60px 20px;
     }
+
 
     .hero h2 {
-      font-size: 30px;
-      margin-bottom: 12px;
+      font-size: 36px;
+      margin-bottom: 15px;
     }
+
 
     .hero p {
-      font-size: 16px;
-      line-height: 1.6;
+      max-width: 650px;
+      margin: auto;
+      font-size: 17px;
+      line-height: 1.7;
     }
+
+
+    .hero-button {
+      display: inline-block;
+      margin-top: 25px;
+      background: white;
+      color: #1d4ed8;
+      padding: 12px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+
+    .hero-button:hover {
+      background: #e5e7eb;
+    }
+
 
     .container {
-      max-width: 900px;
+      max-width: 1000px;
       margin: auto;
-      padding: 25px 15px;
+      padding: 40px 15px;
     }
 
-    .container h2 {
+
+    .section-title {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
+
+
+    .section-title h2 {
+      font-size: 28px;
+      color: #111827;
+    }
+
+
+    .section-title p {
+      margin-top: 8px;
+      color: #6b7280;
+    }
+
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
     }
+
 
     .card {
       background: white;
-      padding: 22px;
-      border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s;
     }
 
-    .card h3 {
-      margin-bottom: 10px;
+
+    .card:hover {
+      transform: translateY(-5px);
     }
+
+
+    .card h3 {
+      color: #1d4ed8;
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
 
     .card p {
       color: #555;
-      line-height: 1.5;
+      line-height: 1.7;
     }
 
-    footer {
+
+    .card-button {
+      display: inline-block;
+      margin-top: 15px;
+      background: #2563eb;
+      color: white;
+      padding: 9px 16px;
+      border-radius: 7px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+
+    .card-button:hover {
+      background: #1d4ed8;
+    }
+
+
+    .info-section {
       background: #111827;
       color: white;
       text-align: center;
-      padding: 20px;
-      margin-top: 30px;
+      padding: 40px 20px;
+    }
+
+
+    .info-section h2 {
+      margin-bottom: 12px;
+      font-size: 26px;
+    }
+
+
+    .info-section p {
+      max-width: 650px;
+      margin: auto;
+      color: #d1d5db;
+      line-height: 1.7;
+    }
+
+
+    footer {
+      background: #0b1120;
+      color: white;
+      text-align: center;
+      padding: 22px 15px;
+    }
+
+
+    footer p {
+      font-size: 14px;
+      color: #d1d5db;
+    }
+
+
+    @media (max-width: 600px) {
+
+      header h1 {
+        font-size: 26px;
+      }
+
+
+      nav a {
+        margin: 3px;
+        font-size: 14px;
+      }
+
+
+      .hero {
+        padding: 45px 18px;
+      }
+
+
+      .hero h2 {
+        font-size: 28px;
+      }
+
+
+      .hero p {
+        font-size: 15px;
+      }
+
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+
+      .card {
+        padding: 20px;
+      }
+
     }
 
   </style>
@@ -146,19 +293,33 @@
 
   <section class="hero">
 
-    <h2>Welcome to TN Warriors</h2>
+    <h2>Welcome to TN Warriors 🚀</h2>
 
     <p>
-      Government jobs, competitive exams and defence updates
-      in one place.
+      Your platform for government jobs, competitive exams,
+      defence recruitment and useful study resources.
     </p>
+
+
+    <a class="hero-button" href="exams.html">
+      Explore Exams →
+    </a>
 
   </section>
 
 
   <section class="container">
 
-    <h2>Latest Categories</h2>
+
+    <div class="section-title">
+
+      <h2>🔥 Explore TN Warriors</h2>
+
+      <p>
+        Find useful information for your career preparation.
+      </p>
+
+    </div>
 
 
     <div class="cards">
@@ -169,9 +330,13 @@
         <h3>📢 Government Jobs</h3>
 
         <p>
-          Latest government job notifications, eligibility,
+          Government job notifications, eligibility,
           important dates and application information.
         </p>
+
+        <a class="card-button" href="jobs.html">
+          View Jobs →
+        </a>
 
       </div>
 
@@ -181,9 +346,13 @@
         <h3>📝 Competitive Exams</h3>
 
         <p>
-          SSC, Railway, TNPSC and other competitive exam
-          updates and study information.
+          SSC, Railway, TNPSC and other competitive
+          examination updates and preparation information.
         </p>
+
+        <a class="card-button" href="exams.html">
+          View Exams →
+        </a>
 
       </div>
 
@@ -193,9 +362,13 @@
         <h3>🪖 Defence Jobs</h3>
 
         <p>
-          Army, Navy, Air Force, SSC GD and other defence
-          recruitment updates.
+          Army, Navy, Air Force, Agniveer and other
+          defence recruitment information.
         </p>
+
+        <a class="card-button" href="defence.html">
+          View Defence →
+        </a>
 
       </div>
 
@@ -206,13 +379,30 @@
 
         <p>
           Syllabus, notes, preparation tips and useful
-          learning resources.
+          learning resources for aspirants.
         </p>
+
+        <a class="card-button" href="exams.html">
+          Start Learning →
+        </a>
 
       </div>
 
 
     </div>
+
+  </section>
+
+
+  <section class="info-section">
+
+    <h2>🛡️ Prepare Today. Achieve Tomorrow.</h2>
+
+    <p>
+      TN Warriors is being built to bring jobs, exams,
+      defence updates and study resources together in one
+      simple platform.
+    </p>
 
   </section>
 
