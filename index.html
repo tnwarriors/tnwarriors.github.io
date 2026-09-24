@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>TN Warriors</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f8;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 22px 15px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 30px;
+    }
+
+    header p {
+      margin-top: 8px;
+      color: #d1d5db;
+    }
+
+    nav {
+      background: #1f2937;
+      padding: 12px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 8px;
+      font-size: 14px;
+    }
+
+    .hero {
+      background: #2563eb;
+      color: white;
+      padding: 45px 20px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 25px 15px;
+    }
+
+    .container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #555;
+      line-height: 1.5;
+    }
+
+    footer {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🛡️ TN WARRIORS</h1>
+    <p>Jobs • Exams • Defence Updates</p>
+  </header>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#jobs">Jobs</a>
+    <a href="#exams">Exams</a>
+    <a href="#defence">Defence</a>
+  </nav>
+
+  <section class="hero">
+    <h2>Welcome to TN Warriors</h2>
+    <p>
+      Government jobs, competitive exams and defence updates
+      in one place.
+    </p>
+  </section>
+
+  <section class="container">
+    <h2>Latest Categories</h2>
+
+    <div class="cards">
+
+      <div class="card" id="jobs">
+        <h3>📢 Government Jobs</h3>
+        <p>
+          Latest government job notifications, eligibility,
+          important dates and application information.
+        </p>
+      </div>
+
+      <div class="card" id="exams">
+        <h3>📝 Competitive Exams</h3>
+        <p>
+          SSC, Railway, TNPSC and other competitive exam
+          updates and study information.
+        </p>
+      </div>
+
+      <div class="card" id="defence">
+        <h3>🪖 Defence Jobs</h3>
+        <p>
+          Army, Navy, Air Force, SSC GD and other defence
+          recruitment updates.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>📚 Study Materials</h3>
+        <p>
+          Syllabus, notes, preparation tips and useful
+          learning resources.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 TN Warriors. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
