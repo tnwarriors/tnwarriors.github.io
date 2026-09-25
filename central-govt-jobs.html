@@ -8,21 +8,14 @@
   <title>TN Warriors - Central Government Jobs</title>
 
   <style>
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f4f6f8;
       color: #222;
     }
-     .coming p:last-child {
-     display: inline-block;
-     background: #2563eb;
-     color: white;
-     padding: 10px 20px;
-     border-radius: 25px;
-     font-weight: bold;
-     margin-top: 10px;
-    }
+
     header {
       background: #111827;
       color: white;
@@ -53,6 +46,10 @@
       font-weight: bold;
     }
 
+    nav a:hover {
+      color: #93c5fd;
+    }
+
     .hero {
       background: linear-gradient(135deg, #2563eb, #1d4ed8);
       color: white;
@@ -66,49 +63,96 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: auto;
       padding: 30px 15px;
     }
 
-    .job-card {
+    .notification {
       background: white;
       padding: 25px;
-      margin-bottom: 20px;
       border-radius: 15px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      margin-bottom: 25px;
+      border-left: 6px solid #2563eb;
     }
 
-    .job-card h2 {
+    .notification h2 {
       color: #1d4ed8;
       margin-top: 0;
     }
 
-    .job-card h3 {
+    .status {
+      display: inline-block;
+      background: #2563eb;
+      color: white;
+      padding: 9px 18px;
+      border-radius: 25px;
+      font-weight: bold;
+      margin: 10px 0 15px;
+    }
+
+    .details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .detail-box {
+      background: #f8fafc;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .detail-box strong {
+      display: block;
       color: #111827;
+      margin-bottom: 6px;
     }
 
-    .job-card p {
-      line-height: 1.7;
-      color: #555;
-    }
-
-    .job-card ul {
-      line-height: 1.8;
-      color: #444;
-    }
-
-    .coming {
+    .info {
       background: #eff6ff;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
+      padding: 25px;
+      border-radius: 15px;
       margin-bottom: 25px;
     }
 
-    .coming h2 {
+    .info h2 {
       color: #1d4ed8;
       margin-top: 0;
+    }
+
+    .info ul {
+      line-height: 1.9;
+    }
+
+    .official {
+      background: #ecfdf5;
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+    }
+
+    .official h2 {
+      color: #047857;
+      margin-top: 0;
+    }
+
+    .official-button {
+      display: inline-block;
+      background: #059669;
+      color: white;
+      padding: 11px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .official-button:hover {
+      background: #047857;
     }
 
     .back-button {
@@ -119,7 +163,6 @@
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
-      margin-top: 10px;
     }
 
     .back-button:hover {
@@ -148,24 +191,42 @@
       .hero h2 {
         font-size: 27px;
       }
+
+      .details {
+        grid-template-columns: 1fr;
+      }
+
     }
+
   </style>
 
 </head>
 
+
 <body>
 
+
   <header>
+
     <h1>🛡️ TN WARRIORS</h1>
-    <p>Jobs • Exams • Defence Updates</p>
+
+    <p>
+      Jobs • Exams • Defence Updates
+    </p>
+
   </header>
 
 
   <nav>
+
     <a href="index.html">Home</a>
+
     <a href="jobs.html">Jobs</a>
+
     <a href="exams.html">Exams</a>
+
     <a href="defence.html">Defence</a>
+
   </nav>
 
 
@@ -174,8 +235,8 @@
     <h2>🏛️ Central Government Jobs</h2>
 
     <p>
-      Latest Central Government job notifications,
-      eligibility and application information.
+      Latest Central Government recruitment notifications
+      and important application information.
     </p>
 
   </section>
@@ -184,29 +245,113 @@
   <div class="container">
 
 
-    <div class="coming">
+    <!-- LATEST NOTIFICATION -->
 
-      <h2>📢 Latest Job Notifications</h2>
+    <div class="notification">
+
+      <h2>📢 Latest Central Government Notification</h2>
+
+      <span class="status">
+        🔔 Updates Coming Soon
+      </span>
 
       <p>
-        Central Government job notifications will be
-        added here with complete details.
+        TN Warriors is preparing verified Central Government
+        job notifications with complete eligibility,
+        vacancy and application details.
       </p>
 
-      <p>
-        🔔 Coming Soon
-      </p>
+
+      <div class="details">
+
+
+        <div class="detail-box">
+
+          <strong>🏢 Department</strong>
+
+          Central Government
+
+        </div>
+
+
+        <div class="detail-box">
+
+          <strong>💼 Job Type</strong>
+
+          Government Recruitment
+
+        </div>
+
+
+        <div class="detail-box">
+
+          <strong>🎓 Qualification</strong>
+
+          Will be updated from the official notification
+
+        </div>
+
+
+        <div class="detail-box">
+
+          <strong>👥 Vacancies</strong>
+
+          Will be updated after official verification
+
+        </div>
+
+
+        <div class="detail-box">
+
+          <strong>🎂 Age Limit</strong>
+
+          Will be updated from the official notification
+
+        </div>
+
+
+        <div class="detail-box">
+
+          <strong>💰 Salary</strong>
+
+          Will be updated from the official notification
+
+        </div>
+
+
+        <div class="detail-box">
+
+          <strong>📅 Important Dates</strong>
+
+          Will be updated after official notification
+
+        </div>
+
+
+        <div class="detail-box">
+
+          <strong>📝 Selection Process</strong>
+
+          Will be updated from the official notification
+
+        </div>
+
+
+      </div>
 
     </div>
 
 
-    <div class="job-card">
+
+    <!-- WHAT YOU CAN FIND -->
+
+    <div class="info">
 
       <h2>📚 What You Can Find Here</h2>
 
       <ul>
 
-        <li>📢 Government Job Notifications</li>
+        <li>📢 Central Government Job Notifications</li>
 
         <li>👥 Number of Vacancies</li>
 
@@ -231,25 +376,38 @@
     </div>
 
 
-    <div class="job-card">
 
-      <h2>💡 TN Warriors Updates</h2>
+    <!-- OFFICIAL SOURCE -->
 
-      <p>
-        TN Warriors will provide Central Government
-        recruitment updates in a simple and easy-to-understand
-        format.
-      </p>
+    <div class="official">
+
+      <h2>🌐 Official Recruitment Source</h2>
 
       <p>
-        Always check the official recruitment notification
+        Always verify the complete recruitment details
+        from the concerned official government website
         before applying.
       </p>
+
+      <a
+        class="official-button"
+        href="https://ssc.gov.in/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Visit SSC Official Website
+      </a>
 
     </div>
 
 
-    <a class="back-button" href="jobs.html">
+
+    <!-- BACK BUTTON -->
+
+    <a
+      class="back-button"
+      href="jobs.html"
+    >
       ← Back to Jobs
     </a>
 
@@ -262,6 +420,7 @@
     © 2026 TN Warriors. All Rights Reserved.
 
   </footer>
+
 
 </body>
 
