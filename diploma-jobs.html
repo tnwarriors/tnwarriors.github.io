@@ -61,7 +61,7 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: auto;
       padding: 30px 15px;
     }
@@ -69,7 +69,7 @@
     .job-card {
       background: white;
       padding: 25px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       border-radius: 15px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
@@ -77,10 +77,116 @@
     .job-card h3 {
       color: #7e22ce;
       margin-top: 0;
+      font-size: 22px;
     }
 
-    .job-card p {
-      line-height: 1.6;
+    .badge {
+      display: inline-block;
+      background: #16a34a;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .detail-box {
+      background: #faf5ff;
+      border: 1px solid #e9d5ff;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .detail-box strong {
+      color: #6b21a8;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .detail-box p {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .section-title {
+      background: #7e22ce;
+      color: white;
+      padding: 12px 15px;
+      border-radius: 10px;
+      margin-top: 25px;
+    }
+
+    .date-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .date-box {
+      background: #f5f3ff;
+      border-left: 5px solid #7e22ce;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .date-box strong {
+      display: block;
+      color: #6b21a8;
+      margin-bottom: 5px;
+    }
+
+    .fee-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .fee-box {
+      background: #f9fafb;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .links {
+      margin-top: 20px;
+      padding: 20px;
+      background: #ecfdf5;
+      border-radius: 12px;
+    }
+
+    .links h3 {
+      color: #166534;
+      margin-top: 0;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 6px 6px 6px 0;
+      padding: 11px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      color: white;
+      background: #7e22ce;
+    }
+
+    .button.apply {
+      background: #16a34a;
+    }
+
+    .button.disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
     }
 
     .coming {
@@ -141,6 +247,18 @@
         font-size: 27px;
       }
 
+      .details,
+      .date-grid,
+      .fee-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        display: block;
+        text-align: center;
+        margin-right: 0;
+      }
+
     }
 
   </style>
@@ -185,53 +303,180 @@
   <div class="container">
 
 
+    <!-- CURRENT NOTIFICATION -->
+
     <div class="job-card">
 
-      <h3>🔔 Latest Diploma Job Notification</h3>
+      <span class="badge">🟢 Applications Open</span>
+
+      <h3>🚀 ISRO IPRC Technical Assistant Recruitment 2026</h3>
 
       <p>
-        Government job notifications suitable for Diploma holders
-        will be added here. Check this page regularly for new updates.
+        ISRO Propulsion Complex (IPRC) has invited applications for
+        Technical Assistant posts in selected Diploma disciplines.
       </p>
 
-      <div class="job-card">
 
-  <h3>🚀 ISRO IPRC Technical Assistant Recruitment 2026</h3>
+      <h3 class="section-title">📊 Vacancy & Post Details</h3>
 
-  <span class="coming">🟢 Applications Open</span>
+      <div class="details">
 
-  <p><strong>🏢 Organization:</strong> ISRO Propulsion Complex (IPRC)</p>
+        <div class="detail-box">
+          <strong>🏢 Organization</strong>
+          <p>ISRO Propulsion Complex (IPRC)</p>
+        </div>
 
-  <p><strong>💼 Post:</strong> Technical Assistant</p>
+        <div class="detail-box">
+          <strong>📢 Advertisement</strong>
+          <p>IPRC/RMT/2026/01</p>
+        </div>
 
-  <p><strong>🎓 Qualification:</strong> Relevant Diploma qualification</p>
+        <div class="detail-box">
+          <strong>💼 Post</strong>
+          <p>Technical Assistant</p>
+        </div>
 
-  <p><strong>📅 Last Date:</strong> 05 October 2026 – 4:00 PM</p>
-
-  <p><strong>📚 Disciplines:</strong> Automobile Engineering, Mechanical / Production Engineering, Electronics & Communication Engineering</p>
-
-  <p><strong>📝 Selection:</strong> Check the official notification for complete selection details.</p>
-
-  <p>
-    <a href="https://career.iprc.gov.in/"
-       target="_blank"
-       rel="noopener noreferrer"
-       class="back">
-       🌐 Apply Online
-    </a>
-  </p>
-
-  <p>
-    <a href="https://www.iprc.gov.in/careers.html"
-       target="_blank"
-       rel="noopener noreferrer"
-       class="back">
-       📄 Official Notification
-    </a>
-  </p>
+        <div class="detail-box">
+          <strong>👥 Total Recruitment</strong>
+          <p>Refer to the official notification for post-wise vacancy and category breakup.</p>
+        </div>
 
       </div>
-     
+
+
+      <h3 class="section-title">🎓 Diploma Qualification</h3>
+
+      <div class="details">
+
+        <div class="detail-box">
+          <strong>🚗 Automobile</strong>
+          <p>Diploma in Automobile Engineering</p>
+        </div>
+
+        <div class="detail-box">
+          <strong>⚙️ Mechanical</strong>
+          <p>Diploma in Mechanical Engineering / Production Engineering</p>
+        </div>
+
+        <div class="detail-box">
+          <strong>📡 Electronics</strong>
+          <p>
+            Diploma in Electronics / Electronics & Communication /
+            Electronics & Telecommunication / Electronics & Instrumentation
+            Engineering
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <strong>🎂 Age Limit</strong>
+          <p>Check the official notification for the applicable age limit and relaxations.</p>
+        </div>
+
+      </div>
+
+
+      <h3 class="section-title">📅 Important Dates</h3>
+
+      <div class="date-grid">
+
+        <div class="date-box">
+          <strong>📢 Notification Date</strong>
+          12 September 2026
+        </div>
+
+        <div class="date-box">
+          <strong>🟢 Application Start</strong>
+          15 September 2026 – 10:00 AM
+        </div>
+
+        <div class="date-box">
+          <strong>🔴 Application Last Date</strong>
+          05 October 2026 – 4:00 PM
+        </div>
+
+      </div>
+
+
+      <h3 class="section-title">💳 Application Fee</h3>
+
+      <div class="fee-grid">
+
+        <div class="fee-box">
+          💳 Fee details and category-wise exemptions:
+          <br><br>
+          Check the official notification before payment.
+        </div>
+
+        <div class="fee-box">
+          ⚠️ Important:
+          <br><br>
+          Do not make any payment without checking the official recruitment instructions.
+        </div>
+
+      </div>
+
+
+      <h3 class="section-title">📝 Selection Process</h3>
+
+      <div class="details">
+
+        <div class="detail-box">
+          <strong>1️⃣ Written Test</strong>
+          <p>Written examination as prescribed by IPRC.</p>
+        </div>
+
+        <div class="detail-box">
+          <strong>2️⃣ Skill Test</strong>
+          <p>Applicable skill test as prescribed for the post.</p>
+        </div>
+
+        <div class="detail-box">
+          <strong>3️⃣ Final Selection</strong>
+          <p>As per the official recruitment rules.</p>
+        </div>
+
+        <div class="detail-box">
+          <strong>🏃 Physical Test</strong>
+          <p>Not applicable to the Technical Assistant posts listed here.</p>
+        </div>
+
+      </div>
+
+
+      <div class="links">
+
+        <h3>🔗 Important Links</h3>
+
+        <a class="button"
+           href="https://www.iprc.gov.in/careers.html"
+           target="_blank"
+           rel="noopener noreferrer">
+          📄 Official Notification
+        </a>
+
+        <a class="button apply"
+           href="https://career.iprc.gov.in/"
+           target="_blank"
+           rel="noopener noreferrer">
+          🌐 Apply Online
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- FUTURE NOTIFICATIONS -->
+
+    <div class="job-card">
+
+      <h3>🔔 More Diploma Job Notifications</h3>
+
+      <p>
+        New Diploma government job notifications will be added here
+        after verification from the official recruitment source.
+      </p>
+
       <span class="coming">Coming Soon</span>
 
     </div>
@@ -247,7 +492,7 @@
 
         <li>🔧 Technical Government Jobs</li>
 
-        <li>👥 Number of Vacancies</li>
+        <li>👥 Vacancy & Category Details</li>
 
         <li>🎓 Required Diploma Qualification</li>
 
@@ -255,13 +500,19 @@
 
         <li>💰 Salary Details</li>
 
-        <li>📅 Important Dates</li>
+        <li>📅 Important Dates & Times</li>
+
+        <li>💳 Application Fee</li>
 
         <li>📝 Selection Process</li>
 
-        <li>📄 Official Notification</li>
+        <li>🏃 Physical Test, where applicable</li>
+
+        <li>📄 Official Notification Link</li>
 
         <li>🌐 Official Application Link</li>
+
+        <li>📊 Result / Selection Links when released</li>
 
       </ul>
 
