@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>TN Warriors - Exams</title>
+  <title>TN Warriors - Exams & Study Materials</title>
 
   <style>
 
@@ -52,54 +52,131 @@
       font-weight: bold;
     }
 
+    nav a:hover {
+      color: #93c5fd;
+    }
+
     .hero {
-      background: #2563eb;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
       color: white;
       text-align: center;
-      padding: 45px 20px;
+      padding: 50px 20px;
     }
 
     .hero h2 {
       font-size: 32px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .hero p {
       line-height: 1.6;
+      max-width: 650px;
+      margin: auto;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: auto;
-      padding: 25px 15px;
+      padding: 35px 15px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .section-title h2 {
+      color: #111827;
+      font-size: 26px;
+    }
+
+    .section-title p {
+      color: #6b7280;
+      margin-top: 8px;
     }
 
     .exam {
       background: white;
-      padding: 20px;
-      margin-bottom: 18px;
+      padding: 25px;
+      margin-bottom: 22px;
       border-radius: 15px;
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+      border-left: 5px solid #2563eb;
     }
 
     .exam h3 {
-      margin-bottom: 10px;
       color: #1d4ed8;
+      font-size: 23px;
+      margin-bottom: 10px;
     }
 
     .exam p {
-      line-height: 1.6;
-      margin-bottom: 15px;
+      line-height: 1.7;
+      color: #4b5563;
+      margin-bottom: 18px;
+    }
+
+    .exam-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .button {
       display: inline-block;
       background: #2563eb;
       color: white;
-      padding: 10px 18px;
+      padding: 11px 18px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
+    }
+
+    .button:hover {
+      background: #1d4ed8;
+    }
+
+    .material-button {
+      background: #111827;
+    }
+
+    .material-button:hover {
+      background: #374151;
+    }
+
+    .study-section {
+      margin-top: 45px;
+      background: #ffffff;
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 3px 14px rgba(0, 0, 0, 0.07);
+    }
+
+    .study-section h2 {
+      text-align: center;
+      color: #111827;
+      margin-bottom: 10px;
+    }
+
+    .study-section > p {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 25px;
+    }
+
+    .subjects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .subject {
+      background: #f3f4f6;
+      padding: 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      color: #374151;
+      text-align: center;
     }
 
     footer {
@@ -108,6 +185,35 @@
       text-align: center;
       padding: 22px;
       margin-top: 30px;
+    }
+
+    @media (max-width: 600px) {
+
+      header h1 {
+        font-size: 25px;
+      }
+
+      .hero h2 {
+        font-size: 27px;
+      }
+
+      .exam {
+        padding: 20px;
+      }
+
+      .exam-buttons {
+        flex-direction: column;
+      }
+
+      .button {
+        text-align: center;
+        width: 100%;
+      }
+
+      .subjects {
+        grid-template-columns: 1fr;
+      }
+
     }
 
   </style>
@@ -120,9 +226,9 @@
 
   <header>
 
-    <h1>🛡️ TN WARRIORS</h1>
+    <h1>TN WARRIORS</h1>
 
-    <p>Jobs • Exams • Defence Updates</p>
+    <p>Jobs • Exams • Defence Updates • Study Materials</p>
 
   </header>
 
@@ -142,10 +248,11 @@
 
   <section class="hero">
 
-    <h2>📝 Competitive Exams</h2>
+    <h2>Competitive Exams</h2>
 
     <p>
-      Exam updates, syllabus, preparation and important information.
+      Exam information, preparation resources and study materials
+      for major competitive and government examinations.
     </p>
 
   </section>
@@ -154,66 +261,172 @@
   <div class="container">
 
 
-    <div class="exam">
+    <div class="section-title">
 
-      <h3>📝 SSC Exams</h3>
+      <h2>Exam Categories</h2>
 
       <p>
-        SSC GD, SSC CHSL, SSC CGL and other SSC examination
-        updates and preparation information.
+        Explore examination details and preparation resources.
       </p>
-
-      <a class="button" href="ssc-exams.html">
-        View Details
-      </a>
 
     </div>
 
 
+    <!-- SSC -->
+
     <div class="exam">
 
-      <h3>🚆 Railway Exams</h3>
+      <h3>SSC Exams</h3>
 
       <p>
-        Railway recruitment exams, eligibility, syllabus and
-        important dates.
+        SSC GD, SSC CHSL, SSC CGL, SSC MTS, SSC JE and other
+        Staff Selection Commission examinations.
       </p>
 
-      <a class="button" href="railway-exams.html">
-  View Details
-      </a>
+      <div class="exam-buttons">
+
+        <a class="button" href="ssc-exams.html">
+          Exam Details
+        </a>
+
+        <a class="button material-button" href="#">
+          Study Materials
+        </a>
+
+      </div>
 
     </div>
 
 
+    <!-- Railway -->
+
     <div class="exam">
 
-      <h3>🏛️ TNPSC Exams</h3>
+      <h3>Railway Exams</h3>
 
       <p>
-        TNPSC Group 1, Group 2, Group 4 and other Tamil Nadu
-        competitive examination updates.
+        RRB Group D, RRB NTPC, RRB ALP, RRB Technician and
+        other Railway recruitment examinations.
       </p>
 
-      <a class="button" href="tnpsc-exams.html">
-        View Details
-      </a>
+      <div class="exam-buttons">
+
+        <a class="button" href="railway-exams.html">
+          Exam Details
+        </a>
+
+        <a class="button material-button" href="#">
+          Study Materials
+        </a>
+
+      </div>
 
     </div>
 
 
+    <!-- TNPSC -->
+
     <div class="exam">
 
-      <h3>🪖 Defence Exams</h3>
+      <h3>TNPSC Exams</h3>
 
       <p>
-        Army, Navy, Air Force, Agniveer and other defence
-        examination updates.
+        TNPSC Group 1, Group 2, Group 4, Group 5A and other
+        Tamil Nadu Public Service Commission examinations.
       </p>
 
-      <a class="button" href="defence-exams.html">
-        View Details
-      </a>
+      <div class="exam-buttons">
+
+        <a class="button" href="tnpsc-exams.html">
+          Exam Details
+        </a>
+
+        <a class="button material-button" href="#">
+          Study Materials
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- Defence -->
+
+    <div class="exam">
+
+      <h3>Defence Exams</h3>
+
+      <p>
+        Indian Army Agniveer, Air Force Agniveer Vayu,
+        Navy Agniveer, NDA, CDS and other defence examinations.
+      </p>
+
+      <div class="exam-buttons">
+
+        <a class="button" href="defence-exams.html">
+          Exam Details
+        </a>
+
+        <a class="button material-button" href="#">
+          Study Materials
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- Study Materials -->
+
+    <div class="study-section">
+
+      <h2>Study Materials</h2>
+
+      <p>
+        Subject-wise preparation resources will be available
+        for the examinations listed above.
+      </p>
+
+
+      <div class="subjects">
+
+        <div class="subject">
+          Mathematics
+        </div>
+
+        <div class="subject">
+          Reasoning
+        </div>
+
+        <div class="subject">
+          General Knowledge
+        </div>
+
+        <div class="subject">
+          General Science
+        </div>
+
+        <div class="subject">
+          English
+        </div>
+
+        <div class="subject">
+          Current Affairs
+        </div>
+
+        <div class="subject">
+          Previous Year Questions
+        </div>
+
+        <div class="subject">
+          Practice Sets
+        </div>
+
+        <div class="subject">
+          Notes and PDFs
+        </div>
+
+      </div>
 
     </div>
 
