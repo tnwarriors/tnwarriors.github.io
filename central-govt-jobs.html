@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>TN Warriors - Central Government Jobs</title>
@@ -46,12 +48,8 @@
       font-weight: bold;
     }
 
-    nav a:hover {
-      color: #93c5fd;
-    }
-
     .hero {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
       color: white;
       text-align: center;
       padding: 50px 20px;
@@ -68,105 +66,163 @@
       padding: 30px 15px;
     }
 
-    .notification {
+    .job-card {
       background: white;
       padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
       margin-bottom: 25px;
-      border-left: 6px solid #2563eb;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
 
-    .notification h2 {
+    .job-card h3 {
       color: #1d4ed8;
       margin-top: 0;
+      font-size: 22px;
     }
 
     .badge {
       display: inline-block;
       background: #16a34a;
       color: white;
-      padding: 9px 18px;
-      border-radius: 25px;
+      padding: 8px 14px;
+      border-radius: 20px;
       font-weight: bold;
-      margin: 10px 0 20px;
+      margin-bottom: 15px;
     }
 
     .details {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
+      gap: 12px;
       margin-top: 20px;
     }
 
     .detail-box {
-      background: #f8fafc;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
       padding: 15px;
       border-radius: 10px;
-      border: 1px solid #e5e7eb;
     }
 
     .detail-box strong {
+      color: #1e40af;
       display: block;
-      color: #111827;
       margin-bottom: 6px;
+    }
+
+    .detail-box p {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .section-title {
+      background: #1d4ed8;
+      color: white;
+      padding: 12px 15px;
+      border-radius: 10px;
+      margin-top: 25px;
+    }
+
+    .date-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .date-box {
+      background: #eff6ff;
+      border-left: 5px solid #2563eb;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .date-box strong {
+      display: block;
+      color: #1e40af;
+      margin-bottom: 5px;
+    }
+
+    .fee-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .fee-box {
+      background: #f9fafb;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+      line-height: 1.5;
+    }
+
+    .links {
+      margin-top: 20px;
+      padding: 20px;
+      background: #ecfdf5;
+      border-radius: 12px;
+    }
+
+    .links h3 {
+      color: #166534;
+      margin-top: 0;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 6px 6px 6px 0;
+      padding: 11px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      color: white;
+      background: #1d4ed8;
+    }
+
+    .button.apply {
+      background: #16a34a;
+    }
+
+    .button.disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .coming {
+      display: inline-block;
+      background: #f59e0b;
+      color: white;
+      padding: 9px 15px;
+      border-radius: 8px;
+      font-weight: bold;
     }
 
     .info {
       background: #eff6ff;
       padding: 25px;
       border-radius: 15px;
-      margin-bottom: 25px;
+      margin-top: 25px;
     }
 
-    .info h2 {
+    .info h3 {
       color: #1d4ed8;
-      margin-top: 0;
     }
 
-    .info ul {
-      line-height: 1.9;
+    .info li {
+      margin-bottom: 10px;
     }
 
-    .official {
-      background: #ecfdf5;
-      padding: 25px;
-      border-radius: 15px;
-      margin-bottom: 25px;
-    }
-
-    .official h2 {
-      color: #047857;
-      margin-top: 0;
-    }
-
-    .official-button {
+    .back {
       display: inline-block;
-      background: #059669;
-      color: white;
-      padding: 11px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      margin: 8px 8px 0 0;
-    }
-
-    .official-button:hover {
-      background: #047857;
-    }
-
-    .back-button {
-      display: inline-block;
-      background: #2563eb;
-      color: white;
-      padding: 11px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .back-button:hover {
+      margin-top: 20px;
       background: #1d4ed8;
+      color: white;
+      padding: 11px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
     }
 
     footer {
@@ -192,8 +248,16 @@
         font-size: 27px;
       }
 
-      .details {
+      .details,
+      .date-grid,
+      .fee-grid {
         grid-template-columns: 1fr;
+      }
+
+      .button {
+        display: block;
+        text-align: center;
+        margin-right: 0;
       }
 
     }
@@ -210,9 +274,7 @@
 
     <h1>🛡️ TN WARRIORS</h1>
 
-    <p>
-      Jobs • Exams • Defence Updates
-    </p>
+    <p>Jobs • Exams • Defence Updates</p>
 
   </header>
 
@@ -234,10 +296,7 @@
 
     <h2>🏛️ Central Government Jobs</h2>
 
-    <p>
-      Latest Central Government recruitment notifications
-      and important application information.
-    </p>
+    <p>Latest Central Government job and recruitment notifications.</p>
 
   </section>
 
@@ -247,222 +306,328 @@
 
     <!-- CURRENT NOTIFICATION -->
 
-    <div class="notification">
+    <div class="job-card">
 
-      <h2>
-        📢 UPSC Engineering Services (Preliminary)
-        Examination, 2027
-      </h2>
+      <span class="badge">🟢 Applications Open</span>
 
-      <span class="badge">
-        🟢 Applications Open
-      </span>
+      <h3>⚙️ UPSC Engineering Services (Preliminary) Examination 2027</h3>
 
       <p>
-        Union Public Service Commission (UPSC) has released
-        the notification for the Engineering Services
-        (Preliminary) Examination, 2027.
+        The Union Public Service Commission has released the
+        Engineering Services (Preliminary) Examination 2027 notification.
       </p>
 
 
+      <h3 class="section-title">📊 Recruitment Details</h3>
+
       <div class="details">
 
-
         <div class="detail-box">
-
-          <strong>🏢 Conducting Body</strong>
-
-          Union Public Service Commission (UPSC)
-
+          <strong>🏢 Organization</strong>
+          <p>Union Public Service Commission (UPSC)</p>
         </div>
 
-
         <div class="detail-box">
-
-          <strong>💼 Examination</strong>
-
-          Engineering Services (Preliminary)
-          Examination, 2027
-
+          <strong>📢 Examination</strong>
+          <p>Engineering Services (Preliminary) Examination, 2027</p>
         </div>
 
-
         <div class="detail-box">
-
-          <strong>📢 Notification Date</strong>
-
-          16 September 2026
-
+          <strong>📅 Notification Date</strong>
+          <p>16 September 2026</p>
         </div>
 
-
         <div class="detail-box">
-
-          <strong>📅 Last Date to Apply</strong>
-
-          6 October 2026 — 6:00 PM
-
-        </div>
-
-
-        <div class="detail-box">
-
-          <strong>📝 Preliminary Exam Date</strong>
-
-          31 January 2027
-
-        </div>
-
-
-        <div class="detail-box">
-
           <strong>⏱️ Exam Duration</strong>
-
-          One Day
-
+          <p>One Day</p>
         </div>
 
+      </div>
+
+
+      <h3 class="section-title">🎓 Eligibility</h3>
+
+      <div class="details">
 
         <div class="detail-box">
-
           <strong>🎓 Qualification</strong>
-
-          Engineering qualification as prescribed
-          in the official UPSC notification
-
+          <p>
+            Engineering qualification as prescribed in the
+            official UPSC notification.
+          </p>
         </div>
-
 
         <div class="detail-box">
-
-          <strong>📋 Selection</strong>
-
-          Check the official UPSC notification
-          for complete selection details
-
+          <strong>🎂 Age Limit</strong>
+          <p>
+            Check the official notification for the applicable
+            age limit and relaxation rules.
+          </p>
         </div>
 
+        <div class="detail-box">
+          <strong>🇮🇳 Nationality</strong>
+          <p>
+            Eligibility conditions are specified in the official
+            UPSC notification.
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <strong>📚 Engineering Streams</strong>
+          <p>
+            Civil, Mechanical, Electrical and Electronics &
+            Telecommunication engineering categories as prescribed.
+          </p>
+        </div>
+
+      </div>
+
+
+      <h3 class="section-title">👥 Vacancy Details</h3>
+
+      <div class="details">
+
+        <div class="detail-box">
+          <strong>📊 Total Vacancy</strong>
+          <p>
+            Refer to the official UPSC notification for the
+            exact vacancy details.
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <strong>👨 Male</strong>
+          <p>
+            No separate male vacancy count is applicable for
+            this examination.
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <strong>👩 Female</strong>
+          <p>
+            Candidates meeting the official eligibility
+            requirements may apply.
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <strong>📋 Category</strong>
+          <p>
+            Category-wise vacancy information should be checked
+            in the official notification.
+          </p>
+        </div>
+
+      </div>
+
+
+      <h3 class="section-title">📅 Important Dates</h3>
+
+      <div class="date-grid">
+
+        <div class="date-box">
+          <strong>📢 Notification Date</strong>
+          16 September 2026
+        </div>
+
+        <div class="date-box">
+          <strong>🟢 Application Start</strong>
+          As specified by UPSC
+        </div>
+
+        <div class="date-box">
+          <strong>🔴 Application Last Date</strong>
+          06 October 2026 – 6:00 PM
+        </div>
+
+        <div class="date-box">
+          <strong>📝 Preliminary Examination</strong>
+          31 January 2027
+        </div>
+
+        <div class="date-box">
+          <strong>⏱️ Examination Duration</strong>
+          One Day
+        </div>
+
+      </div>
+
+
+      <h3 class="section-title">💳 Application Fee</h3>
+
+      <div class="fee-grid">
+
+        <div class="fee-box">
+          💳 <strong>Fee</strong>
+          <br>
+          Category-wise application fee and exemptions should
+          be checked in the official UPSC notification.
+        </div>
+
+        <div class="fee-box">
+          ⚠️ <strong>Important</strong>
+          <br>
+          Check the official fee instructions before making
+          any payment.
+        </div>
+
+      </div>
+
+
+      <h3 class="section-title">📝 Selection Process</h3>
+
+      <div class="details">
+
+        <div class="detail-box">
+          <strong>1️⃣ Preliminary Examination</strong>
+          <p>
+            Engineering Services Preliminary Examination.
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <strong>2️⃣ Main Examination</strong>
+          <p>
+            Candidates proceed according to UPSC examination rules.
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <strong>3️⃣ Personality Test</strong>
+          <p>
+            Applicable at the later stage as prescribed by UPSC.
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <strong>🏃 Physical Test</strong>
+          <p>
+            No separate PET requirement is listed for this
+            examination.
+          </p>
+        </div>
+
+      </div>
+
+
+      <h3 class="section-title">🏃 Physical / PET</h3>
+
+      <div class="details">
+
+        <div class="detail-box">
+          <strong>👨 Male</strong>
+          <p>
+            No separate PET standards for this examination.
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <strong>👩 Female</strong>
+          <p>
+            No separate PET standards for this examination.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="links">
+
+        <h3>🔗 Important Links</h3>
+
+        <a class="button"
+           href="https://www.upsc.gov.in/examinations/Engineering%20Services%20%28Preliminary%29%20Examination%2C%202027"
+           target="_blank"
+           rel="noopener noreferrer">
+          📄 Official Notification
+        </a>
+
+        <a class="button apply"
+           href="https://upsconline.nic.in/"
+           target="_blank"
+           rel="noopener noreferrer">
+          🌐 Apply Online
+        </a>
+
+        <a class="button disabled"
+           href="#"
+           onclick="return false;">
+          🎫 Admit Card — Coming Later
+        </a>
+
+        <a class="button disabled"
+           href="#"
+           onclick="return false;">
+          📊 Result — Coming Later
+        </a>
 
       </div>
 
     </div>
 
 
+    <!-- FUTURE NOTIFICATIONS -->
 
-    <!-- IMPORTANT INFORMATION -->
+    <div class="job-card">
 
-    <div class="info">
-
-      <h2>📚 Important Information</h2>
-
-      <ul>
-
-        <li>
-          📢 Notification released on
-          <strong>16 September 2026</strong>
-        </li>
-
-        <li>
-          📅 Application deadline:
-          <strong>6 October 2026, 6:00 PM</strong>
-        </li>
-
-        <li>
-          📝 Preliminary examination:
-          <strong>31 January 2027</strong>
-        </li>
-
-        <li>
-          🎓 Candidates should check the official
-          notification for detailed eligibility.
-        </li>
-
-        <li>
-          📄 Read the official notification carefully
-          before applying.
-        </li>
-
-      </ul>
-
-    </div>
-
-
-
-    <!-- WHAT YOU CAN FIND -->
-
-    <div class="info">
-
-      <h2>📌 What TN Warriors Provides</h2>
-
-      <ul>
-
-        <li>📢 Latest recruitment notifications</li>
-
-        <li>👥 Vacancy information</li>
-
-        <li>🎓 Educational qualification</li>
-
-        <li>🎂 Age limit</li>
-
-        <li>💰 Salary information</li>
-
-        <li>📅 Important dates</li>
-
-        <li>📝 Selection process</li>
-
-        <li>💳 Application fee</li>
-
-        <li>📄 Official notification</li>
-
-        <li>🌐 Official application website</li>
-
-      </ul>
-
-    </div>
-
-
-
-    <!-- OFFICIAL SOURCE -->
-
-    <div class="official">
-
-      <h2>🌐 Official UPSC Source</h2>
+      <h3>🔔 More Central Government Notifications</h3>
 
       <p>
-        Always verify eligibility, fee, documents and
-        other requirements from the official UPSC
-        notification before applying.
+        New Central Government recruitment notifications will be
+        added here after verification from the official recruitment
+        source.
       </p>
 
-      <a
-        class="official-button"
-        href="https://www.upsc.gov.in/examinations/Engineering%20Services%20%28Preliminary%29%20Examination%2C%202027"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        📄 Official Notification
-      </a>
-
-      <a
-        class="official-button"
-        href="https://www.upsc.gov.in/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        🌐 UPSC Official Website
-      </a>
+      <span class="coming">Coming Soon</span>
 
     </div>
 
 
+    <div class="info">
 
-    <!-- BACK BUTTON -->
+      <h3>📚 What You Can Find Here</h3>
 
-    <a
-      class="back-button"
-      href="jobs.html"
-    >
+      <ul>
+
+        <li>📢 Central Government Job Notifications</li>
+
+        <li>🏛️ Government Departments & Organizations</li>
+
+        <li>👥 Vacancy & Category Details</li>
+
+        <li>🎓 Qualification</li>
+
+        <li>🎂 Age Limit</li>
+
+        <li>💰 Salary Details</li>
+
+        <li>📅 Important Dates & Times</li>
+
+        <li>💳 Application Fee</li>
+
+        <li>📝 Selection Process</li>
+
+        <li>🏃 Physical Test, where applicable</li>
+
+        <li>📄 Official Notification Link</li>
+
+        <li>🌐 Official Application Link</li>
+
+        <li>🎫 Admit Card Link</li>
+
+        <li>📊 Result & Selection Links</li>
+
+      </ul>
+
+    </div>
+
+
+    <a class="back" href="jobs.html">
+
       ← Back to Jobs
+
     </a>
 
 
@@ -478,4 +643,4 @@
 
 </body>
 
-</html>
+          </html>
