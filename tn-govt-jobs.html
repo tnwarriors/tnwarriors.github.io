@@ -2,150 +2,278 @@
 <html lang="en">
 
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-403SNE66JG');
-</script>
-  <meta charset="UTF-8">
 
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>TN Warriors - Tamil Nadu Government Jobs</title>
+  <title>Tamil Nadu Government Jobs | TN Warriors</title>
+
+  <meta name="description"
+    content="Latest Tamil Nadu Government Jobs, recruitment notifications, eligibility, important dates and official application links.">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"></script>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-403SNE66JG');
+  </script>
 
   <style>
 
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+
+    body {
       font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      color: #222;
+      background: #f5f7fb;
+      color: #1f2937;
+      line-height: 1.6;
     }
 
     header {
       background: #111827;
       color: white;
-      text-align: center;
-      padding: 25px 15px;
+      padding: 18px 20px;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 30px;
+    .header-container {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
     }
 
-    header p {
-      margin: 8px 0 0;
-      color: #d1d5db;
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
     }
 
     nav {
-      background: #1f2937;
-      text-align: center;
-      padding: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
     }
 
     nav a {
       color: white;
       text-decoration: none;
-      margin: 0 12px;
-      font-weight: bold;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #fbbf24;
     }
 
     .hero {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      background: linear-gradient(135deg, #047857, #10b981);
       color: white;
       text-align: center;
       padding: 50px 20px;
     }
 
-    .hero h2 {
-      font-size: 32px;
-      margin: 0 0 10px;
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 17px;
     }
 
     .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 30px 15px;
+      max-width: 1000px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+
+    .search-box {
+      margin-bottom: 20px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: #059669;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .filter-btn {
+      border: none;
+      background: #e5e7eb;
+      color: #111827;
+      padding: 9px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .filter-btn:hover {
+      background: #d1d5db;
+    }
+
+    .jobs-list {
+      display: grid;
+      gap: 18px;
     }
 
     .job-card {
       background: white;
-      padding: 25px;
-      margin-bottom: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
     }
 
-    .job-card h3 {
-      color: #1d4ed8;
-      margin-top: 0;
+    .status {
+      display: inline-block;
+      background: #16a34a;
+      color: white;
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .job-card h2 {
+      color: #047857;
+      font-size: 22px;
+      margin-bottom: 8px;
     }
 
     .job-card p {
-      line-height: 1.6;
+      color: #4b5563;
+      margin: 5px 0;
     }
 
-    .coming {
+    .details {
+      margin-top: 15px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .detail-box {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      padding: 11px;
+      border-radius: 8px;
+    }
+
+    .detail-box strong {
+      display: block;
+      font-size: 12px;
+      color: #374151;
+      margin-bottom: 3px;
+    }
+
+    .detail-box span {
+      font-size: 14px;
+      color: #111827;
+    }
+
+    .view-button {
       display: inline-block;
-      background: #f59e0b;
+      margin-top: 18px;
+      background: #047857;
       color: white;
-      padding: 9px 15px;
+      text-decoration: none;
+      padding: 10px 17px;
       border-radius: 8px;
       font-weight: bold;
     }
 
-    .info {
-      background: #e0f2fe;
+    .view-button:hover {
+      background: #065f46;
+    }
+
+    .coming-soon {
+      background: #ffffff;
+      border: 1px dashed #9ca3af;
+      border-radius: 14px;
       padding: 25px;
-      border-radius: 15px;
-      margin-top: 25px;
+      text-align: center;
+      color: #6b7280;
     }
 
-    .info h3 {
-      color: #0369a1;
+    .info-section {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 45px;
     }
 
-    .info li {
+    .info-section h2 {
       margin-bottom: 10px;
     }
 
+    .info-section p {
+      max-width: 700px;
+      margin: auto;
+      color: #d1d5db;
+    }
+
     .back {
-      display: inline-block;
-      margin-top: 20px;
-      background: #2563eb;
-      color: white;
-      padding: 11px 18px;
-      border-radius: 8px;
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .back a {
+      color: #047857;
       text-decoration: none;
       font-weight: bold;
     }
 
     footer {
-      background: #111827;
-      color: white;
+      background: #0b1120;
+      color: #d1d5db;
       text-align: center;
-      padding: 22px;
-      margin-top: 30px;
+      padding: 22px 15px;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
 
-      header h1 {
-        font-size: 25px;
+      .header-container {
+        flex-direction: column;
+        text-align: center;
       }
 
-      nav a {
-        display: inline-block;
-        margin: 6px 8px;
+      nav {
+        justify-content: center;
       }
 
-      .hero h2 {
-        font-size: 27px;
+      .hero h1 {
+        font-size: 29px;
+      }
+
+      .details {
+        grid-template-columns: 1fr;
       }
 
     }
@@ -154,105 +282,242 @@
 
 </head>
 
-
 <body>
-
 
   <header>
 
-    <h1>🛡️ TN WARRIORS</h1>
+    <div class="header-container">
 
-    <p>Jobs • Exams • Defence Updates</p>
+      <div class="logo">
+        TN Warriors
+      </div>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="exams.html">Exams</a>
+        <a href="defence.html">Defence</a>
+      </nav>
+
+    </div>
 
   </header>
 
 
-  <nav>
-
-    <a href="index.html">Home</a>
-
-    <a href="jobs.html">Jobs</a>
-
-    <a href="exams.html">Exams</a>
-
-    <a href="defence.html">Defence</a>
-
-  </nav>
-
-
   <section class="hero">
 
-    <h2>🏛️ Tamil Nadu Government Jobs</h2>
+    <h1>Tamil Nadu Government Jobs</h1>
 
-    <p>Latest Tamil Nadu Government job notifications and updates.</p>
+    <p>
+      Latest Tamil Nadu Government Recruitment Notifications
+    </p>
 
   </section>
 
 
-  <div class="container">
+  <main class="container">
 
+    <div class="search-box">
 
-    <div class="job-card">
-
-      <h3>🔔 Latest Tamil Nadu Job Notification</h3>
-
-      <p>
-        Tamil Nadu Government job notifications will be added here.
-        Check this page regularly for new recruitment updates.
-      </p>
-
-      <span class="coming">Coming Soon</span>
+      <input
+        type="text"
+        id="jobSearch"
+        placeholder="Search jobs..."
+        onkeyup="searchJobs()"
+      >
 
     </div>
 
 
-    <div class="info">
+    <div class="filters">
 
-      <h3>📚 What You Can Find Here</h3>
+      <button class="filter-btn" onclick="filterJobs('all')">
+        All
+      </button>
 
-      <ul>
+      <button class="filter-btn" onclick="filterJobs('degree')">
+        Degree
+      </button>
 
-        <li>📢 TN Government Job Notifications</li>
+      <button class="filter-btn" onclick="filterJobs('computer')">
+        Computer / IT
+      </button>
 
-        <li>👥 Number of Vacancies</li>
-
-        <li>🎓 Educational Qualification</li>
-
-        <li>🎂 Age Limit</li>
-
-        <li>💰 Salary Details</li>
-
-        <li>📅 Important Dates</li>
-
-        <li>📝 Selection Process</li>
-
-        <li>💳 Application Fee</li>
-
-        <li>📄 Official Notification</li>
-
-        <li>🌐 Official Application Link</li>
-
-      </ul>
+      <button class="filter-btn" onclick="filterJobs('contract')">
+        Contract
+      </button>
 
     </div>
 
 
-    <a class="back" href="jobs.html">
-
-      ← Back to Jobs
-
-    </a>
+    <div class="jobs-list" id="jobsList">
 
 
-  </div>
+      <!-- MADRAS HIGH COURT -->
+
+      <article
+        class="job-card"
+        data-category="degree computer contract"
+        data-search="madras high court data entry operator deo esewa kendra computer IT degree"
+      >
+
+        <span class="status">
+          Applications Open
+        </span>
+
+        <h2>
+          Madras High Court Data Entry Operator Recruitment 2026
+        </h2>
+
+        <p>
+          Data Entry Operator – e-Sewa Kendra
+        </p>
+
+        <div class="details">
+
+          <div class="detail-box">
+            <strong>Vacancies</strong>
+            <span>115 Posts</span>
+          </div>
+
+          <div class="detail-box">
+            <strong>Qualification</strong>
+            <span>Relevant Computer / IT Degree</span>
+          </div>
+
+          <div class="detail-box">
+            <strong>Last Date</strong>
+            <span>29 Sep 2026</span>
+          </div>
+
+        </div>
+
+        <a
+          class="view-button"
+          href="madras-high-court-deo-2026.html"
+        >
+          View Details →
+        </a>
+
+      </article>
+
+
+      <!-- COMING SOON -->
+
+      <div class="coming-soon">
+
+        <h3>More Tamil Nadu Government Jobs Coming Soon</h3>
+
+        <p>
+          New official recruitment notifications will be added
+          after verification.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="back">
+
+      <a href="jobs.html">
+        ← Back to Jobs
+      </a>
+
+    </div>
+
+  </main>
+
+
+  <section class="info-section">
+
+    <h2>
+      TN Warriors – Tamil Nadu Government Jobs
+    </h2>
+
+    <p>
+      Find verified recruitment information, eligibility,
+      important dates and official application links in one place.
+    </p>
+
+  </section>
 
 
   <footer>
 
-    © 2026 TN Warriors. All Rights Reserved.
+    <p>
+      © 2026 TN Warriors. All Rights Reserved.
+    </p>
 
   </footer>
 
+
+  <script>
+
+    let currentFilter = "all";
+
+    function filterJobs(category) {
+
+      currentFilter = category;
+
+      const cards = document.querySelectorAll(".job-card");
+
+      cards.forEach(card => {
+
+        const categories = card.dataset.category.split(" ");
+
+        if (
+          category === "all" ||
+          categories.includes(category)
+        ) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+
+      });
+
+      searchJobs();
+
+    }
+
+
+    function searchJobs() {
+
+      const search =
+        document
+          .getElementById("jobSearch")
+          .value
+          .toLowerCase();
+
+      const cards =
+        document.querySelectorAll(".job-card");
+
+      cards.forEach(card => {
+
+        const text =
+          card.dataset.search.toLowerCase();
+
+        const categories =
+          card.dataset.category.split(" ");
+
+        const matchesSearch =
+          text.includes(search);
+
+        const matchesFilter =
+          currentFilter === "all" ||
+          categories.includes(currentFilter);
+
+        card.style.display =
+          matchesSearch && matchesFilter
+            ? "block"
+            : "none";
+
+      });
+
+    }
+
+  </script>
 
 </body>
 
