@@ -72,6 +72,8 @@
       padding: 0 15px;
     }
 
+    /* Search */
+
     .search-box {
       margin-bottom: 15px;
     }
@@ -82,19 +84,26 @@
       border: 1px solid #d1d5db;
       border-radius: 7px;
       font-size: 15px;
+      outline: none;
     }
+
+    .search-box input:focus {
+      border-color: #111827;
+    }
+
+    /* Filters */
 
     .filters {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .filters button {
-      border: 1px solid #cbd5e1;
       background: white;
-      padding: 9px 14px;
+      border: 1px solid #d1d5db;
+      padding: 9px 15px;
       border-radius: 6px;
       cursor: pointer;
       font-size: 14px;
@@ -104,64 +113,101 @@
       background: #e5e7eb;
     }
 
+    /* JOB CARD */
+
     .job-card {
       background: white;
+      border: 1px solid #e5e7eb;
       border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     }
 
     .job-card h2 {
-      margin-top: 0;
+      margin: 0 0 15px;
       color: #111827;
       font-size: 21px;
+      line-height: 1.4;
     }
 
     .status {
       display: inline-block;
       background: #dcfce7;
       color: #166534;
-      padding: 5px 10px;
+      padding: 6px 11px;
       border-radius: 5px;
       font-size: 13px;
       font-weight: bold;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
-    .details {
-      line-height: 1.7;
-      color: #374151;
+    /* DETAILS */
+
+    .job-details {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
     }
+
+    .detail-row {
+      padding: 12px 14px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 7px;
+    }
+
+    .detail-label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      color: #6b7280;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .detail-value {
+      font-size: 15px;
+      color: #111827;
+      line-height: 1.5;
+    }
+
+    /* VIEW DETAILS BUTTON */
 
     .view-btn {
       display: inline-block;
-      margin-top: 12px;
+      margin-top: 18px;
       background: #111827;
       color: white;
       text-decoration: none;
-      padding: 10px 16px;
+      padding: 11px 18px;
       border-radius: 6px;
+      font-weight: bold;
     }
 
     .view-btn:hover {
       background: #374151;
     }
 
-    .coming {
+    /* COMING SOON */
+
+    .coming-box {
       background: white;
-      padding: 20px;
+      border: 1px solid #e5e7eb;
       border-radius: 10px;
-      margin-top: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 22px;
+      margin-top: 25px;
       line-height: 1.7;
       color: #4b5563;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
+
+    /* INFORMATION */
 
     .info-box {
       background: #eef2ff;
       border-left: 4px solid #4f46e5;
-      padding: 16px;
+      padding: 18px;
       margin-top: 20px;
       line-height: 1.7;
     }
@@ -175,13 +221,23 @@
     }
 
     @media (max-width: 600px) {
+
       header h1 {
         font-size: 25px;
+      }
+
+      .container {
+        padding: 0 12px;
+      }
+
+      .job-card {
+        padding: 18px;
       }
 
       .job-card h2 {
         font-size: 19px;
       }
+
     }
   </style>
 </head>
@@ -202,19 +258,18 @@
 
 <div class="container">
 
-  <!-- Search -->
+  <!-- SEARCH -->
 
   <div class="search-box">
     <input
       type="text"
       id="searchInput"
       placeholder="Search SSC jobs..."
-      onkeyup="searchJobs()"
-    >
+      onkeyup="searchJobs()">
   </div>
 
 
-  <!-- Filters -->
+  <!-- FILTERS -->
 
   <div class="filters">
 
@@ -257,60 +312,79 @@
       SSC CHSL 2026 – Combined Higher Secondary Level Examination
     </h2>
 
-    <div class="details">
+    <div class="job-details">
 
-      <strong>Organization:</strong>
-      Staff Selection Commission (SSC)
-      <br>
+      <div class="detail-row">
+        <span class="detail-label">Organization</span>
+        <span class="detail-value">
+          Staff Selection Commission (SSC)
+        </span>
+      </div>
 
-      <strong>Posts:</strong>
-      LDC / JSA, Data Entry Operator (DEO),
-      DEO Grade 'A'
-      <br>
+      <div class="detail-row">
+        <span class="detail-label">Posts</span>
+        <span class="detail-value">
+          LDC / JSA, Data Entry Operator (DEO),
+          DEO Grade 'A'
+        </span>
+      </div>
 
-      <strong>Qualification:</strong>
-      12th Pass / Equivalent
-      <br>
+      <div class="detail-row">
+        <span class="detail-label">Vacancies</span>
+        <span class="detail-value">
+          Approximately 2,536 (Tentative)
+        </span>
+      </div>
 
-      <strong>Vacancies:</strong>
-      Approximately 2,536 (tentative)
-      <br>
+      <div class="detail-row">
+        <span class="detail-label">Qualification</span>
+        <span class="detail-value">
+          12th Pass / Equivalent
+        </span>
+      </div>
 
-      <strong>Application Start:</strong>
-      07 September 2026
-      <br>
+      <div class="detail-row">
+        <span class="detail-label">Application Start</span>
+        <span class="detail-value">
+          07 September 2026
+        </span>
+      </div>
 
-      <strong>Last Date:</strong>
-      07 October 2026
+      <div class="detail-row">
+        <span class="detail-label">Last Date</span>
+        <span class="detail-value">
+          07 October 2026
+        </span>
+      </div>
 
     </div>
 
     <a
       class="view-btn"
       href="ssc-chsl-2026.html">
-      View Details
+      View Details →
     </a>
 
   </div>
 
 
-  <!-- Coming Soon -->
+  <!-- MORE SSC JOBS -->
 
-  <div class="coming">
+  <div class="coming-box">
 
     <strong>More SSC Recruitment Notifications</strong>
 
     <br><br>
 
-    SSC CGL, SSC MTS, SSC GD, SSC CPO,
+    SSC CGL, SSC GD, SSC MTS, SSC CPO,
     SSC Stenographer and other SSC recruitment
-    notifications will be added after verification
-    from official SSC sources.
+    notifications will be added here after
+    verification from official SSC sources.
 
   </div>
 
 
-  <!-- Information -->
+  <!-- INFORMATION -->
 
   <div class="info-box">
 
@@ -323,10 +397,10 @@
 
     <br><br>
 
-    Candidates should always verify the latest
-    official SSC notification for eligibility,
-    vacancies, dates, application fee and other
-    recruitment conditions before applying.
+    Candidates should verify the latest official
+    SSC notification for eligibility, vacancies,
+    important dates, application fee and selection
+    process before applying.
 
   </div>
 
@@ -375,9 +449,10 @@ function filterJobs(category) {
 function searchJobs() {
 
   const input =
-    document.getElementById("searchInput")
-    .value
-    .toLowerCase();
+    document
+      .getElementById("searchInput")
+      .value
+      .toLowerCase();
 
   const jobs =
     document.querySelectorAll(".job");
