@@ -10,7 +10,9 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag(){
+      dataLayer.push(arguments);
+    }
     gtag('js', new Date());
     gtag('config', 'G-403SNE66JG');
   </script>
@@ -95,6 +97,7 @@
       padding: 9px 14px;
       border-radius: 6px;
       cursor: pointer;
+      font-size: 14px;
     }
 
     .filters button:hover {
@@ -123,7 +126,7 @@
       border-radius: 5px;
       font-size: 13px;
       font-weight: bold;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .details {
@@ -145,20 +148,22 @@
       background: #374151;
     }
 
+    .coming {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      line-height: 1.7;
+      color: #4b5563;
+    }
+
     .info-box {
       background: #eef2ff;
       border-left: 4px solid #4f46e5;
       padding: 16px;
-      margin-top: 25px;
-      line-height: 1.6;
-    }
-
-    .coming {
-      background: white;
-      padding: 18px;
-      border-radius: 8px;
       margin-top: 20px;
-      color: #4b5563;
+      line-height: 1.7;
     }
 
     footer {
@@ -185,7 +190,7 @@
 
 <header>
   <h1>SSC Jobs 2026</h1>
-  <p>Staff Selection Commission Recruitment Updates</p>
+  <p>Staff Selection Commission Recruitment Notifications</p>
 </header>
 
 <nav>
@@ -197,80 +202,141 @@
 
 <div class="container">
 
+  <!-- Search -->
+
   <div class="search-box">
     <input
       type="text"
       id="searchInput"
-      placeholder="Search SSC job notifications..."
+      placeholder="Search SSC jobs..."
       onkeyup="searchJobs()"
     >
   </div>
 
+
+  <!-- Filters -->
+
   <div class="filters">
-    <button onclick="filterJobs('all')">All</button>
-    <button onclick="filterJobs('10th')">10th</button>
-    <button onclick="filterJobs('12th')">12th</button>
-    <button onclick="filterJobs('diploma')">Diploma</button>
-    <button onclick="filterJobs('degree')">Degree</button>
-    <button onclick="filterJobs('engineering')">Engineering</button>
+
+    <button onclick="filterJobs('all')">
+      All
+    </button>
+
+    <button onclick="filterJobs('10th')">
+      10th
+    </button>
+
+    <button onclick="filterJobs('12th')">
+      12th
+    </button>
+
+    <button onclick="filterJobs('diploma')">
+      Diploma
+    </button>
+
+    <button onclick="filterJobs('degree')">
+      Degree
+    </button>
+
+    <button onclick="filterJobs('engineering')">
+      Engineering
+    </button>
+
   </div>
+
 
   <!-- SSC CHSL 2026 -->
 
-  <div class="job-card job" data-category="12th degree">
+  <div class="job-card job" data-category="12th">
 
-    <span class="status">Applications Open</span>
+    <span class="status">
+      Applications Open
+    </span>
 
-    <h2>SSC CHSL 2026 – Combined Higher Secondary Level Examination</h2>
+    <h2>
+      SSC CHSL 2026 – Combined Higher Secondary Level Examination
+    </h2>
 
     <div class="details">
-      <strong>Organization:</strong> Staff Selection Commission (SSC)<br>
+
+      <strong>Organization:</strong>
+      Staff Selection Commission (SSC)
+      <br>
 
       <strong>Posts:</strong>
-      Lower Division Clerk (LDC) / Junior Secretariat Assistant (JSA),
-      Data Entry Operator (DEO), DEO Grade 'A'<br>
+      LDC / JSA, Data Entry Operator (DEO),
+      DEO Grade 'A'
+      <br>
 
-      <strong>Qualification:</strong> 12th Pass / Equivalent<br>
+      <strong>Qualification:</strong>
+      12th Pass / Equivalent
+      <br>
 
-      <strong>Tentative Vacancies:</strong> Approximately 2,536<br>
+      <strong>Vacancies:</strong>
+      Approximately 2,536 (tentative)
+      <br>
 
-      <strong>Application Start:</strong> 07 September 2026<br>
+      <strong>Application Start:</strong>
+      07 September 2026
+      <br>
 
-      <strong>Last Date:</strong> 07 October 2026, 11:00 PM<br>
+      <strong>Last Date:</strong>
+      07 October 2026
 
-      <strong>Fee Payment Last Date:</strong> 08 October 2026, 11:00 PM<br>
-
-      <strong>Correction Window:</strong> 14–16 October 2026<br>
-
-      <strong>Exam:</strong> Tier-I and Tier-II dates to be notified<br>
-
-      <strong>Job Location:</strong> All India
     </div>
 
-    <a class="view-btn" href="ssc-chsl-2026.html">
+    <a
+      class="view-btn"
+      href="ssc-chsl-2026.html">
       View Details
     </a>
 
   </div>
 
+
+  <!-- Coming Soon -->
+
   <div class="coming">
-    <strong>More SSC Notifications</strong><br>
-    New SSC recruitment notifications will be added here after verification from official SSC sources.
+
+    <strong>More SSC Recruitment Notifications</strong>
+
+    <br><br>
+
+    SSC CGL, SSC MTS, SSC GD, SSC CPO,
+    SSC Stenographer and other SSC recruitment
+    notifications will be added after verification
+    from official SSC sources.
+
   </div>
 
+
+  <!-- Information -->
+
   <div class="info-box">
-    <strong>Important:</strong><br>
-    TN Warriors provides recruitment information for reference.
-    Candidates should always verify eligibility, vacancies, dates,
-    fees and other conditions from the official SSC notification
-    before applying.
+
+    <strong>Important Information</strong>
+
+    <br><br>
+
+    TN Warriors provides recruitment information
+    for reference and educational purposes.
+
+    <br><br>
+
+    Candidates should always verify the latest
+    official SSC notification for eligibility,
+    vacancies, dates, application fee and other
+    recruitment conditions before applying.
+
   </div>
 
 </div>
 
+
 <footer>
   © 2026 TN Warriors | SSC Jobs
 </footer>
+
 
 <script>
 
@@ -278,44 +344,61 @@ function filterJobs(category) {
 
   const jobs = document.querySelectorAll(".job");
 
-  jobs.forEach(job => {
+  jobs.forEach(function(job) {
 
     if (category === "all") {
-      job.style.display = "block";
-      return;
-    }
 
-    const jobCategory = job.getAttribute("data-category");
-
-    if (jobCategory.includes(category)) {
       job.style.display = "block";
+
     } else {
-      job.style.display = "none";
+
+      const categories =
+        job.getAttribute("data-category");
+
+      if (categories.includes(category)) {
+
+        job.style.display = "block";
+
+      } else {
+
+        job.style.display = "none";
+
+      }
+
     }
 
   });
+
 }
+
 
 function searchJobs() {
 
-  const input = document
-    .getElementById("searchInput")
+  const input =
+    document.getElementById("searchInput")
     .value
     .toLowerCase();
 
-  const jobs = document.querySelectorAll(".job");
+  const jobs =
+    document.querySelectorAll(".job");
 
-  jobs.forEach(job => {
+  jobs.forEach(function(job) {
 
-    const text = job.innerText.toLowerCase();
+    const text =
+      job.innerText.toLowerCase();
 
     if (text.includes(input)) {
+
       job.style.display = "block";
+
     } else {
+
       job.style.display = "none";
+
     }
 
   });
+
 }
 
 </script>
