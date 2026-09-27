@@ -6,13 +6,17 @@
 
   <title>Central Government Jobs | TN Warriors</title>
 
-  <meta name="description" content="Latest Central Government Job Notifications, Eligibility, Important Dates, Vacancies and Official Apply Links - TN Warriors.">
+  <meta name="description" content="Latest Central Government Job Notifications with eligibility, important dates and official application links.">
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+
+    function gtag(){
+      dataLayer.push(arguments);
+    }
+
     gtag('js', new Date());
 
     gtag('config', 'G-403SNE66JG');
@@ -30,7 +34,6 @@
       font-family: Arial, sans-serif;
       background: #f5f7fb;
       color: #1f2937;
-      line-height: 1.6;
     }
 
     header {
@@ -72,154 +75,175 @@
     .hero {
       background: linear-gradient(135deg, #1d4ed8, #2563eb);
       color: white;
-      padding: 65px 20px;
       text-align: center;
+      padding: 55px 20px;
     }
 
     .hero h1 {
-      font-size: 42px;
-      margin-bottom: 12px;
+      font-size: 40px;
+      margin-bottom: 10px;
     }
 
     .hero p {
-      font-size: 18px;
-      opacity: 0.95;
+      font-size: 17px;
     }
 
     .container {
       max-width: 1000px;
-      margin: 45px auto;
+      margin: 40px auto;
       padding: 0 20px;
     }
 
-    .section-title {
+    .top-section {
       text-align: center;
       margin-bottom: 30px;
     }
 
-    .section-title h2 {
+    .top-section h2 {
       font-size: 30px;
       color: #111827;
       margin-bottom: 8px;
     }
 
-    .section-title p {
+    .top-section p {
       color: #6b7280;
+    }
+
+    /* SEARCH */
+
+    .search-box {
+      margin: 25px auto;
+      max-width: 650px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 15px 18px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+      background: white;
+    }
+
+    .search-box input:focus {
+      border-color: #2563eb;
+    }
+
+    /* FILTERS */
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 35px;
+    }
+
+    .filter-button {
+      border: 1px solid #d1d5db;
+      background: white;
+      color: #374151;
+      padding: 9px 17px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .filter-button:hover,
+    .filter-button.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+
+    /* JOB CARD */
+
+    .job-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
     }
 
     .job-card {
       background: white;
+      border: 1px solid #e5e7eb;
       border-radius: 14px;
-      padding: 30px;
-      margin-bottom: 30px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-      border: 1px solid #e5e7eb;
+      padding: 25px;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.06);
     }
 
-    .job-header {
-      border-bottom: 1px solid #e5e7eb;
-      padding-bottom: 20px;
-      margin-bottom: 24px;
+    .job-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.09);
     }
 
-    .job-header h2 {
-      color: #1d4ed8;
-      font-size: 25px;
-      margin-bottom: 12px;
-    }
-
-    .job-header p {
-      color: #4b5563;
-      margin-bottom: 6px;
-    }
-
-    .status {
-      display: inline-block;
-      background: #16a34a;
-      color: white;
-      padding: 7px 15px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    .official-link {
-      display: inline-block;
-      color: #2563eb;
-      font-weight: bold;
-      text-decoration: none;
-      margin-top: 5px;
-    }
-
-    .official-link:hover {
-      text-decoration: underline;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+    .job-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
       gap: 15px;
-      margin: 20px 0;
     }
 
-    .info-box {
-      background: #f8fafc;
-      border: 1px solid #e5e7eb;
-      border-radius: 10px;
-      padding: 16px;
-    }
-
-    .info-box strong {
-      display: block;
+    .job-title {
+      font-size: 22px;
       color: #111827;
-      margin-bottom: 5px;
-    }
-
-    .job-section {
-      margin-top: 25px;
-    }
-
-    .job-section h3 {
-      color: #111827;
-      font-size: 20px;
-      margin-bottom: 12px;
-      border-left: 4px solid #2563eb;
-      padding-left: 10px;
-    }
-
-    .job-section ul {
-      padding-left: 20px;
-    }
-
-    .job-section li {
       margin-bottom: 7px;
     }
 
-    .dates {
+    .organization {
+      color: #6b7280;
+      font-size: 15px;
+    }
+
+    .status {
+      background: #16a34a;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 18px;
+      font-size: 13px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .job-summary {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
+      margin: 20px 0;
     }
 
-    .date-box {
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      padding: 15px;
-      border-radius: 10px;
+    .summary-box {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 9px;
+      padding: 12px;
     }
 
-    .date-box strong {
+    .summary-box strong {
       display: block;
-      color: #1d4ed8;
-      margin-bottom: 4px;
+      color: #374151;
+      font-size: 13px;
+      margin-bottom: 3px;
     }
 
-    .links {
+    .summary-box span {
+      font-size: 14px;
+      color: #111827;
+    }
+
+    .job-footer {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 15px;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 17px;
+    }
+
+    .last-date {
+      color: #dc2626;
+      font-weight: bold;
+      font-size: 14px;
     }
 
     .button {
@@ -227,37 +251,24 @@
       background: #2563eb;
       color: white;
       text-decoration: none;
-      padding: 11px 18px;
+      padding: 10px 18px;
       border-radius: 8px;
       font-weight: bold;
-      transition: 0.2s;
     }
 
     .button:hover {
       background: #1d4ed8;
     }
 
-    .button.apply {
-      background: #16a34a;
-    }
-
-    .button.apply:hover {
-      background: #15803d;
-    }
-
-    .button.disabled {
-      background: #9ca3af;
-      pointer-events: none;
-    }
+    /* COMING SOON */
 
     .coming-card {
       background: white;
+      border: 1px solid #e5e7eb;
       border-radius: 14px;
       padding: 30px;
       text-align: center;
-      box-shadow: 0 5px 18px rgba(0,0,0,0.06);
-      border: 1px solid #e5e7eb;
-      margin-top: 35px;
+      margin-top: 30px;
     }
 
     .coming-card h2 {
@@ -275,12 +286,14 @@
       margin-top: 10px;
     }
 
+    /* INFO */
+
     .info-section {
       background: #111827;
       color: white;
-      padding: 35px 25px;
+      padding: 30px;
       border-radius: 14px;
-      margin-top: 40px;
+      margin-top: 35px;
     }
 
     .info-section h2 {
@@ -291,6 +304,10 @@
       padding-left: 20px;
     }
 
+    .info-section li {
+      margin-bottom: 7px;
+    }
+
     .back {
       text-align: center;
       margin: 35px 0;
@@ -298,8 +315,8 @@
 
     .back a {
       color: #2563eb;
-      font-weight: bold;
       text-decoration: none;
+      font-weight: bold;
     }
 
     footer {
@@ -309,6 +326,8 @@
       padding: 25px 15px;
       margin-top: 50px;
     }
+
+    /* MOBILE */
 
     @media (max-width: 700px) {
 
@@ -322,35 +341,27 @@
         gap: 12px;
       }
 
-      .hero {
-        padding: 50px 20px;
-      }
-
       .hero h1 {
-        font-size: 32px;
+        font-size: 31px;
       }
 
-      .info-grid,
-      .dates {
+      .job-top {
+        flex-direction: column;
+      }
+
+      .job-summary {
         grid-template-columns: 1fr;
       }
 
-      .job-card {
-        padding: 22px;
-      }
-
-      .job-header h2 {
-        font-size: 22px;
-      }
-
-      .links {
+      .job-footer {
         flex-direction: column;
+        align-items: stretch;
       }
 
       .button {
         text-align: center;
-        width: 100%;
       }
+
     }
 
   </style>
@@ -361,6 +372,7 @@
   <!-- HEADER -->
 
   <header>
+
     <div class="header-container">
 
       <div class="logo">
@@ -375,6 +387,7 @@
       </nav>
 
     </div>
+
   </header>
 
 
@@ -391,626 +404,425 @@
   </section>
 
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
 
   <main class="container">
 
-    <div class="section-title">
+    <div class="top-section">
 
-      <h2>Latest Central Government Notifications</h2>
+      <h2>Latest Job Notifications</h2>
 
       <p>
-        Check eligibility, vacancies, important dates and official application links.
+        Find currently available Central Government recruitment opportunities.
       </p>
 
     </div>
 
 
-    <!-- ================================================= -->
-    <!-- ISRO SAC -->
-    <!-- ================================================= -->
+    <!-- SEARCH -->
 
-    <article class="job-card">
+    <div class="search-box">
 
-      <div class="job-header">
+      <input
+        type="text"
+        id="jobSearch"
+        placeholder="Search jobs by name or organization..."
+        onkeyup="searchJobs()"
+      >
 
-        <span class="status">
-          Applications Open
-        </span>
+    </div>
 
-        <h2>
-          ISRO SAC Recruitment 2026 – SAC:02:2026
-        </h2>
 
-        <p>
-          Space Applications Centre (SAC), ISRO
-        </p>
+    <!-- FILTERS -->
 
-        <a
-          class="official-link"
-          href="https://www.isro.gov.in/SACRecruitment21.html"
-          target="_blank"
-          rel="noopener"
-        >
-          Official Notification
-        </a>
+    <div class="filters">
+
+      <button class="filter-button active" onclick="filterJobs('all', this)">
+        All
+      </button>
+
+      <button class="filter-button" onclick="filterJobs('10th', this)">
+        10th
+      </button>
+
+      <button class="filter-button" onclick="filterJobs('12th', this)">
+        12th
+      </button>
+
+      <button class="filter-button" onclick="filterJobs('diploma', this)">
+        Diploma
+      </button>
+
+      <button class="filter-button" onclick="filterJobs('degree', this)">
+        Degree
+      </button>
+
+      <button class="filter-button" onclick="filterJobs('engineering', this)">
+        Engineering
+      </button>
+
+    </div>
+
+
+    <!-- JOB LIST -->
+
+    <div class="job-list" id="jobList">
+
+
+      <!-- SAC -->
+
+      <div
+        class="job-card"
+        data-category="degree engineering"
+        data-search="ISRO SAC Recruitment 2026 SAC JRF Research Associate Project Scientist"
+      >
+
+        <div class="job-top">
+
+          <div>
+
+            <h2 class="job-title">
+              ISRO SAC Recruitment 2026
+            </h2>
+
+            <p class="organization">
+              Space Applications Centre (SAC), ISRO
+            </p>
+
+          </div>
+
+          <span class="status">
+            Applications Open
+          </span>
+
+        </div>
+
+
+        <div class="job-summary">
+
+          <div class="summary-box">
+            <strong>Posts</strong>
+            <span>JRF, RA, Project Scientist-I</span>
+          </div>
+
+          <div class="summary-box">
+            <strong>Qualification</strong>
+            <span>Post-wise eligibility</span>
+          </div>
+
+          <div class="summary-box">
+            <strong>Notification</strong>
+            <span>SAC:02:2026</span>
+          </div>
+
+        </div>
+
+
+        <div class="job-footer">
+
+          <div class="last-date">
+            Last Date: 30 Sep 2026
+          </div>
+
+          <a
+            class="button"
+            href="isro-sac-2026.html"
+          >
+            View Details
+          </a>
+
+        </div>
 
       </div>
 
 
-      <!-- Recruitment Details -->
+      <!-- IPRC -->
 
-      <div class="job-section">
+      <div
+        class="job-card"
+        data-category="diploma engineering"
+        data-search="ISRO IPRC Recruitment 2026 Technical Assistant Technician Cook Fireman"
+      >
 
-        <h3>Recruitment Details</h3>
+        <div class="job-top">
 
-        <div class="info-grid">
+          <div>
 
-          <div class="info-box">
-            <strong>Organization</strong>
-            ISRO – Space Applications Centre
+            <h2 class="job-title">
+              ISRO IPRC Recruitment 2026
+            </h2>
+
+            <p class="organization">
+              ISRO Propulsion Complex (IPRC)
+            </p>
+
           </div>
 
-          <div class="info-box">
+          <span class="status">
+            Applications Open
+          </span>
+
+        </div>
+
+
+        <div class="job-summary">
+
+          <div class="summary-box">
+            <strong>Posts</strong>
+            <span>Technical Assistant, Technician B, Others</span>
+          </div>
+
+          <div class="summary-box">
+            <strong>Qualification</strong>
+            <span>Diploma / Post-wise qualification</span>
+          </div>
+
+          <div class="summary-box">
             <strong>Advertisement</strong>
-            SAC:02:2026
-          </div>
-
-          <div class="info-box">
-            <strong>Notification Date</strong>
-            10 September 2026
-          </div>
-
-          <div class="info-box">
-            <strong>Recruitment Type</strong>
-            Research / Project Positions
+            <span>IPRC/RMT/2026/01</span>
           </div>
 
         </div>
 
-      </div>
 
+        <div class="job-footer">
 
-      <!-- Posts -->
-
-      <div class="job-section">
-
-        <h3>Posts</h3>
-
-        <ul>
-          <li>Junior Research Fellow (JRF)</li>
-          <li>Research Associate (RA)</li>
-          <li>Project Scientist-I</li>
-        </ul>
-
-      </div>
-
-
-      <!-- Eligibility -->
-
-      <div class="job-section">
-
-        <h3>Eligibility</h3>
-
-        <ul>
-          <li>Educational qualification varies according to the post.</li>
-          <li>Relevant Engineering / Science / Technical qualifications may be required for specific posts.</li>
-          <li>Age and other eligibility conditions are post-specific.</li>
-          <li>Candidates must check the official notification for exact requirements.</li>
-        </ul>
-
-      </div>
-
-
-      <!-- Dates -->
-
-      <div class="job-section">
-
-        <h3>Important Dates</h3>
-
-        <div class="dates">
-
-          <div class="date-box">
-            <strong>Notification Date</strong>
-            10 September 2026
+          <div class="last-date">
+            Last Date: 05 Oct 2026
           </div>
-
-          <div class="date-box">
-            <strong>Application Start</strong>
-            10 September 2026 – 10:00 AM
-          </div>
-
-          <div class="date-box">
-            <strong>Last Date</strong>
-            30 September 2026 – 5:00 PM
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- Fee -->
-
-      <div class="job-section">
-
-        <h3>Application Fee</h3>
-
-        <p>
-          Refer to the official SAC:02:2026 notification for applicable fee details and exemptions.
-        </p>
-
-      </div>
-
-
-      <!-- Selection -->
-
-      <div class="job-section">
-
-        <h3>Selection Process</h3>
-
-        <p>
-          Selection procedure varies according to the post. Candidates should check the official notification for the applicable selection method.
-        </p>
-
-      </div>
-
-
-      <!-- Important Links -->
-
-      <div class="job-section">
-
-        <h3>Important Links</h3>
-
-        <div class="links">
 
           <a
             class="button"
-            href="https://www.isro.gov.in/SACRecruitment21.html"
-            target="_blank"
-            rel="noopener"
+            href="isro-iprc-2026.html"
           >
-            Official Notification
-          </a>
-
-          <a
-            class="button apply"
-            href="https://careers.sac.gov.in/"
-            target="_blank"
-            rel="noopener"
-          >
-            Apply Online
+            View Details
           </a>
 
         </div>
 
       </div>
 
-    </article>
 
+      <!-- UPSC ESE -->
 
-    <!-- ================================================= -->
-    <!-- ISRO IPRC -->
-    <!-- ================================================= -->
+      <div
+        class="job-card"
+        data-category="degree engineering"
+        data-search="UPSC Engineering Services Preliminary Examination 2027 ESE"
+      >
 
-    <article class="job-card">
+        <div class="job-top">
 
-      <div class="job-header">
+          <div>
 
-        <span class="status">
-          Applications Open
-        </span>
+            <h2 class="job-title">
+              UPSC Engineering Services Preliminary 2027
+            </h2>
 
-        <h2>
-          ISRO IPRC Recruitment 2026 – IPRC/RMT/2026/01
-        </h2>
+            <p class="organization">
+              Union Public Service Commission (UPSC)
+            </p>
 
-        <p>
-          ISRO Propulsion Complex (IPRC)
-        </p>
-
-        <a
-          class="official-link"
-          href="https://www.isro.gov.in/ViewAllOpportunities.html"
-          target="_blank"
-          rel="noopener"
-        >
-          Official Notification
-        </a>
-
-      </div>
-
-
-      <!-- Details -->
-
-      <div class="job-section">
-
-        <h3>Recruitment Details</h3>
-
-        <div class="info-grid">
-
-          <div class="info-box">
-            <strong>Organization</strong>
-            ISRO – IPRC
           </div>
 
-          <div class="info-box">
-            <strong>Advertisement</strong>
-            IPRC/RMT/2026/01
+          <span class="status">
+            Applications Open
+          </span>
+
+        </div>
+
+
+        <div class="job-summary">
+
+          <div class="summary-box">
+            <strong>Exam</strong>
+            <span>Engineering Services Preliminary</span>
           </div>
 
-          <div class="info-box">
-            <strong>Notification Date</strong>
-            12 September 2026
+          <div class="summary-box">
+            <strong>Qualification</strong>
+            <span>Engineering qualification</span>
           </div>
 
-          <div class="info-box">
-            <strong>Application Mode</strong>
-            Online
+          <div class="summary-box">
+            <strong>Exam Date</strong>
+            <span>31 Jan 2027</span>
           </div>
 
         </div>
 
-      </div>
 
+        <div class="job-footer">
 
-      <!-- Posts -->
-
-      <div class="job-section">
-
-        <h3>Posts</h3>
-
-        <ul>
-          <li>Technical Assistant</li>
-          <li>Technician B</li>
-          <li>Cook A</li>
-          <li>Fireman A</li>
-        </ul>
-
-      </div>
-
-
-      <!-- Diploma Streams -->
-
-      <div class="job-section">
-
-        <h3>Technical Assistant – Diploma Streams</h3>
-
-        <ul>
-          <li>Automobile Engineering</li>
-          <li>Mechanical / Production Engineering</li>
-          <li>Electronics / Electronics & Communication</li>
-          <li>Electronics & Telecommunication</li>
-          <li>Electronics & Instrumentation</li>
-        </ul>
-
-      </div>
-
-
-      <!-- Eligibility -->
-
-      <div class="job-section">
-
-        <h3>Eligibility</h3>
-
-        <ul>
-          <li>Qualification depends on the post applied for.</li>
-          <li>Technical Assistant posts require the prescribed Diploma qualification in the relevant discipline.</li>
-          <li>Other posts have separate educational and eligibility requirements.</li>
-          <li>Age limits and category relaxations are as specified in the official notification.</li>
-        </ul>
-
-      </div>
-
-
-      <!-- Dates -->
-
-      <div class="job-section">
-
-        <h3>Important Dates</h3>
-
-        <div class="dates">
-
-          <div class="date-box">
-            <strong>Notification Date</strong>
-            12 September 2026
+          <div class="last-date">
+            Last Date: 06 Oct 2026 – 6 PM
           </div>
-
-          <div class="date-box">
-            <strong>Application Start</strong>
-            15 September 2026 – 10:00 AM
-          </div>
-
-          <div class="date-box">
-            <strong>Last Date</strong>
-            05 October 2026 – 4:00 PM
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- Fee -->
-
-      <div class="job-section">
-
-        <h3>Application Fee</h3>
-
-        <p>
-          Refer to the official IPRC/RMT/2026/01 notification for applicable fee details and exemptions.
-        </p>
-
-      </div>
-
-
-      <!-- Selection -->
-
-      <div class="job-section">
-
-        <h3>Selection Process</h3>
-
-        <p>
-          Selection stages depend on the post. Candidates must follow the selection procedure specified in the official notification.
-        </p>
-
-      </div>
-
-
-      <!-- Physical -->
-
-      <div class="job-section">
-
-        <h3>Physical / PET</h3>
-
-        <p>
-          Physical requirements are applicable only to posts where specifically prescribed. Refer to the official notification for post-wise requirements.
-        </p>
-
-      </div>
-
-
-      <!-- Links -->
-
-      <div class="job-section">
-
-        <h3>Important Links</h3>
-
-        <div class="links">
 
           <a
             class="button"
-            href="https://www.isro.gov.in/ViewAllOpportunities.html"
-            target="_blank"
-            rel="noopener"
+            href="upsc-ese-2027.html"
           >
-            Official Notification
-          </a>
-
-          <a
-            class="button apply"
-            href="https://career.iprc.gov.in/"
-            target="_blank"
-            rel="noopener"
-          >
-            Apply Online
+            View Details
           </a>
 
         </div>
 
       </div>
 
-    </article>
 
+    </div>
 
-    <!-- ================================================= -->
-    <!-- UPSC ESE -->
-    <!-- ================================================= -->
 
-    <article class="job-card">
+    <!-- COMING SOON -->
 
-      <div class="job-header">
+    <div class="coming-card">
 
-        <span class="status">
-          Applications Open
-        </span>
+      <h2>
+        More Central Government Jobs
+      </h2>
 
-        <h2>
-          UPSC Engineering Services (Preliminary) Examination 2027
-        </h2>
+      <p>
+        New verified notifications will be added when applications open.
+      </p>
 
-        <p>
-          Union Public Service Commission (UPSC)
-        </p>
+      <span class="coming-badge">
+        Coming Soon
+      </span>
 
-        <a
-          class="official-link"
-          href="https://www.upsc.gov.in/examinations/Engineering%20Services%20%28Preliminary%29%20Examination%2C%202027"
-          target="_blank"
-          rel="noopener"
-        >
-          Official Notification
-        </a>
+    </div>
 
-      </div>
 
+    <!-- INFORMATION -->
 
-      <!-- Details -->
+    <section class="info-section">
 
-      <div class="job-section">
+      <h2>
+        What You Can Find Here
+      </h2>
 
-        <h3>Examination Details</h3>
+      <ul>
 
-        <div class="info-grid">
+        <li>Latest Central Government Job Notifications</li>
 
-          <div class="info-box">
-            <strong>Organization</strong>
-            Union Public Service Commission
-          </div>
+        <li>Qualification and eligibility</li>
 
-          <div class="info-box">
-            <strong>Examination</strong>
-            Engineering Services (Preliminary) Examination, 2027
-          </div>
+        <li>Vacancy information</li>
 
-          <div class="info-box">
-            <strong>Notification Date</strong>
-            16 September 2026
-          </div>
+        <li>Important dates</li>
 
-          <div class="info-box">
-            <strong>Examination Duration</strong>
-            One Day
-          </div>
+        <li>Application fee</li>
 
-        </div>
+        <li>Selection process</li>
 
-      </div>
+        <li>Official notification links</li>
 
+        <li>Official application links</li>
 
-      <!-- Engineering Streams -->
+      </ul>
 
-      <div class="job-section">
+    </section>
 
-        <h3>Engineering Streams</h3>
 
-        <ul>
-          <li>Civil Engineering</li>
-          <li>Mechanical Engineering</li>
-          <li>Electrical Engineering</li>
-          <li>Electronics & Telecommunication Engineering</li>
-        </ul>
+    <!-- BACK -->
 
-        <p style="margin-top:10px;">
-          Exact educational qualification and eligibility conditions are prescribed in the official UPSC notification.
-        </p>
+    <div class="back">
 
-      </div>
+      <a href="jobs.html">
+        ← Back to Government Jobs
+      </a>
 
+    </div>
 
-      <!-- Eligibility -->
+  </main>
 
-      <div class="job-section">
 
-        <h3>Eligibility</h3>
+  <!-- FOOTER -->
 
-        <ul>
-          <li>Engineering qualification as prescribed by UPSC.</li>
-          <li>Age limit and relaxation are as specified in the official notification.</li>
-          <li>Nationality requirements apply as prescribed by UPSC.</li>
-          <li>Candidates should carefully verify all eligibility conditions before applying.</li>
-        </ul>
+  <footer>
 
-      </div>
+    <p>
+      © 2026 TN Warriors. All Rights Reserved.
+    </p>
 
+  </footer>
 
-      <!-- Dates -->
 
-      <div class="job-section">
+  <!-- SEARCH + FILTER SCRIPT -->
 
-        <h3>Important Dates</h3>
+  <script>
 
-        <div class="dates">
+    let currentFilter = "all";
 
-          <div class="date-box">
-            <strong>Notification Date</strong>
-            16 September 2026
-          </div>
 
-          <div class="date-box">
-            <strong>Last Date to Apply</strong>
-            06 October 2026 – 6:00 PM
-          </div>
+    function filterJobs(category, button) {
 
-          <div class="date-box">
-            <strong>Preliminary Examination</strong>
-            31 January 2027
-          </div>
+      currentFilter = category;
 
-          <div class="date-box">
-            <strong>Duration</strong>
-            One Day
-          </div>
+      const buttons = document.querySelectorAll(".filter-button");
 
-        </div>
+      buttons.forEach(function(btn) {
+        btn.classList.remove("active");
+      });
 
-      </div>
+      button.classList.add("active");
 
+      applyFilters();
 
-      <!-- Fee -->
+    }
 
-      <div class="job-section">
 
-        <h3>Application Fee</h3>
+    function searchJobs() {
 
-        <p>
-          Refer to the official UPSC notification for the applicable examination fee, exemptions and payment instructions.
-        </p>
+      applyFilters();
 
-      </div>
+    }
 
 
-      <!-- Selection -->
+    function applyFilters() {
 
-      <div class="job-section">
+      const searchText =
+        document
+          .getElementById("jobSearch")
+          .value
+          .toLowerCase();
 
-        <h3>Selection Process</h3>
+      const jobs =
+        document.querySelectorAll(".job-card");
 
-        <ul>
-          <li>Engineering Services Preliminary Examination</li>
-          <li>Engineering Services Main Examination</li>
-          <li>Personality Test</li>
-        </ul>
 
-      </div>
+      jobs.forEach(function(job) {
 
+        const categories =
+          job.getAttribute("data-category");
 
-      <!-- Physical -->
+        const searchData =
+          job.getAttribute("data-search").toLowerCase();
 
-      <div class="job-section">
 
-        <h3>Physical / PET</h3>
+        const categoryMatch =
+          currentFilter === "all" ||
+          categories.includes(currentFilter);
 
-        <p>
-          No separate PET is listed as a standard stage for this examination. Candidates must satisfy the applicable medical and other requirements prescribed by UPSC.
-        </p>
 
-      </div>
+        const searchMatch =
+          searchData.includes(searchText);
 
 
-      <!-- Links -->
+        if (categoryMatch && searchMatch) {
 
-      <div class="job-section">
+          job.style.display = "block";
 
-        <h3>Important Links</h3>
+        } else {
 
-        <div class="links">
+          job.style.display = "none";
 
-          <a
-            class="button"
-            href="https://www.upsc.gov.in/examinations/Engineering%20Services%20%28Preliminary%29%20Examination%2C%202027"
-            target="_blank"
-            rel="noopener"
-          >
-            Official Notification
-          </a>
+        }
 
-          <a
-            class="button apply"
-            href="https://upsconline.nic.in/"
-            target="_blank"
-            rel="noopener"
-          >
-            Apply Online
-          </a>
+      });
 
-        </div>
+    }
 
-      </div>
+  </script>
 
-    </article>
-
-
-    <!-- ================================================= -->
-    <!-- FUTURE NOTIFICATIONS -->
-    <!-- =====================================
+</body>
+      </html>
