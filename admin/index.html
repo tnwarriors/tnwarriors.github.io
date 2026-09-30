@@ -1,1 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>TN Warriors Admin Login</title>
+
+  <link rel="stylesheet" href="admin.css">
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+  <div class="login-container">
+
+    <div class="login-box">
+
+      <h1>TN Warriors</h1>
+      <p class="login-title">Admin Login</p>
+
+      <form id="loginForm">
+
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter admin email"
+          required
+        >
+
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter password"
+          required
+        >
+
+        <button type="submit">Login</button>
+
+      </form>
+
+      <p id="message"></p>
+
+      <a href="../index.html" class="back-link">
+        ← Back to TN Warriors
+      </a>
+
+    </div>
+
+  </div>
+
+  <script src="admin.js"></script>
+
+</body>
+</html>
