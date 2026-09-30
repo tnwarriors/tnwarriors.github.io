@@ -7,21 +7,11 @@
     <title>TN Warriors - Manage Jobs</title>
 
     <link rel="stylesheet" href="admin.css">
-
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-403SNE66JG');
-    </script>
 </head>
 
 <body>
 
 <header class="admin-header">
-
     <div>
         <h1>TN Warriors</h1>
         <p>Job Management</p>
@@ -31,26 +21,24 @@
         <button onclick="goDashboard()">Dashboard</button>
         <button id="logoutButton">Logout</button>
     </div>
-
 </header>
 
 
 <main class="dashboard-container">
 
+    <!-- ADD / EDIT JOB -->
     <section class="welcome-card">
-
-        <h2>Add New Job</h2>
-
-        <p>
-            Create and publish a government job notification.
-        </p>
-
+        <h2 id="formTitle">Add New Job</h2>
+        <p>Create, edit and publish government job notifications.</p>
     </section>
 
 
     <section class="dashboard-card">
 
         <form id="jobForm">
+
+            <input type="hidden" id="jobId">
+
 
             <label>Job Title *</label>
             <input
@@ -164,6 +152,7 @@
 
 
             <label>Status</label>
+
             <select id="status">
 
                 <option value="draft">
@@ -209,13 +198,28 @@
             </label>
 
 
-            <button
-                type="submit"
-                id="saveJobButton"
-                style="background:#2563eb;color:white;margin-top:20px;"
-            >
-                Save Job
-            </button>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;">
+
+                <button
+                    type="submit"
+                    id="saveJobButton"
+                    style="background:#2563eb;color:white;"
+                >
+                    Save Job
+                </button>
+
+
+                <button
+                    type="button"
+                    id="cancelEditButton"
+                    style="display:none;"
+                    onclick="cancelEdit()"
+                >
+                    Cancel Edit
+                </button>
+
+            </div>
+
 
             <p id="jobMessage"></p>
 
@@ -223,102 +227,402 @@
 
     </section>
 
+
+
+    <!-- JOB LIST -->
+    <section class="welcome-card" style="margin-top:25px;">
+
+        <h2>Existing Jobs</h2>
+
+        <p>
+            Manage all jobs added to TN Warriors.
+        </p>
+
+    </section>
+
+
+    <section class="dashboard-card">
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;">
+
+            <input
+                type="text"
+                id="searchJobs"
+                placeholder="Search jobs..."
+                style="flex:1;min-width:220px;"
+            >
+
+            <button
+                onclick="loadJobs()"
+                style="background:#2563eb;color:white;"
+            >
+                Refresh
+            </button>
+
+        </div>
+
+
+        <div id="jobsMessage"></div>
+
+        <div id="jobsList">
+
+            Loading jobs...
+
+        </div>
+
+    </section>
+
 </main>
 
+
+
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="admin.js"></script>
 
+
+
 <script>
 
-    const jobForm = document.getElementById("jobForm");
+let allJobs = [];
 
-    const jobMessage = document.getElementById("jobMessage");
-
-    const saveJobButton =
-        document.getElementById("saveJobButton");
+let editingJobId = null;
 
 
-    // Convert empty values to null
-    function valueOrNull(id) {
 
-        const value =
-            document.getElementById(id).value.trim();
+/* ================================
+   PAGE LOAD
+================================ */
 
-        return value === "" ? null : value;
+document.addEventListener("DOMContentLoaded", async function () {
+
+    const isAdmin = await verifyAdmin();
+
+    if (!isAdmin) {
+        return;
+    }
+
+    await loadJobs();
+
+});
+
+
+
+/* ================================
+   ADMIN CHECK
+================================ */
+
+async function verifyAdmin() {
+
+    try {
+
+        const {
+            data: { user },
+            error: userError
+        } = await supabaseClient.auth.getUser();
+
+
+        if (userError || !user) {
+
+            window.location.href = "index.html";
+
+            return false;
+        }
+
+
+        const {
+            data: profile,
+            error: profileError
+        } = await supabaseClient
+            .from("profiles")
+            .select("role")
+            .eq("id", user.id)
+            .single();
+
+
+        if (
+            profileError ||
+            !profile ||
+            profile.role !== "admin"
+        ) {
+
+            alert("Admin access required.");
+
+            window.location.href = "dashboard.html";
+
+            return false;
+        }
+
+
+        return true;
 
     }
 
+    catch (error) {
 
-    // Dashboard button
-    function goDashboard() {
+        console.error(error);
 
-        window.location.href = "dashboard.html";
+        window.location.href = "index.html";
+
+        return false;
+    }
+
+}
+
+
+
+/* ================================
+   LOAD JOBS
+================================ */
+
+async function loadJobs() {
+
+    const jobsList = document.getElementById("jobsList");
+
+    jobsList.innerHTML = "Loading jobs...";
+
+
+    try {
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("jobs")
+            .select("*")
+            .order("created_at", {
+                ascending: false
+            });
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        allJobs = data || [];
+
+        renderJobs(allJobs);
 
     }
 
+    catch (error) {
 
-    // Save job
-    jobForm.addEventListener("submit", async function(event) {
+        console.error(error);
+
+        jobsList.innerHTML =
+            `<p style="color:red;">
+                Failed to load jobs: ${escapeHtml(error.message)}
+            </p>`;
+
+    }
+
+}
+
+
+
+/* ================================
+   RENDER JOBS
+================================ */
+
+function renderJobs(jobs) {
+
+    const jobsList =
+        document.getElementById("jobsList");
+
+
+    if (!jobs || jobs.length === 0) {
+
+        jobsList.innerHTML =
+            `<p>No jobs found.</p>`;
+
+        return;
+    }
+
+
+    let html = "";
+
+
+    jobs.forEach(function (job) {
+
+        const publishedText =
+            job.is_published
+                ? "Published"
+                : "Unpublished";
+
+
+        const featuredText =
+            job.is_featured
+                ? "Featured"
+                : "Normal";
+
+
+        const statusText =
+            job.status || "draft";
+
+
+        html += `
+
+        <div
+            style="
+                border:1px solid #ddd;
+                border-radius:12px;
+                padding:18px;
+                margin-bottom:15px;
+                background:#fff;
+            "
+        >
+
+            <div
+                style="
+                    display:flex;
+                    justify-content:space-between;
+                    gap:15px;
+                    flex-wrap:wrap;
+                "
+            >
+
+                <div style="flex:1;min-width:220px;">
+
+                    <h3 style="margin-top:0;">
+                        ${escapeHtml(job.title || "Untitled Job")}
+                    </h3>
+
+
+                    <p>
+                        <strong>Department:</strong>
+                        ${escapeHtml(job.department || "-")}
+                    </p>
+
+
+                    <p>
+                        <strong>Vacancies:</strong>
+                        ${escapeHtml(job.vacancies || "-")}
+                    </p>
+
+
+                    <p>
+                        <strong>Status:</strong>
+                        ${escapeHtml(statusText)}
+                    </p>
+
+
+                    <p>
+                        <strong>Visibility:</strong>
+                        ${publishedText}
+                    </p>
+
+
+                    <p>
+                        <strong>Type:</strong>
+                        ${featuredText}
+                    </p>
+
+                </div>
+
+
+                <div
+                    style="
+                        display:flex;
+                        gap:8px;
+                        flex-wrap:wrap;
+                        align-items:flex-start;
+                    "
+                >
+
+                    <button
+                        onclick="editJob('${job.id}')"
+                        style="background:#2563eb;color:white;"
+                    >
+                        Edit
+                    </button>
+
+
+                    <button
+                        onclick="togglePublish('${job.id}', ${job.is_published})"
+                        style="background:#16a34a;color:white;"
+                    >
+                        ${job.is_published ? "Unpublish" : "Publish"}
+                    </button>
+
+
+                    <button
+                        onclick="toggleFeatured('${job.id}', ${job.is_featured})"
+                        style="background:#7c3aed;color:white;"
+                    >
+                        ${job.is_featured ? "Remove Featured" : "Make Featured"}
+                    </button>
+
+
+                    <button
+                        onclick="deleteJob('${job.id}')"
+                        style="background:#dc2626;color:white;"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+
+    jobsList.innerHTML = html;
+
+}
+
+
+
+/* ================================
+   ADD / UPDATE JOB
+================================ */
+
+document
+    .getElementById("jobForm")
+    .addEventListener("submit", async function (event) {
 
         event.preventDefault();
 
-        saveJobButton.disabled = true;
 
-        saveJobButton.textContent = "Saving...";
+        const saveButton =
+            document.getElementById("saveJobButton");
 
-        jobMessage.textContent = "";
+        const message =
+            document.getElementById("jobMessage");
+
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+            editingJobId
+                ? "Updating..."
+                : "Saving...";
+
+        message.textContent = "";
 
 
         try {
 
-            // Make sure admin is logged in
-            const {
-                data: { user },
-                error: userError
-            } = await supabaseClient.auth.getUser();
-
-
-            if (userError || !user) {
-
-                throw new Error(
-                    "Admin login required."
-                );
-
-            }
-
-
-            // Verify admin role
-            const { data: profile, error: profileError } =
-                await supabaseClient
-                    .from("profiles")
-                    .select("role")
-                    .eq("id", user.id)
-                    .single();
-
-
-            if (
-                profileError ||
-                !profile ||
-                profile.role !== "admin"
-            ) {
-
-                throw new Error(
-                    "Admin access required."
-                );
-
-            }
-
-
-            // Prepare job data
             const jobData = {
 
                 title:
-                    document.getElementById("title").value.trim(),
+                    document
+                        .getElementById("title")
+                        .value
+                        .trim(),
 
                 slug:
-                    document.getElementById("slug").value.trim(),
+                    document
+                        .getElementById("slug")
+                        .value
+                        .trim(),
 
                 department:
                     valueOrNull("department"),
@@ -357,62 +661,390 @@
                     valueOrNull("apply_url"),
 
                 status:
-                    document.getElementById("status").value,
+                    document
+                        .getElementById("status")
+                        .value,
 
                 is_published:
-                    document.getElementById("is_published").checked,
+                    document
+                        .getElementById("is_published")
+                        .checked,
 
                 is_featured:
-                    document.getElementById("is_featured").checked
+                    document
+                        .getElementById("is_featured")
+                        .checked
 
             };
 
 
-            // Insert into jobs table
-            const { error } =
-                await supabaseClient
-                    .from("jobs")
-                    .insert(jobData);
+            if (!jobData.title) {
 
-
-            if (error) {
-
-                throw error;
+                throw new Error(
+                    "Job title is required."
+                );
 
             }
 
 
-            jobMessage.textContent =
-                "Job saved successfully.";
+            if (!jobData.slug) {
 
-            jobMessage.style.color = "green";
+                throw new Error(
+                    "Slug is required."
+                );
+
+            }
 
 
-            // Reset form
-            jobForm.reset();
+
+            /* UPDATE */
+
+            if (editingJobId) {
+
+                const {
+                    error
+                } = await supabaseClient
+                    .from("jobs")
+                    .update(jobData)
+                    .eq("id", editingJobId);
 
 
-        } catch (error) {
+                if (error) {
+                    throw error;
+                }
+
+
+                message.textContent =
+                    "Job updated successfully.";
+
+            }
+
+
+            /* INSERT */
+
+            else {
+
+                const {
+                    error
+                } = await supabaseClient
+                    .from("jobs")
+                    .insert(jobData);
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                message.textContent =
+                    "Job added successfully.";
+
+            }
+
+
+            message.style.color = "green";
+
+
+            resetJobForm();
+
+
+            await loadJobs();
+
+        }
+
+
+        catch (error) {
 
             console.error(error);
 
-            jobMessage.textContent =
-                error.message || "Failed to save job.";
+            message.textContent =
+                error.message ||
+                "Something went wrong.";
 
-            jobMessage.style.color = "red";
+            message.style.color = "red";
+
+        }
 
 
-        } finally {
+        finally {
 
-            saveJobButton.disabled = false;
+            saveButton.disabled = false;
 
-            saveJobButton.textContent = "Save Job";
+            saveButton.textContent =
+                editingJobId
+                    ? "Update Job"
+                    : "Save Job";
 
         }
 
     });
 
-</script>
 
-</body>
-  </html>
+
+/* ================================
+   EDIT JOB
+================================ */
+
+function editJob(jobId) {
+
+    const job =
+        allJobs.find(
+            item => item.id === jobId
+        );
+
+
+    if (!job) {
+
+        alert("Job not found.");
+
+        return;
+    }
+
+
+    editingJobId = jobId;
+
+
+    document.getElementById("formTitle")
+        .textContent = "Edit Job";
+
+
+    document.getElementById("jobId")
+        .value = job.id;
+
+
+    document.getElementById("title")
+        .value = job.title || "";
+
+
+    document.getElementById("slug")
+        .value = job.slug || "";
+
+
+    document.getElementById("department")
+        .value = job.department || "";
+
+
+    document.getElementById("description")
+        .value = job.description || "";
+
+
+    document.getElementById("vacancies")
+        .value = job.vacancies || "";
+
+
+    document.getElementById("qualification")
+        .value = job.qualification || "";
+
+
+    document.getElementById("age_limit")
+        .value = job.age_limit || "";
+
+
+    document.getElementById("salary")
+        .value = job.salary || "";
+
+
+    document.getElementById("application_fee")
+        .value = job.application_fee || "";
+
+
+    document.getElementById("start_date")
+        .value = job.start_date || "";
+
+
+    document.getElementById("last_date")
+        .value = job.last_date || "";
+
+
+    document.getElementById("exam_date")
+        .value = job.exam_date || "";
+
+
+    document.getElementById("notification_url")
+        .value = job.notification_url || "";
+
+
+    document.getElementById("apply_url")
+        .value = job.apply_url || "";
+
+
+    document.getElementById("status")
+        .value = job.status || "draft";
+
+
+    document.getElementById("is_published")
+        .checked = !!job.is_published;
+
+
+    document.getElementById("is_featured")
+        .checked = !!job.is_featured;
+
+
+    document.getElementById("saveJobButton")
+        .textContent = "Update Job";
+
+
+    document.getElementById("cancelEditButton")
+        .style.display = "inline-block";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+
+/* ================================
+   CANCEL EDIT
+================================ */
+
+function cancelEdit() {
+
+    resetJobForm();
+
+}
+
+
+
+/* ================================
+   RESET FORM
+================================ */
+
+function resetJobForm() {
+
+    editingJobId = null;
+
+
+    document
+        .getElementById("jobForm")
+        .reset();
+
+
+    document.getElementById("jobId")
+        .value = "";
+
+
+    document.getElementById("formTitle")
+        .textContent = "Add New Job";
+
+
+    document.getElementById("saveJobButton")
+        .textContent = "Save Job";
+
+
+    document.getElementById("cancelEditButton")
+        .style.display = "none";
+
+}
+
+
+
+/* ================================
+   PUBLISH / UNPUBLISH
+================================ */
+
+async function togglePublish(jobId, currentValue) {
+
+    const newValue = !currentValue;
+
+
+    try {
+
+        const {
+            error
+        } = await supabaseClient
+            .from("jobs")
+            .update({
+                is_published: newValue
+            })
+            .eq("id", jobId);
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        await loadJobs();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Failed to change publish status: " +
+            error.message
+        );
+
+    }
+
+}
+
+
+
+/* ================================
+   FEATURED
+================================ */
+
+async function toggleFeatured(jobId, currentValue) {
+
+    const newValue = !currentValue;
+
+
+    try {
+
+        const {
+            error
+        } = await supabaseClient
+            .from("jobs")
+            .update({
+                is_featured: newValue
+            })
+            .eq("id", jobId);
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        await loadJobs();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Failed to change featured status: " +
+            error.message
+        );
+
+    }
+
+}
+
+
+
+/* ================================
+   DELETE JOB
+================================ */
+
+async function deleteJob(jobId) {
+
+    const job =
+        allJobs.find(
+            item => item.id === jobId
+        );
+
+
+    const jobTitle =
+        job
+            ? job.title
+            :
