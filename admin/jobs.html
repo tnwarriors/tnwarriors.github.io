@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TN Warriors - Manage Jobs</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-403SNE66JG');
+    </script>
+</head>
+
+<body>
+
+<header class="admin-header">
+
+    <div>
+        <h1>TN Warriors</h1>
+        <p>Job Management</p>
+    </div>
+
+    <div>
+        <button onclick="goDashboard()">Dashboard</button>
+        <button id="logoutButton">Logout</button>
+    </div>
+
+</header>
+
+
+<main class="dashboard-container">
+
+    <section class="welcome-card">
+
+        <h2>Add New Job</h2>
+
+        <p>
+            Create and publish a government job notification.
+        </p>
+
+    </section>
+
+
+    <section class="dashboard-card">
+
+        <form id="jobForm">
+
+            <label>Job Title *</label>
+            <input
+                type="text"
+                id="title"
+                placeholder="Example: SSC GD Constable Recruitment 2026"
+                required
+            >
+
+
+            <label>Slug *</label>
+            <input
+                type="text"
+                id="slug"
+                placeholder="ssc-gd-constable-2026"
+                required
+            >
+
+
+            <label>Department / Organization</label>
+            <input
+                type="text"
+                id="department"
+                placeholder="Staff Selection Commission"
+            >
+
+
+            <label>Description</label>
+            <textarea
+                id="description"
+                rows="5"
+                placeholder="Job description..."
+            ></textarea>
+
+
+            <label>Vacancies</label>
+            <input
+                type="text"
+                id="vacancies"
+                placeholder="Example: 25,487"
+            >
+
+
+            <label>Qualification</label>
+            <textarea
+                id="qualification"
+                rows="3"
+                placeholder="10th Pass / 12th Pass / Degree..."
+            ></textarea>
+
+
+            <label>Age Limit</label>
+            <input
+                type="text"
+                id="age_limit"
+                placeholder="18 - 23 Years"
+            >
+
+
+            <label>Salary</label>
+            <input
+                type="text"
+                id="salary"
+                placeholder="₹21,700 - ₹69,100"
+            >
+
+
+            <label>Application Fee</label>
+            <input
+                type="text"
+                id="application_fee"
+                placeholder="₹100 / No Fee"
+            >
+
+
+            <label>Application Start Date</label>
+            <input
+                type="date"
+                id="start_date"
+            >
+
+
+            <label>Last Date</label>
+            <input
+                type="date"
+                id="last_date"
+            >
+
+
+            <label>Exam Date</label>
+            <input
+                type="date"
+                id="exam_date"
+            >
+
+
+            <label>Official Notification URL</label>
+            <input
+                type="url"
+                id="notification_url"
+                placeholder="https://..."
+            >
+
+
+            <label>Official Apply URL</label>
+            <input
+                type="url"
+                id="apply_url"
+                placeholder="https://..."
+            >
+
+
+            <label>Status</label>
+            <select id="status">
+
+                <option value="draft">
+                    Draft
+                </option>
+
+                <option value="open">
+                    Open
+                </option>
+
+                <option value="closed">
+                    Closed
+                </option>
+
+                <option value="archived">
+                    Archived
+                </option>
+
+            </select>
+
+
+            <label class="checkbox-row">
+
+                <input
+                    type="checkbox"
+                    id="is_published"
+                >
+
+                Publish this job
+
+            </label>
+
+
+            <label class="checkbox-row">
+
+                <input
+                    type="checkbox"
+                    id="is_featured"
+                >
+
+                Featured job
+
+            </label>
+
+
+            <button
+                type="submit"
+                id="saveJobButton"
+                style="background:#2563eb;color:white;margin-top:20px;"
+            >
+                Save Job
+            </button>
+
+            <p id="jobMessage"></p>
+
+        </form>
+
+    </section>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="admin.js"></script>
+
+<script>
+
+    const jobForm = document.getElementById("jobForm");
+
+    const jobMessage = document.getElementById("jobMessage");
+
+    const saveJobButton =
+        document.getElementById("saveJobButton");
+
+
+    // Convert empty values to null
+    function valueOrNull(id) {
+
+        const value =
+            document.getElementById(id).value.trim();
+
+        return value === "" ? null : value;
+
+    }
+
+
+    // Dashboard button
+    function goDashboard() {
+
+        window.location.href = "dashboard.html";
+
+    }
+
+
+    // Save job
+    jobForm.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        saveJobButton.disabled = true;
+
+        saveJobButton.textContent = "Saving...";
+
+        jobMessage.textContent = "";
+
+
+        try {
+
+            // Make sure admin is logged in
+            const {
+                data: { user },
+                error: userError
+            } = await supabaseClient.auth.getUser();
+
+
+            if (userError || !user) {
+
+                throw new Error(
+                    "Admin login required."
+                );
+
+            }
+
+
+            // Verify admin role
+            const { data: profile, error: profileError } =
+                await supabaseClient
+                    .from("profiles")
+                    .select("role")
+                    .eq("id", user.id)
+                    .single();
+
+
+            if (
+                profileError ||
+                !profile ||
+                profile.role !== "admin"
+            ) {
+
+                throw new Error(
+                    "Admin access required."
+                );
+
+            }
+
+
+            // Prepare job data
+            const jobData = {
+
+                title:
+                    document.getElementById("title").value.trim(),
+
+                slug:
+                    document.getElementById("slug").value.trim(),
+
+                department:
+                    valueOrNull("department"),
+
+                description:
+                    valueOrNull("description"),
+
+                vacancies:
+                    valueOrNull("vacancies"),
+
+                qualification:
+                    valueOrNull("qualification"),
+
+                age_limit:
+                    valueOrNull("age_limit"),
+
+                salary:
+                    valueOrNull("salary"),
+
+                application_fee:
+                    valueOrNull("application_fee"),
+
+                start_date:
+                    valueOrNull("start_date"),
+
+                last_date:
+                    valueOrNull("last_date"),
+
+                exam_date:
+                    valueOrNull("exam_date"),
+
+                notification_url:
+                    valueOrNull("notification_url"),
+
+                apply_url:
+                    valueOrNull("apply_url"),
+
+                status:
+                    document.getElementById("status").value,
+
+                is_published:
+                    document.getElementById("is_published").checked,
+
+                is_featured:
+                    document.getElementById("is_featured").checked
+
+            };
+
+
+            // Insert into jobs table
+            const { error } =
+                await supabaseClient
+                    .from("jobs")
+                    .insert(jobData);
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            jobMessage.textContent =
+                "Job saved successfully.";
+
+            jobMessage.style.color = "green";
+
+
+            // Reset form
+            jobForm.reset();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            jobMessage.textContent =
+                error.message || "Failed to save job.";
+
+            jobMessage.style.color = "red";
+
+
+        } finally {
+
+            saveJobButton.disabled = false;
+
+            saveJobButton.textContent = "Save Job";
+
+        }
+
+    });
+
+</script>
+
+</body>
+  </html>
