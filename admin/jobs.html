@@ -7,49 +7,187 @@
     <title>TN Warriors - Manage Jobs</title>
 
     <link rel="stylesheet" href="admin.css">
+
+    <style>
+        .job-form-card {
+            margin-top: 20px;
+        }
+
+        .job-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .job-actions button {
+            border: none;
+            padding: 9px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: white;
+            font-weight: 600;
+        }
+
+        .btn-blue {
+            background: #2563eb;
+        }
+
+        .btn-green {
+            background: #16a34a;
+        }
+
+        .btn-purple {
+            background: #7c3aed;
+        }
+
+        .btn-red {
+            background: #dc2626;
+        }
+
+        .btn-gray {
+            background: #64748b;
+        }
+
+        .jobs-toolbar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .jobs-toolbar input {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .job-item {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 15px;
+            background: white;
+        }
+
+        .job-item h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .job-meta {
+            line-height: 1.7;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 9px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .published {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .unpublished {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .featured {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+
+        .normal {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        #jobMessage {
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        #jobsMessage {
+            margin-bottom: 15px;
+        }
+
+        .empty-message {
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
 
 <header class="admin-header">
+
     <div>
         <h1>TN Warriors</h1>
         <p>Job Management</p>
     </div>
 
     <div>
-        <button onclick="goDashboard()">Dashboard</button>
-        <button id="logoutButton">Logout</button>
+        <button type="button" onclick="goDashboard()">
+            Dashboard
+        </button>
+
+        <button type="button" id="logoutButton">
+            Logout
+        </button>
     </div>
+
 </header>
 
 
 <main class="dashboard-container">
 
     <!-- ADD / EDIT JOB -->
+
     <section class="welcome-card">
-        <h2 id="formTitle">Add New Job</h2>
-        <p>Create, edit and publish government job notifications.</p>
+
+        <h2 id="formTitle">
+            Add New Job
+        </h2>
+
+        <p>
+            Add and manage government job notifications.
+        </p>
+
     </section>
 
 
-    <section class="dashboard-card">
+    <section class="dashboard-card job-form-card">
 
         <form id="jobForm">
 
-            <input type="hidden" id="jobId">
+            <input
+                type="hidden"
+                id="jobId"
+            >
 
 
-            <label>Job Title *</label>
+            <label for="title">
+                Job Title *
+            </label>
+
             <input
                 type="text"
                 id="title"
-                placeholder="Example: SSC GD Constable Recruitment 2026"
+                placeholder="SSC GD Constable Recruitment 2026"
                 required
             >
 
 
-            <label>Slug *</label>
+            <label for="slug">
+                Slug *
+            </label>
+
             <input
                 type="text"
                 id="slug"
@@ -58,7 +196,10 @@
             >
 
 
-            <label>Department / Organization</label>
+            <label for="department">
+                Department / Organization
+            </label>
+
             <input
                 type="text"
                 id="department"
@@ -66,7 +207,10 @@
             >
 
 
-            <label>Description</label>
+            <label for="description">
+                Description
+            </label>
+
             <textarea
                 id="description"
                 rows="5"
@@ -74,15 +218,21 @@
             ></textarea>
 
 
-            <label>Vacancies</label>
+            <label for="vacancies">
+                Vacancies
+            </label>
+
             <input
                 type="text"
                 id="vacancies"
-                placeholder="Example: 25,487"
+                placeholder="25,487"
             >
 
 
-            <label>Qualification</label>
+            <label for="qualification">
+                Qualification
+            </label>
+
             <textarea
                 id="qualification"
                 rows="3"
@@ -90,7 +240,10 @@
             ></textarea>
 
 
-            <label>Age Limit</label>
+            <label for="age_limit">
+                Age Limit
+            </label>
+
             <input
                 type="text"
                 id="age_limit"
@@ -98,7 +251,10 @@
             >
 
 
-            <label>Salary</label>
+            <label for="salary">
+                Salary
+            </label>
+
             <input
                 type="text"
                 id="salary"
@@ -106,7 +262,10 @@
             >
 
 
-            <label>Application Fee</label>
+            <label for="application_fee">
+                Application Fee
+            </label>
+
             <input
                 type="text"
                 id="application_fee"
@@ -114,28 +273,40 @@
             >
 
 
-            <label>Application Start Date</label>
+            <label for="start_date">
+                Application Start Date
+            </label>
+
             <input
                 type="date"
                 id="start_date"
             >
 
 
-            <label>Last Date</label>
+            <label for="last_date">
+                Last Date
+            </label>
+
             <input
                 type="date"
                 id="last_date"
             >
 
 
-            <label>Exam Date</label>
+            <label for="exam_date">
+                Exam Date
+            </label>
+
             <input
                 type="date"
                 id="exam_date"
             >
 
 
-            <label>Official Notification URL</label>
+            <label for="notification_url">
+                Official Notification URL
+            </label>
+
             <input
                 type="url"
                 id="notification_url"
@@ -143,7 +314,10 @@
             >
 
 
-            <label>Official Apply URL</label>
+            <label for="apply_url">
+                Official Apply URL
+            </label>
+
             <input
                 type="url"
                 id="apply_url"
@@ -151,7 +325,9 @@
             >
 
 
-            <label>Status</label>
+            <label for="status">
+                Status
+            </label>
 
             <select id="status">
 
@@ -198,12 +374,12 @@
             </label>
 
 
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;">
+            <div class="job-actions">
 
                 <button
                     type="submit"
                     id="saveJobButton"
-                    style="background:#2563eb;color:white;"
+                    class="btn-blue"
                 >
                     Save Job
                 </button>
@@ -212,6 +388,7 @@
                 <button
                     type="button"
                     id="cancelEditButton"
+                    class="btn-gray"
                     style="display:none;"
                     onclick="cancelEdit()"
                 >
@@ -229,13 +406,19 @@
 
 
 
-    <!-- JOB LIST -->
-    <section class="welcome-card" style="margin-top:25px;">
+    <!-- EXISTING JOBS -->
 
-        <h2>Existing Jobs</h2>
+    <section
+        class="welcome-card"
+        style="margin-top:25px;"
+    >
+
+        <h2>
+            Existing Jobs
+        </h2>
 
         <p>
-            Manage all jobs added to TN Warriors.
+            View and manage all jobs.
         </p>
 
     </section>
@@ -243,18 +426,18 @@
 
     <section class="dashboard-card">
 
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;">
+        <div class="jobs-toolbar">
 
             <input
                 type="text"
                 id="searchJobs"
                 placeholder="Search jobs..."
-                style="flex:1;min-width:220px;"
             >
 
             <button
+                type="button"
+                class="btn-blue"
                 onclick="loadJobs()"
-                style="background:#2563eb;color:white;"
             >
                 Refresh
             </button>
@@ -263,6 +446,7 @@
 
 
         <div id="jobsMessage"></div>
+
 
         <div id="jobsList">
 
@@ -275,113 +459,138 @@
 </main>
 
 
-
 <!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script src="admin.js"></script>
+<!-- YOUR EXISTING SUPABASE CONFIG -->
 
+<script src="admin.js"></script>
 
 
 <script>
 
 let allJobs = [];
-
 let editingJobId = null;
 
 
-
-/* ================================
-   PAGE LOAD
-================================ */
+/* =========================================
+   PAGE START
+========================================= */
 
 document.addEventListener("DOMContentLoaded", async function () {
 
-    const isAdmin = await verifyAdmin();
+    try {
 
-    if (!isAdmin) {
-        return;
+        const adminOK = await checkAdmin();
+
+        if (!adminOK) {
+            return;
+        }
+
+        await loadJobs();
+
+    } catch (error) {
+
+        console.error(error);
+
+        showJobsMessage(
+            "Unable to load admin page.",
+            "red"
+        );
+
     }
-
-    await loadJobs();
 
 });
 
 
 
-/* ================================
+/* =========================================
    ADMIN CHECK
-================================ */
+========================================= */
 
-async function verifyAdmin() {
+async function checkAdmin() {
 
-    try {
+    if (
+        typeof supabaseClient === "undefined"
+    ) {
 
-        const {
-            data: { user },
-            error: userError
-        } = await supabaseClient.auth.getUser();
+        alert(
+            "Supabase connection is missing. Check admin.js."
+        );
 
-
-        if (userError || !user) {
-
-            window.location.href = "index.html";
-
-            return false;
-        }
-
-
-        const {
-            data: profile,
-            error: profileError
-        } = await supabaseClient
-            .from("profiles")
-            .select("role")
-            .eq("id", user.id)
-            .single();
-
-
-        if (
-            profileError ||
-            !profile ||
-            profile.role !== "admin"
-        ) {
-
-            alert("Admin access required.");
-
-            window.location.href = "dashboard.html";
-
-            return false;
-        }
-
-
-        return true;
-
+        return false;
     }
 
-    catch (error) {
 
-        console.error(error);
+    const {
+        data: userData,
+        error: userError
+    } =
+        await supabaseClient.auth.getUser();
+
+
+    if (
+        userError ||
+        !userData ||
+        !userData.user
+    ) {
 
         window.location.href = "index.html";
 
         return false;
     }
 
+
+    const user = userData.user;
+
+
+    const {
+        data: profile,
+        error: profileError
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("role")
+            .eq("id", user.id)
+            .maybeSingle();
+
+
+    if (
+        profileError ||
+        !profile ||
+        profile.role !== "admin"
+    ) {
+
+        alert(
+            "Admin access required."
+        );
+
+        window.location.href =
+            "dashboard.html";
+
+        return false;
+    }
+
+
+    return true;
+
 }
 
 
 
-/* ================================
+/* =========================================
    LOAD JOBS
-================================ */
+========================================= */
 
 async function loadJobs() {
 
-    const jobsList = document.getElementById("jobsList");
+    const jobsList =
+        document.getElementById("jobsList");
 
-    jobsList.innerHTML = "Loading jobs...";
+
+    jobsList.innerHTML =
+        "<p>Loading jobs...</p>";
 
 
     try {
@@ -389,12 +598,16 @@ async function loadJobs() {
         const {
             data,
             error
-        } = await supabaseClient
-            .from("jobs")
-            .select("*")
-            .order("created_at", {
-                ascending: false
-            });
+        } =
+            await supabaseClient
+                .from("jobs")
+                .select("*")
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
 
 
         if (error) {
@@ -404,18 +617,22 @@ async function loadJobs() {
 
         allJobs = data || [];
 
+
         renderJobs(allJobs);
 
-    }
 
-    catch (error) {
+    } catch (error) {
 
         console.error(error);
 
-        jobsList.innerHTML =
-            `<p style="color:red;">
-                Failed to load jobs: ${escapeHtml(error.message)}
-            </p>`;
+
+        jobsList.innerHTML = `
+            <div class="empty-message">
+                <p style="color:red;">
+                    ${escapeHtml(error.message)}
+                </p>
+            </div>
+        `;
 
     }
 
@@ -423,9 +640,9 @@ async function loadJobs() {
 
 
 
-/* ================================
-   RENDER JOBS
-================================ */
+/* =========================================
+   DISPLAY JOBS
+========================================= */
 
 function renderJobs(jobs) {
 
@@ -433,10 +650,13 @@ function renderJobs(jobs) {
         document.getElementById("jobsList");
 
 
-    if (!jobs || jobs.length === 0) {
+    if (!jobs.length) {
 
-        jobsList.innerHTML =
-            `<p>No jobs found.</p>`;
+        jobsList.innerHTML = `
+            <div class="empty-message">
+                <p>No jobs found.</p>
+            </div>
+        `;
 
         return;
     }
@@ -447,10 +667,22 @@ function renderJobs(jobs) {
 
     jobs.forEach(function (job) {
 
+        const publishedClass =
+            job.is_published
+                ? "published"
+                : "unpublished";
+
+
         const publishedText =
             job.is_published
                 ? "Published"
                 : "Unpublished";
+
+
+        const featuredClass =
+            job.is_featured
+                ? "featured"
+                : "normal";
 
 
         const featuredText =
@@ -459,106 +691,120 @@ function renderJobs(jobs) {
                 : "Normal";
 
 
-        const statusText =
-            job.status || "draft";
-
-
         html += `
 
-        <div
-            style="
-                border:1px solid #ddd;
-                border-radius:12px;
-                padding:18px;
-                margin-bottom:15px;
-                background:#fff;
-            "
-        >
+            <div class="job-item">
 
-            <div
-                style="
-                    display:flex;
-                    justify-content:space-between;
-                    gap:15px;
-                    flex-wrap:wrap;
-                "
-            >
-
-                <div style="flex:1;min-width:220px;">
-
-                    <h3 style="margin-top:0;">
-                        ${escapeHtml(job.title || "Untitled Job")}
-                    </h3>
+                <h3>
+                    ${escapeHtml(job.title)}
+                </h3>
 
 
-                    <p>
+                <div class="job-meta">
+
+                    <div>
                         <strong>Department:</strong>
-                        ${escapeHtml(job.department || "-")}
-                    </p>
+                        ${escapeHtml(
+                            job.department || "-"
+                        )}
+                    </div>
 
 
-                    <p>
+                    <div>
                         <strong>Vacancies:</strong>
-                        ${escapeHtml(job.vacancies || "-")}
-                    </p>
+                        ${escapeHtml(
+                            job.vacancies || "-"
+                        )}
+                    </div>
 
 
-                    <p>
+                    <div>
+                        <strong>Qualification:</strong>
+                        ${escapeHtml(
+                            job.qualification || "-"
+                        )}
+                    </div>
+
+
+                    <div>
                         <strong>Status:</strong>
-                        ${escapeHtml(statusText)}
-                    </p>
+                        ${escapeHtml(
+                            job.status || "-"
+                        )}
+                    </div>
 
 
-                    <p>
-                        <strong>Visibility:</strong>
-                        ${publishedText}
-                    </p>
+                    <div style="margin-top:8px;">
+
+                        <span
+                            class="status-badge ${publishedClass}"
+                        >
+                            ${publishedText}
+                        </span>
 
 
-                    <p>
-                        <strong>Type:</strong>
-                        ${featuredText}
-                    </p>
+                        <span
+                            class="status-badge ${featuredClass}"
+                        >
+                            ${featuredText}
+                        </span>
+
+                    </div>
 
                 </div>
 
 
-                <div
-                    style="
-                        display:flex;
-                        gap:8px;
-                        flex-wrap:wrap;
-                        align-items:flex-start;
-                    "
-                >
+                <div class="job-actions">
 
                     <button
+                        type="button"
+                        class="btn-blue"
                         onclick="editJob('${job.id}')"
-                        style="background:#2563eb;color:white;"
                     >
                         Edit
                     </button>
 
 
                     <button
-                        onclick="togglePublish('${job.id}', ${job.is_published})"
-                        style="background:#16a34a;color:white;"
+                        type="button"
+                        class="btn-green"
+                        onclick="
+                            togglePublish(
+                                '${job.id}',
+                                ${job.is_published}
+                            )
+                        "
                     >
-                        ${job.is_published ? "Unpublish" : "Publish"}
+                        ${
+                            job.is_published
+                                ? "Unpublish"
+                                : "Publish"
+                        }
                     </button>
 
 
                     <button
-                        onclick="toggleFeatured('${job.id}', ${job.is_featured})"
-                        style="background:#7c3aed;color:white;"
+                        type="button"
+                        class="btn-purple"
+                        onclick="
+                            toggleFeatured(
+                                '${job.id}',
+                                ${job.is_featured}
+                            )
+                        "
                     >
-                        ${job.is_featured ? "Remove Featured" : "Make Featured"}
+                        ${
+                            job.is_featured
+                                ? "Remove Featured"
+                                : "Make Featured"
+                        }
                     </button>
 
 
                     <button
+                        type="button"
+                        class="btn-red"
                         onclick="deleteJob('${job.id}')"
-                        style="background:#dc2626;color:white;"
                     >
                         Delete
                     </button>
@@ -566,8 +812,6 @@ function renderJobs(jobs) {
                 </div>
 
             </div>
-
-        </div>
 
         `;
 
@@ -580,471 +824,170 @@ function renderJobs(jobs) {
 
 
 
-/* ================================
-   ADD / UPDATE JOB
-================================ */
+/* =========================================
+   SAVE / UPDATE JOB
+========================================= */
 
 document
     .getElementById("jobForm")
-    .addEventListener("submit", async function (event) {
+    .addEventListener(
+        "submit",
+        async function (event) {
 
-        event.preventDefault();
-
-
-        const saveButton =
-            document.getElementById("saveJobButton");
-
-        const message =
-            document.getElementById("jobMessage");
+            event.preventDefault();
 
 
-        saveButton.disabled = true;
-
-        saveButton.textContent =
-            editingJobId
-                ? "Updating..."
-                : "Saving...";
-
-        message.textContent = "";
-
-
-        try {
-
-            const jobData = {
-
-                title:
-                    document
-                        .getElementById("title")
-                        .value
-                        .trim(),
-
-                slug:
-                    document
-                        .getElementById("slug")
-                        .value
-                        .trim(),
-
-                department:
-                    valueOrNull("department"),
-
-                description:
-                    valueOrNull("description"),
-
-                vacancies:
-                    valueOrNull("vacancies"),
-
-                qualification:
-                    valueOrNull("qualification"),
-
-                age_limit:
-                    valueOrNull("age_limit"),
-
-                salary:
-                    valueOrNull("salary"),
-
-                application_fee:
-                    valueOrNull("application_fee"),
-
-                start_date:
-                    valueOrNull("start_date"),
-
-                last_date:
-                    valueOrNull("last_date"),
-
-                exam_date:
-                    valueOrNull("exam_date"),
-
-                notification_url:
-                    valueOrNull("notification_url"),
-
-                apply_url:
-                    valueOrNull("apply_url"),
-
-                status:
-                    document
-                        .getElementById("status")
-                        .value,
-
-                is_published:
-                    document
-                        .getElementById("is_published")
-                        .checked,
-
-                is_featured:
-                    document
-                        .getElementById("is_featured")
-                        .checked
-
-            };
-
-
-            if (!jobData.title) {
-
-                throw new Error(
-                    "Job title is required."
+            const button =
+                document.getElementById(
+                    "saveJobButton"
                 );
 
-            }
 
-
-            if (!jobData.slug) {
-
-                throw new Error(
-                    "Slug is required."
+            const message =
+                document.getElementById(
+                    "jobMessage"
                 );
 
-            }
+
+            button.disabled = true;
 
 
-
-            /* UPDATE */
-
-            if (editingJobId) {
-
-                const {
-                    error
-                } = await supabaseClient
-                    .from("jobs")
-                    .update(jobData)
-                    .eq("id", editingJobId);
-
-
-                if (error) {
-                    throw error;
-                }
-
-
-                message.textContent =
-                    "Job updated successfully.";
-
-            }
-
-
-            /* INSERT */
-
-            else {
-
-                const {
-                    error
-                } = await supabaseClient
-                    .from("jobs")
-                    .insert(jobData);
-
-
-                if (error) {
-                    throw error;
-                }
-
-
-                message.textContent =
-                    "Job added successfully.";
-
-            }
-
-
-            message.style.color = "green";
-
-
-            resetJobForm();
-
-
-            await loadJobs();
-
-        }
-
-
-        catch (error) {
-
-            console.error(error);
-
-            message.textContent =
-                error.message ||
-                "Something went wrong.";
-
-            message.style.color = "red";
-
-        }
-
-
-        finally {
-
-            saveButton.disabled = false;
-
-            saveButton.textContent =
+            button.textContent =
                 editingJobId
-                    ? "Update Job"
-                    : "Save Job";
+                    ? "Updating..."
+                    : "Saving...";
+
 
-        }
+            message.textContent = "";
+
+
+            try {
 
-    });
+                const jobData = {
 
+                    title:
+                        getValue("title"),
 
+                    slug:
+                        getValue("slug"),
 
-/* ================================
-   EDIT JOB
-================================ */
+                    department:
+                        getValueOrNull(
+                            "department"
+                        ),
 
-function editJob(jobId) {
+                    description:
+                        getValueOrNull(
+                            "description"
+                        ),
 
-    const job =
-        allJobs.find(
-            item => item.id === jobId
-        );
+                    vacancies:
+                        getValueOrNull(
+                            "vacancies"
+                        ),
 
+                    qualification:
+                        getValueOrNull(
+                            "qualification"
+                        ),
 
-    if (!job) {
+                    age_limit:
+                        getValueOrNull(
+                            "age_limit"
+                        ),
 
-        alert("Job not found.");
+                    salary:
+                        getValueOrNull(
+                            "salary"
+                        ),
 
-        return;
-    }
+                    application_fee:
+                        getValueOrNull(
+                            "application_fee"
+                        ),
 
+                    start_date:
+                        getValueOrNull(
+                            "start_date"
+                        ),
 
-    editingJobId = jobId;
+                    last_date:
+                        getValueOrNull(
+                            "last_date"
+                        ),
 
+                    exam_date:
+                        getValueOrNull(
+                            "exam_date"
+                        ),
 
-    document.getElementById("formTitle")
-        .textContent = "Edit Job";
+                    notification_url:
+                        getValueOrNull(
+                            "notification_url"
+                        ),
 
+                    apply_url:
+                        getValueOrNull(
+                            "apply_url"
+                        ),
 
-    document.getElementById("jobId")
-        .value = job.id;
+                    status:
+                        document
+                            .getElementById(
+                                "status"
+                            )
+                            .value,
 
+                    is_published:
+                        document
+                            .getElementById(
+                                "is_published"
+                            )
+                            .checked,
 
-    document.getElementById("title")
-        .value = job.title || "";
+                    is_featured:
+                        document
+                            .getElementById(
+                                "is_featured"
+                            )
+                            .checked
 
+                };
 
-    document.getElementById("slug")
-        .value = job.slug || "";
 
+                if (!jobData.title) {
 
-    document.getElementById("department")
-        .value = job.department || "";
+                    throw new Error(
+                        "Job title is required."
+                    );
 
+                }
 
-    document.getElementById("description")
-        .value = job.description || "";
 
+                if (!jobData.slug) {
 
-    document.getElementById("vacancies")
-        .value = job.vacancies || "";
+                    throw new Error(
+                        "Slug is required."
+                    );
 
+                }
 
-    document.getElementById("qualification")
-        .value = job.qualification || "";
 
 
-    document.getElementById("age_limit")
-        .value = job.age_limit || "";
+                /* UPDATE */
 
+                if (editingJobId) {
 
-    document.getElementById("salary")
-        .value = job.salary || "";
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+                            .from("jobs")
+                            .update(jobData)
+                            .eq(
+                                "id",
+                                editingJobId
+                            );
 
 
-    document.getElementById("application_fee")
-        .value = job.application_fee || "";
-
-
-    document.getElementById("start_date")
-        .value = job.start_date || "";
-
-
-    document.getElementById("last_date")
-        .value = job.last_date || "";
-
-
-    document.getElementById("exam_date")
-        .value = job.exam_date || "";
-
-
-    document.getElementById("notification_url")
-        .value = job.notification_url || "";
-
-
-    document.getElementById("apply_url")
-        .value = job.apply_url || "";
-
-
-    document.getElementById("status")
-        .value = job.status || "draft";
-
-
-    document.getElementById("is_published")
-        .checked = !!job.is_published;
-
-
-    document.getElementById("is_featured")
-        .checked = !!job.is_featured;
-
-
-    document.getElementById("saveJobButton")
-        .textContent = "Update Job";
-
-
-    document.getElementById("cancelEditButton")
-        .style.display = "inline-block";
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-}
-
-
-
-/* ================================
-   CANCEL EDIT
-================================ */
-
-function cancelEdit() {
-
-    resetJobForm();
-
-}
-
-
-
-/* ================================
-   RESET FORM
-================================ */
-
-function resetJobForm() {
-
-    editingJobId = null;
-
-
-    document
-        .getElementById("jobForm")
-        .reset();
-
-
-    document.getElementById("jobId")
-        .value = "";
-
-
-    document.getElementById("formTitle")
-        .textContent = "Add New Job";
-
-
-    document.getElementById("saveJobButton")
-        .textContent = "Save Job";
-
-
-    document.getElementById("cancelEditButton")
-        .style.display = "none";
-
-}
-
-
-
-/* ================================
-   PUBLISH / UNPUBLISH
-================================ */
-
-async function togglePublish(jobId, currentValue) {
-
-    const newValue = !currentValue;
-
-
-    try {
-
-        const {
-            error
-        } = await supabaseClient
-            .from("jobs")
-            .update({
-                is_published: newValue
-            })
-            .eq("id", jobId);
-
-
-        if (error) {
-            throw error;
-        }
-
-
-        await loadJobs();
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        alert(
-            "Failed to change publish status: " +
-            error.message
-        );
-
-    }
-
-}
-
-
-
-/* ================================
-   FEATURED
-================================ */
-
-async function toggleFeatured(jobId, currentValue) {
-
-    const newValue = !currentValue;
-
-
-    try {
-
-        const {
-            error
-        } = await supabaseClient
-            .from("jobs")
-            .update({
-                is_featured: newValue
-            })
-            .eq("id", jobId);
-
-
-        if (error) {
-            throw error;
-        }
-
-
-        await loadJobs();
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        alert(
-            "Failed to change featured status: " +
-            error.message
-        );
-
-    }
-
-}
-
-
-
-/* ================================
-   DELETE JOB
-================================ */
-
-async function deleteJob(jobId) {
-
-    const job =
-        allJobs.find(
-            item => item.id === jobId
-        );
-
-
-    const jobTitle =
-        job
-            ? job.title
-            :
+             
