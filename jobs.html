@@ -3,168 +3,315 @@
 
 <head>
 
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-403SNE66JG');
+    </script>
 
-  gtag('config', 'G-403SNE66JG');
-</script>
-  
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>TN Warriors - Government Jobs</title>
+    <title>TN Warriors - Government Jobs</title>
 
-  <style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      color: #222;
-    }
+    <style>
 
-    header {
-      background: #111827;
-      color: white;
-      text-align: center;
-      padding: 25px 15px;
-    }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
 
-    header h1 {
-      margin: 0;
-      font-size: 30px;
-    }
+        header {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 25px 15px;
+        }
 
-    header p {
-      margin: 8px 0 0;
-      color: #d1d5db;
-    }
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
 
-    nav {
-      background: #1f2937;
-      text-align: center;
-      padding: 15px;
-    }
+        header p {
+            margin: 8px 0 0;
+            color: #d1d5db;
+        }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 12px;
-      font-weight: bold;
-    }
+        nav {
+            background: #1f2937;
+            text-align: center;
+            padding: 15px;
+        }
 
-    .hero {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      color: white;
-      text-align: center;
-      padding: 50px 20px;
-    }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: bold;
+        }
 
-    .hero h2 {
-      font-size: 32px;
-      margin: 0 0 10px;
-    }
+        nav a:hover {
+            text-decoration: underline;
+        }
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 30px 15px;
-    }
+        .hero {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
 
-    .section-title {
-      text-align: center;
-      margin-bottom: 25px;
-    }
+        .hero h2 {
+            font-size: 32px;
+            margin: 0 0 10px;
+        }
 
-    .section-title h2 {
-      color: #111827;
-    }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px 15px;
+        }
 
-    .jobs-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
+        .section-title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
 
-    .job {
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
+        .section-title h2 {
+            color: #111827;
+        }
 
-    .job h3 {
-      color: #1d4ed8;
-      margin-top: 0;
-    }
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
 
-    .job p {
-      line-height: 1.6;
-      color: #555;
-    }
+        .job {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
 
-    .job-button {
-      display: inline-block;
-      background: #2563eb;
-      color: white;
-      padding: 10px 18px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      margin-top: 8px;
-    }
+        .job h3 {
+            color: #1d4ed8;
+            margin-top: 0;
+        }
 
-    .job-button:hover {
-      background: #1d4ed8;
-    }
+        .job p {
+            line-height: 1.6;
+            color: #555;
+        }
 
-    .info {
-      background: #e0f2fe;
-      padding: 25px;
-      border-radius: 15px;
-      margin-top: 30px;
-      text-align: center;
-    }
+        .job-button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 8px;
+            border: none;
+            cursor: pointer;
+        }
 
-    .info h2 {
-      color: #0369a1;
-    }
+        .job-button:hover {
+            background: #1d4ed8;
+        }
 
-    footer {
-      background: #111827;
-      color: white;
-      text-align: center;
-      padding: 22px;
-      margin-top: 30px;
-    }
+        .info {
+            background: #e0f2fe;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
 
-    @media (max-width: 600px) {
+        .info h2 {
+            color: #0369a1;
+        }
 
-      header h1 {
-        font-size: 25px;
-      }
+        .latest-section {
+            margin-top: 45px;
+        }
 
-      nav a {
-        display: inline-block;
-        margin: 6px 8px;
-      }
+        .latest-section h2 {
+            text-align: center;
+            color: #111827;
+        }
 
-      .hero h2 {
-        font-size: 27px;
-      }
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
 
-      .jobs-grid {
-        grid-template-columns: 1fr;
-      }
+        .search-box input,
+        .search-box select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+        }
 
-    }
+        .published-jobs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
 
-  </style>
+        .published-job {
+            background: white;
+            padding: 22px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid #2563eb;
+        }
+
+        .published-job h3 {
+            color: #1d4ed8;
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .job-meta {
+            margin: 8px 0;
+            color: #444;
+            line-height: 1.5;
+        }
+
+        .job-meta strong {
+            color: #111827;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #dcfce7;
+            color: #166534;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .featured-badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .job-description {
+            color: #555;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        .job-links {
+            margin-top: 15px;
+        }
+
+        .notification-button {
+            background: #374151;
+        }
+
+        .notification-button:hover {
+            background: #1f2937;
+        }
+
+        .apply-button {
+            background: #16a34a;
+        }
+
+        .apply-button:hover {
+            background: #15803d;
+        }
+
+        .loading {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            color: #555;
+        }
+
+        .error-box {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .empty-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            color: #666;
+        }
+
+        footer {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 22px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 25px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 6px 8px;
+            }
+
+            .hero h2 {
+                font-size: 27px;
+            }
+
+            .jobs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .published-jobs {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 25px 12px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -172,16 +319,16 @@
 <body>
 
 
-  <header>
+<header>
 
-    <h1>🛡️ TN WARRIORS</h1>
+    <h1>TN WARRIORS</h1>
 
     <p>Jobs • Exams • Defence Updates</p>
 
-  </header>
+</header>
 
 
-  <nav>
+<nav>
 
     <a href="index.html">Home</a>
 
@@ -191,26 +338,30 @@
 
     <a href="defence.html">Defence</a>
 
-  </nav>
+</nav>
 
 
-  <section class="hero">
+<section class="hero">
 
-    <h2>📢 Government Jobs</h2>
+    <h2>Government Jobs</h2>
 
-    <p>Latest job notifications, eligibility and important updates.</p>
+    <p>
+        Latest job notifications, eligibility and important updates.
+    </p>
 
-  </section>
+</section>
 
 
-  <div class="container">
+<div class="container">
 
 
     <div class="section-title">
 
-      <h2>🔥 Job Categories</h2>
+        <h2>Job Categories</h2>
 
-      <p>Choose a category to view job notifications.</p>
+        <p>
+            Choose a category to view job notifications.
+        </p>
 
     </div>
 
@@ -218,157 +369,929 @@
     <div class="jobs-grid">
 
 
-      <!-- Central Government Jobs -->
+        <!-- Central Government Jobs -->
 
-      <div class="job">
+        <div class="job">
 
-        <h3>🏛️ Central Government Jobs</h3>
+            <h3>Central Government Jobs</h3>
 
-        <p>
-          Latest Central Government recruitment notifications,
-          eligibility, vacancies and application details.
-        </p>
+            <p>
+                Latest Central Government recruitment notifications,
+                eligibility, vacancies and application details.
+            </p>
 
-        <a class="job-button" href="central-govt-jobs.html">
-          View Details
-        </a>
+            <a class="job-button" href="central-govt-jobs.html">
+                View Details
+            </a>
 
-      </div>
-
-
-      <!-- Tamil Nadu Government Jobs -->
-
-      <div class="job">
-
-        <h3>🏢 Tamil Nadu Government Jobs</h3>
-
-        <p>
-          Tamil Nadu Government recruitment updates,
-          eligibility, vacancies and important dates.
-        </p>
-
-        <a class="job-button" href="tn-govt-jobs.html">
-          View Details
-        </a>
-
-      </div>
+        </div>
 
 
-      <!-- Defence Jobs -->
+        <!-- Tamil Nadu Government Jobs -->
 
-      <div class="job">
+        <div class="job">
 
-        <h3>🛡️ Defence Jobs</h3>
+            <h3>Tamil Nadu Government Jobs</h3>
 
-        <p>
-          Army, Navy, Air Force and other Defence
-          recruitment notifications and updates.
-        </p>
+            <p>
+                Tamil Nadu Government recruitment updates,
+                eligibility, vacancies and important dates.
+            </p>
 
-        <a class="job-button" href="defence-jobs.html">
-          View Details
-        </a>
+            <a class="job-button" href="tn-govt-jobs.html">
+                View Details
+            </a>
 
-      </div>
-
-
-      <!-- Railway Jobs -->
-
-      <div class="job">
-
-        <h3>🚆 Railway Jobs</h3>
-
-        <p>
-          Latest Railway recruitment notifications including
-          RRB exams, vacancies and application details.
-        </p>
-
-        <a class="job-button" href="railway-jobs.html">
-          View Details
-        </a>
-
-      </div>
+        </div>
 
 
-      <!-- SSC Jobs -->
+        <!-- Defence Jobs -->
 
-      <div class="job">
+        <div class="job">
 
-        <h3>📝 SSC Jobs</h3>
+            <h3>Defence Jobs</h3>
 
-        <p>
-          SSC GD, CHSL, CGL, MTS, JE and other
-          Staff Selection Commission recruitment updates.
-        </p>
+            <p>
+                Army, Navy, Air Force and other Defence
+                recruitment notifications and updates.
+            </p>
 
-        <a class="job-button" href="ssc-jobs.html">
-          View Details
-        </a>
+            <a class="job-button" href="defence-jobs.html">
+                View Details
+            </a>
 
-      </div>
-
-
-      <!-- 10th / 12th Pass Jobs -->
-
-      <div class="job">
-
-        <h3>🎓 10th / 12th Pass Jobs</h3>
-
-        <p>
-          Government job opportunities suitable for
-          10th and 12th pass candidates.
-        </p>
-
-        <a class="job-button" href="10-12-jobs.html">
-          View Details
-        </a>
-
-      </div>
+        </div>
 
 
-      <!-- Diploma Jobs -->
+        <!-- Railway Jobs -->
 
-      <div class="job">
+        <div class="job">
 
-        <h3>📚 Diploma Jobs</h3>
+            <h3>Railway Jobs</h3>
 
-        <p>
-          Government job opportunities for Diploma
-          holders and technical candidates.
-        </p>
+            <p>
+                Latest Railway recruitment notifications including
+                RRB exams, vacancies and application details.
+            </p>
 
-        <a class="job-button" href="diploma-jobs.html">
-          View Details
-        </a>
+            <a class="job-button" href="railway-jobs.html">
+                View Details
+            </a>
 
-      </div>
+        </div>
 
 
-      <!-- Degree Jobs -->
+        <!-- SSC Jobs -->
 
-      <div class="job">
+        <div class="job">
 
-        <h3>🎓 Degree Jobs</h3>
+            <h3>SSC Jobs</h3>
 
-        <p>
-          Government job opportunities for Degree
-          holders across different departments.
-        </p>
+            <p>
+                SSC GD, CHSL, CGL, MTS, JE and other
+                Staff Selection Commission recruitment updates.
+            </p>
 
-        <a class="job-button" href="degree-jobs.html">
-          View Details
-        </a>
+            <a class="job-button" href="ssc-jobs.html">
+                View Details
+            </a>
 
-      </div>
+        </div>
+
+
+        <!-- 10th / 12th Pass Jobs -->
+
+        <div class="job">
+
+            <h3>10th / 12th Pass Jobs</h3>
+
+            <p>
+                Government job opportunities suitable for
+                10th and 12th pass candidates.
+            </p>
+
+            <a class="job-button" href="10-12-jobs.html">
+                View Details
+            </a>
+
+        </div>
+
+
+        <!-- Diploma Jobs -->
+
+        <div class="job">
+
+            <h3>Diploma Jobs</h3>
+
+            <p>
+                Government job opportunities for Diploma
+                holders and technical candidates.
+            </p>
+
+            <a class="job-button" href="diploma-jobs.html">
+                View Details
+            </a>
+
+        </div>
+
+
+        <!-- Degree Jobs -->
+
+        <div class="job">
+
+            <h3>Degree Jobs</h3>
+
+            <p>
+                Government job opportunities for Degree
+                holders across different departments.
+            </p>
+
+            <a class="job-button" href="degree-jobs.html">
+                View Details
+            </a>
+
+        </div>
 
 
     </div>
 
 
+    <!-- Latest Jobs -->
+
+    <section class="latest-section">
+
+        <h2>Latest Government Jobs</h2>
+
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="jobSearch"
+                placeholder="Search jobs..."
+            >
+
+            <select id="departmentFilter">
+
+                <option value="">All Departments</option>
+
+            </select>
+
+        </div>
+
+
+        <div id="jobsContainer">
+
+            <div class="loading">
+                Loading latest jobs...
+            </div>
+
+        </div>
+
+    </section>
+
+
     <div class="info">
 
-      <h2>🛡️ Stay Updated</h2>
+        <h2>Stay Updated</h2>
 
-      <p>
-        TN Warriors will provide job notifications,
-        eligibility
+        <p>
+            TN Warriors provides government job notifications,
+            eligibility details, vacancies, important dates and
+            official application links.
+        </p>
+
+    </div>
+
+
+</div>
+
+
+<footer>
+
+    <p>
+        © 2026 TN Warriors. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<script>
+
+    /* ==========================================
+       SUPABASE CONFIGURATION
+       ========================================== */
+
+    const SUPABASE_URL =
+        "https://nwipyqarobgelksdbkbk.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
+
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
+    /* ==========================================
+       GLOBAL JOB DATA
+       ========================================== */
+
+    let allJobs = [];
+
+
+    /* ==========================================
+       SECURITY HELPERS
+       ========================================== */
+
+    function escapeHTML(value) {
+
+        if (value === null || value === undefined) {
+            return "";
+        }
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    function safeURL(url) {
+
+        if (!url) {
+            return "";
+        }
+
+        try {
+
+            const parsed = new URL(url);
+
+            if (
+                parsed.protocol === "http:" ||
+                parsed.protocol === "https:"
+            ) {
+                return parsed.href;
+            }
+
+        } catch (error) {
+
+            return "";
+
+        }
+
+        return "";
+    }
+
+
+    /* ==========================================
+       DATE FORMAT
+       ========================================== */
+
+    function formatDate(dateValue) {
+
+        if (!dateValue) {
+            return "Not specified";
+        }
+
+        const date = new Date(dateValue);
+
+        if (isNaN(date.getTime())) {
+            return "Not specified";
+        }
+
+        return date.toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        );
+    }
+
+
+    /* ==========================================
+       LOAD JOBS FROM SUPABASE
+       ========================================== */
+
+    async function loadJobs() {
+
+        const container =
+            document.getElementById("jobsContainer");
+
+        container.innerHTML = `
+            <div class="loading">
+                Loading latest jobs...
+            </div>
+        `;
+
+
+        try {
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+
+                .from("jobs")
+
+                .select(`
+                    id,
+                    title,
+                    slug,
+                    department,
+                    description,
+                    vacancies,
+                    qualification,
+                    age_limit,
+                    salary,
+                    application_fee,
+                    start_date,
+                    last_date,
+                    exam_date,
+                    notification_url,
+                    apply_url,
+                    status,
+                    is_published,
+                    is_featured,
+                    created_at
+                `)
+
+                .eq("is_published", true)
+
+                .neq("status", "archived")
+
+                .order(
+                    "is_featured",
+                    {
+                        ascending: false
+                    }
+                )
+
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+            if (error) {
+
+                console.error(
+                    "Supabase error:",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+            allJobs = data || [];
+
+
+            populateDepartmentFilter(
+                allJobs
+            );
+
+
+            renderJobs(
+                allJobs
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Load jobs error:",
+                error
+            );
+
+            container.innerHTML = `
+                <div class="error-box">
+
+                    Unable to load jobs right now.
+
+                    <br><br>
+
+                    Please try again later.
+
+                </div>
+            `;
+
+        }
+
+    }
+
+
+    /* ==========================================
+       DEPARTMENT FILTER
+       ========================================== */
+
+    function populateDepartmentFilter(
+        jobs
+    ) {
+
+        const filter =
+            document.getElementById(
+                "departmentFilter"
+            );
+
+
+        const departments =
+            [
+                ...new Set(
+                    jobs
+                        .map(
+                            job =>
+                                job.department
+                        )
+                        .filter(Boolean)
+                )
+            ]
+            .sort();
+
+
+        filter.innerHTML = `
+            <option value="">
+                All Departments
+            </option>
+        `;
+
+
+        departments.forEach(
+            department => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    department;
+
+                option.textContent =
+                    department;
+
+                filter.appendChild(
+                    option
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ==========================================
+       RENDER JOBS
+       ========================================== */
+
+    function renderJobs(
+        jobs
+    ) {
+
+        const container =
+            document.getElementById(
+                "jobsContainer"
+            );
+
+
+        if (!jobs.length) {
+
+            container.innerHTML = `
+                <div class="empty-box">
+
+                    No published jobs found.
+
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML = `
+            <div class="published-jobs">
+
+                ${jobs.map(
+                    job => {
+
+                        const title =
+                            escapeHTML(
+                                job.title
+                            );
+
+                        const department =
+                            escapeHTML(
+                                job.department
+                            );
+
+                        const description =
+                            escapeHTML(
+                                job.description
+                            );
+
+                        const vacancies =
+                            escapeHTML(
+                                job.vacancies
+                            );
+
+                        const qualification =
+                            escapeHTML(
+                                job.qualification
+                            );
+
+                        const ageLimit =
+                            escapeHTML(
+                                job.age_limit
+                            );
+
+                        const salary =
+                            escapeHTML(
+                                job.salary
+                            );
+
+                        const applicationFee =
+                            escapeHTML(
+                                job.application_fee
+                            );
+
+
+                        const notificationURL =
+                            safeURL(
+                                job.notification_url
+                            );
+
+
+                        const applyURL =
+                            safeURL(
+                                job.apply_url
+                            );
+
+
+                        return `
+
+                            <article
+                                class="published-job"
+                            >
+
+                                <h3>
+                                    ${title}
+                                </h3>
+
+
+                                <div>
+
+                                    <span
+                                        class="status-badge"
+                                    >
+                                        ${escapeHTML(
+                                            job.status ||
+                                            "Open"
+                                        )}
+                                    </span>
+
+
+                                    ${                                        job.is_featured
+                                        ?
+                                        `
+                                        <span
+                                            class="featured-badge"
+                                        >
+                                            Featured
+                                        </span>
+                                        `
+                                        :
+                                        ""
+                                    }
+
+
+                                </div>
+
+
+                                ${
+                                    department
+                                    ?
+                                    `
+                                    <div class="job-meta">
+                                        <strong>
+                                            Department:
+                                        </strong>
+                                        ${department}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    vacancies
+                                    ?
+                                    `
+                                    <div class="job-meta">
+                                        <strong>
+                                            Vacancies:
+                                        </strong>
+                                        ${vacancies}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    qualification
+                                    ?
+                                    `
+                                    <div class="job-meta">
+                                        <strong>
+                                            Qualification:
+                                        </strong>
+                                        ${qualification}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    ageLimit
+                                    ?
+                                    `
+                                    <div class="job-meta">
+                                        <strong>
+                                            Age Limit:
+                                        </strong>
+                                        ${ageLimit}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    salary
+                                    ?
+                                    `
+                                    <div class="job-meta">
+                                        <strong>
+                                            Salary:
+                                        </strong>
+                                        ${salary}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    applicationFee
+                                    ?
+                                    `
+                                    <div class="job-meta">
+                                        <strong>
+                                            Application Fee:
+                                        </strong>
+                                        ${applicationFee}
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                <div class="job-meta">
+
+                                    <strong>
+                                        Start Date:
+                                    </strong>
+
+                                    ${formatDate(
+                                        job.start_date
+                                    )}
+
+                                </div>
+
+
+                                <div class="job-meta">
+
+                                    <strong>
+                                        Last Date:
+                                    </strong>
+
+                                    ${formatDate(
+                                        job.last_date
+                                    )}
+
+                                </div>
+
+
+                                ${
+                                    job.exam_date
+                                    ?
+                                    `
+                                    <div class="job-meta">
+
+                                        <strong>
+                                            Exam Date:
+                                        </strong>
+
+                                        ${formatDate(
+                                            job.exam_date
+                                        )}
+
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    description
+                                    ?
+                                    `
+                                    <p
+                                        class="job-description"
+                                    >
+                                        ${description}
+                                    </p>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                <div
+                                    class="job-links"
+                                >
+
+                                    ${
+                                        notificationURL
+                                        ?
+                                        `
+                                        <a
+                                            class="job-button notification-button"
+                                            href="${notificationURL}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Official Notification
+                                        </a>
+                                        `
+                                        :
+                                        ""
+                                    }
+
+
+                                    ${
+                                        applyURL
+                                        ?
+                                        `
+                                        <a
+                                            class="job-button apply-button"
+                                            href="${applyURL}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Apply Now
+                                        </a>
+                                        `
+                                        :
+                                        ""
+                                    }
+
+                                </div>
+
+                            </article>
+
+                        `;
+
+                    }
+                ).join("")}
+
+            </div>
+        `;
+
+    }
+
+
+    /* ==========================================
+       SEARCH + FILTER
+       ========================================== */
+
+    function filterJobs() {
+
+        const search =
+            document
+                .getElementById(
+                    "jobSearch"
+                )
+                .value
+                .toLowerCase()
+                .trim();
+
+
+        const department =
+            document
+                .getElementById(
+                    "departmentFilter"
+                )
+                .value;
+
+
+        const filteredJobs =
+            allJobs.filter(
+                job => {
+
+                    const searchableText =
+                        `
+                        ${job.title || ""}
+                        ${job.department || ""}
+                        ${job.description || ""}
+                        ${job.qualification || ""}
+                        ${job.vacancies || ""}
+                        `
+                        .toLowerCase();
+
+
+                    const matchesSearch =
+                        !search ||
+                        searchableText.includes(
+                            search
+                        );
+
+
+                    const matchesDepartment =
+                        !department ||
+                        job.department ===
+                        department;
+
+
+                    return (
+                        matchesSearch &&
+                        matchesDepartment
+                    );
+
+                }
+            );
+
+
+        renderJobs(
+            filteredJobs
+        );
+
+    }
+
+
+    /* ==========================================
+       SEARCH EVENTS
+       ========================================== */
+
+    document
+        .getElementById(
+            "jobSearch"
+        )
+        .addEventListener(
+            "input",
+            filterJobs
+        );
+
+
+    document
+        .getElementById(
+            "departmentFilter"
+        )
+        .addEventListener(
+            "change",
+            filterJobs
+        );
+
+
+    /* ==========================================
+       START
+       ========================================== */
+
+    loadJobs();
+
+</script>
+
+
+</body>
+
+</html>
+                     
