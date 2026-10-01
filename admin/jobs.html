@@ -352,18 +352,6 @@
 
                 </div>
 
-                <div class="form-group">
-
-    <label for="department">
-        Department
-    </label>
-
-    <input
-        type="text"
-        id="department">
-
-</div>
-
 
 <div class="form-group">
 
@@ -1098,7 +1086,11 @@ if (jobForm) {
                         document.getElementById(
                             "department"
                         ).value.trim(),
-
+                   
+                    category:
+                         document.getElementById(
+                              "category"
+                         ).value,
                     description:
                         document.getElementById(
                             "description"
@@ -1277,6 +1269,9 @@ window.editJob = function (id) {
     document.getElementById("department").value =
         job.department || "";
 
+    document.getElementById("category").value =
+        job.category || "";
+    
     document.getElementById("description").value =
         job.description || "";
 
