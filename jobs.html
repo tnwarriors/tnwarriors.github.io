@@ -961,17 +961,18 @@
                                     </span>
 
 
-                                    ${                                        job.is_featured
-                                        ?
+                                    ${
+                                      job.is_featured
+                                      ?
+                                      `
+                                       <span
+                                        class="featured-badge"
+                                      >
+                                        Featured
+                                     </span>
                                         `
-                                        <span
-                                            class="featured-badge"
-                                        >
-                                            Featured
-                                        </span>
-                                        `
-                                        :
-                                        ""
+                                         :
+                                         ""
                                     }
 
 
@@ -1139,6 +1140,14 @@
                                 <div
                                     class="job-links"
                                 >
+
+
+                                   <a
+                                     class="job-button"
+                                       href="job-details.html?id=${encodeURIComponent(job.id)}"
+                                >
+                                     View Details
+                                  </a>
 
                                     ${
                                         notificationURL
