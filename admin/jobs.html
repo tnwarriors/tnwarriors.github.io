@@ -933,67 +933,188 @@ document.addEventListener(
                                         : ""
                                 }
 
-                            </div>
-
-
-                            <div class="job-actions">
-
-                                <button
-                                    class="edit-btn"
-                                    onclick="editJob('${job.id}')">
-
-                                    Edit
-
-                                </button>
-
-
-                                <button
-                                    class="publish-btn"
-                                    onclick="togglePublish(
-                                        '${job.id}',
-                                                ${published}
-    )}">
-
     ${
-        published
-            ? "Unpublish"
-            : "Publish"
+    function renderJobs(jobs) {
+
+    if (!jobs.length) {
+
+        jobsList.innerHTML =
+            "<p>No jobs found.</p>";
+
+        return;
     }
 
-</button>
+    jobsList.innerHTML =
+        jobs.map(function (job) {
 
+            const published =
+                job.is_published === true;
 
-<button
-    class="feature-btn"
-    onclick="toggleFeatured(
-        '${job.id}',
-        ${featured}
-    )">
+            const featured =
+                job.is_featured === true;
 
-    ${
-        featured
-            ? "Remove Featured"
-            : "Make Featured"
-    }
+            return `
 
-</button>
+                <div class="job-item">
 
+                    <div class="job-title">
+                        ${escapeHtml(
+                            job.title ||
+                            "Untitled Job"
+                        )}
+                    </div>
 
-<button
-    class="delete-btn"
-    onclick="deleteJob('${job.id}')">
+                    <div class="job-meta">
 
-    Delete
+                        <strong>
+                            Department:
+                        </strong>
 
-</button>
+                        ${escapeHtml(
+                            job.department ||
+                            "-"
+                        )}
 
-</div>
+                        <br>
 
-</div>
+                        <strong>
+                            Category:
+                        </strong>
 
-`;
+                        ${escapeHtml(
+                            job.category ||
+                            "-"
+                        )}
 
-}).join("");
+                        <br>
+
+                        <strong>
+                            Vacancies:
+                        </strong>
+
+                        ${escapeHtml(
+                            job.vacancies ||
+                            "-"
+                        )}
+
+                        <br>
+
+                        <strong>
+                            Qualification:
+                        </strong>
+
+                        ${escapeHtml(
+                            job.qualification ||
+                            "-"
+                        )}
+
+                        <br>
+
+                        <strong>
+                            Last Date:
+                        </strong>
+
+                        ${escapeHtml(
+                            job.last_date ||
+                            "-"
+                        )}
+
+                        <br>
+
+                        <strong>
+                            Status:
+                        </strong>
+
+                        ${escapeHtml(
+                            job.status ||
+                            "-"
+                        )}
+
+                        <br>
+
+                        <span
+                            class="status ${
+                                published
+                                    ? "status-published"
+                                    : "status-draft"
+                            }">
+
+                            ${
+                                published
+                                    ? "Published"
+                                    : "Not Published"
+                            }
+
+                        </span>
+
+                        ${
+                            featured
+                                ? `
+                                    <span
+                                        class="status status-published">
+                                        Featured
+                                    </span>
+                                  `
+                                : ""
+                        }
+
+                    </div>
+
+                    <div class="job-actions">
+
+                        <button
+                            class="edit-btn"
+                            onclick="editJob('${job.id}')">
+
+                            Edit
+
+                        </button>
+
+                        <button
+                            class="publish-btn"
+                            onclick="togglePublish(
+                                '${job.id}',
+                                ${published}
+                            )">
+
+                            ${
+                                published
+                                    ? "Unpublish"
+                                    : "Publish"
+                            }
+
+                        </button>
+
+                        <button
+                            class="feature-btn"
+                            onclick="toggleFeatured(
+                                '${job.id}',
+                                ${featured}
+                            )">
+
+                            ${
+                                featured
+                                    ? "Remove Featured"
+                                    : "Make Featured"
+                            }
+
+                        </button>
+
+                        <button
+                            class="delete-btn"
+                            onclick="deleteJob('${job.id}')">
+
+                            Delete
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
 }
 
 
