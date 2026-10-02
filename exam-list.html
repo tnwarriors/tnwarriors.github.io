@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TN Warriors - Exams</title>
+
+    <!-- Google Analytics -->
+
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"
+    ></script>
+
+    <script>
+
+        window.dataLayer =
+            window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag(
+            "js",
+            new Date()
+        );
+
+        gtag(
+            "config",
+            "G-403SNE66JG"
+        );
+
+    </script>
+
+
+    <!-- Supabase -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            background: #f4f5f7;
+
+            color: #20242d;
+
+        }
+
+
+        header {
+
+            background: #101827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px 15px;
+
+        }
+
+
+        .logo {
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+        }
+
+
+        .tagline {
+
+            margin-top: 7px;
+
+            font-size: 14px;
+
+            opacity: 0.9;
+
+        }
+
+
+        nav {
+
+            background: #1c2638;
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 28px;
+
+            padding: 14px;
+
+        }
+
+
+        nav a {
+
+            color: white;
+
+            text-decoration: none;
+
+        }
+
+
+        nav a:hover {
+
+            color: #4d7fff;
+
+        }
+
+
+        .hero {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #245be8,
+                    #2865e8
+                );
+
+            color: white;
+
+            text-align: center;
+
+            padding: 40px 20px;
+
+        }
+
+
+        .hero h1 {
+
+            margin: 0 0 10px;
+
+            font-size: 30px;
+
+        }
+
+
+        .hero p {
+
+            margin: 0;
+
+            line-height: 1.6;
+
+        }
+
+
+        main {
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding: 35px 15px 60px;
+
+        }
+
+
+        .top-bar {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .back-button {
+
+            display: inline-block;
+
+            background: #101827;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 10px 15px;
+
+            border-radius: 7px;
+
+        }
+
+
+        .search-box {
+
+            width: 100%;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .search-box input {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid #d5d8de;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            outline: none;
+
+        }
+
+
+        .search-box input:focus {
+
+            border-color: #2865e8;
+
+        }
+
+
+        .exam-list {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+
+            gap: 20px;
+
+        }
+
+
+        .exam-card {
+
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 22px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.08);
+
+            border-left:
+                4px solid #2865e8;
+
+        }
+
+
+        .exam-card h2 {
+
+            margin: 0 0 12px;
+
+            color: #245bd8;
+
+            font-size: 22px;
+
+        }
+
+
+        .exam-description {
+
+            color: #5f6670;
+
+            line-height: 1.6;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .exam-info {
+
+            line-height: 1.8;
+
+            color: #404751;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .exam-status {
+
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 5px;
+
+            background: #d4edda;
+
+            color: #155724;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .featured {
+
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 5px;
+
+            background: #fff3cd;
+
+            color: #856404;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-left: 5px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .button-group {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .button {
+
+            display: inline-block;
+
+            text-decoration: none;
+
+            text-align: center;
+
+            padding: 10px 14px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            flex: 1;
+
+            min-width: 120px;
+
+        }
+
+
+        .details-button {
+
+            background: #2865e8;
+
+            color: white;
+
+        }
+
+
+        .materials-button {
+
+            background: #101827;
+
+            color: white;
+
+        }
+
+
+        .loading {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+        }
+
+
+        .empty {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            color: #68707d;
+
+        }
+
+
+        footer {
+
+            background: #101827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 22px 15px;
+
+            font-size: 14px;
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .exam-list {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .logo {
+
+                font-size: 26px;
+
+            }
+
+
+            nav {
+
+                gap: 20px;
+
+            }
+
+
+            .button {
+
+                width: 100%;
+
+                flex: none;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            TN WARRIORS
+        </div>
+
+        <div class="tagline">
+            Jobs • Exams • Defence Updates • Study Materials
+        </div>
+
+    </header>
+
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="jobs.html">
+            Jobs
+        </a>
+
+        <a href="exams.html">
+            Exams
+        </a>
+
+        <a href="defence.html">
+            Defence
+        </a>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <h1 id="pageTitle">
+            Exams
+        </h1>
+
+        <p id="pageDescription">
+            Explore examination details and preparation resources.
+        </p>
+
+    </section>
+
+
+    <!-- MAIN -->
+
+    <main>
+
+
+        <div class="top-bar">
+
+            <h2>
+                Available Exams
+            </h2>
+
+            <a
+                href="exams.html"
+                class="back-button"
+            >
+                ← All Categories
+            </a>
+
+        </div>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search exams..."
+            >
+
+        </div>
+
+
+        <!-- EXAM LIST -->
+
+        <div id="examList">
+
+            <div class="loading">
+                Loading exams...
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2026 TN Warriors. All Rights Reserved.
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        /* =========================================
+           SUPABASE
+        ========================================= */
+
+        const SUPABASE_URL =
+            "https://nwipyqarobgelksdbkbk.supabase.co";
+
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
+
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+
+        /* =========================================
+           CATEGORY
+        ========================================= */
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const category =
+            (
+                params.get("category") ||
+                ""
+            ).toLowerCase();
+
+
+        const categoryNames = {
+
+            ssc:
+                "SSC Exams",
+
+            railway:
+                "Railway Exams",
+
+            tnpsc:
+                "TNPSC Exams",
+
+            defence:
+                "Defence Exams"
+
+        };
+
+
+        const categoryDescriptions = {
+
+            ssc:
+                "Staff Selection Commission examination details and preparation resources.",
+
+            railway:
+                "Railway Recruitment Board examination details and preparation resources.",
+
+            tnpsc:
+                "Tamil Nadu Public Service Commission examination details and preparation resources.",
+
+            defence:
+                "Defence examination details and preparation resources."
+
+        };
+
+
+        /* =========================================
+           ELEMENTS
+        ========================================= */
+
+        const examList =
+            document.getElementById(
+                "examList"
+            );
+
+
+        const searchInput =
+            document.getElementById(
+                "searchInput"
+            );
+
+
+        const pageTitle =
+            document.getElementById(
+                "pageTitle"
+            );
+
+
+        const pageDescription =
+            document.getElementById(
+                "pageDescription"
+            );
+
+
+        let allExams = [];
+
+
+        /* =========================================
+           ESCAPE HTML
+        ========================================= */
+
+        function escapeHtml(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+
+            }
+
+
+            return String(value)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        /* =========================================
+           PAGE INFORMATION
+        ========================================= */
+
+        if (
+            categoryNames[category]
+        ) {
+
+            pageTitle.textContent =
+                categoryNames[category];
+
+
+            pageDescription.textContent =
+                categoryDescriptions[category];
+
+        } else {
+
+            pageTitle.textContent =
+                "All Exams";
+
+
+            pageDescription.textContent =
+                "Explore available competitive examinations.";
+
+        }
+
+
+        /* =========================================
+           LOAD EXAMS
+        ========================================= */
+
+        async function loadExams() {
+
+            examList.innerHTML = `
+
+                <div class="loading">
+                    Loading exams...
+                </div>
+
+            `;
+
+
+            try {
+
+                let query =
+                    supabaseClient
+                        .from("exams")
+                        .select(`
+                            id,
+                            slug,
+                            title,
+                            organization,
+                            description,
+                            qualification,
+                            syllabus,
+                            exam_date,
+                            notification_url,
+                            apply_url,
+                            status,
+                            is_published,
+                            is_featured,
+                            category,
+                            created_at
+                        `)
+                        .eq(
+                            "is_published",
+                            true
+                        );
+
+
+                if (category) {
+
+                    query =
+                        query.eq(
+                            "category",
+                            category
+                        );
+
+                }
+
+
+                const {
+                    data,
+                    error
+                } =
+                    await query
+                        .order(
+                            "is_featured",
+                            {
+                                ascending: false
+                            }
+                        )
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        );
+
+
+                console.log(
+                    "EXAMS DATA:",
+                    data
+                );
+
+
+                console.log(
+                    "EXAMS ERROR:",
+                    error
+                );
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                allExams =
+                    data || [];
+
+
+                renderExams(
+                    allExams
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "LOAD EXAMS ERROR:",
+                    error
+                );
+
+
+                examList.innerHTML = `
+
+                    <div class="empty">
+
+                        <strong>
+                            Unable to load exams
+                        </strong>
+
+                        <br><br>
+
+                        ${escapeHtml(
+                            error.message ||
+                            "Unknown error"
+                        )}
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        /* =========================================
+           RENDER EXAMS
+        ========================================= */
+
+        function renderExams(exams) {
+
+            if (
+                !exams ||
+                !exams.length
+            ) {
+
+                examList.innerHTML = `
+
+                    <div class="empty">
+
+                        No published exams found
+                        in this category.
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            examList.innerHTML = `
+
+                <div class="exam-list">
+
+                    ${
+                        exams.map(
+                            function(exam) {
+
+                                return `
+
+                                    <article
+                                        class="exam-card"
+                                    >
+
+                                        <h2>
+
+                                            ${escapeHtml(
+                                                exam.title ||
+                                                "Untitled Exam"
+                                            )}
+
+                                        </h2>
+
+
+                                        ${
+                                            exam.is_featured
+                                            ? `
+                                                <span class="featured">
+                                                    Featured
+                                                </span>
+                                            `
+                                            : ""
+                                        }
+
+
+                                        <span
+                                            class="exam-status"
+                                        >
+
+                                            ${escapeHtml(
+                                                exam.status ||
+                                                "Available"
+                                            )}
+
+                                        </span>
+
+
+                                        <div
+                                            class="exam-description"
+                                        >
+
+                                            ${escapeHtml(
+                                                exam.description ||
+                                                "Exam information will be updated soon."
+                                            )}
+
+                                        </div>
+
+
+                                        <div
+                                            class="exam-info"
+                                        >
+
+                                            <strong>
+                                                Organization:
+                                            </strong>
+
+                                            ${escapeHtml(
+                                                exam.organization ||
+                                                "-"
+                                            )}
+
+                                            <br>
+
+
+                                            <strong>
+                                                Qualification:
+                                            </strong>
+
+                                            ${escapeHtml(
+                                                exam.qualification ||
+                                                "-"
+                                            )}
+
+                                            ${
+                                                exam.exam_date
+                                                ? `
+                                                    <br>
+
+                                                    <strong>
+                                                        Exam Date:
+                                                    </strong>
+
+                                                    ${escapeHtml(
+                                                        exam.exam_date
+                                                    )}
+                                                `
+                                                : ""
+                                            }
+
+                                        </div>
+
+
+                                        <div
+                                            class="button-group"
+                                        >
+
+                                            <a
+                                                class="button details-button"
+                                                href="exam-details.html?id=${encodeURIComponent(
+                                                    exam.id
+                                                )}"
+                                            >
+                                                View Details
+                                            </a>
+
+
+                                            <a
+                                                class="button materials-button"
+                                                href="study-materials.html?exam=${encodeURIComponent(
+                                                    exam.id
+                                                )}"
+                                            >
+                                                                                       Study Materials
+                                            </a>
+
+                                        </div>
+
+                                    </article>
+
+                                `;
+
+                            }
+                        ).join("")
+                    }
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* =========================================
+           SEARCH
+        ========================================= */
+
+        searchInput.addEventListener(
+            "input",
+            function() {
+
+                const search =
+                    searchInput.value
+                        .trim()
+                        .toLowerCase();
+
+
+                if (!search) {
+
+                    renderExams(
+                        allExams
+                    );
+
+                    return;
+
+                }
+
+
+                const filtered =
+                    allExams.filter(
+                        function(exam) {
+
+                            return (
+
+                                (
+                                    exam.title ||
+                                    ""
+                                )
+                                .toLowerCase()
+                                .includes(search)
+
+                                ||
+
+                                (
+                                    exam.organization ||
+                                    ""
+                                )
+                                .toLowerCase()
+                                .includes(search)
+
+                                ||
+
+                                (
+                                    exam.description ||
+                                    ""
+                                )
+                                .toLowerCase()
+                                .includes(search)
+
+                            );
+
+                        }
+                    );
+
+
+                renderExams(
+                    filtered
+                );
+
+            }
+        );
+
+
+        /* =========================================
+           START
+        ========================================= */
+
+        loadExams();
+
+    </script>
+
+
+</body>
+
+</html>
