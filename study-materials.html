@@ -12,33 +12,22 @@
 
     <title>TN Warriors - Study Materials</title>
 
-
-    <!-- GOOGLE ANALYTICS -->
-
+    <!-- Google Analytics -->
     <script
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"
     ></script>
 
     <script>
-
-        window.dataLayer =
-            window.dataLayer || [];
+        window.dataLayer = window.dataLayer || [];
 
         function gtag() {
             dataLayer.push(arguments);
         }
 
-        gtag(
-            "js",
-            new Date()
-        );
+        gtag("js", new Date());
 
-        gtag(
-            "config",
-            "G-403SNE66JG"
-        );
-
+        gtag("config", "G-403SNE66JG");
     </script>
 
 
@@ -50,417 +39,351 @@
 
 
         body {
-
             margin: 0;
-
-            font-family:
-                "Comic Sans MS",
-                "Trebuchet MS",
-                sans-serif;
-
-            background: #f3f4f6;
-
-            color: #111827;
-
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
         }
 
 
         header {
-
             background: #111827;
-
             color: white;
-
-            padding: 20px;
-
-            text-align: center;
-
+            padding: 18px 20px;
         }
 
 
-        header h1 {
+        .header-inner {
+            max-width: 1100px;
+            margin: auto;
 
-            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-            font-size: 28px;
+            gap: 20px;
+        }
 
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
         }
 
 
         nav {
-
-            margin-top: 15px;
-
             display: flex;
-
-            justify-content: center;
-
-            gap: 25px;
-
+            gap: 18px;
             flex-wrap: wrap;
-
         }
 
 
         nav a {
-
             color: white;
-
             text-decoration: none;
-
-            font-size: 18px;
-
+            font-size: 15px;
         }
 
 
         nav a:hover {
-
             text-decoration: underline;
-
         }
 
 
         .hero {
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #2563eb,
-                    #1d4ed8
-                );
-
-            color: white;
-
+            background: white;
+            padding: 45px 20px;
             text-align: center;
-
-            padding: 60px 20px;
-
+            border-bottom: 1px solid #e5e7eb;
         }
 
 
-        .hero h2 {
-
-            margin: 0 0 15px;
-
-            font-size: 40px;
-
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: 34px;
         }
 
 
         .hero p {
-
             margin: 0;
-
-            font-size: 20px;
-
-            line-height: 1.6;
-
+            color: #64748b;
+            font-size: 16px;
         }
 
 
-        main {
-
+        .container {
             max-width: 1100px;
-
-            margin: 0 auto;
-
-            padding: 35px 20px;
-
+            margin: auto;
+            padding: 30px 20px 60px;
         }
 
 
-        .page-title {
-
-            font-size: 32px;
-
-            margin-bottom: 15px;
-
-        }
-
-
-        .back-button {
-
-            display: inline-block;
-
-            background: #111827;
-
-            color: white;
-
-            padding: 13px 20px;
-
-            border-radius: 10px;
-
-            text-decoration: none;
-
+        .top-bar {
+            display: flex;
+            gap: 12px;
             margin-bottom: 25px;
-
+            flex-wrap: wrap;
         }
 
 
         .search-box {
-
-            background: white;
-
-            padding: 25px;
-
-            border-radius: 15px;
-
-            margin-bottom: 25px;
-
-            box-shadow:
-                0 5px 18px
-                rgba(0, 0, 0, 0.08);
-
+            flex: 1;
+            min-width: 240px;
         }
 
 
         .search-box input {
-
             width: 100%;
-
-            padding: 15px;
-
+            padding: 13px 15px;
             border: 1px solid #d1d5db;
-
-            border-radius: 10px;
-
-            font-size: 17px;
-
+            border-radius: 8px;
+            font-size: 15px;
             outline: none;
-
         }
 
 
         .search-box input:focus {
-
             border-color: #2563eb;
+        }
 
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 12px 18px;
+
+            background: #e5e7eb;
+            color: #111827;
+
+            border-radius: 8px;
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+
+        .back-button:hover {
+            background: #d1d5db;
         }
 
 
         .status-box {
-
             background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
 
-            border-radius: 15px;
 
-            padding: 30px;
-
+        .status-box.loading {
             text-align: center;
-
-            box-shadow:
-                0 5px 18px
-                rgba(0, 0, 0, 0.08);
-
+            color: #64748b;
         }
 
 
         .status-box.error {
-
             color: #b91c1c;
-
+            background: #fef2f2;
+            border-color: #fecaca;
         }
 
 
-        .material-grid {
+        .status-box.empty {
+            text-align: center;
+            color: #64748b;
+        }
 
+
+        .materials-grid {
             display: grid;
-
             grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(280px, 1fr)
-                );
+                repeat(auto-fit, minmax(280px, 1fr));
 
             gap: 20px;
-
         }
 
 
         .material-card {
-
             background: white;
 
-            border-radius: 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
 
-            padding: 22px;
+            padding: 20px;
 
             box-shadow:
-                0 5px 18px
-                rgba(0, 0, 0, 0.08);
+                0 4px 12px rgba(0, 0, 0, 0.04);
 
             display: flex;
-
             flex-direction: column;
-
         }
 
 
-        .material-card h3 {
+        .material-card h2 {
+            margin: 0 0 12px;
 
-            margin-top: 0;
-
-            margin-bottom: 12px;
-
-            font-size: 22px;
-
+            font-size: 20px;
+            line-height: 1.35;
         }
 
 
         .badge-row {
-
             display: flex;
-
             gap: 8px;
-
             flex-wrap: wrap;
 
-            margin-bottom: 12px;
-
+            margin-bottom: 14px;
         }
 
 
         .badge {
-
             display: inline-block;
 
-            padding: 5px 10px;
+            padding: 5px 9px;
 
             border-radius: 20px;
 
-            font-size: 13px;
-
-            font-weight: bold;
-
+            font-size: 12px;
+            font-weight: 700;
         }
 
 
         .free-badge {
-
             background: #dcfce7;
-
             color: #166534;
-
         }
 
 
         .premium-badge {
-
             background: #fef3c7;
-
             color: #92400e;
-
         }
 
 
-        .type-badge {
-
-            background: #dbeafe;
-
-            color: #1e40af;
-
+        .file-badge {
+            background: #e0e7ff;
+            color: #3730a3;
         }
 
 
         .material-description {
-
-            color: #4b5563;
-
+            color: #64748b;
+            font-size: 14px;
             line-height: 1.6;
 
-            margin-bottom: 15px;
-
+            margin-bottom: 18px;
         }
 
 
         .material-info {
+            border-top: 1px solid #e5e7eb;
+            padding-top: 14px;
 
-            line-height: 1.8;
-
-            color: #374151;
+            display: grid;
+            gap: 8px;
 
             margin-bottom: 18px;
-
         }
 
 
-        .material-info strong {
+        .info-row {
+            display: flex;
+            gap: 8px;
+            font-size: 14px;
+        }
 
-            color: #111827;
 
+        .info-label {
+            font-weight: 700;
+            color: #334155;
+        }
+
+
+        .info-value {
+            color: #64748b;
         }
 
 
         .material-actions {
-
             margin-top: auto;
-
         }
 
 
         .pdf-button {
-
             width: 100%;
 
             border: none;
+            border-radius: 8px;
 
-            padding: 13px;
+            padding: 12px 15px;
 
-            border-radius: 9px;
-
-            background: #111827;
-
+            background: #2563eb;
             color: white;
 
             font-size: 15px;
+            font-weight: 700;
 
+            cursor: pointer;
+        }
+
+
+        .pdf-button:hover {
+            background: #1d4ed8;
+        }
+
+
+        .pdf-button:disabled {
+            opacity: 0.65;
             cursor: not-allowed;
-
-            opacity: 0.8;
-
         }
 
 
         .premium-button {
+            background: #d97706;
+        }
 
-            background: #92400e;
 
+        .premium-button:hover {
+            background: #b45309;
         }
 
 
         footer {
-
-            margin-top: 30px;
-
             background: #111827;
-
-            color: white;
+            color: #9ca3af;
 
             text-align: center;
 
-            padding: 25px;
+            padding: 25px 20px;
 
+            font-size: 14px;
         }
 
 
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
 
-            .hero h2 {
-
-                font-size: 32px;
-
+            .header-inner {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
-            .hero p {
 
-                font-size: 17px;
-
+            nav {
+                gap: 12px;
             }
 
-            .page-title {
 
+            .hero h1 {
                 font-size: 28px;
+            }
 
+
+            .container {
+                padding: 25px 15px 50px;
             }
 
         }
@@ -475,30 +398,34 @@
 
 <header>
 
-    <h1>
-        TN Warriors
-    </h1>
+    <div class="header-inner">
+
+        <div class="logo">
+            TN Warriors
+        </div>
 
 
-    <nav>
+        <nav>
 
-        <a href="index.html">
-            Home
-        </a>
+            <a href="index.html">
+                Home
+            </a>
 
-        <a href="jobs.html">
-            Jobs
-        </a>
+            <a href="jobs.html">
+                Jobs
+            </a>
 
-        <a href="exams.html">
-            Exams
-        </a>
+            <a href="exams.html">
+                Exams
+            </a>
 
-        <a href="defence.html">
-            Defence
-        </a>
+            <a href="defence.html">
+                Defence
+            </a>
 
-    </nav>
+        </nav>
+
+    </div>
 
 </header>
 
@@ -506,60 +433,58 @@
 
 <section class="hero">
 
-    <h2>
+    <h1>
         Study Materials
-    </h2>
+    </h1>
 
-    <p>
-        Previous Year Questions, Notes, Syllabus and other preparation materials.
+    <p id="pageSubtitle">
+        Previous Year Questions, Notes and Study Materials
     </p>
 
 </section>
 
 
 
-<main>
+<main class="container">
 
 
-    <h2 class="page-title">
-        Study Materials
-    </h2>
+    <div class="top-bar">
 
+        <div class="search-box">
 
-    <a
-        href="exams.html"
-        class="back-button"
-    >
-        ← Back to Exams
-    </a>
-
-
-
-    <!-- SEARCH -->
-
-    <section class="search-box">
-
-        <input
-            type="search"
-            id="searchInput"
-            placeholder="Search materials..."
-        >
-
-    </section>
-
-
-
-    <!-- MATERIALS -->
-
-    <section id="materialsContainer">
-
-        <div class="status-box">
-
-            Loading study materials...
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search study materials..."
+            >
 
         </div>
 
-    </section>
+
+        <a
+            href="exams.html"
+            class="back-button"
+        >
+            Back to Exams
+        </a>
+
+    </div>
+
+
+
+    <div
+        id="statusBox"
+        class="status-box loading"
+    >
+        Loading study materials...
+    </div>
+
+
+
+    <div
+        id="materialsGrid"
+        class="materials-grid"
+    ></div>
 
 
 </main>
@@ -574,17 +499,19 @@
 
 
 
-<!-- SUPABASE -->
+<!-- Supabase -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
 
 
 <script>
 
-
-    /*
-     * SUPABASE CONFIG
-     */
+    /* =========================================
+       SUPABASE CONFIGURATION
+    ========================================= */
 
     const SUPABASE_URL =
         "https://nwipyqarobgelksdbkbk.supabase.co";
@@ -602,113 +529,107 @@
 
 
 
-    /*
-     * ELEMENTS
-     */
+    /* =========================================
+       PAGE ELEMENTS
+    ========================================= */
 
-    const materialsContainer =
-        document.getElementById(
-            "materialsContainer"
-        );
+    const materialsGrid =
+        document.getElementById("materialsGrid");
+
+
+    const statusBox =
+        document.getElementById("statusBox");
 
 
     const searchInput =
-        document.getElementById(
-            "searchInput"
-        );
+        document.getElementById("searchInput");
+
+
+    const pageSubtitle =
+        document.getElementById("pageSubtitle");
 
 
 
-    /*
-     * URL PARAMETERS
-     */
+    /* =========================================
+       URL PARAMETERS
+    ========================================= */
 
-    const urlParams =
+    const params =
         new URLSearchParams(
             window.location.search
         );
 
 
     const category =
-        urlParams.get("category");
+        params.get("category");
 
 
     const examId =
-        urlParams.get("exam");
+        params.get("exam");
 
 
 
-    /*
-     * ESCAPE HTML
-     */
+    /* =========================================
+       CATEGORY NAMES
+    ========================================= */
 
-    function escapeHTML(value) {
+    const categoryNames = {
 
-        if (
-            value === null ||
-            value === undefined
-        ) {
+        ssc: "SSC",
 
-            return "";
+        railway: "Railway",
 
-        }
+        tnpsc: "TNPSC",
+
+        defence: "Defence"
+
+    };
 
 
-        return String(value)
 
-            .replace(
-                /&/g,
-                "&amp;"
-            )
+    /* =========================================
+       DATA
+    ========================================= */
 
-            .replace(
-                /</g,
-                "&lt;"
-            )
+    let allMaterials = [];
 
-            .replace(
-                />/g,
-                "&gt;"
-            )
 
-            .replace(
-                /"/g,
-                "&quot;"
-            )
 
-            .replace(
-                /'/g,
-                "&#039;"
-            );
+    /* =========================================
+       PAGE TITLE
+    ========================================= */
+
+    if (category && categoryNames[category]) {
+
+        pageSubtitle.textContent =
+            categoryNames[category] +
+            " Study Materials";
 
     }
 
 
 
-    /*
-     * LOAD MATERIALS
-     */
+    /* =========================================
+       LOAD STUDY MATERIALS
+    ========================================= */
 
     async function loadMaterials() {
 
-        materialsContainer.innerHTML = `
+        statusBox.className =
+            "status-box loading";
 
-            <div class="status-box">
+        statusBox.textContent =
+            "Loading study materials...";
 
-                Loading study materials...
 
-            </div>
-
-        `;
+        materialsGrid.innerHTML = "";
 
 
         try {
 
             let query =
                 supabaseClient
-                    .from(
-                        "study_materials"
-                    )
+                    .from("study_materials")
                     .select(`
                         id,
                         slug,
@@ -725,7 +646,10 @@
                         is_premium,
                         is_published,
                         sort_order,
-                        created_at
+                        created_at,
+                        exams (
+                            category
+                        )
                     `)
                     .eq(
                         "is_published",
@@ -744,10 +668,6 @@
                         }
                     );
 
-
-            /*
-             * FILTER BY EXAM
-             */
 
             if (examId) {
 
@@ -768,50 +688,58 @@
 
             if (error) {
 
-                console.error(
-                    "Study materials error:",
-                    error
-                );
-
                 throw error;
 
             }
 
 
-            window.allMaterials =
+            allMaterials =
                 data || [];
 
 
-            renderMaterials();
+            /*
+             * Category filtering is done here
+             * because category is connected through
+             * exams.category.
+             */
 
-        }
+            if (category) {
 
-        catch (error) {
+                allMaterials =
+                    allMaterials.filter(
+                        material => {
+
+                            return (
+                                material.exams &&
+                                material.exams.category === category
+                            );
+
+                        }
+                    );
+
+            }
+
+
+            renderMaterials(
+                allMaterials
+            );
+
+
+        } catch (error) {
 
             console.error(
-                "Loading error:",
+                "Study materials error:",
                 error
             );
 
 
-            materialsContainer.innerHTML = `
+            statusBox.className =
+                "status-box error";
 
-                <div class="status-box error">
 
-                    <h3>
-                        Unable to load study materials
-                    </h3>
-
-                    <p>
-                        ${escapeHTML(
-                            error.message ||
-                            "Unknown error"
-                        )}
-                    </p>
-
-                </div>
-
-            `;
+            statusBox.textContent =
+                "Unable to load study materials. " +
+                (error.message || "Please try again later.");
 
         }
 
@@ -819,328 +747,499 @@
 
 
 
-    /*
-     * RENDER MATERIALS
-     */
+    /* =========================================
+       RENDER MATERIALS
+    ========================================= */
 
-    function renderMaterials() {
+    function renderMaterials(
+        materials
+    ) {
 
-        const materials =
-            window.allMaterials || [];
-
-
-        const searchTerm =
-            searchInput.value
-                .trim()
-                .toLowerCase();
-
-
-        const filteredMaterials =
-            materials.filter(
-                function(material) {
-
-                    if (!searchTerm) {
-
-                        return true;
-
-                    }
-
-
-                    const searchableText = [
-
-                        material.title,
-
-                        material.description,
-
-                        material.exam_name,
-
-                        material.subject,
-
-                        material.year,
-
-                        material.part
-
-                    ]
-                        .filter(Boolean)
-                        .join(" ")
-                        .toLowerCase();
-
-
-                    return searchableText.includes(
-                        searchTerm
-                    );
-
-                }
-            );
-
+        materialsGrid.innerHTML = "";
 
 
         if (
-            filteredMaterials.length === 0
+            !materials ||
+            materials.length === 0
         ) {
 
-            materialsContainer.innerHTML = `
+            statusBox.className =
+                "status-box empty";
 
-                <div class="status-box">
 
-                    <h3>
-                        No study materials found
-                    </h3>
+            statusBox.textContent =
+                "No study materials found.";
 
-                    <p>
-                        Try another search or check back later.
-                    </p>
-
-                </div>
-
-            `;
 
             return;
 
         }
 
 
+        statusBox.style.display =
+            "none";
 
-        const cards =
-            filteredMaterials
-                .map(
-                    function(material) {
 
+        materials.forEach(
+            material => {
 
-                        const premium =
-                            material.is_premium === true;
+                const card =
+                    document.createElement(
+                        "article"
+                    );
 
 
-                        const description =
-                            material.description ||
-                            "Study material for exam preparation.";
+                card.className =
+                    "material-card";
 
 
-                        const examName =
-                            material.exam_name ||
-                            "General";
+                const premium =
+                    material.is_premium;
 
 
-                        const subject =
-                            material.subject ||
-                            "Not specified";
+                const description =
+                    material.description ||
+                    "Study material for TN Warriors students.";
 
 
-                        const year =
-                            material.year ||
-                            "Not specified";
+                const examName =
+                    material.exam_name ||
+                    "Not specified";
 
 
-                        const part =
-                            material.part ||
-                            "Not specified";
+                const subject =
+                    material.subject ||
+                    "General";
 
 
-                        const fileType =
-                            material.file_type ||
-                            "PDF";
+                const year =
+                    material.year ||
+                    "Not specified";
 
 
+                const part =
+                    material.part ||
+                    "Not specified";
 
-                        return `
 
-                            <article
-                                class="material-card"
-                            >
+                const fileType =
+                    material.file_type ||
+                    "PDF";
 
-                                <h3>
-                                    ${escapeHTML(
-                                        material.title
-                                    )}
-                                </h3>
 
+                card.innerHTML = `
 
-                                <div
-                                    class="badge-row"
-                                >
+                    <h2>
+                        ${escapeHTML(
+                            material.title || "Study Material"
+                        )}
+                    </h2>
 
-                                    <span
-                                        class="badge ${
-                                            premium
-                                                ? "premium-badge"
-                                                : "free-badge"
-                                        }"
-                                    >
 
-                                        ${
-                                            premium
-                                                ? "Premium"
-                                                : "Free"
-                                        }
+                    <div class="badge-row">
 
-                                    </span>
+                        <span
+                            class="badge ${
+                                premium
+                                    ? "premium-badge"
+                                    : "free-badge"
+                            }"
+                        >
+                            ${
+                                premium
+                                    ? "Premium"
+                                    : "Free"
+                            }
+                        </span>
 
 
-                                    <span
-                                        class="badge type-badge"
-                                    >
+                        <span class="badge file-badge">
+                            ${escapeHTML(fileType)}
+                        </span>
 
-                                        ${escapeHTML(
-                                            fileType
-                                        )}
+                    </div>
 
-                                    </span>
 
-                                </div>
+                    <div class="material-description">
+                        ${escapeHTML(description)}
+                    </div>
 
 
+                    <div class="material-info">
 
-                                <div
-                                    class="material-description"
-                                >
+                        <div class="info-row">
 
-                                    ${escapeHTML(
-                                        description
-                                    )}
+                            <span class="info-label">
+                                Exam:
+                            </span>
 
-                                </div>
+                            <span class="info-value">
+                                ${escapeHTML(examName)}
+                            </span>
 
+                        </div>
 
 
-                                <div
-                                    class="material-info"
-                                >
+                        <div class="info-row">
 
-                                    <div>
+                            <span class="info-label">
+                                Subject:
+                            </span>
 
-                                        <strong>
-                                            Exam:
-                                        </strong>
+                            <span class="info-value">
+                                ${escapeHTML(subject)}
+                            </span>
 
-                                        ${escapeHTML(
-                                            examName
-                                        )}
+                        </div>
 
-                                    </div>
 
+                        <div class="info-row">
 
-                                    <div>
+                            <span class="info-label">
+                                Year:
+                            </span>
 
-                                        <strong>
-                                            Subject:
-                                        </strong>
+                            <span class="info-value">
+                                ${escapeHTML(String(year))}
+                            </span>
 
-                                        ${escapeHTML(
-                                            subject
-                                        )}
+                        </div>
 
-                                    </div>
 
+                        <div class="info-row">
 
-                                    <div>
+                            <span class="info-label">
+                                Part:
+                            </span>
 
-                                        <strong>
-                                            Year:
-                                        </strong>
+                            <span class="info-value">
+                                ${escapeHTML(part)}
+                            </span>
 
-                                        ${escapeHTML(
-                                            year
-                                        )}
+                        </div>
 
-                                    </div>
+                    </div>
 
 
-                                    <div>
+                    <div class="material-actions">
 
-                                        <strong>
-                                            Part:
-                                        </strong>
+                        <button
+                            class="pdf-button ${
+                                premium
+                                    ? "premium-button"
+                                    : ""
+                            }"
+                            data-material-id="${material.id}"
+                            data-premium="${premium}"
+                        >
 
-                                        ${escapeHTML(
-                                            part
-                                        )}
+                            ${
+                                premium
+                                    ? "Premium Access"
+                                    : "Open PDF"
+                            }
 
-                                    </div>
+                        </button>
 
-                                </div>
+                    </div>
 
+                `;
 
 
-                                <div
-                                    class="material-actions"
-                                >
+                materialsGrid.appendChild(
+                    card
+                );
 
-                                    ${
-                                        premium
-
-                                            ? `
-
-                                                <button
-                                                    class="pdf-button premium-button"
-                                                    disabled
-                                                >
-                                                    Premium PDF Access Coming Soon
-                                                </button>
-
-                                            `
-
-                                            : `
-
-                                                <button
-                                                    class="pdf-button"
-                                                    disabled
-                                                >
-                                                    PDF Access Coming Soon
-                                                </button>
-
-                                            `
-                                    }
-
-                                </div>
-
-                            </article>
-
-                        `;
-
-                    }
-                )
-                .join("");
-
-
-        materialsContainer.innerHTML = `
-
-            <div class="material-grid">
-
-                ${cards}
-
-            </div>
-
-        `;
+            }
+        );
 
     }
 
 
 
-    /*
-     * SEARCH
-     */
+    /* =========================================
+       OPEN SECURE PDF
+    ========================================= */
 
-    searchInput.addEventListener(
-        "input",
-        function() {
+    async function openPDF(
+        materialId,
+        button
+    ) {
 
-            renderMaterials();
+        if (!materialId) {
+
+            alert(
+                "Material ID is missing."
+            );
+
+            return;
+
+        }
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Opening PDF...";
+
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.functions.invoke(
+                    "get-study-material",
+                    {
+                        body: {
+                            material_id:
+                                materialId
+                        }
+                    }
+                );
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            if (
+                !data ||
+                !data.success ||
+                !data.signed_url
+            ) {
+
+                throw new Error(
+                    data?.error ||
+                    "Unable to create secure PDF link."
+                );
+
+            }
+
+
+            /*
+             * Open the temporary signed URL.
+             * The URL expires after 5 minutes.
+             */
+
+            window.open(
+                data.signed_url,
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "PDF access error:",
+                error
+            );
+
+
+            alert(
+                error.message ||
+                "Unable to open PDF. Please try again."
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                "Open PDF";
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       BUTTON CLICK
+    ========================================= */
+
+    materialsGrid.addEventListener(
+        "click",
+        function (event) {
+
+            const button =
+                event.target.closest(
+                    ".pdf-button"
+                );
+
+
+            if (!button) {
+                return;
+            }
+
+
+            const materialId =
+                button.dataset.materialId;
+
+
+            const isPremium =
+                button.dataset.premium === "true";
+
+
+            /*
+             * Premium access is intentionally
+             * disabled for now.
+             */
+
+            if (isPremium) {
+
+                alert(
+                    "Premium access is not enabled yet."
+                );
+
+                return;
+
+            }
+
+
+            openPDF(
+                materialId,
+                button
+            );
 
         }
     );
 
 
 
-    /*
-     * START
-     */
+    /* =========================================
+       SEARCH
+    ========================================= */
+
+    searchInput.addEventListener(
+        "input",
+        function () {
+
+            const search =
+                this.value
+                    .trim()
+                    .toLowerCase();
+
+
+            if (!search) {
+
+                renderMaterials(
+                    allMaterials
+                );
+
+                return;
+
+            }
+
+
+            const filtered =
+                allMaterials.filter(
+                    material => {
+
+                        const title =
+                            (
+                                material.title ||
+                                ""
+                            ).toLowerCase();
+
+
+                        const exam =
+                            (
+                                material.exam_name ||
+                                ""
+                            ).toLowerCase();
+
+
+                        const subject =
+                            (
+                                material.subject ||
+                                ""
+                            ).toLowerCase();
+
+
+                        const description =
+                            (
+                                material.description ||
+                                ""
+                            ).toLowerCase();
+
+
+                        const year =
+                            String(
+                                material.year ||
+                                ""
+                            ).toLowerCase();
+
+
+                        return (
+                            title.includes(search) ||
+                            exam.includes(search) ||
+                            subject.includes(search) ||
+                            description.includes(search) ||
+                            year.includes(search)
+                        );
+
+                    }
+                );
+
+
+            renderMaterials(
+                filtered
+            );
+
+        }
+    );
+
+
+
+    /* =========================================
+       HTML ESCAPE
+    ========================================= */
+
+    function escapeHTML(
+        value
+    ) {
+
+        return String(value)
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+
+    /* =========================================
+       START
+    ========================================= */
 
     loadMaterials();
-
 
 </script>
 
 
 </body>
 
-    </html>
+</html>
