@@ -1176,48 +1176,64 @@ document
                  * DATABASE DATA
                  */
 
-                const materialData = {
+                const slugBase =
+    title
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
 
-                    title:
-                        title,
+const materialSlug =
+    slugBase +
+    "-" +
+    crypto.randomUUID().slice(0, 8);
 
-                    description:
-                        description || null,
 
-                    exam_id:
-                        examId,
+const materialData = {
 
-                    exam_name:
-                        exam.title,
+    slug:
+        materialSlug,
 
-                    subject:
-                        subject || null,
+    title:
+        title,
 
-                    year:
-                        year || null,
+    description:
+        description || null,
 
-                    part:
-                        part || null,
+    exam_id:
+        examId,
 
-                    file_path:
-                        filePath,
+    exam_name:
+        exam.title,
 
-                    file_size_bytes:
-                        fileSize,
+    subject:
+        subject || null,
 
-                    file_type:
-                        fileType,
+    year:
+        year || null,
 
-                    is_premium:
-                        isPremium,
+    part:
+        part || null,
 
-                    is_published:
-                        isPublished,
+    file_path:
+        filePath,
 
-                    sort_order:
-                        sortOrder
+    file_size_bytes:
+        fileSize,
 
-                };
+    file_type:
+        fileType,
+
+    is_premium:
+        isPremium,
+
+    is_published:
+        isPublished,
+
+    sort_order:
+        sortOrder
+
+};
 
 
 
