@@ -2,190 +2,492 @@
 <html lang="en">
 
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-403SNE66JG');
-</script> 
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-  <title>TN Warriors - Exams & Study Materials</title>
+    <title>TN Warriors - Competitive Exams</title>
 
-  <style>
+    <!-- Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"
+    ></script>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+    <script>
 
-    body {
-      background: #f4f6f8;
-      color: #222;
-    }
+        window.dataLayer =
+            window.dataLayer || [];
 
-    header {
-      background: #111827;
-      color: white;
-      text-align: center;
-      padding: 25px 15px;
-    }
+        function gtag() {
+            dataLayer.push(arguments);
+        }
 
-    header h1 {
-      font-size: 30px;
-    }
+        gtag(
+            'js',
+            new Date()
+        );
 
-    header p {
-      margin-top: 8px;
-      color: #d1d5db;
-    }
+        gtag(
+            'config',
+            'G-403SNE66JG'
+        );
 
-    nav {
-      background: #1f2937;
-      text-align: center;
-      padding: 15px;
-    }
+    </script>
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 10px;
-      font-weight: bold;
-    }
 
-    nav a:hover {
-      color: #93c5fd;
-    }
+    <!-- Supabase -->
 
-    .hero {
-      background: linear-gradient(135deg, #1d4ed8, #2563eb);
-      color: white;
-      text-align: center;
-      padding: 50px 20px;
-    }
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
 
-    .hero h2 {
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
 
-    .hero p {
-      line-height: 1.6;
-      max-width: 650px;
-      margin: auto;
-    }
+    <style>
 
-    .container {
-      max-width: 950px;
-      margin: auto;
-      padding: 35px 15px;
-    }
+        * {
+            box-sizing: border-box;
+        }
 
-    .section-title {
-      text-align: center;
-      margin-bottom: 25px;
-    }
 
-    .section-title h2 {
-      color: #111827;
-      font-size: 26px;
-    }
+        body {
 
-    .section-title p {
-      color: #6b7280;
-      margin-top: 8px;
-    }
+            margin: 0;
 
-    .exam {
-      background: white;
-      padding: 25px;
-      margin-bottom: 22px;
-      border-radius: 15px;
-      box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
-      border-left: 5px solid #2563eb;
-    }
+            font-family:
+                "Trebuchet MS",
+                Arial,
+                sans-serif;
 
-    .exam h3 {
-      color: #1d4ed8;
-      font-size: 23px;
-      margin-bottom: 10px;
-    }
+            background: #f4f5f7;
 
-    .exam p {
-      line-height: 1.7;
-      color: #4b5563;
-      margin-bottom: 18px;
-    }
+            color: #20242d;
 
-    .exam-buttons {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+        }
 
-    .button {
-      display: inline-block;
-      background: #2563eb;
-      color: white;
-      padding: 11px 18px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
 
-    .button:hover {
-      background: #1d4ed8;
-    }
+        /* HEADER */
 
-    .material-button {
-      background: #111827;
-    }
+        header {
 
-    .material-button:hover {
-      background: #374151;
-    }
+            background: #101827;
 
-    footer {
-      background: #111827;
-      color: white;
-      text-align: center;
-      padding: 22px;
-      margin-top: 30px;
-    }
+            color: white;
 
-    @media (max-width: 600px) {
+            text-align: center;
 
-      header h1 {
-        font-size: 25px;
-      }
+            padding: 25px 15px 20px;
 
-      .hero h2 {
-        font-size: 27px;
-      }
+        }
 
-      .exam {
-        padding: 20px;
-      }
 
-      .exam-buttons {
-        flex-direction: column;
-      }
+        .logo {
 
-      .button {
-        text-align: center;
-        width: 100%;
-      }
+            font-size: 30px;
 
-    }
+            font-weight: bold;
 
-  </style>
+            letter-spacing: 1px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .tagline {
+
+            font-size: 15px;
+
+            opacity: 0.9;
+
+            line-height: 1.5;
+
+        }
+
+
+        /* NAVIGATION */
+
+        nav {
+
+            background: #1c2638;
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 28px;
+
+            padding: 14px 10px;
+
+        }
+
+
+        nav a {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 16px;
+
+        }
+
+
+        nav a:hover {
+
+            color: #3f73ee;
+
+        }
+
+
+        /* HERO */
+
+        .hero {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #245be8,
+                    #2865e8
+                );
+
+            color: white;
+
+            text-align: center;
+
+            padding: 42px 20px;
+
+        }
+
+
+        .hero h1 {
+
+            margin: 0 0 10px;
+
+            font-size: 30px;
+
+        }
+
+
+        .hero p {
+
+            margin: 0 auto;
+
+            max-width: 650px;
+
+            line-height: 1.6;
+
+            font-size: 16px;
+
+        }
+
+
+        /* MAIN */
+
+        main {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding: 35px 15px 60px;
+
+        }
+
+
+        .section-title {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .section-title h2 {
+
+            margin: 0 0 8px;
+
+            font-size: 28px;
+
+        }
+
+
+        .section-title p {
+
+            margin: 0;
+
+            color: #707782;
+
+        }
+
+
+        /* CATEGORY GRID */
+
+        .category-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+
+            gap: 22px;
+
+        }
+
+
+        .category-card {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 25px 20px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.08);
+
+            border-left:
+                4px solid #2865e8;
+
+        }
+
+
+        .category-card h3 {
+
+            color: #2860d7;
+
+            margin: 0 0 12px;
+
+            font-size: 23px;
+
+        }
+
+
+        .category-card p {
+
+            color: #69707b;
+
+            line-height: 1.6;
+
+            min-height: 70px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .exam-count {
+
+            font-size: 14px;
+
+            color: #2865e8;
+
+            margin-bottom: 14px;
+
+            font-weight: bold;
+
+        }
+
+
+        .button-group {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .btn {
+
+            display: inline-block;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+
+            padding: 11px 15px;
+
+            font-size: 15px;
+
+            flex: 1;
+
+            min-width: 130px;
+
+        }
+
+
+        .btn-primary {
+
+            background: #2865e8;
+
+            color: white;
+
+        }
+
+
+        .btn-secondary {
+
+            background: #101827;
+
+            color: white;
+
+        }
+
+
+        .btn:hover {
+
+            opacity: 0.9;
+
+        }
+
+
+        /* INFO */
+
+        .info-section {
+
+            margin-top: 45px;
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.06);
+
+        }
+
+
+        .info-section h2 {
+
+            color: #2860d7;
+
+            margin-top: 0;
+
+        }
+
+
+        .info-section p {
+
+            line-height: 1.7;
+
+            color: #555d68;
+
+        }
+
+
+        /* LOADING */
+
+        .loading {
+
+            text-align: center;
+
+            padding: 20px;
+
+            color: #68707d;
+
+        }
+
+
+        /* FOOTER */
+
+        footer {
+
+            background: #101827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 22px 15px;
+
+            font-size: 14px;
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .logo {
+
+                font-size: 26px;
+
+            }
+
+
+            nav {
+
+                gap: 20px;
+
+            }
+
+
+            nav a {
+
+                font-size: 15px;
+
+            }
+
+
+            .hero {
+
+                padding: 35px 18px;
+
+            }
+
+
+            .hero h1 {
+
+                font-size: 27px;
+
+            }
+
+
+            .category-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .category-card p {
+
+                min-height: auto;
+
+            }
+
+
+            .btn {
+
+                width: 100%;
+
+                flex: none;
+
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -193,168 +495,455 @@
 <body>
 
 
-  <header>
+    <!-- HEADER -->
 
-    <h1>TN WARRIORS</h1>
+    <header>
 
-    <p>Jobs • Exams • Defence Updates • Study Materials</p>
+        <div class="logo">
+            TN WARRIORS
+        </div>
 
-  </header>
+        <div class="tagline">
+            Jobs • Exams • Defence Updates • Study Materials
+        </div>
 
-
-  <nav>
-
-    <a href="index.html">Home</a>
-
-    <a href="jobs.html">Jobs</a>
-
-    <a href="exams.html">Exams</a>
-
-    <a href="defence.html">Defence</a>
-
-  </nav>
+    </header>
 
 
-  <section class="hero">
+    <!-- NAV -->
 
-    <h2>Competitive Exams</h2>
+    <nav>
 
-    <p>
-      Exam information, preparation resources and study materials
-      for major competitive and government examinations.
-    </p>
-
-  </section>
-
-
-  <div class="container">
-
-
-    <div class="section-title">
-
-      <h2>Exam Categories</h2>
-
-      <p>
-        Explore examination details and exam-wise study materials.
-      </p>
-
-    </div>
-
-
-    <!-- SSC -->
-
-    <div class="exam">
-
-      <h3>SSC Exams</h3>
-
-      <p>
-        SSC GD, SSC CHSL, SSC CGL, SSC MTS, SSC JE and other
-        Staff Selection Commission examinations.
-      </p>
-
-      <div class="exam-buttons">
-
-        <a class="button" href="ssc-exams.html">
-          Exam Details
+        <a href="index.html">
+            Home
         </a>
 
-        <a class="button material-button" href="ssc-study.html">
-          Study Materials
+        <a href="jobs.html">
+            Jobs
         </a>
 
-      </div>
-
-    </div>
-
-
-    <!-- Railway -->
-
-    <div class="exam">
-
-      <h3>Railway Exams</h3>
-
-      <p>
-        RRB Group D, RRB NTPC, RRB ALP, RRB Technician and
-        other Railway recruitment examinations.
-      </p>
-
-      <div class="exam-buttons">
-
-        <a class="button" href="railway-exams.html">
-          Exam Details
+        <a href="exams.html">
+            Exams
         </a>
 
-        <a class="button material-button" href="#">
-          Study Materials
+        <a href="defence.html">
+            Defence
         </a>
 
-      </div>
-
-    </div>
+    </nav>
 
 
-    <!-- TNPSC -->
+    <!-- HERO -->
 
-    <div class="exam">
+    <section class="hero">
 
-      <h3>TNPSC Exams</h3>
+        <h1>
+            Competitive Exams
+        </h1>
 
-      <p>
-        TNPSC Group 1, Group 2, Group 4, Group 5A and other
-        Tamil Nadu Public Service Commission examinations.
-      </p>
+        <p>
+            Exam information, preparation resources and
+            study materials for major competitive and
+            government examinations.
+        </p>
 
-      <div class="exam-buttons">
-
-        <a class="button" href="tnpsc-exams.html">
-          Exam Details
-        </a>
-
-        <a class="button material-button" href="#">
-          Study Materials
-        </a>
-
-      </div>
-
-    </div>
+    </section>
 
 
-    <!-- Defence -->
+    <!-- MAIN -->
 
-    <div class="exam">
-
-      <h3>Defence Exams</h3>
-
-      <p>
-        Indian Army Agniveer, Air Force Agniveer Vayu,
-        Navy Agniveer, NDA, CDS and other defence examinations.
-      </p>
-
-      <div class="exam-buttons">
-
-        <a class="button" href="defence-exams.html">
-          Exam Details
-        </a>
-
-        <a class="button material-button" href="#">
-          Study Materials
-        </a>
-
-      </div>
-
-    </div>
+    <main>
 
 
-  </div>
+        <div class="section-title">
+
+            <h2>
+                Exam Categories
+            </h2>
+
+            <p>
+                Explore examination details and
+                exam-wise study materials.
+            </p>
+
+        </div>
 
 
-  <footer>
+        <!-- CATEGORY GRID -->
 
-    <p>© 2026 TN Warriors. All Rights Reserved.</p>
+        <div class="category-grid">
 
-  </footer>
+
+            <!-- SSC -->
+
+            <div class="category-card">
+
+                <h3>
+                    SSC Exams
+                </h3>
+
+                <p>
+                    SSC GD, SSC CHSL, SSC CGL,
+                    SSC MTS, SSC JE and other
+                    Staff Selection Commission
+                    examinations.
+                </p>
+
+                <div
+                    class="exam-count"
+                    id="sscCount"
+                >
+                    Loading exams...
+                </div>
+
+                <div class="button-group">
+
+                    <a
+                        class="btn btn-primary"
+                        href="exam-list.html?category=ssc"
+                    >
+                        Exam Details
+                    </a>
+
+                    <a
+                        class="btn btn-secondary"
+                        href="study-materials.html?category=ssc"
+                    >
+                        Study Materials
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- RAILWAY -->
+
+            <div class="category-card">
+
+                <h3>
+                    Railway Exams
+                </h3>
+
+                <p>
+                    RRB Group D, RRB NTPC,
+                    RRB ALP, RRB Technician
+                    and other Railway recruitment
+                    examinations.
+                </p>
+
+                <div
+                    class="exam-count"
+                    id="railwayCount"
+                >
+                    Loading exams...
+                </div>
+
+                <div class="button-group">
+
+                    <a
+                        class="btn btn-primary"
+                        href="exam-list.html?category=railway"
+                    >
+                        Exam Details
+                    </a>
+
+                    <a
+                        class="btn btn-secondary"
+                        href="study-materials.html?category=railway"
+                    >
+                        Study Materials
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- TNPSC -->
+
+            <div class="category-card">
+
+                <h3>
+                    TNPSC Exams
+                </h3>
+
+                <p>
+                    TNPSC Group 1, Group 2,
+                    Group 4, Group 5A and other
+                    Tamil Nadu Public Service
+                    Commission examinations.
+                </p>
+
+                <div
+                    class="exam-count"
+                    id="tnpscCount"
+                >
+                    Loading exams...
+                </div>
+
+                <div class="button-group">
+
+                    <a
+                        class="btn btn-primary"
+                        href="exam-list.html?category=tnpsc"
+                    >
+                        Exam Details
+                    </a>
+
+                    <a
+                        class="btn btn-secondary"
+                        href="study-materials.html?category=tnpsc"
+                    >
+                        Study Materials
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- DEFENCE -->
+
+            <div class="category-card">
+
+                <h3>
+                    Defence Exams
+                </h3>
+
+                <p>
+                    Indian Army Agniveer,
+                    Air Force Agniveer Vayu,
+                    Navy Agniveer, NDA, CDS
+                    and other defence examinations.
+                </p>
+
+                <div
+                    class="exam-count"
+                    id="defenceCount"
+                >
+                    Loading exams...
+                </div>
+
+                <div class="button-group">
+
+                    <a
+                        class="btn btn-primary"
+                        href="exam-list.html?category=defence"
+                    >
+                        Exam Details
+                    </a>
+
+                    <a
+                        class="btn btn-secondary"
+                        href="study-materials.html?category=defence"
+                    >
+                        Study Materials
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- INFORMATION -->
+
+        <section class="info-section">
+
+            <h2>
+                About TN Warriors Exams
+            </h2>
+
+            <p>
+                TN Warriors provides organized information
+                about competitive and government examinations.
+                Exam details, eligibility, important dates,
+                syllabus, study materials, previous-year
+                questions and practice resources will be
+                connected to the TN Warriors database.
+            </p>
+
+            <p>
+                New examination information can be added
+                through the secure admin panel and published
+                on the website without changing the page code.
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2026 TN Warriors. All Rights Reserved.
+
+    </footer>
+
+
+    <!-- SUPABASE SCRIPT -->
+
+    <script>
+
+        const SUPABASE_URL =
+            "https://nwipyqarobgelksdbkbk.supabase.co";
+
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
+
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+
+        /* =========================================
+           LOAD EXAM COUNTS
+        ========================================= */
+
+        async function loadExamCounts() {
+
+            try {
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .from("exams")
+                        .select(
+                            "category"
+                        )
+                        .eq(
+                            "is_published",
+                            true
+                        );
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                const counts = {
+
+                    ssc: 0,
+
+                    railway: 0,
+
+                    tnpsc: 0,
+
+                    defence: 0
+
+                };
+
+
+                (data || []).forEach(
+                    function(exam) {
+
+                        if (
+                            Object.prototype
+                                .hasOwnProperty
+                                .call(
+                                    counts,
+                                    exam.category
+                                )
+                        ) {
+
+                            counts[
+                                exam.category
+                            ]++;
+
+                        }
+
+                    }
+                );
+
+
+                document.getElementById(
+                    "sscCount"
+                ).textContent =
+                    counts.ssc +
+                    " published exam(s)";
+
+
+                document.getElementById(
+                    "railwayCount"
+                ).textContent =
+                    counts.railway +
+                    " published exam(s)";
+
+
+                document.getElementById(
+                    "tnpscCount"
+                ).textContent =
+                    counts.tnpsc +
+                    " published exam(s)";
+
+
+                document.getElementById(
+                    "defenceCount"
+                ).textContent =
+                    counts.defence +
+                    " published exam(s)";
+
+
+            } catch (error) {
+
+                console.error(
+                    "EXAM COUNT ERROR:",
+                    error
+                );
+
+
+                document.getElementById(
+                    "sscCount"
+                ).textContent =
+                    "Exam information";
+
+
+                document.getElementById(
+                    "railwayCount"
+                ).textContent =
+                    "Exam information";
+
+
+                document.getElementById(
+                    "tnpscCount"
+                ).textContent =
+                    "Exam information";
+
+
+                document.getElementById(
+                    "defenceCount"
+                ).textContent =
+                    "Exam information";
+
+            }
+
+        }
+
+
+        /* =========================================
+           START
+        ========================================= */
+
+        loadExamCounts();
+
+    </script>
 
 
 </body>
 
-</html>
+  </html>
