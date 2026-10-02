@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TN Warriors - Exam Details</title>
+
+
+    <!-- Google Analytics -->
+
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"
+    ></script>
+
+    <script>
+
+        window.dataLayer =
+            window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag(
+            "js",
+            new Date()
+        );
+
+        gtag(
+            "config",
+            "G-403SNE66JG"
+        );
+
+    </script>
+
+
+    <!-- Supabase -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            background: #f4f5f7;
+
+            color: #20242d;
+
+        }
+
+
+        header {
+
+            background: #101827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px 15px;
+
+        }
+
+
+        .logo {
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+        }
+
+
+        .tagline {
+
+            margin-top: 7px;
+
+            font-size: 14px;
+
+            opacity: 0.9;
+
+        }
+
+
+        nav {
+
+            background: #1c2638;
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 28px;
+
+            padding: 14px;
+
+        }
+
+
+        nav a {
+
+            color: white;
+
+            text-decoration: none;
+
+        }
+
+
+        nav a:hover {
+
+            color: #4d7fff;
+
+        }
+
+
+        .hero {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #245be8,
+                    #2865e8
+                );
+
+            color: white;
+
+            text-align: center;
+
+            padding: 40px 20px;
+
+        }
+
+
+        .hero h1 {
+
+            margin: 0 0 10px;
+
+            font-size: 30px;
+
+        }
+
+
+        .hero p {
+
+            margin: 0;
+
+            line-height: 1.6;
+
+        }
+
+
+        main {
+
+            max-width: 900px;
+
+            margin: auto;
+
+            padding: 35px 15px 60px;
+
+        }
+
+
+        .back-button {
+
+            display: inline-block;
+
+            background: #101827;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 10px 15px;
+
+            border-radius: 7px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .details-card {
+
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.08);
+
+        }
+
+
+        .details-card h2 {
+
+            margin-top: 0;
+
+            color: #245bd8;
+
+            font-size: 28px;
+
+            line-height: 1.3;
+
+        }
+
+
+        .status {
+
+            display: inline-block;
+
+            padding: 6px 11px;
+
+            border-radius: 5px;
+
+            background: #d4edda;
+
+            color: #155724;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .featured {
+
+            display: inline-block;
+
+            padding: 6px 11px;
+
+            border-radius: 5px;
+
+            background: #fff3cd;
+
+            color: #856404;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-left: 5px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .section {
+
+            margin-top: 28px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #e1e4e8;
+
+        }
+
+
+        .section h3 {
+
+            margin-top: 0;
+
+            color: #20242d;
+
+            font-size: 21px;
+
+        }
+
+
+        .info-row {
+
+            display: grid;
+
+            grid-template-columns:
+                190px 1fr;
+
+            gap: 15px;
+
+            padding: 12px 0;
+
+            border-bottom:
+                1px solid #eeeeee;
+
+        }
+
+
+        .info-label {
+
+            font-weight: bold;
+
+            color: #444b55;
+
+        }
+
+
+        .info-value {
+
+            color: #5f6670;
+
+            line-height: 1.6;
+
+        }
+
+
+        .description {
+
+            color: #505761;
+
+            line-height: 1.8;
+
+            white-space: pre-line;
+
+        }
+
+
+        .syllabus {
+
+            color: #505761;
+
+            line-height: 1.8;
+
+            white-space: pre-line;
+
+        }
+
+
+        .button-group {
+
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            margin-top: 25px;
+
+        }
+
+
+        .button {
+
+            display: inline-block;
+
+            text-decoration: none;
+
+            text-align: center;
+
+            padding: 12px 18px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+
+        }
+
+
+        .notification-button {
+
+            background: #101827;
+
+            color: white;
+
+        }
+
+
+        .apply-button {
+
+            background: #2865e8;
+
+            color: white;
+
+        }
+
+
+        .materials-button {
+
+            background: #198754;
+
+            color: white;
+
+        }
+
+
+        .loading {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+        }
+
+
+        .error {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            color: #b42318;
+
+        }
+
+
+        footer {
+
+            background: #101827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 22px 15px;
+
+            font-size: 14px;
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .logo {
+                font-size: 26px;
+            }
+
+
+            nav {
+                gap: 20px;
+            }
+
+
+            .details-card {
+                padding: 20px;
+            }
+
+
+            .details-card h2 {
+                font-size: 24px;
+            }
+
+
+            .info-row {
+
+                grid-template-columns: 1fr;
+
+                gap: 5px;
+
+            }
+
+
+            .button {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            TN WARRIORS
+        </div>
+
+        <div class="tagline">
+            Jobs • Exams • Defence Updates • Study Materials
+        </div>
+
+    </header>
+
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="jobs.html">
+            Jobs
+        </a>
+
+        <a href="exams.html">
+            Exams
+        </a>
+
+        <a href="defence.html">
+            Defence
+        </a>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <h1>
+            Exam Details
+        </h1>
+
+        <p>
+            Complete examination information and preparation resources.
+        </p>
+
+    </section>
+
+
+    <!-- MAIN -->
+
+    <main>
+
+        <a
+            href="exams.html"
+            class="back-button"
+            id="backButton"
+        >
+            ← Back to Exams
+        </a>
+
+
+        <div id="examDetails">
+
+            <div class="loading">
+                Loading exam details...
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2026 TN Warriors. All Rights Reserved.
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        /* =========================================
+           SUPABASE
+        ========================================= */
+
+        const SUPABASE_URL =
+            "https://nwipyqarobgelksdbkbk.supabase.co";
+
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
+
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+
+        /* =========================================
+           GET EXAM ID
+        ========================================= */
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const examId =
+            params.get("id");
+
+
+        const examDetails =
+            document.getElementById(
+                "examDetails"
+            );
+
+
+        const backButton =
+            document.getElementById(
+                "backButton"
+            );
+
+
+        /* =========================================
+           ESCAPE HTML
+        ========================================= */
+
+        function escapeHtml(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+
+            }
+
+
+            return String(value)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        /* =========================================
+           SAFE URL
+        ========================================= */
+
+        function safeURL(url) {
+
+            if (!url) {
+
+                return "";
+
+            }
+
+
+            try {
+
+                const parsed =
+                    new URL(url);
+
+
+                if (
+                    parsed.protocol ===
+                    "http:" ||
+
+                    parsed.protocol ===
+                    "https:"
+                ) {
+
+                    return parsed.href;
+
+                }
+
+
+            } catch (error) {
+
+                return "";
+
+            }
+
+
+            return "";
+
+        }
+
+
+        /* =========================================
+           FORMAT DATE
+        ========================================= */
+
+        function formatDate(dateValue) {
+
+            if (!dateValue) {
+
+                return "-";
+
+            }
+
+
+            const date =
+                new Date(dateValue);
+
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return escapeHtml(
+                    dateValue
+                );
+
+            }
+
+
+            return date.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+        }
+
+
+        /* =========================================
+           LOAD EXAM
+        ========================================= */
+
+        async function loadExam() {
+
+            if (!examId) {
+
+                examDetails.innerHTML = `
+
+                    <div class="error">
+
+                        Exam ID is missing.
+
+                        <br><br>
+
+                        Please open the exam
+                        from the Exams page.
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            try {
+
+                const {
+                    data: exam,
+                    error
+                } =
+                    await supabaseClient
+
+                        .from("exams")
+
+                        .select(`
+                            id,
+                            slug,
+                            title,
+                            organization,
+                            description,
+                            qualification,
+                            syllabus,
+                            exam_date,
+                            notification_url,
+                            apply_url,
+                            status,
+                            is_published,
+                            is_featured,
+                            category,
+                            created_at
+                        `)
+
+                        .eq(
+                            "id",
+                            examId
+                        )
+
+                        .eq(
+                            "is_published",
+                            true
+                        )
+
+                        .single();
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                if (!exam) {
+
+                    throw new Error(
+                        "Exam not found."
+                    );
+
+                }
+
+
+                renderExam(
+                    exam
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Exam details error:",
+                    error
+                );
+
+
+                examDetails.innerHTML = `
+
+                    <div class="error">
+
+                        <strong>
+                            Unable to load exam details.
+                        </strong>
+
+                        <br><br>
+
+                        ${escapeHtml(
+                            error.message ||
+                            "Exam not found."
+                        )}
+
+                        <br><br>
+
+                        Please go back and
+                        select an exam again.
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        /* =========================================
+           RENDER EXAM
+        ========================================= */
+
+        function renderExam(exam) {
+
+            document.title =
+                "TN Warriors - " +
+                (
+                    exam.title ||
+                    "Exam Details"
+                );
+
+
+            const notificationURL =
+                safeURL(
+                    exam.notification_url
+                );
+
+
+            const applyURL =
+                safeURL(
+                    exam.apply_url
+                );
+
+
+            const materialsURL =
+                "study-materials.html?exam=" +
+                encodeURIComponent(
+                    exam.id
+                );
+
+
+            examDetails.innerHTML = `
+
+                <article
+                    class="details-card"
+                >
+
+                    <h2>
+                        ${escapeHtml(
+                            exam.title ||
+                            "Untitled Exam"
+                        )}
+                    </h2>
+
+
+                    ${
+                        exam.status
+                        ? `
+                            <span class="status">
+                                ${escapeHtml(
+                                    exam.status
+                                )}
+                            </span>
+                        `
+                        : ""
+                    }
+
+
+                    ${
+                        exam.is_featured
+                        ? `
+                            <span class="featured">
+                                Featured
+                            </span>
+                        `
+                        : ""
+                    }
+
+
+                    ${
+                        exam.description
+                        ? `
+
+                            <div class="section">
+
+                                <h3>
+                                    About the Exam
+                                </h3>
+
+                                <div
+                                    class="description"
+                                >
+
+                                    ${escapeHtml(
+                                        exam.description
+                                    )}
+
+                                </div>
+
+                            </div>
+
+                        `
+                        : ""
+                    }
+
+
+                    <div class="section">
+
+                        <h3>
+                            Exam Information
+                        </h3>
+
+
+                        <div class="info-row">
+
+                            <div
+                                class="info-label"
+                            >
+                                Organization
+                            </div>
+
+                            <div
+                                class="info-value"
+                            >
+                                ${escapeHtml(
+                                    exam.organization ||
+                                    "-"
+                                )}
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <div
+                                class="info-label"
+                            >
+                                Category
+                            </div>
+
+                            <div
+                                class="info-value"
+                            >
+                                ${escapeHtml(
+                                    (
+                                        exam.category ||
+                                        "-"
+                                    ).toUpperCase()
+                                )}
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <div
+                                class="info-label"
+                            >
+                                Qualification
+                            </div>
+
+                            <div
+                                class="info-value"
+                            >
+                                ${escapeHtml(
+                                    exam.qualification ||
+                                    "-"
+                                )}
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <div
+                                class="info-label"
+                            >
+                                Exam Date
+                            </div>
+
+                            <div
+                                class="info-value"
+                            >
+                                ${formatDate(
+                                    exam.exam_date
+                                )}
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <div
+                                class="info-label"
+                            >
+                                Status
+                            </div>
+
+                            <div
+                                class="info-value"
+                            >
+                                ${escapeHtml(
+                                    exam.status ||
+                                    "-"
+                                )}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    ${
+                        exam.syllabus
+                        ? `
+
+                            <div class="section">
+
+                                <h3>
+                                    Syllabus
+                                </h3>
+
+                                <div
+                                    class="syllabus"
+                                >
+
+                                    ${escapeHtml(
+                                        exam.syllabus
+                                    )}
+
+                                </div>
+
+                            </div>
+
+                        `
+                        : ""
+                    }
+
+
+                    <div class="section">
+                                            <h3>
+                            Official Links
+                        </h3>
+
+
+                        <div
+                            class="button-group"
+                        >
+
+                            ${
+                                notificationURL
+                                ? `
+
+                                    <a
+                                        href="${escapeHtml(
+                                            notificationURL
+                                        )}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="button notification-button"
+                                    >
+                                        Official Notification
+                                    </a>
+
+                                `
+                                : ""
+                            }
+
+
+                            ${
+                                applyURL
+                                ? `
+
+                                    <a
+                                        href="${escapeHtml(
+                                            applyURL
+                                        )}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="button apply-button"
+                                    >
+                                        Official Apply Link
+                                    </a>
+
+                                `
+                                : ""
+                            }
+
+
+                            <a
+                                href="${materialsURL}"
+                                class="button materials-button"
+                            >
+                                Study Materials
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            `;
+
+        }
+
+
+        /* =========================================
+           START
+        ========================================= */
+
+        loadExam();
+
+    </script>
+
+
+</body>
+
+</html>
