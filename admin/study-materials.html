@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TN Warriors - Study Materials Admin</title>
+
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+
+    <style>
+
+        .page-container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+        }
+
+        .form-card,
+        .materials-card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .form-card h2,
+        .materials-card h2 {
+            margin-top: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            margin-bottom: 7px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checkbox-row {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .checkbox-row label {
+            display: flex;
+            gap: 7px;
+            align-items: center;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .save-button {
+            background: #111827;
+            color: white;
+        }
+
+        .cancel-button {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .material-item {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 15px;
+        }
+
+        .material-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .material-meta {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .material-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .material-actions button {
+            border: none;
+            padding: 9px 14px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .edit-button {
+            background: #2563eb;
+            color: white;
+        }
+
+        .delete-button {
+            background: #dc2626;
+            color: white;
+        }
+
+        .status {
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .loading {
+            padding: 20px 0;
+        }
+
+        @media (max-width: 700px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="admin-header">
+
+        <div>
+            <h1>TN Warriors</h1>
+            <p>Study Materials Admin</p>
+        </div>
+
+        <button id="logoutButton">
+            Logout
+        </button>
+
+    </div>
+
+
+    <main class="page-container">
+
+        <a
+            href="dashboard.html"
+            class="back-button"
+        >
+            ← Back to Dashboard
+        </a>
+
+
+        <!-- ADD / EDIT FORM -->
+
+        <section class="form-card">
+
+            <h2 id="formTitle">
+                Add Study Material
+            </h2>
+
+
+            <form id="materialForm">
+
+                <div class="form-grid">
+
+
+                    <!-- TITLE -->
+
+                    <div class="form-group full">
+
+                        <label for="title">
+                            Material Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="title"
+                            placeholder="Example: SSC GD 2024 Tamil PYQ"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- EXAM -->
+
+                    <div class="form-group">
+
+                        <label for="examId">
+                            Exam
+                        </label>
+
+                        <select
+                            id="examId"
+                            required
+                        >
+
+                            <option value="">
+                                Select Exam
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- SUBJECT -->
+
+                    <div class="form-group">
+
+                        <label for="subject">
+                            Subject
+                        </label>
+
+                        <input
+                            type="text"
+                            id="subject"
+                            placeholder="Example: General Knowledge"
+                        >
+
+                    </div>
+
+
+                    <!-- YEAR -->
+
+                    <div class="form-group">
+
+                        <label for="year">
+                            Year
+                        </label>
+
+                        <input
+                            type="text"
+                            id="year"
+                            placeholder="Example: 2024"
+                        >
+
+                    </div>
+
+
+                    <!-- PART -->
+
+                    <div class="form-group">
+
+                        <label for="part">
+                            Part
+                        </label>
+
+                        <input
+                            type="text"
+                            id="part"
+                            placeholder="Example: Part 1"
+                        >
+
+                    </div>
+
+
+                    <!-- SORT ORDER -->
+
+                    <div class="form-group">
+
+                        <label for="sortOrder">
+                            Sort Order
+                        </label>
+
+                        <input
+                            type="number"
+                            id="sortOrder"
+                            value="0"
+                            min="0"
+                        >
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group full">
+
+                        <label for="description">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="description"
+                            placeholder="Short description about this material"
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- PDF -->
+
+                    <div class="form-group full">
+
+                        <label for="pdfFile">
+                            PDF File
+                        </label>
+
+                        <input
+                            type="file"
+                            id="pdfFile"
+                            accept="application/pdf"
+                        >
+
+                        <small>
+                            PDF only. Maximum 50 MB.
+                        </small>
+
+                    </div>
+
+
+                    <!-- OPTIONS -->
+
+                    <div class="form-group full">
+
+                        <div class="checkbox-row">
+
+                            <label>
+
+                                <input
+                                    type="checkbox"
+                                    id="isPremium"
+                                >
+
+                                Premium Material
+
+                            </label>
+
+
+                            <label>
+
+                                <input
+                                    type="checkbox"
+                                    id="isPublished"
+                                    checked
+                                >
+
+                                Published
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="action-buttons">
+
+                    <button
+                        type="submit"
+                        class="save-button"
+                        id="saveButton"
+                    >
+                        Save Material
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        id="cancelButton"
+                        style="display:none;"
+                    >
+                        Cancel Edit
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="formStatus"
+                    class="status"
+                ></div>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- EXISTING MATERIALS -->
+
+        <section class="materials-card">
+
+            <h2>
+                Existing Study Materials
+            </h2>
+
+            <div id="materialsContainer">
+
+                <div class="loading">
+                    Loading materials...
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- SUPABASE -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <script>
+
+        const SUPABASE_URL =
+            "https://nwipyqarobgelksdbkbk.supabase.co";
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
+
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+
+        let editingMaterialId = null;
+
+        let editingFilePath = null;
+
+
+
+        /*
+         * SECURITY HELPERS
+         */
+
+        function escapeHTML(value) {
+
+            if (value === null || value === undefined) {
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+
+        /*
+         * CHECK ADMIN
+         */
+
+        async function checkAdminAccess() {
+
+            const {
+                data: {
+                    user
+                },
+                error: userError
+            } = await supabaseClient.auth.getUser();
+
+
+            if (userError || !user) {
+
+                window.location.href =
+                    "index.html";
+
+                return false;
+            }
+
+
+            const {
+                data: profile,
+                error: profileError
+            } = await supabaseClient
+                .from("profiles")
+                .select("role")
+                .eq("id", user.id)
+                .single();
+
+
+            if (
+                profileError ||
+                !profile ||
+                profile.role !== "admin"
+            ) {
+
+                await supabaseClient.auth.signOut();
+
+                alert(
+                    "Admin access required."
+                );
+
+                window.location.href =
+                    "index.html";
+
+                return false;
+            }
+
+
+            return true;
+        }
+
+
+
+        /*
+         * LOAD EXAMS
+         */
+
+        async function loadExams() {
+
+            const examSelect =
+                document.getElementById("examId");
+
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .from("exams")
+                .select(
+                    "id, title, organization, category"
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+            if (error) {
+
+                console.error(error);
+
+                examSelect.innerHTML =
+                    `<option value="">
+                        Unable to load exams
+                    </option>`;
+
+                return;
+            }
+
+
+            examSelect.innerHTML =
+                `<option value="">
+                    Select Exam
+                </option>`;
+
+
+            data.forEach(function (exam) {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = exam.id;
+
+                option.textContent =
+                    exam.title +
+                    (
+                        exam.organization
+                            ? " - " + exam.organization
+                            : ""
+                    );
+
+                examSelect.appendChild(option);
+
+            });
+
+        }
+
+
+
+        /*
+         * LOAD MATERIALS
+         */
+
+        async function loadMaterials() {
+
+            const container =
+                document.getElementById(
+                    "materialsContainer"
+                );
+
+
+            container.innerHTML =
+                `<div class="loading">
+                    Loading materials...
+                </div>`;
+
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .from("study_materials")
+                .select(`
+                    id,
+                    title,
+                    description,
+                    exam_id,
+                    exam_name,
+                    subject,
+                    year,
+                    part,
+                    file_path,
+                    file_size_bytes,
+                    file_type,
+                    is_premium,
+                    is_published,
+                    sort_order,
+                    created_at
+                `)
+                .order(
+                    "sort_order",
+                    {
+                        ascending: true
+                    }
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+            if (error) {
+
+                console.error(error);
+
+                container.innerHTML =
+                    `<p>
+                        Unable to load materials.
+                    </p>`;
+
+                return;
+            }
+
+
+            if (!data || data.length === 0) {
+
+                container.innerHTML =
+                    `<p>
+                        No study materials added yet.
+                    </p>`;
+
+                return;
+            }
+
+
+            container.innerHTML =
+                data.map(function (material) {
+
+                    const size =
+                        material.file_size_bytes
+                            ? formatFileSize(
+                                material.file_size_bytes
+                            )
+                            : "Unknown size";
+
+
+                    return `
+
+                        <div
+                            class="material-item"
+                        >
+
+                            <div class="material-title">
+
+                                ${escapeHTML(
+                                    material.title
+                                )}
+
+                            </div>
+
+
+                            <div class="material-meta">
+
+                                <strong>
+                                    Exam:
+                                </strong>
+
+                                ${escapeHTML(
+                                    material.exam_name ||
+                                    "Not assigned"
+                                )}
+
+                                <br>
+
+
+                                <strong>
+                                    Subject:
+                                </strong>
+
+                                ${escapeHTML(
+                                    material.subject ||
+                                    "Not specified"
+                                )}
+
+                                <br>
+
+
+                                <strong>
+                                    Year:
+                                </strong>
+
+                                ${escapeHTML(
+                                    material.year ||
+                                    "Not specified"
+                                )}
+
+                                <br>
+
+
+                                <strong>
+                                    Part:
+                                </strong>
+
+                                ${escapeHTML(
+                                    material.part ||
+                                    "Not specified"
+                                )}
+
+                                <br>
+
+
+                                <strong>
+                                    File:
+                                </strong>
+
+                                ${escapeHTML(
+                                    material.file_path ||
+                                    "No file"
+                                )}
+
+                                <br>
+
+
+                                <strong>
+                                    Size:
+                                </strong>
+
+                                ${size}
+
+                                <br>
+
+
+                                <strong>
+                                    Type:
+                                </strong>
+
+                                ${material.is_premium
+                                    ? "Premium"
+                                    : "Free"
+                                }
+
+                                <br>
+
+
+                                <strong>
+                                    Status:
+                                </strong>
+
+                                ${material.is_published
+                                    ? "Published"
+                                    : "Draft"
+                                }
+
+                            </div>
+
+
+                            <div
+                                class="material-actions"
+                            >
+
+                                <button
+                                    class="edit-button"
+                                    onclick="editMaterial('${material.id}')"
+                                >
+                                    Edit
+                                </button>
+
+
+                                <button
+                                    class="delete-button"
+                                    onclick="deleteMaterial('${material.id}')"
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }).join("");
+
+        }
+
+
+
+        /*
+         * FORMAT FILE SIZE
+         */
+
+        function formatFileSize(bytes) {
+
+            if (!bytes) {
+                return "0 Bytes";
+            }
+
+
+            const units = [
+                "Bytes",
+                "KB",
+                "MB",
+                "GB"
+            ];
+
+
+                const index =
+        Math.floor(
+            Math.log(bytes) /
+            Math.log(1024)
+        );
+
+
+    return (
+        parseFloat(
+            (
+                bytes /
+                Math.pow(
+                    1024,
+                    index
+                )
+            ).toFixed(2)
+        )
+        + " "
+        + units[index]
+    );
+
+}
+
+
+
+/*
+ * SAVE MATERIAL
+ */
+
+document
+    .getElementById("materialForm")
+    .addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            const status =
+                document.getElementById(
+                    "formStatus"
+                );
+
+            const saveButton =
+                document.getElementById(
+                    "saveButton"
+                );
+
+
+            status.textContent = "";
+
+
+            const title =
+                document.getElementById(
+                    "title"
+                ).value.trim();
+
+
+            const examId =
+                document.getElementById(
+                    "examId"
+                ).value;
+
+
+            const subject =
+                document.getElementById(
+                    "subject"
+                ).value.trim();
+
+
+            const year =
+                document.getElementById(
+                    "year"
+                ).value.trim();
+
+
+            const part =
+                document.getElementById(
+                    "part"
+                ).value.trim();
+
+
+            const description =
+                document.getElementById(
+                    "description"
+                ).value.trim();
+
+
+            const sortOrder =
+                Number(
+                    document.getElementById(
+                        "sortOrder"
+                    ).value || 0
+                );
+
+
+            const isPremium =
+                document.getElementById(
+                    "isPremium"
+                ).checked;
+
+
+            const isPublished =
+                document.getElementById(
+                    "isPublished"
+                ).checked;
+
+
+            const fileInput =
+                document.getElementById(
+                    "pdfFile"
+                );
+
+
+            const file =
+                fileInput.files[0];
+
+
+            if (!title || !examId) {
+
+                status.textContent =
+                    "Title and Exam are required.";
+
+                status.style.color =
+                    "red";
+
+                return;
+            }
+
+
+            if (
+                !editingMaterialId &&
+                !file
+            ) {
+
+                status.textContent =
+                    "Please select a PDF file.";
+
+                status.style.color =
+                    "red";
+
+                return;
+            }
+
+
+            if (file) {
+
+                if (
+                    file.type !==
+                    "application/pdf"
+                ) {
+
+                    status.textContent =
+                        "Only PDF files are allowed.";
+
+                    status.style.color =
+                        "red";
+
+                    return;
+                }
+
+
+                if (
+                    file.size >
+                    50 * 1024 * 1024
+                ) {
+
+                    status.textContent =
+                        "PDF must be 50 MB or smaller.";
+
+                    status.style.color =
+                        "red";
+
+                    return;
+                }
+
+            }
+
+
+            saveButton.disabled = true;
+
+            saveButton.textContent =
+                editingMaterialId
+                    ? "Updating..."
+                    : "Uploading...";
+
+
+            try {
+
+                /*
+                 * GET EXAM NAME
+                 */
+
+                const {
+                    data: exam,
+                    error: examError
+                } = await supabaseClient
+                    .from("exams")
+                    .select(
+                        "id, title"
+                    )
+                    .eq(
+                        "id",
+                        examId
+                    )
+                    .single();
+
+
+                if (examError) {
+                    throw examError;
+                }
+
+
+                let filePath =
+                    editingFilePath;
+
+
+                let fileSize =
+                    null;
+
+
+                let fileType =
+                    "application/pdf";
+
+
+                /*
+                 * UPLOAD NEW PDF
+                 */
+
+                if (file) {
+
+                    const safeName =
+                        file.name
+                            .toLowerCase()
+                            .replace(
+                                /[^a-z0-9.]+/g,
+                                "-"
+                            );
+
+
+                    const uniqueName =
+                        Date.now() +
+                        "-" +
+                        crypto.randomUUID() +
+                        "-" +
+                        safeName;
+
+
+                    filePath =
+                        "study-materials/" +
+                        uniqueName;
+
+
+                    const {
+                        error:
+                        uploadError
+                    } =
+                        await supabaseClient
+                            .storage
+                            .from(
+                                "tn-warriors-pdfs"
+                            )
+                            .upload(
+                                filePath,
+                                file,
+                                {
+                                    contentType:
+                                        "application/pdf",
+                                    upsert:
+                                        false
+                                }
+                            );
+
+
+                    if (uploadError) {
+                        throw uploadError;
+                    }
+
+
+                    fileSize =
+                        file.size;
+
+                }
+
+
+
+                /*
+                 * DATABASE DATA
+                 */
+
+                const materialData = {
+
+                    title:
+                        title,
+
+                    description:
+                        description || null,
+
+                    exam_id:
+                        examId,
+
+                    exam_name:
+                        exam.title,
+
+                    subject:
+                        subject || null,
+
+                    year:
+                        year || null,
+
+                    part:
+                        part || null,
+
+                    file_path:
+                        filePath,
+
+                    file_size_bytes:
+                        fileSize,
+
+                    file_type:
+                        fileType,
+
+                    is_premium:
+                        isPremium,
+
+                    is_published:
+                        isPublished,
+
+                    sort_order:
+                        sortOrder
+
+                };
+
+
+
+                /*
+                 * UPDATE
+                 */
+
+                if (editingMaterialId) {
+
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+                            .from(
+                                "study_materials"
+                            )
+                            .update(
+                                materialData
+                            )
+                            .eq(
+                                "id",
+                                editingMaterialId
+                            );
+
+
+                    if (error) {
+                        throw error;
+                    }
+
+
+
+                    /*
+                     * DELETE OLD PDF
+                     * IF NEW PDF WAS UPLOADED
+                     */
+
+                    if (
+                        file &&
+                        editingFilePath &&
+                        editingFilePath !==
+                        filePath
+                    ) {
+
+                        const {
+                            error:
+                            oldFileError
+                        } =
+                            await supabaseClient
+                                .storage
+                                .from(
+                                    "tn-warriors-pdfs"
+                                )
+                                .remove([
+                                    editingFilePath
+                                ]);
+
+
+                        if (oldFileError) {
+                            console.error(
+                                "Old PDF delete error:",
+                                oldFileError
+                            );
+                        }
+
+                    }
+
+
+                    status.textContent =
+                        "Study material updated successfully.";
+
+                }
+
+
+                /*
+                 * INSERT
+                 */
+
+                else {
+
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+                            .from(
+                                "study_materials"
+                            )
+                            .insert(
+                                materialData
+                            );
+
+
+                    if (error) {
+
+                        /*
+                         * DELETE UPLOADED FILE
+                         * IF DATABASE INSERT FAILS
+                         */
+
+                        if (filePath) {
+
+                            await supabaseClient
+                                .storage
+                                .from(
+                                    "tn-warriors-pdfs"
+                                )
+                                .remove([
+                                    filePath
+                                ]);
+
+                        }
+
+                        throw error;
+                    }
+
+
+                    status.textContent =
+                        "Study material uploaded successfully.";
+
+                }
+
+
+                status.style.color =
+                    "green";
+
+
+                resetForm();
+
+                await loadMaterials();
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                status.textContent =
+                    error.message ||
+                    "Something went wrong.";
+
+                status.style.color =
+                    "red";
+
+            }
+
+            finally {
+
+                saveButton.disabled =
+                    false;
+
+                saveButton.textContent =
+                    editingMaterialId
+                        ? "Update Material"
+                        : "Save Material";
+
+            }
+
+        }
+    );
+
+
+
+/*
+ * EDIT MATERIAL
+ */
+
+async function editMaterial(id) {
+
+    const {
+        data: material,
+        error
+    } = await supabaseClient
+        .from("study_materials")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+
+    if (error) {
+
+        alert(
+            "Unable to load material."
+        );
+
+        console.error(error);
+
+        return;
+    }
+
+
+    editingMaterialId =
+        material.id;
+
+
+    editingFilePath =
+        material.file_path || null;
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Edit Study Material";
+
+
+    document.getElementById(
+        "title"
+    ).value =
+        material.title || "";
+
+
+    document.getElementById(
+        "examId"
+    ).value =
+        material.exam_id || "";
+
+
+    document.getElementById(
+        "subject"
+    ).value =
+        material.subject || "";
+
+
+    document.getElementById(
+        "year"
+    ).value =
+        material.year || "";
+
+
+    document.getElementById(
+        "part"
+    ).value =
+        material.part || "";
+
+
+    document.getElementById(
+        "description"
+    ).value =
+        material.description || "";
+
+
+    document.getElementById(
+        "sortOrder"
+    ).value =
+        material.sort_order || 0;
+
+
+    document.getElementById(
+        "isPremium"
+    ).checked =
+        material.is_premium === true;
+
+
+    document.getElementById(
+        "isPublished"
+    ).checked =
+        material.is_published === true;
+
+
+    document.getElementById(
+        "saveButton"
+    ).textContent =
+        "Update Material";
+
+
+    document.getElementById(
+        "cancelButton"
+    ).style.display =
+        "inline-block";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+
+/*
+ * DELETE MATERIAL
+ */
+
+async function deleteMaterial(id) {
+
+    const confirmed =
+        confirm(
+            "Delete this study material and its PDF file?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const {
+            data: material,
+            error:
+            materialError
+        } =
+            await supabaseClient
+                .from(
+                    "study_materials"
+                )
+                .select(
+                    "file_path"
+                )
+                .eq(
+                    "id",
+                    id
+                )
+                .single();
+
+
+        if (materialError) {
+            throw materialError;
+        }
+
+
+        /*
+         * DELETE PDF
+         */
+
+        if (
+            material &&
+            material.file_path
+        ) {
+
+            const {
+                error:
+                storageError
+            } =
+                await supabaseClient
+                    .storage
+                    .from(
+                        "tn-warriors-pdfs"
+                    )
+                    .remove([
+                        material.file_path
+                    ]);
+
+
+            if (storageError) {
+                throw storageError;
+            }
+
+        }
+
+
+        /*
+         * DELETE DATABASE RECORD
+         */
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from(
+                    "study_materials"
+                )
+                .delete()
+                .eq(
+                    "id",
+                    id
+                );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        alert(
+            "Study material deleted successfully."
+        );
+
+
+        await loadMaterials();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            error.message ||
+            "Unable to delete material."
+        );
+
+    }
+
+}
+
+
+
+/*
+ * RESET FORM
+ */
+
+function resetForm() {
+
+    editingMaterialId = null;
+
+    editingFilePath = null;
+
+
+    document.getElementById(
+        "materialForm"
+    ).reset();
+
+
+    document.getElementById(
+        "isPublished"
+    ).checked = true;
+
+
+    document.getElementById(
+        "sortOrder"
+    ).value = 0;
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Add Study Material";
+
+
+    document.getElementById(
+        "saveButton"
+    ).textContent =
+        "Save Material";
+
+
+    document.getElementById(
+        "cancelButton"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "formStatus"
+    ).textContent = "";
+
+}
+
+
+
+/*
+ * CANCEL EDIT
+ */
+
+document
+    .getElementById("cancelButton")
+    .addEventListener(
+        "click",
+        function () {
+
+            resetForm();
+
+        }
+    );
+
+
+
+/*
+ * LOGOUT
+ */
+
+document
+    .getElementById("logoutButton")
+    .addEventListener(
+        "click",
+        async function () {
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+            window.location.href =
+                "index.html";
+
+        }
+    );
+
+
+
+/*
+ * START PAGE
+ */
+
+async function startPage() {
+
+    const isAdmin =
+        await checkAdminAccess();
+
+
+    if (!isAdmin) {
+        return;
+    }
+
+
+    await loadExams();
+
+    await loadMaterials();
+
+}
+
+
+startPage();
+
+</script>
+
+</body>
+
+</html>
