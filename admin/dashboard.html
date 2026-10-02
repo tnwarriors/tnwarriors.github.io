@@ -1,22 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>TN Warriors - Admin Dashboard</title>
 
-    <link rel="stylesheet" href="admin.css">
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+
 </head>
 
+
 <body>
+
 
 <header class="admin-header">
 
     <div>
-        <h1>TN Warriors</h1>
-        <p>Admin Dashboard</p>
+
+        <h1>
+            TN Warriors
+        </h1>
+
+        <p>
+            Admin Dashboard
+        </p>
+
     </div>
+
 
     <button id="logoutButton">
         Logout
@@ -25,11 +45,17 @@
 </header>
 
 
+
 <main class="dashboard-container">
+
+
+    <!-- WELCOME -->
 
     <section class="welcome-card">
 
-        <h2>Admin Dashboard</h2>
+        <h2>
+            Admin Dashboard
+        </h2>
 
         <p id="adminEmail">
             Checking admin account...
@@ -38,68 +64,160 @@
     </section>
 
 
+
+    <!-- DASHBOARD CARDS -->
+
     <section class="dashboard-grid">
 
+
+        <!-- JOBS -->
+
         <div class="dashboard-card">
-            <h3>Jobs</h3>
-            <p>Manage government job notifications.</p>
-            <button onclick="window.location.href='jobs.html'">
+
+            <h3>
+                Jobs
+            </h3>
+
+            <p>
+                Manage government job notifications.
+            </p>
+
+            <button
+                onclick="window.location.href='jobs.html'"
+            >
                 Manage Jobs
             </button>
+
         </div>
 
 
+
+        <!-- EXAMS -->
+
         <div class="dashboard-card">
-            <h3>Exams</h3>
-            <p>Manage exam notifications and details.</p>
-            <button class="coming-soon" disabled>
+
+            <h3>
+                Exams
+            </h3>
+
+            <p>
+                Manage exam notifications and details.
+            </p>
+
+            <button
+                onclick="window.location.href='exams.html'"
+            >
                 Manage Exams
             </button>
+
         </div>
 
 
+
+        <!-- DEFENCE -->
+
         <div class="dashboard-card">
-            <h3>Defence</h3>
-            <p>Manage defence recruitment notifications.</p>
-            <button class="coming-soon" disabled>
+
+            <h3>
+                Defence
+            </h3>
+
+            <p>
+                Manage defence recruitment notifications.
+            </p>
+
+            <button
+                onclick="window.location.href='defence.html'"
+            >
                 Manage Defence
             </button>
+
         </div>
 
 
+
+        <!-- STUDY MATERIALS -->
+
         <div class="dashboard-card">
-            <h3>Study Materials</h3>
-            <p>Upload and manage PDF study materials.</p>
-            <button class="coming-soon" disabled>
+
+            <h3>
+                Study Materials
+            </h3>
+
+            <p>
+                Upload and manage PDF study materials.
+            </p>
+
+            <button
+                onclick="window.location.href='study-materials.html'"
+            >
                 Manage Materials
             </button>
+
         </div>
 
 
+
+        <!-- MOCK TESTS -->
+
         <div class="dashboard-card">
-            <h3>Mock Tests</h3>
-            <p>Create and manage mock tests and questions.</p>
-            <button class="coming-soon" disabled>
+
+            <h3>
+                Mock Tests
+            </h3>
+
+            <p>
+                Create and manage mock tests and questions.
+            </p>
+
+            <button
+                onclick="window.location.href='mock-tests.html'"
+            >
                 Manage Tests
             </button>
+
         </div>
 
+
+
+        <!-- USERS -->
 
         <div class="dashboard-card">
-            <h3>Users</h3>
-            <p>View user-related information.</p>
-            <button class="coming-soon" disabled>
+
+            <h3>
+                Users
+            </h3>
+
+            <p>
+                View user-related information.
+            </p>
+
+            <button
+                onclick="window.location.href='users.html'"
+            >
                 Manage Users
             </button>
+
         </div>
 
+
     </section>
+
 
 </main>
 
 
+
+<!-- SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- ADMIN JS -->
+
 <script src="admin.js"></script>
 
+
 </body>
+
 </html>
