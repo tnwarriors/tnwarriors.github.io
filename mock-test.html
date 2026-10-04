@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Mock Test | TN Warriors</title>
+
+    <!-- Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"
+    ></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag("js", new Date());
+        gtag("config", "G-403SNE66JG");
+    </script>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #17202a;
+        }
+
+        .topbar {
+            background: #111827;
+            color: white;
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .brand {
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .timer-box {
+            background: #ffffff;
+            color: #111827;
+            padding: 9px 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            min-width: 105px;
+            text-align: center;
+        }
+
+        .timer-warning {
+            background: #dc2626;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 15px;
+        }
+
+        .test-header {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .test-header h1 {
+            margin: 0 0 8px;
+            font-size: 26px;
+        }
+
+        .test-meta {
+            color: #667085;
+            font-size: 14px;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 300px;
+            gap: 20px;
+        }
+
+        .question-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .question-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .mark-btn {
+            border: 1px solid #d0d5dd;
+            background: white;
+            color: #344054;
+            padding: 9px 13px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .mark-btn.marked {
+            background: #fff7ed;
+            border-color: #f97316;
+            color: #c2410c;
+        }
+
+        .question-text {
+            font-size: 19px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            white-space: pre-wrap;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            border: 1px solid #d0d5dd;
+            border-radius: 9px;
+            padding: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: 0.15s;
+        }
+
+        .option:hover {
+            border-color: #667085;
+            background: #f9fafb;
+        }
+
+        .option.selected {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .option input {
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .option-label {
+            font-weight: 700;
+            min-width: 22px;
+        }
+
+        .option-text {
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eaecf0;
+        }
+
+        .btn {
+            border: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            height: fit-content;
+            position: sticky;
+            top: 90px;
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .summary-box {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .summary-number {
+            display: block;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .summary-label {
+            display: block;
+            font-size: 12px;
+            color: #667085;
+            margin-top: 4px;
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 7px;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 3px;
+        }
+
+        .question-btn {
+            width: 100%;
+            aspect-ratio: 1;
+            border: 1px solid #d0d5dd;
+            background: white;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .question-btn.current {
+            border: 2px solid #2563eb;
+            color: #2563eb;
+        }
+
+        .question-btn.answered {
+            background: #dcfce7;
+            border-color: #22c55e;
+            color: #166534;
+        }
+
+        .question-btn.review {
+            background: #fff7ed;
+            border-color: #f97316;
+            color: #c2410c;
+        }
+
+        .question-btn.answered.review {
+            background: #fef3c7;
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .legend {
+            margin-top: 18px;
+            display: grid;
+            gap: 8px;
+            font-size: 12px;
+            color: #667085;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-box {
+            width: 17px;
+            height: 17px;
+            border-radius: 4px;
+            border: 1px solid #d0d5dd;
+        }
+
+        .legend-current {
+            border: 2px solid #2563eb;
+        }
+
+        .legend-answered {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+
+        .legend-review {
+            background: #fff7ed;
+            border-color: #f97316;
+        }
+
+        .submit-area {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eaecf0;
+        }
+
+        .submit-area button {
+            width: 100%;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #667085;
+        }
+
+        .error-box {
+            background: #fef2f2;
+            color: #b42318;
+            border: 1px solid #fecdca;
+            border-radius: 10px;
+            padding: 16px;
+            line-height: 1.6;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 850px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .question-grid {
+                max-height: 250px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .topbar {
+                padding: 12px;
+            }
+
+            .brand {
+                font-size: 18px;
+            }
+
+            .timer-box {
+                min-width: 90px;
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+
+            .container {
+                margin: 15px auto;
+                padding: 0 10px;
+            }
+
+            .test-header {
+                padding: 16px;
+            }
+
+            .test-header h1 {
+                font-size: 21px;
+            }
+
+            .question-panel {
+                padding: 17px;
+            }
+
+            .question-text {
+                font-size: 17px;
+            }
+
+            .question-top {
+                align-items: flex-start;
+            }
+
+            .navigation {
+                flex-direction: column;
+            }
+
+            .navigation .btn {
+                width: 100%;
+            }
+
+            .summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .question-grid {
+                grid-template-columns: repeat(8, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="topbar-inner">
+
+            <div class="brand">
+                TN Warriors
+            </div>
+
+            <div
+                id="timerBox"
+                class="timer-box"
+            >
+                <span id="timer">--:--</span>
+            </div>
+
+        </div>
+    </header>
+
+
+    <main class="container">
+
+        <!-- Loading -->
+        <div
+            id="loadingBox"
+            class="loading"
+        >
+            Loading mock test...
+        </div>
+
+
+        <!-- Error -->
+        <div
+            id="errorBox"
+            class="error-box hidden"
+        ></div>
+
+
+        <!-- Test Content -->
+        <div
+            id="testContent"
+            class="hidden"
+        >
+
+            <section class="test-header">
+
+                <h1 id="testTitle">
+                    Mock Test
+                </h1>
+
+                <div
+                    id="testMeta"
+                    class="test-meta"
+                >
+                    Loading...
+                </div>
+
+            </section>
+
+
+            <div class="layout">
+
+                <!-- Question Area -->
+                <section class="question-panel">
+
+                    <div class="question-top">
+
+                        <div
+                            id="questionNumber"
+                            class="question-number"
+                        >
+                            Question 1
+                        </div>
+
+                        <button
+                            id="markButton"
+                            class="mark-btn"
+                            type="button"
+                        >
+                            Mark for Review
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="questionText"
+                        class="question-text"
+                    ></div>
+
+
+                    <div
+                        id="options"
+                        class="options"
+                    ></div>
+
+
+                    <div class="navigation">
+
+                        <button
+                            id="previousButton"
+                            class="btn btn-secondary"
+                            type="button"
+                        >
+                            Previous
+                        </button>
+
+                        <button
+                            id="nextButton"
+                            class="btn btn-primary"
+                            type="button"
+                        >
+                            Next
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Sidebar -->
+                <aside class="sidebar">
+
+                    <h3>
+                        Questions
+                    </h3>
+
+
+                    <div class="summary">
+
+                        <div class="summary-box">
+                            <span
+                                id="answeredCount"
+                                class="summary-number"
+                            >
+                                0
+                            </span>
+
+                            <span class="summary-label">
+                                Answered
+                            </span>
+                        </div>
+
+
+                        <div class="summary-box">
+                            <span
+                                id="unansweredCount"
+                                class="summary-number"
+                            >
+                                0
+                            </span>
+
+                            <span class="summary-label">
+                                Unanswered
+                            </span>
+                        </div>
+
+
+                        <div class="summary-box">
+                            <span
+                                id="reviewCount"
+                                class="summary-number"
+                            >
+                                0
+                            </span>
+
+                            <span class="summary-label">
+                                Review
+                            </span>
+                        </div>
+
+
+                        <div class="summary-box">
+                            <span
+                                id="totalCount"
+                                class="summary-number"
+                            >
+                                0
+                            </span>
+
+                            <span class="summary-label">
+                                Total
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="questionGrid"
+                        class="question-grid"
+                    ></div>
+
+
+                    <div class="legend">
+
+                        <div class="legend-item">
+                            <span class="legend-box legend-current"></span>
+                            Current
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-box legend-answered"></span>
+                            Answered
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-box legend-review"></span>
+                            Marked for Review
+                        </div>
+
+                    </div>
+
+
+                    <div class="submit-area">
+
+                        <button
+                            id="submitButton"
+                            class="btn btn-danger"
+                            type="button"
+                        >
+                            Submit Test
+                        </button>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script>
+        /* =========================================
+           SUPABASE CONFIG
+        ========================================= */
+
+        const SUPABASE_URL =
+            "https://nwipyqarobgelksdbkbk.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        /* =========================================
+           GLOBAL VARIABLES
+        ========================================= */
+
+        let testId = null;
+
+        let testData = null;
+
+        let questions = [];
+
+        let currentQuestionIndex = 0;
+
+        let selectedAnswers = {};
+
+        let markedQuestions = {};
+
+        let remainingSeconds = 0;
+
+        let timerInterval = null;
+
+        let storageKey = "";
+
+
+        /* =========================================
+           GET TEST ID
+        ========================================= */
+
+        function getTestId() {
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+            return params.get("id");
+        }
+
+
+        /* =========================================
+           DOM ELEMENTS
+        ========================================= */
+
+        const loadingBox =
+            document.getElementById("loadingBox");
+
+        const errorBox =
+            document.getElementById("errorBox");
+
+        const testContent =
+            document.getElementById("testContent");
+
+        const testTitle =
+            document.getElementById("testTitle");
+
+        const testMeta =
+            document.getElementById("testMeta");
+
+        const questionNumber =
+            document.getElementById("questionNumber");
+
+        const questionText =
+            document.getElementById("questionText");
+
+        const optionsContainer =
+            document.getElementById("options");
+
+        const questionGrid =
+            document.getElementById("questionGrid");
+
+        const previousButton =
+            document.getElementById("previousButton");
+
+        const nextButton =
+            document.getElementById("nextButton");
+
+        const markButton =
+            document.getElementById("markButton");
+
+        const submitButton =
+            document.getElementById("submitButton");
+
+        const timerElement =
+            document.getElementById("timer");
+
+        const timerBox =
+            document.getElementById("timerBox");
+
+        const answeredCount =
+            document.getElementById("answeredCount");
+
+        const unansweredCount =
+            document.getElementById("unansweredCount");
+
+        const reviewCount =
+            document.getElementById("reviewCount");
+
+        const totalCount =
+            document.getElementById("totalCount");
+
+
+        /* =========================================
+           ERROR DISPLAY
+        ========================================= */
+
+        function showError(message) {
+
+            loadingBox.classList.add("hidden");
+
+            testContent.classList.add("hidden");
+
+            errorBox.textContent =
+                "Error: " + message;
+
+            errorBox.classList.remove("hidden");
+
+            console.error(message);
+        }
+
+
+        /* =========================================
+           LOAD TEST
+        ========================================= */
+
+        async function loadTest() {
+
+            try {
+
+                testId = getTestId();
+
+                if (!testId) {
+
+                    showError(
+                        "Mock test ID is missing from the URL."
+                    );
+
+                    return;
+                }
+
+
+                /* Load test */
+
+                const {
+                    data: test,
+                    error: testError
+                } = await supabaseClient
+                    .from("mock_tests")
+                    .select(`
+                        id,
+                        slug,
+                        title,
+                        exam_name,
+                        description,
+                        duration_minutes,
+                        total_questions,
+                        total_marks,
+                        negative_mark,
+                        is_premium,
+                        is_published
+                    `)
+                    .eq("id", testId)
+                    .eq("is_published", true)
+                    .maybeSingle();
+
+
+                if (testError) {
+
+                    throw new Error(
+                        "Failed to load mock test: " +
+                        testError.message
+                    );
+                }
+
+
+                if (!test) {
+
+                    throw new Error(
+                        "Mock test not found or it is not published."
+                    );
+                }
+
+
+                testData = test;
+
+
+                /* Load questions */
+
+                const {
+                    data: questionData,
+                    error: questionError
+                } = await supabaseClient
+                    .from("mock_questions")
+                    .select(`
+                        id,
+                        mock_test_id,
+                        question_text,
+                        option_a,
+                        option_b,
+                        option_c,
+                        option_d,
+                        marks,
+                        question_order
+                    `)
+                    .eq("mock_test_id", testId)
+                    .order("question_order", {
+                        ascending: true
+                    });
+
+
+                if (questionError) {
+
+                    throw new Error(
+                        "Failed to load questions: " +
+                        questionError.message
+                    );
+                }
+
+
+                if (!questionData || questionData.length === 0) {
+
+                    throw new Error(
+                        "No questions are available for this mock test yet."
+                    );
+                }
+
+
+                questions = questionData;
+
+
+                /*
+                    IMPORTANT SECURITY RULE:
+
+                    We intentionally DO NOT query:
+
+                    mock_answers
+
+                    Correct answers never reach
+                    this page.
+                */
+
+
+                storageKey =
+                    "tnwarriors_mock_test_" +
+                    testId;
+
+
+                loadSavedProgress();
+
+                setupTest();
+
+            } catch (error) {
+
+                showError(
+                    error.message ||
+                    "Something went wrong while loading the test."
+                );
+            }
+        }
+
+
+        /* =========================================
+           SETUP TEST
+        ========================================= */
+
+        function setupTest() {
+
+            loadingBox.classList.add("hidden");
+
+            errorBox.classList.add("hidden");
+
+            testContent.classList.remove("hidden");
+
+
+            testTitle.textContent =
+                testData.title;
+
+
+            const questionTotal =
+                questions.length;
+
+
+            testMeta.textContent =
+                (testData.exam_name || "Mock Test") +
+                " • " +
+                questionTotal +
+                " Questions • " +
+                (testData.duration_minutes || 0) +
+                " Minutes • " +
+                (testData.total_marks || 0) +
+                " Marks";
+
+
+            totalCount.textContent =
+                questionTotal;
+
+
+            /*
+                Always use actual loaded question
+                count for the UI.
+            */
+
+            remainingSeconds =
+                Number(testData.duration_minutes || 0) * 60;
+
+
+            /*
+                If saved timer exists,
+                restore it.
+            */
+
+            const savedData =
+                getSavedData();
+
+
+            if (
+                savedData &&
+                Number.isFinite(
+                    savedData.remainingSeconds
+                ) &&
+                savedData.remainingSeconds > 0
+            ) {
+
+                remainingSeconds =
+                    savedData.remainingSeconds;
+            }
+
+
+            renderQuestionGrid();
+
+            renderCurrentQuestion();
+
+            updateSummary();
+
+            startTimer();
+
+            saveProgress();
+        }
+
+
+        /* =========================================
+           LOCAL STORAGE
+        ========================================= */
+
+        function getSavedData() {
+
+            try {
+
+                const saved =
+                    localStorage.getItem(
+                        storageKey
+                    );
+
+                if (!saved) {
+                    return null;
+                }
+
+                return JSON.parse(saved);
+
+            } catch (error) {
+
+                console.error(
+                    "Could not read saved progress:",
+                    error
+                );
+
+                return null;
+            }
+        }
+
+
+        function loadSavedProgress() {
+
+            const savedData =
+                getSavedData();
+
+
+            if (!savedData) {
+                return;
+            }
+
+
+            if (
+                savedData.testId &&
+                savedData.testId !== testId
+            ) {
+                return;
+            }
+
+
+            selectedAnswers =
+                savedData.selectedAnswers || {};
+
+
+            markedQuestions =
+                savedData.markedQuestions || {};
+
+
+            const savedIndex =
+                Number(
+                    savedData.currentQuestionIndex
+                );
+
+
+            if (
+                Number.isInteger(savedIndex) &&
+                savedIndex >= 0 &&
+                savedIndex < questions.length
+            ) {
+
+                currentQuestionIndex =
+                    savedIndex;
+            }
+        }
+
+
+        function saveProgress() {
+
+            try {
+
+                localStorage.setItem(
+                    storageKey,
+                    JSON.stringify({
+                        testId: testId,
+                        selectedAnswers:
+                            selectedAnswers,
+                        markedQuestions:
+                            markedQuestions,
+                        currentQuestionIndex:
+                            currentQuestionIndex,
+                        remainingSeconds:
+                            remainingSeconds,
+                        savedAt:
+                            new Date().toISOString()
+                    })
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Could not save progress:",
+                    error
+                );
+            }
+        }
+
+
+        /* =========================================
+           RENDER CURRENT QUESTION
+        ========================================= */
+
+        function renderCurrentQuestion() {
+
+            if (!questions.length) {
+                return;
+            }
+
+
+            const question =
+                questions[currentQuestionIndex];
+
+
+            questionNumber.textContent =
+                "Question " +
+                (currentQuestionIndex + 1) +
+                " of " +
+                questions.length;
+
+
+            questionText.textContent =
+                question.question_text || "";
+
+
+            renderOptions(question);
+
+            updateNavigationButtons();
+
+            updateMarkButton();
+
+            renderQuestionGrid();
+
+            updateSummary();
+        }
+
+
+        /* =========================================
+           RENDER OPTIONS
+        ========================================= */
+
+        function renderOptions(question) {
+
+            optionsContainer.innerHTML = "";
+
+
+            const options = [
+                {
+                    key: "A",
+                    text: question.option_a
+                },
+                {
+                    key: "B",
+                    text: question.option_b
+                },
+                {
+                    key: "C",
+                    text: question.option_c
+                },
+                {
+                    key: "D",
+                    text: question.option_d
+                }
+            ];
+
+
+            options.forEach(function(option) {
+
+                const label =
+                    document.createElement("label");
+
+                label.className = "option";
+
+
+                if (
+                    selectedAnswers[question.id] ===
+                    option.key
+                ) {
+
+                    label.classList.add("selected");
+                }
+
+
+                const radio =
+                    document.createElement("input");
+
+                radio.type = "radio";
+
+                radio.name =
+                    "question_" + question.id;
+
+                radio.value =
+                    option.key;
+
+
+                radio.checked =
+                    selectedAnswers[question.id] ===
+                    option.key;
+
+
+                radio.addEventListener(
+                    "change",
+                    function() {
+
+                        selectAnswer(
+                            question.id,
+                            option.key
+                        );
+                    }
+                );
+
+
+                const optionLabel =
+                    document.createElement("span");
+
+                optionLabel.className =
+                    "option-label";
+
+                optionLabel.textContent =
+                    option.key + ".";
+
+
+                const optionText =
+                    document.createElement("span");
+
+                optionText.className =
+                    "option-text";
+
+                optionText.textContent =
+                    option.text || "";
+
+
+                label.appendChild(radio);
+
+                label.appendChild(optionLabel);
+
+                label.appendChild(optionText);
+
+
+                optionsContainer.appendChild(label);
+
+            });
+        }
+
+
+        /* =========================================
+           SELECT ANSWER
+        ========================================= */
+
+        function selectAnswer(
+            questionId,
+            option
+        ) {
+
+            selectedAnswers[questionId] =
+                option;
+
+
+            saveProgress();
+
+            renderOptions(
+                questions[currentQuestionIndex]
+            );
+
+            updateSummary();
+
+            renderQuestionGrid();
+        }
+
+
+        /* =========================================
+           MARK FOR REVIEW
+        ========================================= */
+
+        function toggleMarkForReview() {
+
+            const question =
+                questions[currentQuestionIndex];
+
+
+            if (markedQuestions[question.id]) {
+
+                delete markedQuestions[question.id];
+
+            } else {
+
+                markedQuestions[question.id] = true;
+            }
+
+
+            saveProgress();
+
+            updateMarkButton();
+
+            renderQuestionGrid();
+
+            updateSummary();
+        }
+
+
+        function updateMarkButton() {
+
+            const question =
+                questions[currentQuestionIndex];
+
+
+            if (
+                markedQuestions[question.id]
+            ) {
+
+                markButton.textContent =
+                    "Marked for Review";
+
+                markButton.classList.add(
+                    "marked"
+                );
+
+            } else {
+
+                markButton.textContent =
+                    "Mark for Review";
+
+                markButton.classList.remove(
+                    "marked"
+                );
+            }
+        }
+
+
+        /* =========================================
+           QUESTION NAVIGATION
+        ========================================= */
+
+        function goToQuestion(index) {
+
+            if (
+                index < 0 ||
+                index >= questions.length
+            ) {
+                return;
+            }
+
+
+            currentQuestionIndex =
+                index;
+
+
+            saveProgress();
+
+            renderCurrentQuestion();
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+
+        function updateNavigationButtons() {
+
+            previousButton.disabled =
+                currentQuestionIndex === 0;
+
+
+            nextButton.disabled =
+                currentQuestionIndex ===
+                questions.length - 1;
+
+
+            if (
+                currentQuestionIndex ===
+                questions.length - 1
+            ) {
+
+                nextButton.textContent =
+                    "Last Question";
+
+            } else {
+
+                nextButton.textContent =
+                    "Next";
+            }
+        }
+
+
+        /* =========================================
+           QUESTION GRID
+        ========================================= */
+
+        function renderQuestionGrid() {
+
+            questionGrid.innerHTML = "";
+
+
+            questions.forEach(
+                function(question, index) {
+
+                    const button =
+                        document.createElement("button");
+
+                    button.type = "button";
+
+                    button.className =
+                        "question-btn";
+
+
+                    if (
+                        index ===
+                        currentQuestionIndex
+                    ) {
+
+                        button.classList.add(
+                            "current"
+                        );
+                    }
+
+
+                    const isAnswered =
+                        Boolean(
+                            selectedAnswers[
+                                question.id
+                            ]
+                        );
+
+
+                    const isMarked =
+                        Boolean(
+                            markedQuestions[
+                                question.id
+                            ]
+                        );
+
+
+                    if (isAnswered) {
+
+                        button.classList.add(
+                            "answered"
+                        );
+                    }
+
+
+                    if (isMarked) {
+
+                        button.classList.add(
+                            "review"
+                        );
+                    }
+
+
+                    button.textContent =
+                        index + 1;
+
+
+                    button.addEventListener(
+                        "click",
+                        function() {
+
+                            goToQuestion(index);
+                        }
+                    );
+
+
+                    questionGrid.appendChild(
+                        button
+                    );
+
+                }
+            );
+        }
+
+
+        /* =========================================
+           SUMMARY
+        ========================================= */
+
+        function updateSummary() {
+
+            let answered = 0;
+
+            let review = 0;
+
+
+            questions.forEach(
+                function(question) {
+
+                    if (
+                        selectedAnswers[
+                            question.id
+                        ]
+                    ) {
+
+                        answered++;
+                    }
+
+
+                    if (
+                        markedQuestions[
+                            question.id
+                        ]
+                    ) {
+
+                        review++;
+                    }
+                }
+            );
+
+
+            const unanswered =
+                questions.length -
+                answered;
+
+
+            answeredCount.textContent =
+                answered;
+
+
+            unansweredCount.textContent =
+                unanswered;
+
+
+            reviewCount.textContent =
+                review;
+
+
+            totalCount.textContent =
+                questions.length;
+        }
+
+
+        /* =========================================
+           TIMER
+        ========================================= */
+
+        function startTimer() {
+
+            updateTimerDisplay();
+
+
+            if (timerInterval) {
+
+                clearInterval(
+                    timerInterval
+                );
+            }
+
+
+            timerInterval =
+                setInterval(
+                    function() {
+
+                        remainingSeconds--;
+
+                        updateTimerDisplay();
+
+                        saveProgress();
+
+
+                        if (
+                            remainingSeconds <= 0
+                        ) {
+
+                            clearInterval(
+                                timerInterval
+                            );
+
+                            remainingSeconds = 0;
+
+                            updateTimerDisplay();
+
+                            autoSubmit();
+                        }
+
+                    },
+                    1000
+                );
+        }
+
+
+        function updateTimerDisplay() {
+
+            const minutes =
+                Math.floor(
+                    remainingSeconds / 60
+                );
+
+
+            const seconds =
+                remainingSeconds % 60;
+
+
+            timerElement.textContent =
+                String(minutes).padStart(
+                    2,
+                    "0"
+                ) +
+                ":" +
+                String(seconds).padStart(
+                    2,
+                    "0"
+                );
+
+
+            if (
+                remainingSeconds <= 60
+            ) {
+
+                timerBox.classList.add(
+                    "timer-warning"
+                );
+
+            } else {
+
+                timerBox.classList.remove(
+                    "timer-warning"
+                );
+            }
+        }
+
+
+        /* =========================================
+           SUBMIT CONFIRMATION
+        ========================================= */
+
+        function confirmSubmit() {
+
+            const answered =
+                Object.keys(
+                    selectedAnswers
+                ).length;
+
+
+            const unanswered =
+                questions.length -
+                answered;
+
+
+            const review =
+                Object.keys(
+                    markedQuestions
+                ).length;
+
+
+            const message =
+                "Are you sure you want to submit this test?\n\n" +
+                "Answered: " +
+                answered +
+                "\n" +
+                "Unanswered: " +
+                unanswered +
+                "\n" +
+                "Marked for Review: " +
+                review;
+
+
+            const confirmed =
+                window.confirm(
+                    message
+                );
+
+
+            if (!confirmed) {
+                return;
+            }
+
+
+            submitTest(false);
+        }
+
+
+        /* =========================================
+           AUTO SUBMIT
+        ========================================= */
+
+        function autoSubmit() {
+
+            window.alert(
+                "Time is over. Your test will now be submitted."
+            );
+
+
+            submitTest(true);
+        }
+
+
+        /* =========================================
+           SUBMIT TEST
+        ========================================= */
+
+        function submitTest(
+            isAutoSubmit
+        ) {
+
+            if (timerInterval) {
+
+                clearInterval(
+                    timerInterval
+                );
+
+                timerInterval = null;
+            }
+
+
+            /*
+                IMPORTANT:
+
+                We are NOT calculating the score here.
+
+                Correct answers are stored securely
+                in mock_answers.
+
+                The next backend step will send these
+                selected answers to an Edge Function,
+                where the server will calculate:
+
+                - correct
+                - wrong
+                - skipped
+                - score
+                - percentage
+                - negative marking
+
+                and save mock_results.
+            */
+
+
+            const submissionData = {
+
+                testId: testId,
+
+                answers: selectedAnswers,
+
+                markedQuestions:
+                    markedQuestions,
+
+                autoSubmitted:
+                    Boolean(isAutoSubmit),
+
+                submittedAt:
+                    new Date().toISOString()
+            };
+
+
+            try {
+
+                localStorage.setItem(
+                    storageKey + "_submission",
+                    JSON.stringify(
+                        submissionData
+                    )
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Could not save submission:",
+                    error
+                );
+            }
+
+
+            /*
+                TEMPORARY FLOW
+
+                Until the secure scoring Edge Function
+                is created, send the user to a temporary
+                result page with the test ID.
+
+                We will replace this with the secure
+                result flow in the next step.
+            */
+
+            window.location.href =
+                "mock-test-result.html?id=" +
+                encodeURIComponent(testId);
+        }
+
+
+        /* =========================================
+           EVENT LISTENERS
+        ========================================= */
+
+        previousButton.addEventListener(
+            "click",
+            function() {
+
+                goToQuestion(
+                    currentQuestionIndex - 1
+                );
+            }
+        );
+
+
+        nextButton.addEventListener(
+            "click",
+            function() {
+
+                goToQuestion(
+                    currentQuestionIndex + 1
+                );
+            }
+        );
+
+
+        markButton.addEventListener(
+            "click",
+            function() {
+
+                toggleMarkForReview();
+            }
+        );
+
+
+        submitButton.addEventListener(
+            "click",
+            function() {
+
+                confirmSubmit();
+            }
+        );
+
+
+        /* =========================================
+           PAGE EXIT WARNING
+        ========================================= */
+
+        window.addEventListener(
+            "beforeunload",
+            function(event) {
+
+                if (
+                    testContent.classList.contains(
+                        "hidden"
+                    )
+                ) {
+                    return;
+                }
+
+
+                saveProgress();
+
+
+                event.preventDefault();
+
+                event.returnValue = "";
+            }
+        );
+
+
+        /* =========================================
+           START
+        ========================================= */
+
+        loadTest();
+    </script>
+
+</body>
+</html>
