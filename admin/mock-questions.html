@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TN Warriors - Mock Questions</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+    <style>
+
+        .page-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .back-button {
+            background: #e5e7eb;
+            color: #111827;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .test-info,
+        .form-card,
+        .list-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 25px;
+        }
+
+        .test-info h2 {
+            margin-top: 0;
+        }
+
+        .test-meta {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .button-row,
+        .question-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .primary-button,
+        .secondary-button,
+        .danger-button {
+            border: none;
+            border-radius: 7px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .primary-button {
+            background: #2563eb;
+            color: white;
+        }
+
+        .secondary-button {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .danger-button {
+            background: #dc2626;
+            color: white;
+        }
+
+        .question-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .question-number {
+            font-size: 13px;
+            font-weight: 700;
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            font-size: 17px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            display: grid;
+            gap: 8px;
+        }
+
+        .option {
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 7px;
+        }
+
+        .correct-option {
+            background: #dcfce7;
+            color: #166534;
+            font-weight: 600;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 7px;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .success {
+            color: #15803d;
+        }
+
+        .error {
+            color: #dc2626;
+        }
+
+        .loading {
+            color: #64748b;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 700px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .page-container {
+                padding: 20px 15px 40px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="admin-header">
+
+    <div>
+
+        <h1>TN Warriors</h1>
+
+        <p>Mock Questions Management</p>
+
+    </div>
+
+
+    <button id="logoutButton">
+        Logout
+    </button>
+
+</header>
+
+
+
+<main class="page-container">
+
+
+    <div class="top-bar">
+
+        <div>
+
+            <h2>
+                Question Management
+            </h2>
+
+            <p>
+                Add and manage questions for this mock test.
+            </p>
+
+        </div>
+
+
+        <a
+            href="mock-tests.html"
+            class="back-button"
+        >
+            Back to Mock Tests
+        </a>
+
+    </div>
+
+
+
+    <!-- TEST INFORMATION -->
+
+    <section class="test-info">
+
+        <h2 id="testTitle">
+            Loading test...
+        </h2>
+
+
+        <div
+            id="testMeta"
+            class="test-meta"
+        >
+            Loading test information...
+        </div>
+
+    </section>
+
+
+
+    <!-- ADD / EDIT QUESTION -->
+
+    <section class="form-card">
+
+        <h2 id="formTitle">
+            Add New Question
+        </h2>
+
+
+        <form id="questionForm">
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group full">
+
+                    <label for="questionText">
+                        Question
+                    </label>
+
+                    <textarea
+                        id="questionText"
+                        placeholder="Enter the question"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="optionA">
+                        Option A
+                    </label>
+
+                    <input
+                        type="text"
+                        id="optionA"
+                        placeholder="Option A"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="optionB">
+                        Option B
+                    </label>
+
+                    <input
+                        type="text"
+                        id="optionB"
+                        placeholder="Option B"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="optionC">
+                        Option C
+                    </label>
+
+                    <input
+                        type="text"
+                        id="optionC"
+                        placeholder="Option C"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="optionD">
+                        Option D
+                    </label>
+
+                    <input
+                        type="text"
+                        id="optionD"
+                        placeholder="Option D"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="correctOption">
+                        Correct Answer
+                    </label>
+
+                    <select
+                        id="correctOption"
+                        required
+                    >
+
+                        <option value="">
+                            Select Correct Option
+                        </option>
+
+                        <option value="A">
+                            Option A
+                        </option>
+
+                        <option value="B">
+                            Option B
+                        </option>
+
+                        <option value="C">
+                            Option C
+                        </option>
+
+                        <option value="D">
+                            Option D
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="marks">
+                        Marks
+                    </label>
+
+                    <input
+                        type="number"
+                        id="marks"
+                        min="0"
+                        step="0.01"
+                        value="1"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="questionOrder">
+                        Question Order
+                    </label>
+
+                    <input
+                        type="number"
+                        id="questionOrder"
+                        min="1"
+                        value="1"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group full">
+
+                    <label for="explanation">
+                        Explanation
+                    </label>
+
+                    <textarea
+                        id="explanation"
+                        placeholder="Explain why this answer is correct"
+                    ></textarea>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="button-row">
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                    id="saveButton"
+                >
+                    Add Question
+                </button>
+
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="cancelButton"
+                    style="display:none;"
+                >
+                    Cancel Edit
+                </button>
+
+            </div>
+
+
+            <p
+                id="formMessage"
+                class="message"
+            ></p>
+
+
+        </form>
+
+    </section>
+
+
+
+    <!-- QUESTIONS LIST -->
+
+    <section class="list-card">
+
+        <h2>
+            Questions
+        </h2>
+
+
+        <div id="questionList">
+
+            <div class="loading">
+                Loading questions...
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+    const SUPABASE_URL =
+        "https://nwipyqarobgelksdbkbk.supabase.co";
+
+
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
+
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const testId =
+        params.get("test");
+
+
+    const testTitle =
+        document.getElementById(
+            "testTitle"
+        );
+
+
+    const testMeta =
+        document.getElementById(
+            "testMeta"
+        );
+
+
+    const questionForm =
+        document.getElementById(
+            "questionForm"
+        );
+
+
+    const questionList =
+        document.getElementById(
+            "questionList"
+        );
+
+
+    const formTitle =
+        document.getElementById(
+            "formTitle"
+        );
+
+
+    const saveButton =
+        document.getElementById(
+            "saveButton"
+        );
+
+
+    const cancelButton =
+        document.getElementById(
+            "cancelButton"
+        );
+
+
+    const formMessage =
+        document.getElementById(
+            "formMessage"
+        );
+
+
+    let editingQuestionId = null;
+
+
+    checkAdminAccess();
+
+
+    async function checkAdminAccess() {
+
+        try {
+
+            const {
+                data: {
+                    user
+                },
+                error
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (
+                error ||
+                !user
+            ) {
+
+                window.location.href =
+                    "index.html";
+
+                return;
+
+            }
+
+
+            const {
+                data: profile,
+                error: profileError
+            } =
+                await supabaseClient
+                    .from("profiles")
+                    .select("role")
+                    .eq("id", user.id)
+                    .single();
+
+
+            if (
+                profileError ||
+                !profile ||
+                profile.role !== "admin"
+            ) {
+
+                await supabaseClient.auth.signOut();
+
+                window.location.href =
+                    "index.html";
+
+                return;
+
+            }
+
+
+            if (!testId) {
+
+                testTitle.textContent =
+                    "No Mock Test Selected";
+
+                testMeta.textContent =
+                    "Open this page from Manage Questions.";
+
+                questionForm.style.display =
+                    "none";
+
+                questionList.innerHTML =
+                    '<div class="message error">Mock test ID is missing.</div>';
+
+                return;
+
+            }
+
+
+            await loadTest();
+
+            await loadQuestions();
+
+        } catch (error) {
+
+            console.error(error);
+
+            window.location.href =
+                "index.html";
+
+        }
+
+    }
+
+
+    async function loadTest() {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("mock_tests")
+                .select(`
+                    id,
+                    title,
+                    exam_name,
+                    duration_minutes,
+                    total_questions,
+                    total_marks,
+                    negative_mark,
+                    is_premium,
+                    is_published
+                `)
+                .eq(
+                    "id",
+                    testId
+                )
+                .single();
+
+
+        if (error) {
+
+            testTitle.textContent =
+                "Unable to load test";
+
+            testMeta.textContent =
+                error.message;
+
+            throw error;
+
+        }
+
+
+        testTitle.textContent =
+            data.title;
+
+
+        testMeta.innerHTML = `
+
+            Exam:
+            <strong>
+                ${escapeHTML(data.exam_name || "Not specified")}
+            </strong>
+
+            &nbsp; | &nbsp;
+
+            Questions:
+            <strong>
+                ${data.total_questions || 0}
+            </strong>
+
+            &nbsp; | &nbsp;
+
+            Duration:
+            <strong>
+                ${data.duration_minutes || 0} minutes
+            </strong>
+
+            &nbsp; | &nbsp;
+
+            Marks:
+            <strong>
+                ${data.total_marks || 0}
+            </strong>
+
+            &nbsp; | &nbsp;
+
+            Negative:
+            <strong>
+                ${data.negative_mark || 0}
+            </strong>
+
+        `;
+
+    }
+      // ==============================
+    // LOAD QUESTIONS
+    // ==============================
+
+    async function loadQuestions() {
+
+        questionsList.innerHTML = `
+            <div class="loading">
+                Loading questions...
+            </div>
+        `;
+
+        const {
+            data: questions,
+            error
+        } =
+            await supabaseClient
+                .from("mock_questions")
+                .select(`
+                    id,
+                    question_text,
+                    option_a,
+                    option_b,
+                    option_c,
+                    option_d,
+                    marks,
+                    question_order,
+                    created_at,
+                    mock_answers (
+                        correct_option,
+                        explanation
+                    )
+                `)
+                .eq(
+                    "mock_test_id",
+                    testId
+                )
+                .order(
+                    "question_order",
+                    {
+                        ascending: true
+                    }
+                );
+
+        if (error) {
+
+            console.error(
+                "Load questions error:",
+                error
+            );
+
+            questionsList.innerHTML = `
+                <div class="error">
+                    <strong>
+                        Unable to load questions.
+                    </strong>
+
+                    <br><br>
+
+                    ${escapeHTML(error.message)}
+                </div>
+            `;
+
+            return;
+        }
+
+        allQuestions = questions || [];
+
+        renderQuestions();
+    }
+
+
+    // ==============================
+    // RENDER QUESTIONS
+    // ==============================
+
+    function renderQuestions() {
+
+        if (
+            !allQuestions ||
+            allQuestions.length === 0
+        ) {
+
+            questionsList.innerHTML = `
+                <div class="empty">
+                    No questions added yet.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        questionsList.innerHTML =
+            allQuestions
+                .map(
+                    (question, index) => {
+
+                        const answer =
+                            Array.isArray(
+                                question.mock_answers
+                            )
+                                ? question.mock_answers[0]
+                                : question.mock_answers;
+
+                        const correctOption =
+                            answer &&
+                            answer.correct_option
+                                ? answer.correct_option
+                                : "Not set";
+
+
+                        return `
+
+                            <div
+                                class="question-card"
+                            >
+
+                                <div
+                                    class="question-header"
+                                >
+
+                                    <div>
+
+                                        <span
+                                            class="question-number"
+                                        >
+                                            Q${index + 1}
+                                        </span>
+
+                                        <span
+                                            class="order-text"
+                                        >
+                                            Order:
+                                            ${question.question_order}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="question-marks"
+                                    >
+                                        ${question.marks || 0}
+                                        Mark(s)
+                                    </div>
+
+                                </div>
+
+
+                                <div
+                                    class="question-text"
+                                >
+                                    ${escapeHTML(
+                                        question.question_text
+                                    )}
+                                </div>
+
+
+                                <div
+                                    class="options"
+                                >
+
+                                    <div
+                                        class="option"
+                                    >
+                                        <strong>A.</strong>
+
+                                        ${escapeHTML(
+                                            question.option_a
+                                        )}
+                                    </div>
+
+
+                                    <div
+                                        class="option"
+                                    >
+                                        <strong>B.</strong>
+
+                                        ${escapeHTML(
+                                            question.option_b
+                                        )}
+                                    </div>
+
+
+                                    <div
+                                        class="option"
+                                    >
+                                        <strong>C.</strong>
+
+                                        ${escapeHTML(
+                                            question.option_c
+                                        )}
+                                    </div>
+
+
+                                    <div
+                                        class="option"
+                                    >
+                                        <strong>D.</strong>
+
+                                        ${escapeHTML(
+                                            question.option_d
+                                        )}
+                                    </div>
+
+                                </div>
+
+
+                                <div
+                                    class="answer-info"
+                                >
+
+                                    <strong>
+                                        Correct Answer:
+                                    </strong>
+
+                                    <span>
+                                        ${escapeHTML(
+                                            correctOption
+                                        )}
+                                    </span>
+
+                                </div>
+
+
+                                ${
+                                    answer &&
+                                    answer.explanation
+                                        ? `
+                                            <div
+                                                class="explanation"
+                                            >
+
+                                                <strong>
+                                                    Explanation:
+                                                </strong>
+
+                                                <br>
+
+                                                ${escapeHTML(
+                                                    answer.explanation
+                                                )}
+
+                                            </div>
+                                        `
+                                        : ""
+                                }
+
+
+                                <div
+                                    class="question-actions"
+                                >
+
+                                    <button
+                                        type="button"
+                                        class="edit-btn"
+                                        onclick="editQuestion('${question.id}')"
+                                    >
+                                        Edit
+                                    </button>
+
+
+                                    <button
+                                        type="button"
+                                        class="delete-btn"
+                                        onclick="deleteQuestion('${question.id}')"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                )
+                .join("");
+    }
+
+
+    // ==============================
+    // ADD / UPDATE QUESTION
+    // ==============================
+
+    questionForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+            const questionText =
+                document
+                    .getElementById("questionText")
+                    .value
+                    .trim();
+
+            const optionA =
+                document
+                    .getElementById("optionA")
+                    .value
+                    .trim();
+
+            const optionB =
+                document
+                    .getElementById("optionB")
+                    .value
+                    .trim();
+
+            const optionC =
+                document
+                    .getElementById("optionC")
+                    .value
+                    .trim();
+
+            const optionD =
+                document
+                    .getElementById("optionD")
+                    .value
+                    .trim();
+
+            const correctOption =
+                document
+                    .getElementById("correctOption")
+                    .value;
+
+            const marks =
+                Number(
+                    document
+                        .getElementById("marks")
+                        .value
+                );
+
+            const questionOrder =
+                Number(
+                    document
+                        .getElementById("questionOrder")
+                        .value
+                );
+
+            const explanation =
+                document
+                    .getElementById("explanation")
+                    .value
+                    .trim();
+
+
+            if (!questionText) {
+
+                showMessage(
+                    "Please enter the question.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (
+                !optionA ||
+                !optionB ||
+                !optionC ||
+                !optionD
+            ) {
+
+                showMessage(
+                    "Please enter all four options.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (
+                !["A", "B", "C", "D"]
+                    .includes(correctOption)
+            ) {
+
+                showMessage(
+                    "Please select the correct answer.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (
+                !marks ||
+                marks <= 0
+            ) {
+
+                showMessage(
+                    "Marks must be greater than 0.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (
+                !questionOrder ||
+                questionOrder <= 0
+            ) {
+
+                showMessage(
+                    "Question order must be greater than 0.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            saveQuestionButton.disabled = true;
+
+            saveQuestionButton.textContent =
+                editingQuestionId
+                    ? "Updating..."
+                    : "Saving...";
+
+
+            try {
+
+                const questionData = {
+
+                    question_text:
+                        questionText,
+
+                    option_a:
+                        optionA,
+
+                    option_b:
+                        optionB,
+
+                    option_c:
+                        optionC,
+
+                    option_d:
+                        optionD,
+
+                    marks:
+                        marks,
+
+                    question_order:
+                        questionOrder
+
+                };
+
+
+                // ==============================
+                // UPDATE EXISTING QUESTION
+                // ==============================
+
+                if (editingQuestionId) {
+
+                    const {
+                        error:
+                            questionError
+                    } =
+                        await supabaseClient
+                            .from("mock_questions")
+                            .update(
+                                questionData
+                            )
+                            .eq(
+                                "id",
+                                editingQuestionId
+                            )
+                            .eq(
+                                "mock_test_id",
+                                testId
+                            );
+
+
+                    if (questionError) {
+
+                        throw questionError;
+                    }
+
+
+                    const {
+                        data:
+                            existingAnswer,
+                        error:
+                            answerCheckError
+                    } =
+                        await supabaseClient
+                            .from("mock_answers")
+                            .select(
+                                "question_id"
+                            )
+                            .eq(
+                                "question_id",
+                                editingQuestionId
+                            )
+                            .maybeSingle();
+
+
+                    if (answerCheckError) {
+
+                        throw answerCheckError;
+                    }
+
+
+                    if (existingAnswer) {
+
+                        const {
+                            error:
+                                answerUpdateError
+                        } =
+                            await supabaseClient
+                                .from("mock_answers")
+                                .update({
+                                    correct_option:
+                                        correctOption,
+
+                                    explanation:
+                                        explanation || null
+                                })
+                                .eq(
+                                    "question_id",
+                                    editingQuestionId
+                                );
+
+
+                        if (answerUpdateError) {
+
+                            throw answerUpdateError;
+                        }
+
+                    } else {
+
+                        const {
+                            error:
+                                answerInsertError
+                        } =
+                            await supabaseClient
+                                .from("mock_answers")
+                                .insert({
+                                    question_id:
+                                        editingQuestionId,
+
+                                    correct_option:
+                                        correctOption,
+
+                                    explanation:
+                                        explanation || null
+                                });
+
+
+                        if (answerInsertError) {
+
+                            throw answerInsertError;
+                        }
+
+                    }
+
+
+                    showMessage(
+                        "Question updated successfully.",
+                        "success"
+                    );
+
+
+                } else {
+
+                    // ==============================
+                    // ADD NEW QUESTION
+                    // ==============================
+
+                    const {
+                        data:
+                            newQuestion,
+                        error:
+                            questionError
+                    } =
+                        await supabaseClient
+                            .from("mock_questions")
+                            .insert({
+                                mock_test_id:
+                                    testId,
+
+                                ...questionData
+                            })
+                            .select("id")
+                            .single();
+
+
+                    if (questionError) {
+
+                        throw questionError;
+                    }
+
+
+                    if (
+                        !newQuestion ||
+                        !newQuestion.id
+                    ) {
+
+                        throw new Error(
+                            "Question was created, but its ID could not be retrieved."
+                        );
+                    }
+
+
+                    const {
+                        error:
+                            answerError
+                    } =
+                        await supabaseClient
+                            .from("mock_answers")
+                            .insert({
+                                question_id:
+                                    newQuestion.id,
+
+                                correct_option:
+                                    correctOption,
+
+                                explanation:
+                                    explanation || null
+                            });
+
+
+                    if (answerError) {
+
+                        // Remove question if answer
+                        // creation failed.
+                        await supabaseClient
+                            .from("mock_questions")
+                            .delete()
+                            .eq(
+                                "id",
+                                newQuestion.id
+                            );
+
+
+                        throw answerError;
+                    }
+
+
+                    showMessage(
+                        "Question added successfully.",
+                        "success"
+                    );
+
+                }
+
+
+                resetQuestionForm();
+
+                await loadQuestions();
+
+            } catch (error) {
+
+                console.error(
+                    "Save question error:",
+                    error
+                );
+
+
+                showMessage(
+                    "Unable to save question: " +
+                    (
+                        error.message ||
+                        "Unknown error"
+                    ),
+                    "error"
+                );
+
+            } finally {
+
+                saveQuestionButton.disabled =
+                    false;
+
+                saveQuestionButton.textContent =
+                    editingQuestionId
+                        ? "Update Question"
+                        : "Add Question";
+
+            }
+
+        }
+    );
+
+
+    // ==============================
+    // EDIT QUESTION
+    // ==============================
+
+    window.editQuestion =
+        function (questionId) {
+
+            const question =
+                allQuestions.find(
+                    item =>
+                        item.id === questionId
+                );
+
+
+            if (!question) {
+
+                showMessage(
+                    "Question not found.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            const answer =
+                Array.isArray(
+                    question.mock_answers
+                )
+                    ? question.mock_answers[0]
+                    : question.mock_answers;
+
+
+            document
+                .getElementById("questionText")
+    .value =
+        question.question_text || "";
+
+
+document
+    .getElementById("optionA")
+    .value =
+        question.option_a || "";
+
+
+document
+    .getElementById("optionB")
+    .value =
+        question.option_b || "";
+
+
+document
+    .getElementById("optionC")
+    .value =
+        question.option_c || "";
+
+
+document
+    .getElementById("optionD")
+    .value =
+        question.option_d || "";
+
+
+document
+    .getElementById("correctOption")
+    .value =
+        answer &&
+        answer.correct_option
+            ? answer.correct_option
+            : "";
+
+
+document
+    .getElementById("marks")
+    .value =
+        question.marks || 1;
+
+
+document
+    .getElementById("questionOrder")
+    .value =
+        question.question_order || 1;
+
+
+document
+    .getElementById("explanation")
+    .value =
+        answer &&
+        answer.explanation
+            ? answer.explanation
+            : "";
+
+
+editingQuestionId =
+    questionId;
+
+
+saveQuestionButton.textContent =
+    "Update Question";
+
+
+cancelEditButton.style.display =
+    "inline-block";
+
+
+window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+});
+
+};
+
+
+// ==============================
+// DELETE QUESTION
+// ==============================
+
+window.deleteQuestion =
+    async function (questionId) {
+
+        const question =
+            allQuestions.find(
+                item =>
+                    item.id === questionId
+            );
+
+
+        if (!question) {
+
+            showMessage(
+                "Question not found.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to delete this question?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        try {
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("mock_questions")
+                    .delete()
+                    .eq(
+                        "id",
+                        questionId
+                    )
+                    .eq(
+                        "mock_test_id",
+                        testId
+                    );
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            showMessage(
+                "Question deleted successfully.",
+                "success"
+            );
+
+
+            if (
+                editingQuestionId ===
+                questionId
+            ) {
+                resetQuestionForm();
+            }
+
+
+            await loadQuestions();
+
+        } catch (error) {
+
+            console.error(
+                "Delete question error:",
+                error
+            );
+
+
+            showMessage(
+                "Unable to delete question: " +
+                (
+                    error.message ||
+                    "Unknown error"
+                ),
+                "error"
+            );
+
+        }
+
+    };
+
+
+// ==============================
+// CANCEL EDIT
+// ==============================
+
+cancelEditButton.addEventListener(
+    "click",
+    function () {
+
+        resetQuestionForm();
+
+    }
+);
+
+
+// ==============================
+// RESET FORM
+// ==============================
+
+function resetQuestionForm() {
+
+    editingQuestionId = null;
+
+    questionForm.reset();
+
+
+    document
+        .getElementById("marks")
+        .value = 1;
+
+
+    document
+        .getElementById("questionOrder")
+        .value =
+            getNextQuestionOrder();
+
+
+    saveQuestionButton.textContent =
+        "Add Question";
+
+
+    cancelEditButton.style.display =
+        "none";
+
+}
+
+
+// ==============================
+// NEXT QUESTION ORDER
+// ==============================
+
+function getNextQuestionOrder() {
+
+    if (
+        !allQuestions ||
+        allQuestions.length === 0
+    ) {
+        return 1;
+    }
+
+
+    const orders =
+        allQuestions
+            .map(
+                question =>
+                    Number(
+                        question.question_order
+                    )
+            )
+            .filter(
+                value =>
+                    Number.isFinite(value)
+            );
+
+
+    if (orders.length === 0) {
+        return 1;
+    }
+
+
+    return Math.max(...orders) + 1;
+
+}
+
+
+// ==============================
+// MESSAGE
+// ==============================
+
+function showMessage(
+    message,
+    type
+) {
+
+    formMessage.textContent =
+        message;
+
+
+    formMessage.className =
+        "form-message " +
+        type;
+
+
+    setTimeout(
+        function () {
+
+            formMessage.textContent =
+                "";
+
+            formMessage.className =
+                "form-message";
+
+        },
+        5000
+    );
+
+}
+
+
+// ==============================
+// ESCAPE HTML
+// ==============================
+
+function escapeHTML(value) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+// ==============================
+// LOGOUT
+// ==============================
+
+if (logoutButton) {
+
+    logoutButton.addEventListener(
+        "click",
+        async function () {
+
+            logoutButton.disabled =
+                true;
+
+            logoutButton.textContent =
+                "Logging out...";
+
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+
+            window.location.href =
+                "index.html";
+
+        }
+    );
+
+}
+
+
+// ==============================
+// INITIAL LOAD
+// ==============================
+
+async function initializePage() {
+
+    try {
+
+        await checkAdminAccess();
+
+        await loadTest();
+
+        await loadQuestions();
+
+        resetQuestionForm();
+
+    } catch (error) {
+
+        console.error(
+            "Page initialization error:",
+            error
+        );
+
+    }
+
+}
+
+
+initializePage();
+
+</script>
+
+</body>
+</html>
+          
