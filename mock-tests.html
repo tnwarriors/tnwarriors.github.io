@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TN Warriors - Mock Tests</title>
+
+    <!-- Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"
+    ></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag(
+            'js',
+            new Date()
+        );
+
+        gtag(
+            'config',
+            'G-403SNE66JG'
+        );
+    </script>
+
+
+    <!-- Supabase -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f5f7fb;
+
+            color: #1f2937;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+
+            background: #111827;
+
+            color: white;
+
+            padding: 16px 20px;
+
+        }
+
+
+        .header-container {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+        }
+
+
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: 700;
+
+        }
+
+
+        nav {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 18px;
+
+        }
+
+
+        nav a {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+        }
+
+
+        nav a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+
+            background: white;
+
+            padding: 40px 20px;
+
+            text-align: center;
+
+            border-bottom: 1px solid #e5e7eb;
+
+        }
+
+
+        .hero h1 {
+
+            font-size: 32px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .hero p {
+
+            color: #6b7280;
+
+            max-width: 700px;
+
+            margin: auto;
+
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+
+            max-width: 1100px;
+
+            margin: 30px auto;
+
+            padding: 0 20px;
+
+        }
+
+
+        /* =========================
+           FILTER AREA
+        ========================= */
+
+        .filter-box {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            border: 1px solid #e5e7eb;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .filter-box h2 {
+
+            font-size: 20px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .filters {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 220px;
+
+            gap: 12px;
+
+        }
+
+
+        .filters input,
+        .filters select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            background: white;
+
+        }
+
+
+        .filters input:focus,
+        .filters select:focus {
+
+            outline: none;
+
+            border-color: #2563eb;
+
+        }
+
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+            margin-bottom: 20px;
+
+            color: #4b5563;
+
+        }
+
+
+        .status.error {
+
+            color: #b91c1c;
+
+            background: #fef2f2;
+
+            border-color: #fecaca;
+
+        }
+
+
+        .status.success {
+
+            color: #166534;
+
+            background: #f0fdf4;
+
+            border-color: #bbf7d0;
+
+        }
+
+
+        /* =========================
+           TEST GRID
+        ========================= */
+
+        .tests-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(280px, 1fr)
+                );
+
+            gap: 20px;
+
+        }
+
+
+        .test-card {
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            padding: 20px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            min-height: 300px;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+
+        }
+
+
+        .test-card:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 25px
+                rgba(0, 0, 0, 0.08);
+
+        }
+
+
+        .test-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 10px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .test-card h3 {
+
+            font-size: 20px;
+
+            line-height: 1.35;
+
+        }
+
+
+        .badge {
+
+            display: inline-block;
+
+            padding: 4px 9px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+        }
+
+
+        .badge-free {
+
+            background: #dcfce7;
+
+            color: #166534;
+
+        }
+
+
+        .badge-premium {
+
+            background: #fef3c7;
+
+            color: #92400e;
+
+        }
+
+
+        .badge-featured {
+
+            background: #dbeafe;
+
+            color: #1d4ed8;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .exam-name {
+
+            color: #2563eb;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .description {
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .test-meta {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+
+            margin-top: auto;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .meta-box {
+
+            background: #f9fafb;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 8px;
+
+            padding: 10px;
+
+        }
+
+
+        .meta-label {
+
+            display: block;
+
+            color: #6b7280;
+
+            font-size: 12px;
+
+            margin-bottom: 2px;
+
+        }
+
+
+        .meta-value {
+
+            font-weight: 700;
+
+            font-size: 14px;
+
+        }
+
+
+        .start-button {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #2563eb;
+
+            color: white;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        .start-button:hover {
+
+            background: #1d4ed8;
+
+        }
+
+
+        .premium-button {
+
+            background: #92400e;
+
+        }
+
+
+        .premium-button:hover {
+
+            background: #78350f;
+
+        }
+
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty-state {
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 12px;
+
+            padding: 40px 20px;
+
+            text-align: center;
+
+            color: #6b7280;
+
+        }
+
+
+        .empty-state h3 {
+
+            color: #374151;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+
+            margin-top: 50px;
+
+            background: #111827;
+
+            color: #d1d5db;
+
+            padding: 25px 20px;
+
+            text-align: center;
+
+            font-size: 14px;
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (
+            max-width: 700px
+        ) {
+
+            .header-container {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+            }
+
+
+            nav {
+
+                gap: 12px;
+
+            }
+
+
+            .hero h1 {
+
+                font-size: 26px;
+
+            }
+
+
+            .filters {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .tests-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header>
+
+        <div class="header-container">
+
+            <div class="logo">
+                TN Warriors
+            </div>
+
+
+            <nav>
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="jobs.html">
+                    Jobs
+                </a>
+
+                <a href="exams.html">
+                    Exams
+                </a>
+
+                <a href="defence.html">
+                    Defence
+                </a>
+
+                <a href="study-materials.html">
+                    Study Materials
+                </a>
+
+                <a href="mock-tests.html">
+                    Mock Tests
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <h1>
+            Mock Tests
+        </h1>
+
+        <p>
+            Practice exam-style questions,
+            improve your speed and track
+            your performance.
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="container">
+
+
+        <!-- FILTER -->
+
+        <section class="filter-box">
+
+            <h2>
+                Find a Mock Test
+            </h2>
+
+
+            <div class="filters">
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search mock tests..."
+                >
+
+
+                <select id="categoryFilter">
+
+                    <option value="">
+                        All Exams
+                    </option>
+
+                    <option value="ssc">
+                        SSC
+                    </option>
+
+                    <option value="railway">
+                        Railway
+                    </option>
+
+                    <option value="tnpsc">
+                        TNPSC
+                    </option>
+
+                    <option value="defence">
+                        Defence
+                    </option>
+
+                </select>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- STATUS -->
+
+        <div
+            id="statusMessage"
+            class="status"
+        >
+            Loading mock tests...
+        </div>
+
+
+
+        <!-- TESTS -->
+
+        <section>
+
+            <div
+                id="testsGrid"
+                class="tests-grid"
+            ></div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <p>
+            © 2026 TN Warriors.
+            All rights reserved.
+        </p>
+
+    </footer>
+
+
+
+    <script>
+
+        // ==================================
+        // SUPABASE CONFIGURATION
+        // ==================================
+
+        const SUPABASE_URL =
+            "https://nwipyqarobgelksdbkbk.supabase.co";
+
+
+        /*
+         * IMPORTANT:
+         * Replace only the text below with
+         * your existing Supabase publishable key.
+         *
+         * Do NOT use the service_role key.
+         */
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
+
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+
+
+        // ==================================
+        // ELEMENTS
+        // ==================================
+
+        const testsGrid =
+            document.getElementById(
+                "testsGrid"
+            );
+
+
+        const statusMessage =
+            document.getElementById(
+                "statusMessage"
+            );
+
+
+        const searchInput =
+            document.getElementById(
+                "searchInput"
+            );
+
+
+        const categoryFilter =
+            document.getElementById(
+                "categoryFilter"
+            );
+
+
+
+        // ==================================
+        // DATA
+        // ==================================
+
+        let allTests = [];
+
+
+
+        // ==================================
+        // CATEGORY NAMES
+        // ==================================
+
+        const categoryNames = {
+
+            ssc:
+                "SSC",
+
+            railway:
+                "Railway",
+
+            tnpsc:
+                "TNPSC",
+
+            defence:
+                "Defence"
+
+        };
+
+
+
+        // ==================================
+        // URL CATEGORY
+        // ==================================
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const urlCategory =
+            urlParams.get(
+                "category"
+            );
+
+
+        if (
+            urlCategory &&
+            categoryNames[urlCategory]
+        ) {
+
+            categoryFilter.value =
+                urlCategory;
+
+        }
+
+
+
+        // ==================================
+        // LOAD MOCK TESTS
+        // ==================================
+
+        async function loadMockTests() {
+
+            statusMessage.className =
+                "status";
+
+
+            statusMessage.textContent =
+                "Loading mock tests...";
+
+
+            testsGrid.innerHTML = "";
+
+
+            try {
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .from("mock_tests")
+                        .select(`
+                            id,
+                            slug,
+                            title,
+                            exam_name,
+                            description,
+                            duration_minutes,
+                            total_questions,
+                            total_marks,
+                            negative_mark,
+                            is_premium,
+                            is_published,
+                            created_at
+                        `)
+                        .eq(
+                            "is_published",
+                            true
+                        )
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        );
+
+
+                if (error) {
+
+                    console.error(
+                        "Mock tests load error:",
+                        error
+                    );
+
+                    throw error;
+                }
+
+
+                allTests =
+                    data || [];
+
+
+                renderTests();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Mock tests error:",
+                    error
+                );
+
+
+                statusMessage.className =
+                    "status error";
+
+
+                statusMessage.innerHTML = `
+                    <strong>
+                        Unable to load mock tests.
+                    </strong>
+
+                    <br><br>
+
+                    ${escapeHTML(
+                        error.message ||
+                        "Unknown error"
+                    )}
+                `;
+
+            }
+
+        }
+
+
+
+        // ==================================
+        // RENDER TESTS
+        // ==================================
+
+        function renderTests() {
+
+            const searchTerm =
+                searchInput
+                    .value
+                    .trim()
+                    .toLowerCase();
+
+
+            const selectedCategory =
+                categoryFilter.value;
+
+
+            const filteredTests =
+                allTests.filter(
+                    test => {
+
+                        const title =
+                            (
+                                test.title ||
+                                ""
+                            )
+                                .toLowerCase();
+
+
+                        const examName =
+                            (
+                                test.exam_name ||
+                                ""
+                            )
+                                .toLowerCase();
+
+
+                        const description =
+                            (
+                                test.description ||
+                                ""
+                            )
+                                .toLowerCase();
+
+
+                        const matchesSearch =
+                            !searchTerm ||
+                            title.includes(
+                                searchTerm
+                            ) ||
+                            examName.includes(
+                                searchTerm
+                            ) ||
+                            description.includes(
+                                searchTerm
+                            );
+
+
+                        const matchesCategory =
+                            !selectedCategory ||
+                            getCategoryFromExamName(
+                                test.exam_name
+                            ) ===
+                            selectedCategory;
+
+
+                        return (
+                            matchesSearch &&
+                            matchesCategory
+                        );
+
+                    }
+                );
+
+
+            statusMessage.className =
+                "status success";
+
+
+            statusMessage.textContent =
+                filteredTests.length +
+                (
+                    filteredTests.length === 1
+                        ? " mock test"
+                        : " mock tests"
+                ) +
+                " available.";
+
+
+            if (
+                filteredTests.length === 0
+            ) {
+
+                testsGrid.innerHTML = `
+
+                    <div
+                        class="empty-state"
+                        style="grid-column: 1 / -1;"
+                    >
+
+                        <h3>
+                            No mock tests found
+                        </h3>
+
+                        <p>
+                            Try another search
+                            or exam category.
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            testsGrid.innerHTML =
+                filteredTests
+                    .map(
+                        test =>
+                            createTestCard(
+                                test
+                            )
+                    )
+                    .join("");
+
+        }
+
+
+
+        // ==================================
+        // CREATE TEST CARD
+        // ==================================
+
+        function createTestCard(
+            test
+        ) {
+
+            const premium =
+                test.is_premium === true;
+
+
+            const badgeClass =
+                premium
+                    ? "badge-premium"
+                    : "badge-free";
+
+
+            const badgeText =
+                premium
+                    ? "Premium"
+                    : "Free";
+
+
+            const buttonClass =
+                premium
+                    ? "start-button premium-button"
+                    : "start-button";
+
+
+            const safeTitle =
+                escapeHTML(
+                    test.title ||
+                    "Untitled Test"
+                );
+
+
+            const safeExamName =
+                escapeHTML(
+                    test.exam_name ||
+                    "General"
+                );
+
+
+            const safeDescription =
+                escapeHTML(
+                    test.description ||
+                    "Practice this mock test to improve your preparation."
+                );
+
+
+            return `
+
+                <article
+                    class="test-card"
+                >
+
+                    <div class="test-top">
+
+                        <h3>
+                            ${safeTitle}
+                        </h3>
+
+                        <span
+                            class="badge ${badgeClass}"
+                        >
+                            ${badgeText}
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="exam-name"
+                    >
+                        ${safeExamName}
+                    </div>
+
+
+                    <p
+                        class="description"
+                    >
+                        ${safeDescription}
+                    </p>
+
+
+                    <div
+                        class="test-meta"
+                    >
+
+                        <div class="meta-box">
+
+                            <span
+                                class="meta-label"
+                            >
+                                Questions
+                            </span>
+
+                            <span
+                                class="meta-value"
+                            >
+                                ${
+                                    test.total_questions ||
+                                    0
+                                }
+                            </span>
+
+                        </div>
+
+
+                        <div class="meta-box">
+
+                            <span
+                                class="meta-label"
+                            >
+                                Duration
+                            </span>
+
+                            <span
+                                class="meta-value"
+                            >
+                                ${
+                                    test.duration_minutes ||
+                                    0
+                                }
+                                min
+                            </span>
+
+                        </div>
+
+
+                        <div class="meta-box">
+
+                            <span
+                                class="meta-label"
+                            >
+                                Total Marks
+                            </span>
+
+                            <span
+                                class="meta-value"
+                            >
+                                ${
+                                    test.total_marks ||
+                                    0
+                                }
+                            </span>
+
+                        </div>
+
+
+                        <div class="meta-box">
+
+                            <span
+                                class="meta-label"
+                            >
+                                Negative
+                            </span>
+
+                            <span
+                                class="meta-value"
+                            >
+                                ${
+                                    test.negative_mark ||
+                                    0
+                                }
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        class="${buttonClass}"
+                        href="mock-test-instructions.html?id=${encodeURIComponent(test.id)}"
+                    >
+                        ${
+                            premium
+                                ? "View Premium Test"
+                                : "Start Test"
+                        }
+                    </a>
+
+                </article>
+
+            `;
+
+        }
+
+
+
+        // ==================================
+        // GET CATEGORY FROM EXAM NAME
+        // ==================================
+
+        function getCategoryFromExamName(
+            examName
+        ) {
+
+            const name =
+                (
+                    examName ||
+                    ""
+                )
+                    .toLowerCase();
+
+
+            if (
+                name.includes("ssc")
+            ) {
+
+                return "ssc";
+
+            }
+
+
+            if (
+                name.includes("rrb") ||
+                name.includes("railway")
+            ) {
+
+                return "railway";
+
+            }
+
+
+            if (
+                name.includes("tnpsc")
+            ) {
+
+                return "tnpsc";
+
+            }
+
+
+            if (
+                name.includes("army") ||
+                name.includes("air force") ||
+                name.includes("navy") ||
+                name.includes("defence") ||
+                name.includes("agniveer")
+            ) {
+
+                return "defence";
+
+            }
+
+
+            return "";
+
+        }
+
+
+
+        // ==================================
+        // SEARCH
+        // ==================================
+
+        searchInput.addEventListener(
+            "input",
+            function () {
+
+                renderTests();
+
+            }
+        );
+
+
+
+        // ==================================
+        // CATEGORY FILTER
+        // ==================================
+
+        categoryFilter.addEventListener(
+            "change",
+            function () {
+
+                renderTests();
+
+            }
+        );
+
+
+
+        // ==================================
+        // ESCAPE HTML
+        // ==================================
+
+        function escapeHTML(
+            value
+        ) {
+
+            return String(
+                value ?? ""
+            )
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+
+        // ==================================
+        // INITIAL LOAD
+        // ==================================
+
+        loadMockTests();
+
+    </script>
+
+</body>
+
+</html>
