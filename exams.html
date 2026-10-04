@@ -12,7 +12,9 @@
 
     <title>TN Warriors - Competitive Exams</title>
 
-    <!-- Google Analytics -->
+
+    <!-- GOOGLE ANALYTICS -->
+
     <script
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"
@@ -28,19 +30,19 @@
         }
 
         gtag(
-            'js',
+            "js",
             new Date()
         );
 
         gtag(
-            'config',
-            'G-403SNE66JG'
+            "config",
+            "G-403SNE66JG"
         );
 
     </script>
 
 
-    <!-- Supabase -->
+    <!-- SUPABASE -->
 
     <script
         src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
@@ -54,9 +56,19 @@
         }
 
 
+        html {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+
         body {
 
             margin: 0;
+
+            width: 100%;
+
+            min-height: 100vh;
 
             font-family:
                 "Trebuchet MS",
@@ -67,12 +79,18 @@
 
             color: #20242d;
 
+            overflow-x: hidden;
+
         }
 
 
-        /* HEADER */
+        /* ==============================
+           HEADER
+        ============================== */
 
         header {
+
+            width: 100%;
 
             background: #101827;
 
@@ -80,7 +98,8 @@
 
             text-align: center;
 
-            padding: 25px 15px 20px;
+            padding:
+                25px 15px 20px;
 
         }
 
@@ -109,9 +128,13 @@
         }
 
 
-        /* NAVIGATION */
+        /* ==============================
+           NAVIGATION
+        ============================== */
 
         nav {
+
+            width: 100%;
 
             background: #1c2638;
 
@@ -119,11 +142,14 @@
 
             justify-content: center;
 
+            align-items: center;
+
             flex-wrap: wrap;
 
             gap: 28px;
 
-            padding: 14px 10px;
+            padding:
+                14px 10px;
 
         }
 
@@ -146,9 +172,13 @@
         }
 
 
-        /* HERO */
+        /* ==============================
+           HERO
+        ============================== */
 
         .hero {
+
+            width: 100%;
 
             background:
                 linear-gradient(
@@ -161,14 +191,16 @@
 
             text-align: center;
 
-            padding: 42px 20px;
+            padding:
+                42px 20px;
 
         }
 
 
         .hero h1 {
 
-            margin: 0 0 10px;
+            margin:
+                0 0 10px;
 
             font-size: 30px;
 
@@ -177,7 +209,8 @@
 
         .hero p {
 
-            margin: 0 auto;
+            margin:
+                0 auto;
 
             max-width: 650px;
 
@@ -188,20 +221,28 @@
         }
 
 
-        /* MAIN */
+        /* ==============================
+           MAIN
+        ============================== */
 
         main {
 
+            width: 100%;
+
             max-width: 1100px;
 
-            margin: auto;
+            margin:
+                0 auto;
 
-            padding: 35px 15px 60px;
+            padding:
+                35px 15px 60px;
 
         }
 
 
         .section-title {
+
+            width: 100%;
 
             text-align: center;
 
@@ -212,7 +253,8 @@
 
         .section-title h2 {
 
-            margin: 0 0 8px;
+            margin:
+                0 0 8px;
 
             font-size: 28px;
 
@@ -228,287 +270,432 @@
         }
 
 
-        /* CATEGORY GRID */
+        /* ==============================
+           CATEGORY GRID
+        ============================== */
 
-.category-grid {
+        .category-grid {
 
-    display: grid;
+            width: 100%;
 
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+            display: grid;
 
-    gap: 24px;
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
 
-    align-items: stretch;
+            gap: 24px;
 
-}
+            align-items: stretch;
 
+        }
 
-/* CATEGORY CARD */
 
-.category-card {
+        /* ==============================
+           CATEGORY CARD
+        ============================== */
 
-    background: white;
+        .category-card {
 
-    border-radius: 15px;
+            width: 100%;
 
-    padding: 28px 22px;
+            min-width: 0;
 
-    box-shadow:
-        0 5px 18px
-        rgba(0, 0, 0, 0.08);
+            height: 350px;
 
-    border-left:
-        4px solid #2865e8;
+            background: white;
 
-    min-height: 320px;
+            border-radius: 15px;
 
-    display: flex;
+            padding:
+                25px 20px;
 
-    flex-direction: column;
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.08);
 
-}
+            border-left:
+                4px solid #2865e8;
 
+            display: flex;
 
-/* CATEGORY TITLE */
+            flex-direction: column;
 
-.category-card h3 {
+        }
 
-    color: #2860d7;
 
-    margin: 0 0 12px;
+        .category-card h3 {
 
-    font-size: 23px;
+            width: 100%;
 
-    line-height: 1.3;
+            margin:
+                0 0 12px;
 
-}
+            color: #2860d7;
 
+            font-size: 23px;
 
-/* CATEGORY DESCRIPTION */
+            line-height: 1.3;
 
-.category-card p {
+        }
 
-    color: #69707b;
 
-    line-height: 1.6;
+        .category-card p {
 
-    min-height: 95px;
+            width: 100%;
 
-    margin: 0 0 18px;
+            height: 95px;
 
-}
+            min-height: 95px;
 
+            margin:
+                0 0 15px;
 
-/* EXAM COUNT */
+            color: #69707b;
 
-.exam-count {
+            line-height: 1.6;
 
-    font-size: 14px;
+            overflow: hidden;
 
-    color: #2865e8;
+        }
 
-    margin-bottom: 18px;
 
-    font-weight: bold;
+        /* ==============================
+           EXAM COUNT
+        ============================== */
 
-}
+        .exam-count {
 
+            width: 100%;
 
-/* BUTTON GROUP */
+            height: 20px;
 
-.button-group {
+            min-height: 20px;
 
-    display: flex;
+            margin:
+                0 0 18px;
 
-    gap: 10px;
+            font-size: 14px;
 
-    flex-wrap: wrap;
+            color: #2865e8;
 
-    margin-top: auto;
+            font-weight: bold;
 
-}
+        }
 
 
-/* BUTTON */
+        /* ==============================
+           BUTTON GROUP
+        ============================== */
 
-.btn {
+        .button-group {
 
-    display: inline-block;
+            width: 100%;
 
-    text-align: center;
+            margin-top: auto;
 
-    text-decoration: none;
+            display: grid;
 
-    border-radius: 7px;
+            grid-template-columns:
+                1fr;
 
-    padding: 11px 15px;
+            gap: 10px;
 
-    font-size: 15px;
+        }
 
-    flex: 1;
 
-    min-width: 130px;
+        /* ==============================
+           BUTTON
+        ============================== */
 
-    min-height: 44px;
+        .btn {
 
-}
+            width: 100%;
 
+            height: 42px;
 
-/* PRIMARY BUTTON */
+            min-height: 42px;
 
-.btn-primary {
+            display: flex;
 
-    background: #2865e8;
+            align-items: center;
 
-    color: white;
+            justify-content: center;
 
-}
+            text-align: center;
 
+            text-decoration: none;
 
-/* SECONDARY BUTTON */
+            border-radius: 7px;
 
-.btn-secondary {
+            padding:
+                10px 15px;
 
-    background: #101827;
+            font-size: 15px;
 
-    color: white;
+            line-height: 1;
 
-}
+            transition:
+                opacity 0.2s ease;
 
+        }
 
-/* HOVER */
 
-.btn:hover {
+        .btn-primary {
 
-    opacity: 0.9;
+            background: #2865e8;
 
-}
+            color: white;
 
+        }
 
-/* MOBILE */
 
-@media (max-width: 700px) {
+        .btn-secondary {
 
-    .category-grid {
+            background: #101827;
 
-        display: grid;
+            color: white;
 
-        grid-template-columns: 1fr;
+        }
 
-        width: 100%;
 
-        gap: 18px;
+        .btn:hover {
 
-    }
+            opacity: 0.9;
 
+        }
 
-    .category-card {
 
-        width: 100%;
+        /* ==============================
+           INFORMATION
+        ============================== */
 
-        height: 390px;
+        .info-section {
 
-        min-height: 390px;
+            width: 100%;
 
-        max-height: 390px;
+            margin-top: 45px;
 
-        padding: 25px 20px;
+            background: white;
 
-        margin: 0;
+            border-radius: 15px;
 
-        display: flex;
+            padding: 25px;
 
-        flex-direction: column;
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.06);
 
-        box-sizing: border-box;
+        }
 
-        overflow: hidden;
 
-    }
+        .info-section h2 {
 
+            color: #2860d7;
 
-    .category-card h3 {
+            margin-top: 0;
 
-        width: 100%;
+        }
 
-        min-height: 30px;
 
-        margin: 0 0 12px;
+        .info-section p {
 
-        font-size: 23px;
+            line-height: 1.7;
 
-        line-height: 1.3;
+            color: #555d68;
 
-    }
+        }
 
 
-    .category-card p {
+        /* ==============================
+           FOOTER
+        ============================== */
 
-        width: 100%;
+        footer {
 
-        height: 105px;
+            width: 100%;
 
-        min-height: 105px;
+            background: #101827;
 
-        max-height: 105px;
+            color: white;
 
-        margin: 0 0 18px;
+            text-align: center;
 
-        line-height: 1.6;
+            padding:
+                22px 15px;
 
-        overflow: hidden;
+            font-size: 14px;
 
-    }
+        }
 
 
-    .exam-count {
+        /* ==============================
+           MOBILE
+        ============================== */
 
-        width: 100%;
+        @media (max-width: 700px) {
 
-        height: 20px;
+            main {
 
-        min-height: 20px;
+                width: 100%;
 
-        margin: 0 0 18px;
+                padding:
+                    30px 15px 50px;
 
-    }
+            }
 
 
-    .button-group {
+            .category-grid {
 
-        width: 100%;
+                width: 100%;
 
-        margin-top: auto;
+                display: grid;
 
-        display: flex;
+                grid-template-columns: 1fr;
 
-        flex-direction: column;
+                gap: 18px;
 
-        gap: 10px;
+            }
 
-    }
 
+            .category-card {
 
-    .btn {
+                width: 100%;
 
-        width: 100%;
+                height: 430px;
 
-        height: 44px;
+                min-height: 430px;
 
-        min-height: 44px;
+                max-height: 430px;
 
-        max-height: 44px;
+                padding:
+                    25px 20px;
 
-        flex: none;
+                margin: 0;
 
-        padding: 11px 15px;
+                overflow: hidden;
 
-        box-sizing: border-box;
+            }
 
-    }
 
-}
+            .category-card h3 {
+
+                width: 100%;
+
+                height: 31px;
+
+                min-height: 31px;
+
+                margin:
+                    0 0 12px;
+
+                font-size: 23px;
+
+            }
+
+
+            .category-card p {
+
+                width: 100%;
+
+                height: 110px;
+
+                min-height: 110px;
+
+                max-height: 110px;
+
+                margin:
+                    0 0 18px;
+
+                overflow: hidden;
+
+            }
+
+
+            .exam-count {
+
+                width: 100%;
+
+                height: 20px;
+
+                min-height: 20px;
+
+                margin:
+                    0 0 18px;
+
+            }
+
+
+            .button-group {
+
+                width: 100%;
+
+                margin-top: auto;
+
+                display: grid;
+
+                grid-template-columns: 1fr;
+
+                gap: 10px;
+
+            }
+
+
+            .btn {
+
+                width: 100%;
+
+                height: 44px;
+
+                min-height: 44px;
+
+                max-height: 44px;
+
+            }
+
+
+            .hero {
+
+                padding:
+                    35px 18px;
+
+            }
+
+
+            .hero h1 {
+
+                font-size: 27px;
+
+            }
+
+
+            .section-title h2 {
+
+                font-size: 25px;
+
+            }
+
+
+            nav {
+
+                gap: 20px;
+
+            }
+
+
+            nav a {
+
+                font-size: 15px;
+
+            }
+
+
+            .logo {
+
+                font-size: 26px;
+
+            }
+
+        }
 
     </style>
 
@@ -518,7 +705,9 @@
 <body>
 
 
-    <!-- HEADER -->
+    <!-- ==============================
+         HEADER
+    ============================== -->
 
     <header>
 
@@ -533,7 +722,9 @@
     </header>
 
 
-    <!-- NAV -->
+    <!-- ==============================
+         NAVIGATION
+    ============================== -->
 
     <nav>
 
@@ -556,7 +747,9 @@
     </nav>
 
 
-    <!-- HERO -->
+    <!-- ==============================
+         HERO
+    ============================== -->
 
     <section class="hero">
 
@@ -565,15 +758,17 @@
         </h1>
 
         <p>
-            Exam information, preparation resources and
-            study materials for major competitive and
-            government examinations.
+            Exam information, preparation resources
+            and study materials for major competitive
+            and government examinations.
         </p>
 
     </section>
 
 
-    <!-- MAIN -->
+    <!-- ==============================
+         MAIN
+    ============================== -->
 
     <main>
 
@@ -585,14 +780,16 @@
             </h2>
 
             <p>
-                Explore examination details and
-                exam-wise study materials.
+                Explore examination details,
+                study materials and mock tests.
             </p>
 
         </div>
 
 
-        <!-- CATEGORY GRID -->
+        <!-- ==============================
+             CATEGORY GRID
+        ============================== -->
 
         <div class="category-grid">
 
@@ -621,29 +818,30 @@
 
                 <div class="button-group">
 
+                    <a
+                        class="btn btn-primary"
+                        href="exam-list.html?category=ssc"
+                    >
+                        Exam Details
+                    </a>
 
-    <a
-        class="btn btn-primary"
-        href="exam-list.html?category=ssc"
-    >
-        Exam Details
-    </a>
+                    <a
+                        class="btn btn-secondary"
+                        href="study-materials.html?category=ssc"
+                    >
+                        Study Materials
+                    </a>
 
-    <a
-        class="btn btn-secondary"
-        href="study-materials.html?category=ssc"
-    >
-        Study Materials
-    </a>
+                    <a
+                        class="btn btn-secondary"
+                        href="mock-tests.html?category=ssc"
+                    >
+                        Mock Tests
+                    </a>
 
-    <a
-        class="btn btn-secondary"
-        href="mock-tests.html?category=ssc"
-    >
-        Mock Tests
-    </a>
+                </div>
 
-</div>
+            </div>
 
 
             <!-- RAILWAY -->
@@ -670,28 +868,30 @@
 
                 <div class="button-group">
 
-    <a
-        class="btn btn-primary"
-        href="exam-list.html?category=railway"
-    >
-        Exam Details
-    </a>
+                    <a
+                        class="btn btn-primary"
+                        href="exam-list.html?category=railway"
+                    >
+                        Exam Details
+                    </a>
 
-    <a
-        class="btn btn-secondary"
-        href="study-materials.html?category=railway"
-    >
-        Study Materials
-    </a>
+                    <a
+                        class="btn btn-secondary"
+                        href="study-materials.html?category=railway"
+                    >
+                        Study Materials
+                    </a>
 
-    <a
-        class="btn btn-secondary"
-        href="mock-tests.html?category=railway"
-    >
-        Mock Tests
-    </a>
+                    <a
+                        class="btn btn-secondary"
+                        href="mock-tests.html?category=railway"
+                    >
+                        Mock Tests
+                    </a>
 
                 </div>
+
+            </div>
 
 
             <!-- TNPSC -->
@@ -718,28 +918,30 @@
 
                 <div class="button-group">
 
-    <a
-        class="btn btn-primary"
-        href="exam-list.html?category=tnpsc"
-    >
-        Exam Details
-    </a>
+                    <a
+                        class="btn btn-primary"
+                        href="exam-list.html?category=tnpsc"
+                    >
+                        Exam Details
+                    </a>
 
-    <a
-        class="btn btn-secondary"
-        href="study-materials.html?category=tnpsc"
-    >
-        Study Materials
-    </a>
+                    <a
+                        class="btn btn-secondary"
+                        href="study-materials.html?category=tnpsc"
+                    >
+                        Study Materials
+                    </a>
 
-    <a
-        class="btn btn-secondary"
-        href="mock-tests.html?category=tnpsc"
-    >
-        Mock Tests
-    </a>
+                    <a
+                        class="btn btn-secondary"
+                        href="mock-tests.html?category=tnpsc"
+                    >
+                        Mock Tests
+                    </a>
 
                 </div>
+
+            </div>
 
 
             <!-- DEFENCE -->
@@ -766,31 +968,38 @@
 
                 <div class="button-group">
 
-    <a
-        class="btn btn-primary"
-        href="exam-list.html?category=defence"
-    >
-        Exam Details
-    </a>
+                    <a
+                        class="btn btn-primary"
+                        href="exam-list.html?category=defence"
+                    >
+                        Exam Details
+                    </a>
 
-    <a
-        class="btn btn-secondary"
-        href="study-materials.html?category=defence"
-    >
-        Study Materials
-    </a>
+                    <a
+                        class="btn btn-secondary"
+                        href="study-materials.html?category=defence"
+                    >
+                        Study Materials
+                    </a>
 
-    <a
-        class="btn btn-secondary"
-        href="mock-tests.html?category=defence"
-    >
-        Mock Tests
-    </a>
+                    <a
+                        class="btn btn-secondary"
+                        href="mock-tests.html?category=defence"
+                    >
+                        Mock Tests
+                    </a>
 
                 </div>
 
+            </div>
 
-        <!-- INFORMATION -->
+
+        </div>
+
+
+        <!-- ==============================
+             INFORMATION
+        ============================== -->
 
         <section class="info-section">
 
@@ -819,7 +1028,9 @@
     </main>
 
 
-    <!-- FOOTER -->
+    <!-- ==============================
+         FOOTER
+    ============================== -->
 
     <footer>
 
@@ -828,7 +1039,9 @@
     </footer>
 
 
-    <!-- SUPABASE SCRIPT -->
+    <!-- ==============================
+         SUPABASE
+    ============================== -->
 
     <script>
 
@@ -837,7 +1050,7 @@
 
 
         const SUPABASE_PUBLISHABLE_KEY =
-            "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
+            "YOUR_EXISTING_PUBLISHABLE_KEY";
 
 
         const supabaseClient =
@@ -847,9 +1060,9 @@
             );
 
 
-        /* =========================================
+        /* ==============================
            LOAD EXAM COUNTS
-        ========================================= */
+        ============================== */
 
         async function loadExamCounts() {
 
@@ -861,9 +1074,7 @@
                 } =
                     await supabaseClient
                         .from("exams")
-                        .select(
-                            "category"
-                        )
+                        .select("category")
                         .eq(
                             "is_published",
                             true
@@ -926,7 +1137,7 @@
                     " published exam(s)";
 
 
-                document.getElementById(
+                                document.getElementById(
                     "tnpscCount"
                 ).textContent =
                     counts.tnpsc +
@@ -976,9 +1187,9 @@
         }
 
 
-        /* =========================================
+        /* ==============================
            START
-        ========================================= */
+        ============================== */
 
         loadExamCounts();
 
@@ -987,4 +1198,5 @@
 
 </body>
 
-  </html>
+</html>
+                
