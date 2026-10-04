@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TN Warriors - Mock Test Instructions</title>
+
+
+    <!-- GOOGLE ANALYTICS -->
+
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"
+    ></script>
+
+    <script>
+
+        window.dataLayer =
+            window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag(
+            "js",
+            new Date()
+        );
+
+        gtag(
+            "config",
+            "G-403SNE66JG"
+        );
+
+    </script>
+
+
+    <!-- SUPABASE -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                "Trebuchet MS",
+                Arial,
+                sans-serif;
+
+            background: #f4f5f7;
+
+            color: #20242d;
+
+        }
+
+
+        /* HEADER */
+
+        header {
+
+            background: #101827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px 15px 20px;
+
+        }
+
+
+        .logo {
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .tagline {
+
+            font-size: 15px;
+
+            opacity: 0.9;
+
+        }
+
+
+        /* NAV */
+
+        nav {
+
+            background: #1c2638;
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 28px;
+
+            padding: 14px 10px;
+
+        }
+
+
+        nav a {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 16px;
+
+        }
+
+
+        nav a:hover {
+
+            color: #3f73ee;
+
+        }
+
+
+        /* MAIN */
+
+        main {
+
+            max-width: 850px;
+
+            margin: 0 auto;
+
+            padding: 35px 15px 60px;
+
+        }
+
+
+        /* LOADING */
+
+        .loading {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 35px 20px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.08);
+
+            color: #68707d;
+
+        }
+
+
+        /* ERROR */
+
+        .error-box {
+
+            display: none;
+
+            background: #fff1f1;
+
+            border: 1px solid #e1aaaa;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            color: #a12626;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* TEST CARD */
+
+        .test-card {
+
+            display: none;
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 30px 25px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.08);
+
+        }
+
+
+        .test-title {
+
+            margin: 0 0 8px;
+
+            color: #2860d7;
+
+            font-size: 28px;
+
+            line-height: 1.3;
+
+        }
+
+
+        .exam-name {
+
+            margin: 0 0 25px;
+
+            color: #68707d;
+
+            font-size: 16px;
+
+        }
+
+
+        /* INFO GRID */
+
+        .info-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 15px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .info-box {
+
+            background: #f4f6fa;
+
+            border-radius: 10px;
+
+            padding: 16px;
+
+            border-left:
+                3px solid #2865e8;
+
+        }
+
+
+        .info-label {
+
+            display: block;
+
+            font-size: 13px;
+
+            color: #747c88;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .info-value {
+
+            display: block;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #20242d;
+
+        }
+
+
+        /* PREMIUM */
+
+        .premium-box {
+
+            display: none;
+
+            background: #fff7e6;
+
+            border: 1px solid #e6c47a;
+
+            color: #765719;
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+            margin-bottom: 25px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* DESCRIPTION */
+
+        .description {
+
+            color: #555d68;
+
+            line-height: 1.7;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        /* INSTRUCTIONS */
+
+        .instructions {
+
+            background: #f8f9fb;
+
+            border-radius: 12px;
+
+            padding: 22px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .instructions h2 {
+
+            margin:
+                0 0 15px;
+
+            color: #2860d7;
+
+            font-size: 21px;
+
+        }
+
+
+        .instructions ul {
+
+            margin: 0;
+
+            padding-left: 22px;
+
+        }
+
+
+        .instructions li {
+
+            margin-bottom: 11px;
+
+            line-height: 1.6;
+
+            color: #555d68;
+
+        }
+
+
+        /* ACTIONS */
+
+        .actions {
+
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .btn {
+
+            border: none;
+
+            border-radius: 8px;
+
+            padding: 13px 20px;
+
+            font-size: 16px;
+
+            text-decoration: none;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            min-height: 46px;
+
+        }
+
+
+        .btn-back {
+
+            background: #101827;
+
+            color: white;
+
+        }
+
+
+        .btn-start {
+
+            background: #2865e8;
+
+            color: white;
+
+            flex: 1;
+
+        }
+
+
+        .btn:hover {
+
+            opacity: 0.9;
+
+        }
+
+
+        /* FOOTER */
+
+        footer {
+
+            background: #101827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 22px 15px;
+
+            font-size: 14px;
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .logo {
+
+                font-size: 26px;
+
+            }
+
+
+            nav {
+
+                gap: 20px;
+
+            }
+
+
+            nav a {
+
+                font-size: 15px;
+
+            }
+
+
+            main {
+
+                padding:
+                    25px 15px 50px;
+
+            }
+
+
+            .test-card {
+
+                padding:
+                    25px 18px;
+
+            }
+
+
+            .test-title {
+
+                font-size: 25px;
+
+            }
+
+
+            .info-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .actions {
+
+                flex-direction: column;
+
+            }
+
+
+            .btn {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            TN WARRIORS
+        </div>
+
+        <div class="tagline">
+            Jobs • Exams • Defence Updates • Study Materials
+        </div>
+
+    </header>
+
+
+    <!-- NAV -->
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="jobs.html">
+            Jobs
+        </a>
+
+        <a href="exams.html">
+            Exams
+        </a>
+
+        <a href="defence.html">
+            Defence
+        </a>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main>
+
+
+        <!-- LOADING -->
+
+        <div
+            class="loading"
+            id="loading"
+        >
+            Loading mock test...
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div
+            class="error-box"
+            id="errorBox"
+        ></div>
+
+
+        <!-- TEST -->
+
+        <section
+            class="test-card"
+            id="testCard"
+        >
+
+
+            <h1
+                class="test-title"
+                id="testTitle"
+            ></h1>
+
+
+            <p
+                class="exam-name"
+                id="examName"
+            ></p>
+
+
+            <!-- INFO -->
+
+            <div class="info-grid">
+
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Questions
+                    </span>
+
+                    <span
+                        class="info-value"
+                        id="totalQuestions"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Duration
+                    </span>
+
+                    <span
+                        class="info-value"
+                        id="duration"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Total Marks
+                    </span>
+
+                    <span
+                        class="info-value"
+                        id="totalMarks"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Negative Marking
+                    </span>
+
+                    <span
+                        class="info-value"
+                        id="negativeMark"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- PREMIUM -->
+
+            <div
+                class="premium-box"
+                id="premiumBox"
+            >
+                This is a premium mock test.
+                Premium access will be enabled
+                through the TN Warriors premium system.
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div
+                class="description"
+                id="description"
+            ></div>
+
+
+            <!-- INSTRUCTIONS -->
+
+            <div class="instructions">
+
+                <h2>
+                    Test Instructions
+                </h2>
+
+                <ul>
+
+                    <li>
+                        Read each question carefully before selecting an answer.
+                    </li>
+
+                    <li>
+                        The test timer will start when you begin the test.
+                    </li>
+
+                    <li>
+                        You can move between questions during the test.
+                    </li>
+
+                    <li>
+                        You can review your selected answers before submission.
+                    </li>
+
+                    <li>
+                        Unanswered questions will be counted as skipped.
+                    </li>
+
+                    <li>
+                        Wrong answers may receive negative marks according
+                        to the test settings.
+                    </li>
+
+                    <li>
+                        Make sure you submit the test before the timer ends.
+                    </li>
+
+                    <li>
+                        Do not refresh or close the test page while taking
+                        the examination.
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="actions">
+
+                <a
+                    class="btn btn-back"
+                    href="mock-tests.html"
+                >
+                    Back to Mock Tests
+                </a>
+
+
+                <button
+                    class="btn btn-start"
+                    id="startButton"
+                    type="button"
+                >
+                    Start Test
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2026 TN Warriors. All Rights Reserved.
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+
+        /* =========================================
+           SUPABASE
+        ========================================= */
+
+        const SUPABASE_URL =
+            "https://nwipyqarobgelksdbkbk.supabase.co";
+
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
+
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+
+        /* =========================================
+           ELEMENTS
+        ========================================= */
+
+        const loading =
+            document.getElementById(
+                "loading"
+            );
+
+
+        const errorBox =
+            document.getElementById(
+                "errorBox"
+            );
+
+
+        const testCard =
+            document.getElementById(
+                "testCard"
+            );
+
+
+        const testTitle =
+            document.getElementById(
+                "testTitle"
+            );
+
+
+        const examName =
+            document.getElementById(
+                "examName"
+            );
+
+
+        const totalQuestions =
+            document.getElementById(
+                "totalQuestions"
+            );
+
+
+        const duration =
+            document.getElementById(
+                "duration"
+            );
+
+
+        const totalMarks =
+            document.getElementById(
+                "totalMarks"
+            );
+
+
+        const negativeMark =
+            document.getElementById(
+                "negativeMark"
+            );
+
+
+        const description =
+            document.getElementById(
+                "description"
+            );
+
+
+        const premiumBox =
+            document.getElementById(
+                "premiumBox"
+            );
+
+
+        const startButton =
+            document.getElementById(
+                "startButton"
+            );
+
+
+        /* =========================================
+           GET TEST ID
+        ========================================= */
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const testId =
+            urlParams.get("id");
+
+
+        /* =========================================
+           ERROR HANDLER
+        ========================================= */
+
+        function showError(message) {
+
+            loading.style.display =
+                "none";
+
+            testCard.style.display =
+                "none";
+
+            errorBox.style.display =
+                "block";
+
+            errorBox.textContent =
+                message;
+
+        }
+
+
+        /* =========================================
+           LOAD MOCK TEST
+        ========================================= */
+
+        async function loadMockTest() {
+
+            try {
+
+                if (!testId) {
+
+                    throw new Error(
+                        "Mock test ID is missing from the URL."
+                    );
+
+                }
+
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .from("mock_tests")
+                        .select(`
+                            id,
+                            slug,
+                            title,
+                            exam_name,
+                            description,
+                            duration_minutes,
+                            total_questions,
+                            total_marks,
+                            negative_mark,
+                            is_premium,
+                            is_published
+                        `)
+                        .eq(
+                            "id",
+                            testId
+                        )
+                        .eq(
+                            "is_published",
+                            true
+                        )
+                        .single();
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                if (!data) {
+
+                    throw new Error(
+                        "Mock test was not found or is not published."
+                    );
+
+                }
+
+
+                /* ==============================
+                   DISPLAY DATA
+                ============================== */
+
+                testTitle.textContent =
+                    data.title ||
+                    "Mock Test";
+
+
+                examName.textContent =
+                    data.exam_name
+                    ? "Exam: " +
+                      data.exam_name
+                    : "Competitive Exam";
+
+
+                totalQuestions.textContent =
+                    data.total_questions ??
+                    "0";
+
+
+                duration.textContent =
+                    data.duration_minutes
+                    ? data.duration_minutes +
+                      " Minutes"
+                    : "Not set";
+
+
+                totalMarks.textContent =
+                    data.total_marks ??
+                    "0";
+
+
+                negativeMark.textContent =
+                    data.negative_mark
+                    ? data.negative_mark +
+                      " per wrong answer"
+                    : "No negative marking";
+
+
+                description.textContent =
+                    data.description ||
+                    "Read the instructions carefully and start the mock test when you are ready.";
+
+
+                if (
+                    data.is_premium === true
+                ) {
+
+                    premiumBox.style.display =
+                        "block";
+
+                }
+
+
+                /* ==============================
+                   START BUTTON
+                ============================== */
+
+                startButton.onclick =
+                    function() {
+
+                        window.location.href =
+                            "mock-test.html?id=" +
+                            encodeURIComponent(
+                                data.id
+                            );
+
+                    };
+
+
+                loading.style.display =
+                    "none";
+
+                testCard.style.display =
+                    "block";
+
+
+            } catch (error) {
+
+                console.error(
+                    "MOCK TEST INSTRUCTIONS ERROR:",
+                    error
+                );
+
+
+                showError(
+                    "Unable to load this mock test. " +
+                    (
+                        error.message ||
+                        "Unknown error."
+                    )
+                );
+
+            }
+
+        }
+
+
+        /* =========================================
+           START
+        ========================================= */
+
+        loadMockTest();
+
+
+    </script>
+
+
+</body>
+
+              </html>
