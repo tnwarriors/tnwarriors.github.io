@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TN Warriors - Mock Tests</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+    <style>
+
+        .page-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .back-button {
+            background: #e5e7eb;
+            color: #111827;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-button:hover {
+            background: #d1d5db;
+        }
+
+        .form-card,
+        .list-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 25px;
+        }
+
+        .form-card h2,
+        .list-card h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .checkbox-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .checkbox-row input {
+            width: auto;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .primary-button,
+        .secondary-button,
+        .danger-button,
+        .question-button {
+            border: none;
+            border-radius: 7px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .primary-button {
+            background: #2563eb;
+            color: white;
+        }
+
+        .primary-button:hover {
+            background: #1d4ed8;
+        }
+
+        .secondary-button {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .danger-button {
+            background: #dc2626;
+            color: white;
+        }
+
+        .question-button {
+            background: #059669;
+            color: white;
+        }
+
+        .test-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .test-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .test-item h3 {
+            margin: 0 0 8px;
+        }
+
+        .test-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .badge-free {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-premium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-published {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-draft {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .test-description {
+            color: #64748b;
+            margin: 8px 0;
+        }
+
+        .test-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .success {
+            color: #15803d;
+        }
+
+        .error {
+            color: #dc2626;
+        }
+
+        .loading {
+            color: #64748b;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 700px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .page-container {
+                padding: 20px 15px 40px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="admin-header">
+
+    <div>
+
+        <h1>TN Warriors</h1>
+
+        <p>Mock Test Management</p>
+
+    </div>
+
+
+    <button id="logoutButton">
+        Logout
+    </button>
+
+</header>
+
+
+
+<main class="page-container">
+
+
+    <div class="top-bar">
+
+        <div>
+
+            <h2>
+                Mock Tests
+            </h2>
+
+            <p>
+                Create and manage TN Warriors mock tests.
+            </p>
+
+        </div>
+
+
+        <a
+            href="dashboard.html"
+            class="back-button"
+        >
+            Back to Dashboard
+        </a>
+
+    </div>
+
+
+
+    <!-- CREATE / EDIT TEST -->
+
+    <section class="form-card">
+
+        <h2 id="formTitle">
+            Create New Mock Test
+        </h2>
+
+
+        <form id="mockTestForm">
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group full">
+
+                    <label for="title">
+                        Test Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Example: SSC GD General Knowledge Mock Test 1"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="examName">
+                        Exam Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="examName"
+                        placeholder="Example: SSC GD Constable"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="duration">
+                        Duration (Minutes)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="duration"
+                        min="1"
+                        value="30"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="totalQuestions">
+                        Total Questions
+                    </label>
+
+                    <input
+                        type="number"
+                        id="totalQuestions"
+                        min="1"
+                        value="10"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="totalMarks">
+                        Total Marks
+                    </label>
+
+                    <input
+                        type="number"
+                        id="totalMarks"
+                        min="1"
+                        step="0.01"
+                        value="10"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="negativeMark">
+                        Negative Mark per Wrong Answer
+                    </label>
+
+                    <input
+                        type="number"
+                        id="negativeMark"
+                        min="0"
+                        step="0.01"
+                        value="0"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Access Type
+                    </label>
+
+                    <div class="checkbox-row">
+
+                        <input
+                            type="checkbox"
+                            id="isPremium"
+                        >
+
+                        <label for="isPremium">
+                            Premium Test
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Publication
+                    </label>
+
+                    <div class="checkbox-row">
+
+                        <input
+                            type="checkbox"
+                            id="isPublished"
+                        >
+
+                        <label for="isPublished">
+                            Publish Test
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-group full">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        placeholder="Short description about this mock test"
+                    ></textarea>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="button-row">
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                    id="saveButton"
+                >
+                    Create Mock Test
+                </button>
+
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="cancelButton"
+                    style="display:none;"
+                >
+                    Cancel Edit
+                </button>
+
+            </div>
+
+
+            <p
+                id="formMessage"
+                class="message"
+            ></p>
+
+
+        </form>
+
+    </section>
+
+
+
+    <!-- EXISTING TESTS -->
+
+    <section class="list-card">
+
+        <h2>
+            Existing Mock Tests
+        </h2>
+
+
+        <div id="testList">
+
+            <div class="loading">
+                Loading mock tests...
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+
+<script>
+
+    /* =========================================
+       SUPABASE
+    ========================================= */
+
+    const SUPABASE_URL =
+        "https://nwipyqarobgelksdbkbk.supabase.co";
+
+
+    const SUPABASE_PUBLISHABLE_KEY =
+        "YOUR_EXISTING_PUBLISHABLE_KEY";
+
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
+
+    /* =========================================
+       ELEMENTS
+    ========================================= */
+
+    const mockTestForm =
+        document.getElementById(
+            "mockTestForm"
+        );
+
+
+    const testList =
+        document.getElementById(
+            "testList"
+        );
+
+
+    const formMessage =
+        document.getElementById(
+            "formMessage"
+        );
+
+
+    const saveButton =
+        document.getElementById(
+            "saveButton"
+        );
+
+
+    const cancelButton =
+        document.getElementById(
+            "cancelButton"
+        );
+
+
+    const formTitle =
+        document.getElementById(
+            "formTitle"
+        );
+
+
+    let editingTestId = null;
+
+
+
+    /* =========================================
+       ADMIN CHECK
+    ========================================= */
+
+    checkAdminAccess();
+
+
+    async function checkAdminAccess() {
+
+        try {
+
+            const {
+                data: {
+                    user
+                },
+                error
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (
+                error ||
+                !user
+            ) {
+
+                window.location.href =
+                    "index.html";
+
+                return;
+
+            }
+
+
+            const {
+                data: profile,
+                error: profileError
+            } =
+                await supabaseClient
+                    .from("profiles")
+                    .select("role")
+                    .eq("id", user.id)
+                    .single();
+
+
+            if (
+                profileError ||
+                !profile ||
+                profile.role !== "admin"
+            ) {
+
+                await supabaseClient.auth.signOut();
+
+                alert(
+                    "Admin access required."
+                );
+
+                window.location.href =
+                    "index.html";
+
+                return;
+
+            }
+
+
+            loadMockTests();
+
+        } catch (error) {
+
+            console.error(error);
+
+            window.location.href =
+                "index.html";
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       LOAD TESTS
+    ========================================= */
+
+    async function loadMockTests() {
+
+        testList.innerHTML =
+            '<div class="loading">Loading mock tests...</div>';
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("mock_tests")
+                .select(`
+                    id,
+                    slug,
+                    title,
+                    exam_name,
+                    description,
+                    duration_minutes,
+                    total_questions,
+                    total_marks,
+                    negative_mark,
+                    is_premium,
+                    is_published,
+                    created_at
+                `)
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(error);
+
+            testList.innerHTML =
+                `<div class="message error">
+                    ${escapeHTML(error.message)}
+                </div>`;
+
+            return;
+
+        }
+
+
+        if (
+            !data ||
+            data.length === 0
+        ) {
+
+            testList.innerHTML =
+                '<div class="loading">No mock tests created yet.</div>';
+
+            return;
+
+        }
+
+
+        testList.innerHTML = "";
+
+
+        data.forEach(
+            test => {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "test-item";
+
+
+                item.innerHTML = `
+
+                    <h3>
+                        ${escapeHTML(test.title)}
+                    </h3>
+
+
+                    <div class="test-meta">
+
+                        <span class="badge badge-free">
+                            ${escapeHTML(
+                                test.exam_name || "Exam"
+                            )}
+                        </span>
+
+
+                        <span class="badge ${
+                            test.is_premium
+                                ? "badge-premium"
+                                : "badge-free"
+                        }">
+
+                            ${
+                                test.is_premium
+                                    ? "Premium"
+                                    : "Free"
+                            }
+
+                        </span>
+
+
+                        <span class="badge ${
+                            test.is_published
+                                ? "badge-published"
+                                : "badge-draft"
+                        }">
+
+                            ${
+                                test.is_published
+                                    ? "Published"
+                                    : "Draft"
+                            }
+
+                        </span>
+
+                    </div>
+
+
+                    <p class="test-description">
+
+                        ${
+                            escapeHTML(
+                                test.description ||
+                                "No description"
+                            )
+                        }
+
+                    </p>
+
+
+                    <div>
+
+                        <strong>
+                            Questions:
+                        </strong>
+
+                        ${test.total_questions || 0}
+
+                        &nbsp; | &nbsp;
+
+                        <strong>
+                            Duration:
+                        </strong>
+
+                        ${test.duration_minutes || 0} min
+
+                        &nbsp; | &nbsp;
+
+                        <strong>
+                            Marks:
+                        </strong>
+
+                        ${test.total_marks || 0}
+
+                        &nbsp; | &nbsp;
+
+                        <strong>
+                            Negative:
+                        </strong>
+
+                        ${test.negative_mark || 0}
+
+                    </div>
+
+
+                    <div class="test-actions">
+
+                        <button
+                            class="question-button"
+                            onclick="manageQuestions('${test.id}')"
+                        >
+                            Manage Questions
+                        </button>
+
+
+                        <button
+                            class="secondary-button"
+                            onclick="editTest('${test.id}')"
+                        >
+                            Edit
+                        </button>
+
+
+                        <button
+                            class="danger-button"
+                            onclick="deleteTest('${test.id}')"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                testList.appendChild(
+                    item
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* =========================================
+       CREATE / UPDATE
+    ========================================= */
+
+    mockTestForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            formMessage.textContent = "";
+            formMessage.className =
+                "message";
+
+
+            const title =
+                document
+                    .getElementById("title")
+                    .value
+                    .trim();
+
+
+            const examName =
+                document
+                    .getElementById("examName")
+                    .value
+                    .trim();
+
+
+            const description =
+                document
+                    .getElementById("description")
+                    .value
+                    .trim();
+
+
+            const duration =
+                Number(
+                    document
+                        .getElementById("duration")
+                        .value
+                );
+
+
+            const totalQuestions =
+                Number(
+                    document
+                        .getElementById("totalQuestions")
+                        .value
+                );
+
+
+            const totalMarks =
+                Number(
+                    document
+                        .getElementById("totalMarks")
+                        .value
+                );
+
+
+            const negativeMark =
+                Number(
+                    document
+                        .get
+                                  getElementById("negativeMark")
+                    .value
+            );
+
+
+            const isPremium =
+                document
+                    .getElementById("isPremium")
+                    .checked;
+
+
+            const isPublished =
+                document
+                    .getElementById("isPublished")
+                    .checked;
+
+
+            if (!title || !examName) {
+
+                formMessage.textContent =
+                    "Title and Exam Name are required.";
+
+                formMessage.classList.add(
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            saveButton.disabled = true;
+
+            saveButton.textContent =
+                editingTestId
+                    ? "Updating..."
+                    : "Creating...";
+
+
+            try {
+
+                if (editingTestId) {
+
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+                            .from("mock_tests")
+                            .update({
+
+                                title: title,
+
+                                exam_name: examName,
+
+                                description:
+                                    description || null,
+
+                                duration_minutes:
+                                    duration,
+
+                                total_questions:
+                                    totalQuestions,
+
+                                total_marks:
+                                    totalMarks,
+
+                                negative_mark:
+                                    negativeMark,
+
+                                is_premium:
+                                    isPremium,
+
+                                is_published:
+                                    isPublished
+
+                            })
+                            .eq(
+                                "id",
+                                editingTestId
+                            );
+
+
+                    if (error) {
+                        throw error;
+                    }
+
+
+                    formMessage.textContent =
+                        "Mock test updated successfully.";
+
+                } else {
+
+                    const slugBase =
+                        title
+                            .toLowerCase()
+                            .trim()
+                            .replace(
+                                /[^a-z0-9]+/g,
+                                "-"
+                            )
+                            .replace(
+                                /^-+|-+$/g,
+                                ""
+                            );
+
+
+                    const slug =
+                        slugBase +
+                        "-" +
+                        crypto
+                            .randomUUID()
+                            .slice(0, 8);
+
+
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+                            .from("mock_tests")
+                            .insert({
+
+                                slug: slug,
+
+                                title: title,
+
+                                exam_name:
+                                    examName,
+
+                                description:
+                                    description || null,
+
+                                duration_minutes:
+                                    duration,
+
+                                total_questions:
+                                    totalQuestions,
+
+                                total_marks:
+                                    totalMarks,
+
+                                negative_mark:
+                                    negativeMark,
+
+                                is_premium:
+                                    isPremium,
+
+                                is_published:
+                                    isPublished
+
+                            });
+
+
+                    if (error) {
+                        throw error;
+                    }
+
+
+                    formMessage.textContent =
+                        "Mock test created successfully.";
+
+                }
+
+
+                formMessage.classList.add(
+                    "success"
+                );
+
+
+                resetForm();
+
+                await loadMockTests();
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                formMessage.textContent =
+                    error.message ||
+                    "Unable to save mock test.";
+
+                formMessage.classList.add(
+                    "error"
+                );
+
+            } finally {
+
+                saveButton.disabled =
+                    false;
+
+                saveButton.textContent =
+                    editingTestId
+                        ? "Update Mock Test"
+                        : "Create Mock Test";
+
+            }
+
+        }
+    );
+
+
+
+    /* =========================================
+       EDIT TEST
+    ========================================= */
+
+    async function editTest(id) {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("mock_tests")
+                .select(`
+                    id,
+                    title,
+                    exam_name,
+                    description,
+                    duration_minutes,
+                    total_questions,
+                    total_marks,
+                    negative_mark,
+                    is_premium,
+                    is_published
+                `)
+                .eq(
+                    "id",
+                    id
+                )
+                .single();
+
+
+        if (error) {
+
+            alert(
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        editingTestId =
+            data.id;
+
+
+        document.getElementById(
+            "title"
+        ).value =
+            data.title || "";
+
+
+        document.getElementById(
+            "examName"
+        ).value =
+            data.exam_name || "";
+
+
+        document.getElementById(
+            "description"
+        ).value =
+            data.description || "";
+
+
+        document.getElementById(
+            "duration"
+        ).value =
+            data.duration_minutes || 30;
+
+
+        document.getElementById(
+            "totalQuestions"
+        ).value =
+            data.total_questions || 10;
+
+
+        document.getElementById(
+            "totalMarks"
+        ).value =
+            data.total_marks || 10;
+
+
+        document.getElementById(
+            "negativeMark"
+        ).value =
+            data.negative_mark || 0;
+
+
+        document.getElementById(
+            "isPremium"
+        ).checked =
+            data.is_premium;
+
+
+        document.getElementById(
+            "isPublished"
+        ).checked =
+            data.is_published;
+
+
+        formTitle.textContent =
+            "Edit Mock Test";
+
+
+        saveButton.textContent =
+            "Update Mock Test";
+
+
+        cancelButton.style.display =
+            "inline-block";
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+
+    /* =========================================
+       MANAGE QUESTIONS
+    ========================================= */
+
+    function manageQuestions(id) {
+
+        window.location.href =
+            "mock-questions.html?test=" +
+            encodeURIComponent(id);
+
+    }
+
+
+
+    /* =========================================
+       DELETE TEST
+    ========================================= */
+
+    async function deleteTest(id) {
+
+        const confirmed =
+            confirm(
+                "Delete this mock test?\n\nAll questions and answers belonging to this test will also be deleted."
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("mock_tests")
+                .delete()
+                .eq(
+                    "id",
+                    id
+                );
+
+
+        if (error) {
+
+            alert(
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        await loadMockTests();
+
+    }
+
+
+
+    /* =========================================
+       CANCEL EDIT
+    ========================================= */
+
+    cancelButton.addEventListener(
+        "click",
+        function () {
+
+            resetForm();
+
+        }
+    );
+
+
+
+    /* =========================================
+       RESET FORM
+    ========================================= */
+
+    function resetForm() {
+
+        editingTestId = null;
+
+        mockTestForm.reset();
+
+
+        document.getElementById(
+            "duration"
+        ).value = 30;
+
+
+        document.getElementById(
+            "totalQuestions"
+        ).value = 10;
+
+
+        document.getElementById(
+            "totalMarks"
+        ).value = 10;
+
+
+        document.getElementById(
+            "negativeMark"
+        ).value = 0;
+
+
+        formTitle.textContent =
+            "Create New Mock Test";
+
+
+        saveButton.textContent =
+            "Create Mock Test";
+
+
+        cancelButton.style.display =
+            "none";
+
+    }
+
+
+
+    /* =========================================
+       LOGOUT
+    ========================================= */
+
+    const logoutButton =
+        document.getElementById(
+            "logoutButton"
+        );
+
+
+    logoutButton.addEventListener(
+        "click",
+        async function () {
+
+            logoutButton.disabled =
+                true;
+
+            logoutButton.textContent =
+                "Logging out...";
+
+
+            await supabaseClient.auth.signOut();
+
+
+            window.location.href =
+                "index.html";
+
+        }
+    );
+
+
+
+    /* =========================================
+       HTML ESCAPE
+    ========================================= */
+
+    function escapeHTML(value) {
+
+        return String(value)
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+</script>
+
+
+</body>
+
+</html>
