@@ -80,9 +80,9 @@
         }
 
         .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .form-group textarea {
             width: 100%;
+            box-sizing: border-box;
             padding: 11px 12px;
             border: 1px solid #d1d5db;
             border-radius: 7px;
@@ -99,10 +99,12 @@
             display: flex;
             gap: 10px;
             align-items: center;
+            min-height: 42px;
         }
 
         .checkbox-row input {
-            width: auto;
+            width: 18px;
+            height: 18px;
         }
 
         .button-row {
@@ -115,7 +117,8 @@
         .primary-button,
         .secondary-button,
         .danger-button,
-        .question-button {
+        .question-button,
+        .publish-button {
             border: none;
             border-radius: 7px;
             padding: 10px 15px;
@@ -137,14 +140,35 @@
             color: #111827;
         }
 
+        .secondary-button:hover {
+            background: #d1d5db;
+        }
+
         .danger-button {
             background: #dc2626;
             color: white;
         }
 
+        .danger-button:hover {
+            background: #b91c1c;
+        }
+
         .question-button {
             background: #059669;
             color: white;
+        }
+
+        .question-button:hover {
+            background: #047857;
+        }
+
+        .publish-button {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .publish-button:hover {
+            background: #6d28d9;
         }
 
         .test-list {
@@ -160,6 +184,7 @@
 
         .test-item h3 {
             margin: 0 0 8px;
+            font-size: 20px;
         }
 
         .test-meta {
@@ -228,6 +253,18 @@
             padding: 20px;
         }
 
+        .empty-state {
+            text-align: center;
+            padding: 30px 15px;
+            color: #64748b;
+        }
+
+        .test-number {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
         @media (max-width: 700px) {
 
             .form-grid {
@@ -240,6 +277,15 @@
 
             .page-container {
                 padding: 20px 15px 40px;
+            }
+
+            .form-card,
+            .list-card {
+                padding: 18px;
+            }
+
+            .test-actions button {
+                width: 100%;
             }
 
         }
@@ -300,7 +346,7 @@
 
 
 
-    <!-- CREATE / EDIT TEST -->
+    <!-- CREATE / EDIT -->
 
     <section class="form-card">
 
@@ -577,39 +623,25 @@
     ========================================= */
 
     const mockTestForm =
-        document.getElementById(
-            "mockTestForm"
-        );
-
+        document.getElementById("mockTestForm");
 
     const testList =
-        document.getElementById(
-            "testList"
-        );
-
+        document.getElementById("testList");
 
     const formMessage =
-        document.getElementById(
-            "formMessage"
-        );
-
+        document.getElementById("formMessage");
 
     const saveButton =
-        document.getElementById(
-            "saveButton"
-        );
-
+        document.getElementById("saveButton");
 
     const cancelButton =
-        document.getElementById(
-            "cancelButton"
-        );
-
+        document.getElementById("cancelButton");
 
     const formTitle =
-        document.getElementById(
-            "formTitle"
-        );
+        document.getElementById("formTitle");
+
+    const logoutButton =
+        document.getElementById("logoutButton");
 
 
     let editingTestId = null;
@@ -617,11 +649,16 @@
 
 
     /* =========================================
-       ADMIN CHECK
+       START
     ========================================= */
 
     checkAdminAccess();
 
+
+
+    /* =========================================
+       ADMIN CHECK
+    ========================================= */
 
     async function checkAdminAccess() {
 
@@ -636,10 +673,7 @@
                 await supabaseClient.auth.getUser();
 
 
-            if (
-                error ||
-                !user
-            ) {
+            if (error || !user) {
 
                 window.location.href =
                     "index.html";
@@ -680,14 +714,16 @@
             }
 
 
-            loadMockTests();
+            await loadMockTests();
 
         } catch (error) {
 
             console.error(error);
 
-            window.location.href =
-                "index.html";
+            testList.innerHTML =
+                `<div class="message error">
+                    ${escapeHTML(error.message)}
+                </div>`;
 
         }
 
@@ -696,7 +732,7 @@
 
 
     /* =========================================
-       LOAD TESTS
+       LOAD MOCK TESTS
     ========================================= */
 
     async function loadMockTests() {
@@ -735,10 +771,14 @@
 
         if (error) {
 
-            console.error(error);
+            console.error(
+                "LOAD MOCK TESTS ERROR:",
+                error
+            );
 
             testList.innerHTML =
                 `<div class="message error">
+                    Unable to load mock tests.<br><br>
                     ${escapeHTML(error.message)}
                 </div>`;
 
@@ -747,13 +787,12 @@
         }
 
 
-        if (
-            !data ||
-            data.length === 0
-        ) {
+        if (!data || data.length === 0) {
 
             testList.innerHTML =
-                '<div class="loading">No mock tests created yet.</div>';
+                `<div class="empty-state">
+                    No mock tests created yet.
+                </div>`;
 
             return;
 
@@ -764,12 +803,10 @@
 
 
         data.forEach(
-            test => {
+            (test, index) => {
 
                 const item =
-                    document.createElement(
-                        "div"
-                    );
+                    document.createElement("div");
 
 
                 item.className =
@@ -777,6 +814,10 @@
 
 
                 item.innerHTML = `
+
+                    <div class="test-number">
+                        Mock Test #${data.length - index}
+                    </div>
 
                     <h3>
                         ${escapeHTML(test.title)}
@@ -873,6 +914,7 @@
 
                     <div class="test-actions">
 
+
                         <button
                             class="question-button"
                             onclick="manageQuestions('${test.id}')"
@@ -890,20 +932,36 @@
 
 
                         <button
+                            class="publish-button"
+                            onclick="togglePublish(
+                                '${test.id}',
+                                ${test.is_published}
+                            )"
+                        >
+
+                            ${
+                                test.is_published
+                                    ? "Unpublish"
+                                    : "Publish"
+                            }
+
+                        </button>
+
+
+                        <button
                             class="danger-button"
                             onclick="deleteTest('${test.id}')"
                         >
                             Delete
                         </button>
 
+
                     </div>
 
                 `;
 
 
-                testList.appendChild(
-                    item
-                );
+                testList.appendChild(item);
 
             }
         );
@@ -913,12 +971,12 @@
 
 
     /* =========================================
-       CREATE / UPDATE
+       CREATE / UPDATE TEST
     ========================================= */
 
     mockTestForm.addEventListener(
         "submit",
-        async function (event) {
+        async function(event) {
 
             event.preventDefault();
 
@@ -976,10 +1034,9 @@
             const negativeMark =
                 Number(
                     document
-                        .get
-                                  getElementById("negativeMark")
-                    .value
-            );
+                        .getElementById("negativeMark")
+                        .value
+                );
 
 
             const isPremium =
@@ -1008,15 +1065,33 @@
             }
 
 
-            saveButton.disabled = true;
+            if (
+                duration <= 0 ||
+                totalQuestions <= 0 ||
+                totalMarks <= 0 ||
+                negativeMark < 0
+            ) {
 
-            saveButton.textContent =
-                editingTestId
-                    ? "Updating..."
-                    : "Creating...";
+                formMessage.textContent =
+                    "Please enter valid test values.";
+
+                formMessage.classList.add(
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            saveButton.disabled = true;
 
 
             try {
+
+                /* =========================
+                   UPDATE
+                ========================= */
 
                 if (editingTestId) {
 
@@ -1027,9 +1102,11 @@
                             .from("mock_tests")
                             .update({
 
-                                title: title,
+                                title:
+                                    title,
 
-                                exam_name: examName,
+                                exam_name:
+                                    examName,
 
                                 description:
                                     description || null,
@@ -1067,7 +1144,14 @@
                     formMessage.textContent =
                         "Mock test updated successfully.";
 
-                } else {
+                }
+
+
+                /* =========================
+                   CREATE
+                ========================= */
+
+                else {
 
                     const slugBase =
                         title
@@ -1098,9 +1182,11 @@
                             .from("mock_tests")
                             .insert({
 
-                                slug: slug,
+                                slug:
+                                    slug,
 
-                                title: title,
+                                title:
+                                    title,
 
                                 exam_name:
                                     examName,
@@ -1147,6 +1233,7 @@
 
                 resetForm();
 
+
                 await loadMockTests();
 
 
@@ -1180,7 +1267,7 @@
 
 
     /* =========================================
-       EDIT TEST
+       EDIT
     ========================================= */
 
     async function editTest(id) {
@@ -1225,58 +1312,40 @@
             data.id;
 
 
-        document.getElementById(
-            "title"
-        ).value =
+        document.getElementById("title").value =
             data.title || "";
 
 
-        document.getElementById(
-            "examName"
-        ).value =
+        document.getElementById("examName").value =
             data.exam_name || "";
 
 
-        document.getElementById(
-            "description"
-        ).value =
+        document.getElementById("description").value =
             data.description || "";
 
 
-        document.getElementById(
-            "duration"
-        ).value =
+        document.getElementById("duration").value =
             data.duration_minutes || 30;
 
 
-        document.getElementById(
-            "totalQuestions"
-        ).value =
+        document.getElementById("totalQuestions").value =
             data.total_questions || 10;
 
 
-        document.getElementById(
-            "totalMarks"
-        ).value =
+        document.getElementById("totalMarks").value =
             data.total_marks || 10;
 
 
-        document.getElementById(
-            "negativeMark"
-        ).value =
+        document.getElementById("negativeMark").value =
             data.negative_mark || 0;
 
 
-        document.getElementById(
-            "isPremium"
-        ).checked =
-            data.is_premium;
+        document.getElementById("isPremium").checked =
+            Boolean(data.is_premium);
 
 
-        document.getElementById(
-            "isPublished"
-        ).checked =
-            data.is_published;
+        document.getElementById("isPublished").checked =
+            Boolean(data.is_published);
 
 
         formTitle.textContent =
@@ -1315,7 +1384,69 @@
 
 
     /* =========================================
-       DELETE TEST
+       PUBLISH / UNPUBLISH
+    ========================================= */
+
+    async function togglePublish(
+        id,
+        currentStatus
+    ) {
+
+        const newStatus =
+            !currentStatus;
+
+
+        const action =
+            newStatus
+                ? "publish"
+                : "unpublish";
+
+
+        const confirmed =
+            confirm(
+                `Are you sure you want to ${action} this mock test?`
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("mock_tests")
+                .update({
+                    is_published:
+                        newStatus
+                })
+                .eq(
+                    "id",
+                    id
+                );
+
+
+        if (error) {
+
+            alert(
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        await loadMockTests();
+
+    }
+
+
+
+    /* =========================================
+       DELETE
     ========================================= */
 
     async function deleteTest(id) {
@@ -1366,7 +1497,7 @@
 
     cancelButton.addEventListener(
         "click",
-        function () {
+        function() {
 
             resetForm();
 
@@ -1386,24 +1517,20 @@
         mockTestForm.reset();
 
 
-        document.getElementById(
-            "duration"
-        ).value = 30;
+        document.getElementById("duration").value =
+            30;
 
 
-        document.getElementById(
-            "totalQuestions"
-        ).value = 10;
+        document.getElementById("totalQuestions").value =
+            10;
 
 
-        document.getElementById(
-            "totalMarks"
-        ).value = 10;
+        document.getElementById("totalMarks").value =
+            10;
 
 
-        document.getElementById(
-            "negativeMark"
-        ).value = 0;
+        document.getElementById("negativeMark").value =
+            0;
 
 
         formTitle.textContent =
@@ -1417,6 +1544,13 @@
         cancelButton.style.display =
             "none";
 
+
+        formMessage.textContent =
+            "";
+
+        formMessage.className =
+            "message";
+
     }
 
 
@@ -1425,15 +1559,9 @@
        LOGOUT
     ========================================= */
 
-    const logoutButton =
-        document.getElementById(
-            "logoutButton"
-        );
-
-
     logoutButton.addEventListener(
         "click",
-        async function () {
+        async function() {
 
             logoutButton.disabled =
                 true;
