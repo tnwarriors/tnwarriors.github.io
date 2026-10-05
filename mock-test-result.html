@@ -1,423 +1,986 @@
-<!DOCTYPE html>
+m<!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-<title>Mock Test Result - TN Warriors</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-403SNE66JG');
-</script>
+    <title>TN Warriors - Mock Test Result</title>
 
-<style>
+    <!-- Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"
+    ></script>
 
-* {
-    box-sizing: border-box;
-}
+    <script>
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f6f8;
-    color: #111827;
-}
+        window.dataLayer =
+            window.dataLayer || [];
 
-header {
-    background: #111827;
-    color: white;
-    padding: 18px;
-}
+        function gtag() {
+            dataLayer.push(arguments);
+        }
 
-.header-inner {
-    max-width: 900px;
-    margin: auto;
-    text-align: center;
-}
+        gtag(
+            "js",
+            new Date()
+        );
 
-.logo {
-    font-size: 23px;
-    font-weight: bold;
-}
+        gtag(
+            "config",
+            "G-403SNE66JG"
+        );
 
-.container {
-    max-width: 900px;
-    margin: 25px auto;
-    padding: 0 15px;
-}
+    </script>
 
-.loading,
-.error,
-.expired {
-    background: white;
-    border-radius: 12px;
-    padding: 35px 20px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
 
-.error {
-    color: #b91c1c;
-}
+    <!-- Supabase -->
 
-.expired {
-    display: none;
-}
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-.result-wrapper {
-    display: none;
-}
 
-.result-card {
-    background: white;
-    border-radius: 14px;
-    padding: 25px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-}
+    <!-- jsPDF -->
 
-.test-title {
-    text-align: center;
-    margin: 0;
-    font-size: 26px;
-}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-.exam-name {
-    text-align: center;
-    margin-top: 8px;
-    color: #6b7280;
-}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 
-.timer-note {
-    margin: 18px auto;
-    max-width: 500px;
-    padding: 12px;
-    background: #fff7ed;
-    border: 1px solid #fed7aa;
-    border-radius: 8px;
-    text-align: center;
-    color: #9a3412;
-    font-weight: bold;
-}
 
-.score-section {
-    text-align: center;
-    margin: 25px 0;
-}
+    <style>
 
-.score {
-    font-size: 46px;
-    font-weight: bold;
-}
+        * {
+            box-sizing: border-box;
+        }
 
-.percentage {
-    margin-top: 5px;
-    font-size: 20px;
-    color: #2563eb;
-    font-weight: bold;
-}
 
-.stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-top: 25px;
-}
+        body {
 
-.stat {
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 17px 10px;
-    text-align: center;
-}
+            margin: 0;
 
-.stat-value {
-    font-size: 22px;
-    font-weight: bold;
-}
+            background: #f3f4f6;
 
-.stat-label {
-    margin-top: 5px;
-    color: #6b7280;
-    font-size: 13px;
-}
+            color: #111827;
 
-.actions {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 28px;
-    flex-wrap: wrap;
-}
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
 
-button {
-    border: none;
-    border-radius: 8px;
-    padding: 12px 18px;
-    cursor: pointer;
-    font-weight: bold;
-}
+        }
 
-.back-btn {
-    background: #111827;
-    color: white;
-}
 
-.retry-btn {
-    background: #2563eb;
-    color: white;
-}
+        .site-header {
 
-.screenshot-note {
-    margin-top: 25px;
-    padding: 15px;
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
-    border-radius: 9px;
-    text-align: center;
-    color: #1e40af;
-    font-size: 14px;
-}
+            background: #111827;
 
-.footer-note {
-    text-align: center;
-    margin-top: 18px;
-    color: #6b7280;
-    font-size: 13px;
-}
+            color: white;
 
-@media (max-width: 650px) {
+            padding:
+                22px 20px;
 
-    .stats {
-        grid-template-columns: repeat(2, 1fr);
-    }
+            text-align: center;
 
-    .result-card {
-        padding: 18px;
-    }
+        }
 
-    .test-title {
-        font-size: 21px;
-    }
 
-    .score {
-        font-size: 38px;
-    }
-}
+        .site-header h1 {
 
-</style>
+            margin: 0;
+
+            font-size: 28px;
+
+        }
+
+
+        .site-header p {
+
+            margin:
+                7px 0 0;
+
+            color: #d1d5db;
+
+            font-size: 14px;
+
+        }
+
+
+        .page {
+
+            max-width: 950px;
+
+            margin: 0 auto;
+
+            padding:
+                25px 15px 60px;
+
+        }
+
+
+        .result-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 8px 30px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.08
+                );
+
+        }
+
+
+        .test-title {
+
+            text-align: center;
+
+            margin-bottom: 8px;
+
+            font-size: 28px;
+
+        }
+
+
+        .exam-name {
+
+            text-align: center;
+
+            color: #6b7280;
+
+            font-size: 17px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .expiry-box {
+
+            background: #fff7ed;
+
+            border: 1px solid #fed7aa;
+
+            color: #9a3412;
+
+            border-radius: 12px;
+
+            padding: 14px;
+
+            text-align: center;
+
+            font-weight: 700;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .score-box {
+
+            text-align: center;
+
+            margin:
+                20px 0 30px;
+
+        }
+
+
+        .score {
+
+            font-size: 52px;
+
+            font-weight: 800;
+
+            color: #111827;
+
+        }
+
+
+        .percentage {
+
+            margin-top: 8px;
+
+            font-size: 25px;
+
+            font-weight: 700;
+
+            color: #2563eb;
+
+        }
+
+
+        .stats-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    1fr
+                );
+
+            gap: 14px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .stat {
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 12px;
+
+            padding: 18px;
+
+            text-align: center;
+
+            background: #f9fafb;
+
+        }
+
+
+        .stat-value {
+
+            display: block;
+
+            font-size: 27px;
+
+            font-weight: 800;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .stat-label {
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+        }
+
+
+        .review-section {
+
+            margin-top: 35px;
+
+        }
+
+
+        .review-section h2 {
+
+            margin-bottom: 18px;
+
+            font-size: 24px;
+
+        }
+
+
+        .review-card {
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            padding: 20px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .review-header {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 14px;
+
+        }
+
+
+        .question-number {
+
+            font-weight: 800;
+
+            color: #2563eb;
+
+        }
+
+
+        .status {
+
+            padding:
+                6px 10px;
+
+            border-radius: 999px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+        }
+
+
+        .status.correct {
+
+            background: #dcfce7;
+
+            color: #166534;
+
+        }
+
+
+        .status.wrong {
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+        }
+
+
+        .status.skipped {
+
+            background: #f3f4f6;
+
+            color: #4b5563;
+
+        }
+
+
+        .question-text {
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            line-height: 1.6;
+
+            margin-bottom: 16px;
+
+        }
+
+
+        .answer-row {
+
+            padding:
+                11px 13px;
+
+            border-radius: 8px;
+
+            margin-bottom: 8px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .your-answer {
+
+            background: #eff6ff;
+
+            color: #1e40af;
+
+        }
+
+
+        .correct-answer {
+
+            background: #ecfdf5;
+
+            color: #166534;
+
+        }
+
+
+        .wrong-answer {
+
+            background: #fef2f2;
+
+            color: #991b1b;
+
+        }
+
+
+        .skipped-answer {
+
+            background: #f9fafb;
+
+            color: #4b5563;
+
+        }
+
+
+        .explanation {
+
+            margin-top: 14px;
+
+            background: #f8fafc;
+
+            border-left:
+                4px solid #2563eb;
+
+            padding:
+                13px;
+
+            border-radius: 7px;
+
+            line-height: 1.6;
+
+        }
+
+
+        .button-area {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            margin-top: 35px;
+
+        }
+
+
+        .button {
+
+            border: none;
+
+            border-radius: 10px;
+
+            padding:
+                13px 20px;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            display: inline-block;
+
+        }
+
+
+        .primary {
+
+            background: #2563eb;
+
+            color: white;
+
+        }
+
+
+        .secondary {
+
+            background: #111827;
+
+            color: white;
+
+        }
+
+
+        .pdf-button {
+
+            background: #15803d;
+
+            color: white;
+
+        }
+
+
+        .button:disabled {
+
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+        }
+
+
+        .note {
+
+            margin-top: 25px;
+
+            background: #eff6ff;
+
+            border:
+                1px solid #bfdbfe;
+
+            color: #1e40af;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            line-height: 1.6;
+
+        }
+
+
+        .footer-note {
+
+            text-align: center;
+
+            color: #6b7280;
+
+            margin-top: 25px;
+
+            font-size: 13px;
+
+        }
+
+
+        .loading {
+
+            text-align: center;
+
+            padding: 50px 20px;
+
+            color: #6b7280;
+
+        }
+
+
+        .error-box {
+
+            background: #fef2f2;
+
+            border:
+                1px solid #fecaca;
+
+            color: #991b1b;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            text-align: center;
+
+        }
+
+
+        .expired-box {
+
+            text-align: center;
+
+            padding: 40px 20px;
+
+        }
+
+
+        .expired-box h2 {
+
+            color: #dc2626;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        /* ==========================
+           ADVERTISEMENT MODAL
+           ========================== */
+
+        .ad-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.82
+                );
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            z-index: 9999;
+
+            padding: 20px;
+
+        }
+
+
+        .ad-overlay.show {
+
+            display: flex;
+
+        }
+
+
+        .ad-box {
+
+            width: 100%;
+
+            max-width: 430px;
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            text-align: center;
+
+        }
+
+
+        .ad-label {
+
+            color: #6b7280;
+
+            font-size: 12px;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                1px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .ad-title {
+
+            font-size: 24px;
+
+            font-weight: 800;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .ad-placeholder {
+
+            min-height: 180px;
+
+            background: #f3f4f6;
+
+            border:
+                1px dashed #9ca3af;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #6b7280;
+
+            margin:
+                20px 0;
+
+        }
+
+
+        .ad-countdown {
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            color: #2563eb;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .skip-button {
+
+            width: 100%;
+
+            background: #2563eb;
+
+            color: white;
+
+        }
+
+
+        .skip-button:disabled {
+
+            background: #9ca3af;
+
+        }
+
+
+        @media (
+            max-width: 700px
+        ) {
+
+            .result-card {
+
+                padding: 20px;
+
+            }
+
+
+            .test-title {
+
+                font-size: 23px;
+
+            }
+
+
+            .score {
+
+                font-size: 43px;
+
+            }
+
+
+            .stats-grid {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+
+            }
+
+
+            .review-card {
+
+                padding: 15px;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-<header>
-    <div class="header-inner">
-        <div class="logo">
-            TN Warriors
-        </div>
-    </div>
+
+<header class="site-header">
+
+    <h1>TN Warriors</h1>
+
+    <p>Mock Test Result</p>
+
 </header>
 
-<div class="container">
 
-    <div id="loadingBox"
-         class="loading">
-        Calculating your result...
-    </div>
 
-    <div id="errorBox"
-         class="error"
-         style="display:none;">
-    </div>
+<main class="page">
 
-    <div id="expiredBox"
-         class="expired">
 
-        <h2>
-            Result Expired
-        </h2>
+    <div
+        id="resultContainer"
+        class="result-card"
+    >
 
-        <p>
-            This temporary result is no longer available.
-        </p>
+        <div class="loading">
 
-        <p>
-            Results are not stored permanently on the website.
-        </p>
-
-        <div class="actions">
-
-            <button
-                class="back-btn"
-                onclick="goBack()">
-                Back to Mock Tests
-            </button>
+            Loading your result...
 
         </div>
 
     </div>
 
 
-    <div id="resultWrapper"
-         class="result-wrapper">
-
-        <div class="result-card">
-
-            <h1 id="testTitle"
-                class="test-title">
-            </h1>
-
-            <div id="examName"
-                 class="exam-name">
-            </div>
+</main>
 
 
-            <div class="timer-note">
 
-                Result available for:
-                <span id="expiryTimer">
-                    02:00
-                </span>
+<!-- ==========================
+     ADVERTISEMENT
+     ========================== -->
 
-            </div>
+<div
+    id="adOverlay"
+    class="ad-overlay"
+>
 
+    <div class="ad-box">
 
-            <div class="score-section">
-
-                <div id="score"
-                     class="score">
-                    0 / 0
-                </div>
-
-                <div id="percentage"
-                     class="percentage">
-                    0%
-                </div>
-
-            </div>
+        <div class="ad-label">
+            Advertisement
+        </div>
 
 
-            <div class="stats">
-
-                <div class="stat">
-
-                    <div id="correctCount"
-                         class="stat-value">
-                        0
-                    </div>
-
-                    <div class="stat-label">
-                        Correct
-                    </div>
-
-                </div>
+        <div class="ad-title">
+            TN Warriors
+        </div>
 
 
-                <div class="stat">
-
-                    <div id="wrongCount"
-                         class="stat-value">
-                        0
-                    </div>
-
-                    <div class="stat-label">
-                        Wrong
-                    </div>
-
-                </div>
+        <p>
+            Please wait before downloading your result PDF.
+        </p>
 
 
-                <div class="stat">
+        <div class="ad-placeholder">
 
-                    <div id="skippedCount"
-                         class="stat-value">
-                        0
-                    </div>
-
-                    <div class="stat-label">
-                        Skipped
-                    </div>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <div id="timeTaken"
-                         class="stat-value">
-                        00:00
-                    </div>
-
-                    <div class="stat-label">
-                        Time Taken
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="screenshot-note">
-
-                You can take a screenshot of this result
-                before the 2-minute timer expires.
-
-            </div>
-
-
-            <div class="actions">
-
-                <button
-                    class="retry-btn"
-                    onclick="retryTest()">
-                    Take Test Again
-                </button>
-
-                <button
-                    class="back-btn"
-                    onclick="goBack()">
-                    Back to Mock Tests
-                </button>
-
-            </div>
-
-
-            <div class="footer-note">
-
-                This result is temporary and is not stored
-                permanently on TN Warriors.
-
-            </div>
+            Advertisement Space
 
         </div>
+
+
+        <div
+            id="adCountdown"
+            class="ad-countdown"
+        >
+            Preparing download...
+        </div>
+
+
+        <button
+            id="skipAdButton"
+            class="button skip-button"
+            disabled
+        >
+            Please wait...
+        </button>
 
     </div>
 
 </div>
 
 
+
 <script>
 
-const EDGE_FUNCTION_URL =
-    "https://nwipyqarobgelksdbkbk.supabase.co/functions/v1/submit-mock-test";
+
+/* =====================================================
+   CONFIGURATION
+   ===================================================== */
+
+
+const SUPABASE_URL =
+    "https://nwipyqarobgelksdbkbk.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+const SUBMIT_FUNCTION_URL =
+    SUPABASE_URL +
+    "/functions/v1/submit-mock-test";
+
+
+/*
+   RESULT VALIDITY
+   20 MINUTES
+*/
 
 const RESULT_DURATION =
-    120;
+    20 * 60;
+
+
+/*
+   AD WAIT TIME
+   5 SECONDS
+*/
+
+const AD_DURATION =
+    5;
+
+
+/* =====================================================
+   DOM
+   ===================================================== */
+
+
+const resultContainer =
+    document.getElementById(
+        "resultContainer"
+    );
+
+
+const adOverlay =
+    document.getElementById(
+        "adOverlay"
+    );
+
+
+const adCountdown =
+    document.getElementById(
+        "adCountdown"
+    );
+
+
+const skipAdButton =
+    document.getElementById(
+        "skipAdButton"
+    );
+
+
+/* =====================================================
+   URL
+   ===================================================== */
+
 
 const params =
     new URLSearchParams(
         window.location.search
     );
 
+
 const testId =
     params.get("id");
+
+
+/* =====================================================
+   STORAGE KEYS
+   ===================================================== */
 
 
 const submissionKey =
@@ -432,662 +995,1941 @@ const temporaryResultKey =
     "_temporary_result";
 
 
-let expiryInterval = null;
+const progressKey =
+    "tnwarriors_mock_test_" +
+    testId;
 
 
-/* --------------------------------
-   ELEMENTS
--------------------------------- */
+/* =====================================================
+   GLOBAL DATA
+   ===================================================== */
 
-const loadingBox =
-    document.getElementById(
-        "loadingBox"
-    );
 
-const errorBox =
-    document.getElementById(
-        "errorBox"
-    );
+let submission = null;
 
-const expiredBox =
-    document.getElementById(
-        "expiredBox"
-    );
+let resultData = null;
 
-const resultWrapper =
-    document.getElementById(
-        "resultWrapper"
-    );
+let questions = [];
 
-const testTitle =
-    document.getElementById(
-        "testTitle"
-    );
+let expiryTimer = null;
 
-const examName =
-    document.getElementById(
-        "examName"
-    );
+let adTimer = null;
 
-const score =
-    document.getElementById(
-        "score"
-    );
 
-const percentage =
-    document.getElementById(
-        "percentage"
-    );
+/* =====================================================
+   INITIAL LOAD
+   ===================================================== */
 
-const correctCount =
-    document.getElementById(
-        "correctCount"
-    );
 
-const wrongCount =
-    document.getElementById(
-        "wrongCount"
-    );
+initializeResult();
 
-const skippedCount =
-    document.getElementById(
-        "skippedCount"
-    );
 
-const timeTaken =
-    document.getElementById(
-        "timeTaken"
-    );
-
-const expiryTimer =
-    document.getElementById(
-        "expiryTimer"
-    );
-
-
-/* --------------------------------
-   FORMAT TIME
--------------------------------- */
-
-function formatTime(seconds) {
-
-    seconds =
-        Math.max(
-            0,
-            Number(seconds) || 0
-        );
-
-    const minutes =
-        Math.floor(
-            seconds / 60
-        );
-
-    const secs =
-        seconds % 60;
-
-    return (
-        String(minutes).padStart(2, "0") +
-        ":" +
-        String(secs).padStart(2, "0")
-    );
-}
-
-
-/* --------------------------------
-   SHOW ERROR
--------------------------------- */
-
-function showError(message) {
-
-    loadingBox.style.display =
-        "none";
-
-    resultWrapper.style.display =
-        "none";
-
-    expiredBox.style.display =
-        "none";
-
-    errorBox.style.display =
-        "block";
-
-    errorBox.textContent =
-        message;
-}
-
-
-/* --------------------------------
-   EXPIRE RESULT
--------------------------------- */
-
-function expireResult() {
-
-    clearInterval(
-        expiryInterval
-    );
-
-    localStorage.removeItem(
-        temporaryResultKey
-    );
-
-    localStorage.removeItem(
-        submissionKey
-    );
-
-    localStorage.removeItem(
-        "tnwarriors_mock_test_" +
-        testId
-    );
-
-    resultWrapper.style.display =
-        "none";
-
-    errorBox.style.display =
-        "none";
-
-    expiredBox.style.display =
-        "block";
-}
-
-
-/* --------------------------------
-   START EXPIRY TIMER
--------------------------------- */
-
-function startExpiryTimer(
-    expiresAt
-) {
-
-    clearInterval(
-        expiryInterval
-    );
-
-
-    function update() {
-
-        const remaining =
-            Math.max(
-                0,
-                Math.ceil(
-                    (
-                        expiresAt -
-                        Date.now()
-                    ) / 1000
-                )
-            );
-
-
-        expiryTimer.textContent =
-            formatTime(
-                remaining
-            );
-
-
-        if (remaining <= 0) {
-
-            expireResult();
-        }
-    }
-
-
-    update();
-
-
-    expiryInterval =
-        setInterval(
-            update,
-            1000
-        );
-}
-
-
-/* --------------------------------
-   DISPLAY RESULT
--------------------------------- */
-
-function displayResult(
-    resultData,
-    expiresAt
-) {
-
-    loadingBox.style.display =
-        "none";
-
-    errorBox.style.display =
-        "none";
-
-    expiredBox.style.display =
-        "none";
-
-    resultWrapper.style.display =
-        "block";
-
-
-    testTitle.textContent =
-        resultData.title ||
-        "Mock Test Result";
-
-
-    examName.textContent =
-        resultData.exam_name ||
-        "";
-
-
-    score.textContent =
-        (
-            Number(resultData.score || 0)
-        ).toFixed(2) +
-        " / " +
-        (
-            Number(
-                resultData.maximumMarks || 0
-            )
-        ).toFixed(2);
-
-
-    percentage.textContent =
-        (
-            Number(
-                resultData.percentage || 0
-            )
-        ).toFixed(2) +
-        "%";
-
-
-    correctCount.textContent =
-        Number(
-            resultData.correct_count || 0
-        );
-
-
-    wrongCount.textContent =
-        Number(
-            resultData.wrong_count || 0
-        );
-
-
-    skippedCount.textContent =
-        Number(
-            resultData.skipped_count || 0
-        );
-
-
-    timeTaken.textContent =
-        formatTime(
-            Number(
-                resultData.time_taken_seconds ||
-                0
-            )
-        );
-
-
-    startExpiryTimer(
-        expiresAt
-    );
-}
-
-
-/* --------------------------------
-   LOAD TEMPORARY RESULT
--------------------------------- */
-
-function loadTemporaryResult() {
-
-    try {
-
-        const saved =
-            localStorage.getItem(
-                temporaryResultKey
-            );
-
-        if (!saved) {
-            return false;
-        }
-
-
-        const data =
-            JSON.parse(saved);
-
-
-        if (
-            !data ||
-            !data.result ||
-            !data.expiresAt
-        ) {
-
-            localStorage.removeItem(
-                temporaryResultKey
-            );
-
-            return false;
-        }
-
-
-        if (
-            Date.now() >=
-            Number(data.expiresAt)
-        ) {
-
-            localStorage.removeItem(
-                temporaryResultKey
-            );
-
-            return false;
-        }
-
-
-        displayResult(
-            data.result,
-            Number(data.expiresAt)
-        );
-
-        return true;
-
-    } catch (error) {
-
-        console.error(
-            "Temporary result error:",
-            error
-        );
-
-        localStorage.removeItem(
-            temporaryResultKey
-        );
-
-        return false;
-    }
-}
-
-
-/* --------------------------------
-   SUBMIT TO EDGE FUNCTION
--------------------------------- */
-
-async function calculateResult() {
+async function initializeResult() {
 
     if (!testId) {
 
         showError(
-            "Mock test ID is missing from the URL."
+            "Mock test ID is missing."
         );
 
         return;
+
     }
-
-
-    /*
-       If a temporary result already exists,
-       do not submit the test again.
-    */
-
-    if (
-        loadTemporaryResult()
-    ) {
-
-        return;
-    }
-
-
-    let submission;
 
 
     try {
 
-        const saved =
+        /*
+           FIRST:
+           Check temporary result
+        */
+
+        const storedResult =
             localStorage.getItem(
-                submissionKey
+                temporaryResultKey
             );
 
 
-        if (!saved) {
+        if (storedResult) {
 
-            showError(
-                "Temporary test submission was not found."
-            );
-
-            return;
-        }
-
-
-        submission =
-            JSON.parse(saved);
-
-
-    } catch (error) {
-
-        console.error(
-            "Submission data error:",
-            error
-        );
-
-        showError(
-            "Unable to read temporary submission data."
-        );
-
-        return;
-    }
-
-
-    try {
-
-        const response =
-            await fetch(
-                EDGE_FUNCTION_URL,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body: JSON.stringify({
-
-                        test_id:
-                            submission.testId,
-
-                        answers:
-                            submission.answers || {},
-
-                        time_taken_seconds:
-                            Number(
-                                submission.time_taken_seconds ||
-                                0
-                            )
-                    })
-                }
-            );
-
-
-        const responseText =
-            await response.text();
-
-
-        let data;
-
-
-        try {
-
-            data =
+            const parsed =
                 JSON.parse(
-                    responseText
+                    storedResult
                 );
 
-        } catch {
 
-            throw new Error(
-                "Invalid response from scoring server."
+            if (
+                parsed &&
+                parsed.expiresAt &&
+                Date.now() <
+                parsed.expiresAt
+            ) {
+
+                resultData =
+                    parsed.result;
+
+
+                submission =
+                    getSubmission();
+
+
+                await loadQuestions();
+
+                renderResult();
+
+                startExpiryTimer(
+                    parsed.expiresAt
+                );
+
+                return;
+
+            }
+
+
+            localStorage.removeItem(
+                temporaryResultKey
             );
-        }
 
-
-        if (!response.ok) {
-
-            throw new Error(
-                data.error ||
-                "Unable to calculate result."
-            );
-        }
-
-
-        if (
-            !data.success ||
-            !data.result
-        ) {
-
-            throw new Error(
-                data.error ||
-                "Scoring failed."
-            );
         }
 
 
         /*
-           Result is kept temporarily for 2 minutes.
-           It is NOT saved to mock_results table.
+           SECOND:
+           Get submission
         */
 
+        submission =
+            getSubmission();
+
+
+        if (!submission) {
+
+            showError(
+                "Your mock test submission could not be found. Please take the test again."
+            );
+
+            return;
+
+        }
+
+
+        /*
+           THIRD:
+           Check 20 minute expiry
+        */
+
+        const submittedAt =
+            new Date(
+                submission.submittedAt
+            ).getTime();
+
+
         const expiresAt =
-            Date.now() +
+            submittedAt +
             (
                 RESULT_DURATION *
                 1000
             );
 
 
-        const temporaryData = {
+        if (
+            Date.now() >=
+            expiresAt
+        ) {
 
-            result: {
+            expireResult();
 
-                title:
-                    data.result.title,
+            return;
 
-                exam_name:
-                    data.result.exam_name,
-
-                score:
-                    data.result.score,
-
-                maximumMarks:
-                    data.result.maximumMarks,
-
-                percentage:
-                    data.result.percentage,
-
-                correct_count:
-                    data.result.correct_count,
-
-                wrong_count:
-                    data.result.wrong_count,
-
-                skipped_count:
-                    data.result.skipped_count,
-
-                time_taken_seconds:
-                    submission.time_taken_seconds || 0
-            },
-
-            expiresAt:
-                expiresAt
-        };
+        }
 
 
-        localStorage.setItem(
+        /*
+           FOURTH:
+           Calculate result
+        */
 
-            temporaryResultKey,
-
-            JSON.stringify(
-                temporaryData
-            )
-        );
-
-
-        displayResult(
-            temporaryData.result,
+        await calculateResult(
             expiresAt
         );
-
 
     } catch (error) {
 
         console.error(
-            "Result calculation error:",
+            "Result initialization error:",
             error
         );
 
+
         showError(
-            "Unable to calculate result: " +
-            (
-                error.message ||
-                "Unknown error"
-            )
+            error.message ||
+            "Unable to calculate result."
         );
+
     }
+
 }
 
 
-/* --------------------------------
-   RETRY
--------------------------------- */
+/* =====================================================
+   GET SUBMISSION
+   ===================================================== */
 
-function retryTest() {
+
+function getSubmission() {
+
+    const stored =
+        localStorage.getItem(
+            submissionKey
+        );
+
+
+    if (!stored) {
+        return null;
+    }
+
+
+    try {
+
+        return JSON.parse(
+            stored
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Submission parse error:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+/* =====================================================
+   CALCULATE RESULT
+   ===================================================== */
+
+
+async function calculateResult(
+    expiresAt
+) {
+
+    resultContainer.innerHTML = `
+
+        <div class="loading">
+
+            Calculating your result...
+
+        </div>
+
+    `;
+
+
+    const response =
+        await fetch(
+            SUBMIT_FUNCTION_URL,
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body:
+                    JSON.stringify({
+
+                        test_id:
+                            testId,
+
+                        answers:
+                            submission.answers ||
+                            {}
+
+                    })
+
+            }
+        );
+
+
+    const data =
+        await response.json();
+
+
+    if (
+        !response.ok ||
+        !data.success
+    ) {
+
+        throw new Error(
+            data.error ||
+            "Unable to calculate result."
+        );
+
+    }
+
+
+    resultData =
+        data.result;
+
+
+    /*
+       Save temporary result
+       for 20 minutes.
+    */
+
+    localStorage.setItem(
+        temporaryResultKey,
+
+        JSON.stringify({
+
+            result:
+                resultData,
+
+            expiresAt:
+                expiresAt
+
+        })
+    );
+
+
+    await loadQuestions();
+
+
+    renderResult();
+
+
+    startExpiryTimer(
+        expiresAt
+    );
+
+}
+
+
+/* =====================================================
+   LOAD QUESTIONS
+   ===================================================== */
+
+
+async function loadQuestions() {
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("mock_questions")
+            .select(`
+                id,
+                question_text,
+                option_a,
+                option_b,
+                option_c,
+                option_d,
+                marks,
+                question_order
+            `)
+            .eq(
+                "mock_test_id",
+                testId
+            )
+            .order(
+                "question_order",
+                {
+                    ascending: true
+                }
+            );
+
+
+    if (error) {
+
+        console.error(
+            "Question loading error:",
+            error
+        );
+
+        questions = [];
+
+        return;
+
+    }
+
+
+    questions =
+        data || [];
+
+}
+
+
+/* =====================================================
+   RENDER RESULT
+   ===================================================== */
+
+
+function renderResult() {
+
+    if (!resultData) {
+
+        showError(
+            "Result data is unavailable."
+        );
+
+        return;
+
+    }
+
+
+    const correct =
+        Number(
+            resultData.correct_count ||
+            0
+        );
+
+
+    const wrong =
+        Number(
+            resultData.wrong_count ||
+            0
+        );
+
+
+    const skipped =
+        Number(
+            resultData.skipped_count ||
+            0
+        );
+
+
+    const score =
+        Number(
+            resultData.score ||
+            0
+        );
+
+
+    const maximumMarks =
+        Number(
+            resultData.maximumMarks ||
+            0
+        );
+
+
+    const percentage =
+        Number(
+            resultData.percentage ||
+            0
+        );
+
+
+    const timeTaken =
+        Number(
+            submission &&
+            submission.time_taken_seconds ||
+            0
+        );
+
+
+    resultContainer.innerHTML = `
+
+        <h1 class="test-title">
+
+            ${escapeHTML(
+                resultData.title ||
+                "Mock Test Result"
+            )}
+
+        </h1>
+
+
+        <div class="exam-name">
+
+            ${escapeHTML(
+                resultData.exam_name ||
+                ""
+            )}
+
+        </div>
+
+
+        <div
+            id="expiryBox"
+            class="expiry-box"
+        >
+
+            Result available for:
+            <span id="resultCountdown">
+                20:00
+            </span>
+
+        </div>
+
+
+        <div class="score-box">
+
+            <div class="score">
+
+                ${score.toFixed(2)}
+                /
+                ${maximumMarks.toFixed(2)}
+
+            </div>
+
+
+            <div class="percentage">
+
+                ${percentage.toFixed(2)}%
+
+            </div>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+
+            <div class="stat">
+
+                <span class="stat-value">
+                    ${correct}
+                </span>
+
+                <span class="stat-label">
+                    Correct
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <span class="stat-value">
+                    ${wrong}
+                </span>
+
+                <span class="stat-label">
+                    Wrong
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <span class="stat-value">
+                    ${skipped}
+                </span>
+
+                <span class="stat-label">
+                    Skipped
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <span class="stat-value">
+
+                    ${formatTime(
+                        timeTaken
+                    )}
+
+                </span>
+
+                <span class="stat-label">
+                    Time Taken
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="note">
+
+            Download your result PDF before the
+            <strong>20-minute result timer</strong>
+            expires.
+
+        </div>
+
+
+        <section
+            class="review-section"
+        >
+
+            <h2>
+                Detailed Review
+            </h2>
+
+
+            <div id="reviewList">
+
+                ${renderReview()}
+
+            </div>
+
+        </section>
+
+
+        <div class="button-area">
+
+
+            <button
+                id="downloadPdfButton"
+                class="button pdf-button"
+            >
+
+                Download Result PDF
+
+            </button>
+
+
+            <button
+                id="retryButton"
+                class="button primary"
+            >
+
+                Take Test Again
+
+            </button>
+
+
+            <a
+                href="mock-tests.html"
+                class="button secondary"
+            >
+
+                Back to Mock Tests
+
+            </a>
+
+
+        </div>
+
+
+        <div class="footer-note">
+
+            This result is temporary and will
+            expire after 20 minutes.
+
+        </div>
+
+    `;
+
+
+    document
+        .getElementById(
+            "downloadPdfButton"
+        )
+        .addEventListener(
+            "click",
+            openAdvertisement
+        );
+
+
+    document
+        .getElementById(
+            "retryButton"
+        )
+        .addEventListener(
+            "click",
+            retryTest
+        );
+
+}
+
+
+/* =====================================================
+   REVIEW
+   ===================================================== */
+
+
+function renderReview() {
+
+    const review =
+        resultData.review || [];
+
+
+    if (
+        review.length === 0
+    ) {
+
+        return `
+
+            <div class="note">
+
+                Detailed review is not available.
+
+            </div>
+
+        `;
+
+    }
+
+
+    return review
+        .map(
+            (
+                item,
+                index
+            ) => {
+
+                const question =
+                    questions.find(
+                        q =>
+                            q.id ===
+                            item.question_id
+                    );
+
+
+                const questionText =
+                    question
+                        ? question.question_text
+                        : "Question";
+
+
+                const options = {
+
+                    A:
+                        question
+                            ? question.option_a
+                            : "",
+
+                    B:
+                        question
+                            ? question.option_b
+                            : "",
+
+                    C:
+                        question
+                            ? question.option_c
+                            : "",
+
+                    D:
+                        question
+                            ? question.option_d
+                            : ""
+
+                };
+
+
+                const selected =
+                    item.selected_option
+                        ? String(
+                            item.selected_option
+                        ).toUpperCase()
+                        : null;
+
+
+                const correct =
+                    item.correct_option
+                        ? String(
+                            item.correct_option
+                        ).toUpperCase()
+                        : null;
+
+
+                let statusText =
+                    "Skipped";
+
+
+                let statusClass =
+                    "skipped";
+
+
+                if (
+                    item.result ===
+                    "correct"
+                ) {
+
+                    statusText =
+                        "Correct";
+
+                    statusClass =
+                        "correct";
+
+                }
+
+
+                if (
+                    item.result ===
+                    "wrong"
+                ) {
+
+                    statusText =
+                        "Wrong";
+
+                    statusClass =
+                        "wrong";
+
+                }
+
+
+                const selectedText =
+                    selected
+                        ? (
+                            options[selected] ||
+                            selected
+                        )
+                        : "Not answered";
+
+
+                const correctText =
+                    correct
+                        ? (
+                            options[correct] ||
+                            correct
+                        )
+                        : "Not available";
+
+
+                let answerClass =
+                    "your-answer";
+
+
+                if (
+                    item.result ===
+                    "wrong"
+                ) {
+
+                    answerClass =
+                        "wrong-answer";
+
+                }
+
+
+                if (
+                    item.result ===
+                    "skipped"
+                ) {
+
+                    answerClass =
+                        "skipped-answer";
+
+                }
+
+
+                return `
+
+                    <div class="review-card">
+
+
+                        <div class="review-header">
+
+                            <span
+                                class="question-number"
+                            >
+
+                                Question
+                                ${index + 1}
+
+                            </span>
+
+
+                            <span
+                                class="status ${statusClass}"
+                            >
+
+                                ${statusText}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="question-text">
+
+                            ${escapeHTML(
+                                questionText
+                            )}
+
+                        </div>
+
+
+                        <div
+                            class="answer-row ${answerClass}"
+                        >
+
+                            <strong>
+                                Your Answer:
+                            </strong>
+
+                            ${
+                                selected
+                                    ? (
+                                        selected +
+                                        ". " +
+                                        escapeHTML(
+                                            selectedText
+                                        )
+                                    )
+                                    : "Not answered"
+                            }
+
+                        </div>
+
+
+                        ${
+                            correct
+                                ? `
+
+                                    <div
+                                        class="answer-row correct-answer"
+                                    >
+
+                                        <strong>
+                                            Correct Answer:
+                                        </strong>
+
+                                        ${correct}.
+                                        ${escapeHTML(
+                                            correctText
+                                        )}
+
+                                    </div>
+
+                                `
+                                : ""
+                        }
+
+
+                        ${
+                            item.explanation
+                                ? `
+
+                                    <div
+                                        class="explanation"
+                                    >
+
+                                        <strong>
+                                            Explanation:
+                                        </strong>
+
+                                        <br><br>
+
+                                        ${escapeHTML(
+                                            item.explanation
+                                        )}
+
+                                    </div>
+
+                                `
+                                : ""
+                        }
+
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+   RESULT COUNTDOWN
+   ===================================================== */
+
+
+function startExpiryTimer(
+    expiresAt
+) {
+
+    if (expiryTimer) {
+
+        clearInterval(
+            expiryTimer
+        );
+
+    }
+
+
+    function updateTimer() {
+
+        const remaining =
+            Math.max(
+                0,
+                expiresAt -
+                Date.now()
+            );
+
+
+        const seconds =
+            Math.floor(
+                remaining /
+                1000
+            );
+
+
+        const minutes =
+            Math.floor(
+                seconds /
+                60
+            );
+
+
+        const finalSeconds =
+            seconds %
+            60;
+
+
+        const countdown =
+            document.getElementById(
+                "resultCountdown"
+            );
+
+
+        if (countdown) {
+
+            countdown.textContent =
+                String(minutes)
+                    .padStart(
+                        2,
+                        "0"
+                    ) +
+                ":" +
+                String(finalSeconds)
+                    .padStart(
+                        2,
+                        "0"
+                    );
+
+        }
+
+
+        if (
+            remaining <= 0
+        ) {
+
+            clearInterval(
+                expiryTimer
+            );
+
+            expireResult();
+
+        }
+
+    }
+
+
+    updateTimer();
+
+
+    expiryTimer =
+        setInterval(
+            updateTimer,
+            1000
+        );
+
+}
+
+
+/* =====================================================
+   EXPIRE RESULT
+   ===================================================== */
+
+
+function expireResult() {
+
+    if (expiryTimer) {
+
+        clearInterval(
+            expiryTimer
+        );
+
+    }
+
 
     localStorage.removeItem(
         temporaryResultKey
     );
 
+
     localStorage.removeItem(
         submissionKey
     );
 
+
     localStorage.removeItem(
-        "tnwarriors_mock_test_" +
-        testId
+        progressKey
     );
+
+
+    resultContainer.innerHTML = `
+
+        <div class="expired-box">
+
+
+            <h2>
+                Result Expired
+            </h2>
+
+
+            <p>
+
+                Your 20-minute result viewing
+                period has ended.
+
+            </p>
+
+
+            <p>
+
+                You can take the mock test again
+                to generate a new result.
+
+            </p>
+
+
+            <div class="button-area">
+
+
+                <a
+                    href="mock-tests.html"
+                    class="button secondary"
+                >
+
+                    Back to Mock Tests
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   ADVERTISEMENT FLOW
+   ===================================================== */
+
+
+function openAdvertisement() {
+
+    if (!resultData) {
+        return;
+    }
+
+
+    adOverlay.classList.add(
+        "show"
+    );
+
+
+    skipAdButton.disabled =
+        true;
+
+
+    skipAdButton.textContent =
+        "Please wait...";
+
+
+    let remaining =
+        AD_DURATION;
+
+
+    adCountdown.textContent =
+        "Download available in " +
+        remaining +
+        " seconds";
+
+
+    if (adTimer) {
+
+        clearInterval(
+            adTimer
+        );
+
+    }
+
+
+    adTimer =
+        setInterval(
+            function () {
+
+                remaining--;
+
+
+                if (
+                    remaining <= 0
+                ) {
+
+                    clearInterval(
+                        adTimer
+                    );
+
+
+                    adCountdown.textContent =
+                        "You can download your PDF now.";
+
+
+                    skipAdButton.disabled =
+                        false;
+
+
+                    skipAdButton.textContent =
+                        "Skip Ad & Download PDF";
+
+
+                    return;
+
+                }
+
+
+                adCountdown.textContent =
+                    "Download available in " +
+                    remaining +
+                    " seconds";
+
+            },
+            1000
+        );
+
+}
+
+
+/* =====================================================
+   SKIP AD / DOWNLOAD
+   ===================================================== */
+
+
+skipAdButton.addEventListener(
+    "click",
+    async function () {
+
+        if (
+            skipAdButton.disabled
+        ) {
+
+            return;
+
+        }
+
+
+        skipAdButton.disabled =
+            true;
+
+
+        skipAdButton.textContent =
+            "Creating PDF...";
+
+
+        try {
+
+            await generatePDF();
+
+
+            adOverlay.classList.remove(
+                "show"
+            );
+
+
+            skipAdButton.disabled =
+                false;
+
+
+            skipAdButton.textContent =
+                "Skip Ad & Download PDF";
+
+        } catch (error) {
+
+            console.error(
+                "PDF generation error:",
+                error
+            );
+
+
+            alert(
+                "Unable to create PDF. Please try again."
+            );
+
+
+            skipAdButton.disabled =
+                false;
+
+
+            skipAdButton.textContent =
+                "Skip Ad & Download PDF";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   GENERATE PDF
+   ===================================================== */
+
+
+async function generatePDF() {
+
+    const {
+        jsPDF
+    } =
+        window.jspdf;
+
+
+    const doc =
+        new jsPDF();
+
+
+    const title =
+        resultData.title ||
+        "TN Warriors Mock Test";
+
+
+    const exam =
+        resultData.exam_name ||
+        "";
+
+
+    const score =
+        Number(
+            resultData.score ||
+            0
+        );
+
+
+    const maximumMarks =
+        Number(
+            resultData.maximumMarks ||
+            0
+        );
+
+
+    const percentage =
+        Number(
+            resultData.percentage ||
+            0
+        );
+
+
+    const correct =
+        Number(
+            resultData.correct_count ||
+            0
+        );
+
+
+    const wrong =
+        Number(
+            resultData.wrong_count ||
+            0
+        );
+
+
+    const skipped =
+        Number(
+            resultData.skipped_count ||
+            0
+        );
+
+
+    const timeTaken =
+        Number(
+            submission &&
+            submission.time_taken_seconds ||
+            0
+        );
+
+
+    let y =
+        20;
+
+
+    doc.setFontSize(
+        22
+    );
+
+
+    doc.setFont(
+        "helvetica",
+        "bold"
+    );
+
+
+    doc.text(
+        "TN Warriors",
+        105,
+        y,
+        {
+            align: "center"
+        }
+    );
+
+
+    y += 12;
+
+
+    doc.setFontSize(
+        16
+    );
+
+
+    doc.text(
+        "Mock Test Result",
+        105,
+        y,
+        {
+            align: "center"
+        }
+    );
+
+
+    y += 12;
+
+
+    doc.setFontSize(
+        13
+    );
+
+
+    doc.setFont(
+        "helvetica",
+        "normal"
+    );
+
+
+    doc.text(
+        title,
+        105,
+        y,
+        {
+            align: "center"
+        }
+    );
+
+
+    y += 8;
+
+
+    doc.text(
+        exam,
+        105,
+        y,
+        {
+            align: "center"
+        }
+    );
+
+
+    y += 15;
+
+
+    doc.setFont(
+        "helvetica",
+        "bold"
+    );
+
+
+    doc.text(
+        "Result Summary",
+        14,
+        y
+    );
+
+
+    y += 5;
+
+
+    doc.setFont(
+        "helvetica",
+        "normal"
+    );
+
+
+    doc.autoTable({
+
+        startY:
+            y + 2,
+
+        head: [
+            [
+                "Score",
+                "Percentage",
+                "Correct",
+                "Wrong",
+                "Skipped",
+                "Time Taken"
+            ]
+        ],
+
+        body: [
+            [
+                score.toFixed(2) +
+                    " / " +
+                    maximumMarks.toFixed(2),
+
+                percentage.toFixed(2) +
+                    "%",
+
+                String(correct),
+
+                String(wrong),
+
+                String(skipped),
+
+                formatTime(
+                    timeTaken
+                )
+
+            ]
+        ],
+
+        theme:
+            "grid",
+
+        styles: {
+
+            fontSize: 9,
+
+            cellPadding: 4
+
+        }
+
+    });
+
+
+    y =
+        doc.lastAutoTable.finalY +
+        15;
+
+
+    doc.setFont(
+        "helvetica",
+        "bold"
+    );
+
+
+    doc.setFontSize(
+        14
+    );
+
+
+    doc.text(
+        "Detailed Review",
+        14,
+        y
+    );
+
+
+    y += 5;
+
+
+    const review =
+        resultData.review || [];
+
+
+    const tableRows =
+        review.map(
+            (
+                item,
+                index
+            ) => {
+
+                const question =
+                    questions.find(
+                        q =>
+                            q.id ===
+                            item.question_id
+                    );
+
+
+                const options = {
+
+                    A:
+                        question
+                            ? question.option_a
+                            : "",
+
+                    B:
+                        question
+                            ? question.option_b
+                            : "",
+
+                    C:
+                        question
+                            ? question.option_c
+                            : "",
+
+                    D:
+                        question
+                            ? question.option_d
+                            : ""
+
+                };
+
+
+                const selected =
+                    item.selected_option
+                        ? String(
+                            item.selected_option
+                        ).toUpperCase()
+                        : null;
+
+
+                const correctOption =
+                    item.correct_option
+                        ? String(
+                            item.correct_option
+                        ).toUpperCase()
+                        : null;
+
+
+                const selectedText =
+                    selected
+                        ? (
+                            selected +
+                            ". " +
+                            (
+                                options[selected] ||
+                                ""
+                            )
+                        )
+                        : "Not answered";
+
+
+                const correctText =
+                    correctOption
+                        ? (
+                            correctOption +
+                            ". " +
+                            (
+                                options[correctOption] ||
+                                ""
+                            )
+                        )
+                        : "Not available";
+
+
+                const status =
+                    item.result ===
+                    "correct"
+                        ? "Correct"
+                        : item.result ===
+                          "wrong"
+                            ? "Wrong"
+                            : "Skipped";
+
+
+                return [
+
+                    "Q" +
+                    (index + 1),
+
+                    question
+                        ? question.question_text
+                        : "Question",
+
+                    selectedText,
+
+                    correctText,
+
+                    status,
+
+                    item.explanation ||
+                        ""
+
+                ];
+
+            }
+        );
+
+
+    doc.autoTable({
+
+        startY:
+            y + 2,
+
+        head: [[
+
+            "Q",
+
+            "Question",
+
+            "Your Answer",
+
+            "Correct Answer",
+
+            "Status",
+
+            "Explanation"
+
+        ]],
+
+        body:
+            tableRows,
+
+        theme:
+            "grid",
+
+        styles: {
+
+            fontSize: 7,
+
+            cellPadding: 3,
+
+            valign:
+                "top"
+
+        },
+
+        headStyles: {
+
+            fontStyle:
+                "bold"
+
+        },
+
+        columnStyles: {
+
+            0: {
+                cellWidth: 10
+            },
+
+            1: {
+                cellWidth: 42
+            },
+
+            2: {
+                cellWidth: 32
+            },
+
+            3: {
+                cellWidth: 32
+            },
+
+            4: {
+                cellWidth: 17
+            },
+
+            5: {
+                cellWidth: 50
+            }
+
+        },
+
+        margin: {
+
+            left: 10,
+
+            right: 10
+
+        }
+
+    });
+
+
+    const safeTitle =
+        title
+            .replace(
+                /[^a-z0-9]/gi,
+                "-"
+            )
+            .replace(
+                /-+/g,
+                "-"
+            )
+            .replace(
+                /^-|-$/g,
+                ""
+            );
+
+
+    const fileName =
+        (
+            safeTitle ||
+            "TN-Warriors-Mock-Test"
+        ) +
+        "-Result.pdf";
+
+
+    doc.save(
+        fileName
+    );
+
+}
+
+
+/* =====================================================
+   RETRY
+   ===================================================== */
+
+
+function retryTest() {
+
+    localStorage.removeItem(
+        submissionKey
+    );
+
+
+    localStorage.removeItem(
+        temporaryResultKey
+    );
+
+
+    localStorage.removeItem(
+        progressKey
+    );
+
 
     window.location.href =
         "mock-test.html?id=" +
         encodeURIComponent(
             testId
         );
+
 }
 
 
-/* --------------------------------
-   BACK
--------------------------------- */
+/* =====================================================
+   ERROR
+   ===================================================== */
 
-function goBack() {
 
-    clearInterval(
-        expiryInterval
-    );
+function showError(
+    message
+) {
 
-    localStorage.removeItem(
-        temporaryResultKey
-    );
+    resultContainer.innerHTML = `
 
-    localStorage.removeItem(
-        submissionKey
-    );
+        <div class="error-box">
 
-    localStorage.removeItem(
-        "tnwarriors_mock_test_" +
-        testId
-    );
+            <strong>
+                Unable to calculate result
+            </strong>
 
-    window.location.href =
-        "mock-tests.html";
+            <br><br>
+
+            ${escapeHTML(
+                message
+            )}
+
+            <div class="button-area">
+
+                <a
+                    href="mock-tests.html"
+                    class="button secondary"
+                >
+
+                    Back to Mock Tests
+
+                </a>
+
+            </div>
+
+        </div>
+
+    `;
+
 }
 
 
-/* --------------------------------
-   START
--------------------------------- */
+/* =====================================================
+   FORMAT TIME
+   ===================================================== */
 
-calculateResult();
+
+function formatTime(
+    totalSeconds
+) {
+
+    const seconds =
+        Math.max(
+            0,
+            Number(
+                totalSeconds ||
+                0
+            )
+        );
+
+
+    const minutes =
+        Math.floor(
+            seconds /
+            60
+        );
+
+
+    const remaining =
+        seconds %
+        60;
+
+
+    return (
+        String(minutes)
+            .padStart(
+                2,
+                "0"
+            )
+        +
+        ":" +
+        String(remaining)
+            .padStart(
+                2,
+                "0"
+            )
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+   ===================================================== */
+
+
+function escapeHTML(
+    value
+) {
+
+    return String(
+        value ??
+        ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
 
 </script>
 
+
 </body>
+
 </html>
