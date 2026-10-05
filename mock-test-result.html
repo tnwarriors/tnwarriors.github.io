@@ -1,366 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>Mock Test Result | TN Warriors</title>
+<title>Mock Test Result - TN Warriors</title>
 
-    <!-- Google Analytics -->
-    <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"
-    ></script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-403SNE66JG');
+</script>
 
-    <script>
-        window.dataLayer = window.dataLayer || [];
+<style>
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
+* {
+    box-sizing: border-box;
+}
 
-        gtag("js", new Date());
-        gtag("config", "G-403SNE66JG");
-    </script>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f6f8;
+    color: #111827;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+header {
+    background: #111827;
+    color: white;
+    padding: 18px;
+}
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
-            color: #17202a;
-        }
+.header-inner {
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+}
 
-        .topbar {
-            background: #111827;
-            color: white;
-            padding: 16px 20px;
-        }
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+}
 
-        .topbar-inner {
-            max-width: 900px;
-            margin: auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-        }
+.container {
+    max-width: 900px;
+    margin: 25px auto;
+    padding: 0 15px;
+}
 
-        .brand {
-            font-size: 21px;
-            font-weight: 700;
-        }
+.loading,
+.error,
+.expired {
+    background: white;
+    border-radius: 12px;
+    padding: 35px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
 
-        .expiry {
-            background: #ffffff;
-            color: #111827;
-            padding: 8px 13px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 14px;
-        }
+.error {
+    color: #b91c1c;
+}
 
-        .expiry.warning {
-            background: #dc2626;
-            color: white;
-        }
+.expired {
+    display: none;
+}
 
-        .container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 0 15px;
-        }
+.result-wrapper {
+    display: none;
+}
 
-        .result-card {
-            background: white;
-            border-radius: 14px;
-            padding: 30px;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-        }
+.result-card {
+    background: white;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+}
 
-        .result-title {
-            text-align: center;
-            margin-bottom: 25px;
-        }
+.test-title {
+    text-align: center;
+    margin: 0;
+    font-size: 26px;
+}
 
-        .result-title h1 {
-            margin: 0 0 8px;
-            font-size: 28px;
-        }
+.exam-name {
+    text-align: center;
+    margin-top: 8px;
+    color: #6b7280;
+}
 
-        .result-title p {
-            margin: 0;
-            color: #667085;
-        }
+.timer-note {
+    margin: 18px auto;
+    max-width: 500px;
+    padding: 12px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 8px;
+    text-align: center;
+    color: #9a3412;
+    font-weight: bold;
+}
 
-        .score-box {
-            text-align: center;
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
-        }
+.score-section {
+    text-align: center;
+    margin: 25px 0;
+}
 
-        .score {
-            font-size: 42px;
-            font-weight: 800;
-        }
+.score {
+    font-size: 46px;
+    font-weight: bold;
+}
 
-        .percentage {
-            margin-top: 6px;
-            font-size: 18px;
-            color: #475467;
-        }
+.percentage {
+    margin-top: 5px;
+    font-size: 20px;
+    color: #2563eb;
+    font-weight: bold;
+}
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 25px;
+}
 
-        .stat {
-            border: 1px solid #eaecf0;
-            border-radius: 10px;
-            padding: 18px 10px;
-            text-align: center;
-        }
+.stat {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 17px 10px;
+    text-align: center;
+}
 
-        .stat-number {
-            display: block;
-            font-size: 22px;
-            font-weight: 700;
-        }
+.stat-value {
+    font-size: 22px;
+    font-weight: bold;
+}
 
-        .stat-label {
-            display: block;
-            margin-top: 5px;
-            font-size: 12px;
-            color: #667085;
-        }
+.stat-label {
+    margin-top: 5px;
+    color: #6b7280;
+    font-size: 13px;
+}
 
-        .correct {
-            color: #15803d;
-        }
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+}
 
-        .wrong {
-            color: #dc2626;
-        }
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-weight: bold;
+}
 
-        .skipped {
-            color: #b45309;
-        }
+.back-btn {
+    background: #111827;
+    color: white;
+}
 
-        .time-box {
-            background: #f8fafc;
-            border-radius: 10px;
-            padding: 14px;
-            text-align: center;
-            margin-bottom: 25px;
-            color: #475467;
-        }
+.retry-btn {
+    background: #2563eb;
+    color: white;
+}
 
-        .screenshot-note {
-            border: 1px dashed #98a2b3;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            color: #475467;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
+.screenshot-note {
+    margin-top: 25px;
+    padding: 15px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 9px;
+    text-align: center;
+    color: #1e40af;
+    font-size: 14px;
+}
 
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
+.footer-note {
+    text-align: center;
+    margin-top: 18px;
+    color: #6b7280;
+    font-size: 13px;
+}
 
-        .btn {
-            border: none;
-            border-radius: 8px;
-            padding: 12px 20px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 700;
-        }
+@media (max-width: 650px) {
 
-        .btn-primary {
-            background: #2563eb;
-            color: white;
-        }
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-        .btn-secondary {
-            background: #e5e7eb;
-            color: #111827;
-        }
+    .result-card {
+        padding: 18px;
+    }
 
-        .loading {
-            text-align: center;
-            padding: 70px 20px;
-            color: #667085;
-        }
+    .test-title {
+        font-size: 21px;
+    }
 
-        .error-box {
-            background: #fef2f2;
-            color: #b42318;
-            border: 1px solid #fecdca;
-            border-radius: 10px;
-            padding: 18px;
-            line-height: 1.6;
-        }
+    .score {
+        font-size: 38px;
+    }
+}
 
-        .expired {
-            text-align: center;
-            background: white;
-            border-radius: 14px;
-            padding: 50px 25px;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-        }
-
-        .expired h1 {
-            margin-top: 0;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        @media (max-width: 650px) {
-
-            .topbar {
-                padding: 12px;
-            }
-
-            .brand {
-                font-size: 18px;
-            }
-
-            .expiry {
-                font-size: 12px;
-                padding: 7px 9px;
-            }
-
-            .container {
-                margin: 15px auto;
-                padding: 0 10px;
-            }
-
-            .result-card {
-                padding: 18px;
-            }
-
-            .result-title h1 {
-                font-size: 23px;
-            }
-
-            .score {
-                font-size: 36px;
-            }
-
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-        }
-    </style>
+</style>
 </head>
 
 <body>
 
-    <header class="topbar">
+<header>
+    <div class="header-inner">
+        <div class="logo">
+            TN Warriors
+        </div>
+    </div>
+</header>
 
-        <div class="topbar-inner">
+<div class="container">
 
-            <div class="brand">
-                TN Warriors
-            </div>
+    <div id="loadingBox"
+         class="loading">
+        Calculating your result...
+    </div>
 
-            <div
-                id="expiryBox"
-                class="expiry"
-            >
-                Result: 02:00
-            </div>
+    <div id="errorBox"
+         class="error"
+         style="display:none;">
+    </div>
+
+    <div id="expiredBox"
+         class="expired">
+
+        <h2>
+            Result Expired
+        </h2>
+
+        <p>
+            This temporary result is no longer available.
+        </p>
+
+        <p>
+            Results are not stored permanently on the website.
+        </p>
+
+        <div class="actions">
+
+            <button
+                class="back-btn"
+                onclick="goBack()">
+                Back to Mock Tests
+            </button>
 
         </div>
 
-    </header>
+    </div>
 
 
-    <main class="container">
+    <div id="resultWrapper"
+         class="result-wrapper">
 
-        <!-- Loading -->
+        <div class="result-card">
 
-        <div
-            id="loadingBox"
-            class="loading"
-        >
-            Loading your result...
-        </div>
+            <h1 id="testTitle"
+                class="test-title">
+            </h1>
 
-
-        <!-- Error -->
-
-        <div
-            id="errorBox"
-            class="error-box hidden"
-        ></div>
+            <div id="examName"
+                 class="exam-name">
+            </div>
 
 
-        <!-- Result -->
+            <div class="timer-note">
 
-        <section
-            id="resultCard"
-            class="result-card hidden"
-        >
-
-            <div class="result-title">
-
-                <h1>
-                    Test Result
-                </h1>
-
-                <p id="testTitle">
-                    Mock Test
-                </p>
-
-                <p id="examName">
-                    Exam
-                </p>
+                Result available for:
+                <span id="expiryTimer">
+                    02:00
+                </span>
 
             </div>
 
 
-            <div class="score-box">
+            <div class="score-section">
 
-                <div
-                    id="score"
-                    class="score"
-                >
+                <div id="score"
+                     class="score">
                     0 / 0
                 </div>
 
-                <div
-                    id="percentage"
-                    class="percentage"
-                >
+                <div id="percentage"
+                     class="percentage">
                     0%
                 </div>
 
@@ -371,64 +308,56 @@
 
                 <div class="stat">
 
-                    <span
-                        id="correctCount"
-                        class="stat-number correct"
-                    >
+                    <div id="correctCount"
+                         class="stat-value">
                         0
-                    </span>
+                    </div>
 
-                    <span class="stat-label">
+                    <div class="stat-label">
                         Correct
-                    </span>
+                    </div>
 
                 </div>
 
 
                 <div class="stat">
 
-                    <span
-                        id="wrongCount"
-                        class="stat-number wrong"
-                    >
+                    <div id="wrongCount"
+                         class="stat-value">
                         0
-                    </span>
+                    </div>
 
-                    <span class="stat-label">
+                    <div class="stat-label">
                         Wrong
-                    </span>
+                    </div>
 
                 </div>
 
 
                 <div class="stat">
 
-                    <span
-                        id="skippedCount"
-                        class="stat-number skipped"
-                    >
+                    <div id="skippedCount"
+                         class="stat-value">
                         0
-                    </span>
+                    </div>
 
-                    <span class="stat-label">
+                    <div class="stat-label">
                         Skipped
-                    </span>
+                    </div>
 
                 </div>
 
 
                 <div class="stat">
 
-                    <span
-                        id="timeTaken"
-                        class="stat-number"
-                    >
+                    <div id="timeTaken"
+                         class="stat-value">
                         00:00
-                    </span>
+                    </div>
 
-                    <span class="stat-label">
+                    <div class="stat-label">
                         Time Taken
-                    </span>
+                    </div>
 
                 </div>
 
@@ -437,677 +366,728 @@
 
             <div class="screenshot-note">
 
-                Your result will remain visible for
-                <strong>2 minutes</strong>.
-                Take a screenshot now if you want to
-                keep a copy of your result.
+                You can take a screenshot of this result
+                before the 2-minute timer expires.
 
             </div>
 
 
-            <div class="buttons">
+            <div class="actions">
 
                 <button
-                    id="backButton"
-                    class="btn btn-primary"
-                    type="button"
-                >
+                    class="retry-btn"
+                    onclick="retryTest()">
+                    Take Test Again
+                </button>
+
+                <button
+                    class="back-btn"
+                    onclick="goBack()">
                     Back to Mock Tests
                 </button>
 
             </div>
 
-        </section>
 
+            <div class="footer-note">
 
-        <!-- Expired -->
+                This result is temporary and is not stored
+                permanently on TN Warriors.
 
-        <section
-            id="expiredBox"
-            class="expired hidden"
-        >
+            </div>
 
-            <h1>
-                Result Expired
-            </h1>
+        </div>
 
-            <p>
-                Your temporary result has expired.
-            </p>
+    </div>
 
-            <p>
-                Results are not stored permanently.
-            </p>
+</div>
 
-            <button
-                id="expiredBackButton"
-                class="btn btn-primary"
-                type="button"
-            >
-                Back to Mock Tests
-            </button>
 
-        </section>
+<script>
 
-    </main>
+const EDGE_FUNCTION_URL =
+    "https://nwipyqarobgelksdbkbk.supabase.co/functions/v1/submit-mock-test";
 
+const RESULT_DURATION =
+    120;
 
-    <script>
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
 
-        /* =====================================
-           CONFIG
-        ===================================== */
+const testId =
+    params.get("id");
 
-        const EDGE_FUNCTION_URL =
-            "https://nwipyqarobgelksdbkbk.supabase.co/functions/v1/submit-mock-test";
 
+const submissionKey =
+    "tnwarriors_mock_test_" +
+    testId +
+    "_submission";
 
-        const RESULT_DURATION =
-            120;
 
+const temporaryResultKey =
+    "tnwarriors_mock_test_" +
+    testId +
+    "_temporary_result";
 
-        /* =====================================
-           VARIABLES
-        ===================================== */
 
-        let remainingSeconds =
-            RESULT_DURATION;
+let expiryInterval = null;
 
-        let expiryTimer =
-            null;
 
-        let resultData =
-            null;
+/* --------------------------------
+   ELEMENTS
+-------------------------------- */
 
+const loadingBox =
+    document.getElementById(
+        "loadingBox"
+    );
 
-        /* =====================================
-           DOM
-        ===================================== */
+const errorBox =
+    document.getElementById(
+        "errorBox"
+    );
 
-        const loadingBox =
-            document.getElementById(
-                "loadingBox"
-            );
+const expiredBox =
+    document.getElementById(
+        "expiredBox"
+    );
 
-        const errorBox =
-            document.getElementById(
-                "errorBox"
-            );
+const resultWrapper =
+    document.getElementById(
+        "resultWrapper"
+    );
 
-        const resultCard =
-            document.getElementById(
-                "resultCard"
-            );
+const testTitle =
+    document.getElementById(
+        "testTitle"
+    );
 
-        const expiredBox =
-            document.getElementById(
-                "expiredBox"
-            );
+const examName =
+    document.getElementById(
+        "examName"
+    );
 
-        const expiryBox =
-            document.getElementById(
-                "expiryBox"
-            );
+const score =
+    document.getElementById(
+        "score"
+    );
 
+const percentage =
+    document.getElementById(
+        "percentage"
+    );
 
-        /* =====================================
-           GET TEST ID
-        ===================================== */
+const correctCount =
+    document.getElementById(
+        "correctCount"
+    );
 
-        function getTestId() {
+const wrongCount =
+    document.getElementById(
+        "wrongCount"
+    );
 
-            const params =
-                new URLSearchParams(
-                    window.location.search
-                );
+const skippedCount =
+    document.getElementById(
+        "skippedCount"
+    );
 
-            return params.get("id");
-        }
+const timeTaken =
+    document.getElementById(
+        "timeTaken"
+    );
 
+const expiryTimer =
+    document.getElementById(
+        "expiryTimer"
+    );
 
-        /* =====================================
-           GET TEMPORARY SUBMISSION
-        ===================================== */
 
-        function getSubmission() {
+/* --------------------------------
+   FORMAT TIME
+-------------------------------- */
 
-            const testId =
-                getTestId();
+function formatTime(seconds) {
 
+    seconds =
+        Math.max(
+            0,
+            Number(seconds) || 0
+        );
 
-            if (!testId) {
-                return null;
-            }
+    const minutes =
+        Math.floor(
+            seconds / 60
+        );
 
+    const secs =
+        seconds % 60;
 
-            const storageKey =
-                "tnwarriors_mock_test_" +
-                testId +
-                "_submission";
+    return (
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(secs).padStart(2, "0")
+    );
+}
 
 
-            try {
+/* --------------------------------
+   SHOW ERROR
+-------------------------------- */
 
-                const raw =
-                    localStorage.getItem(
-                        storageKey
-                    );
+function showError(message) {
 
+    loadingBox.style.display =
+        "none";
 
-                if (!raw) {
-                    return null;
-                }
+    resultWrapper.style.display =
+        "none";
 
+    expiredBox.style.display =
+        "none";
 
-                return {
-                    storageKey: storageKey,
-                    data: JSON.parse(raw)
-                };
+    errorBox.style.display =
+        "block";
 
-            } catch (error) {
+    errorBox.textContent =
+        message;
+}
 
-                console.error(
-                    "Could not read submission:",
-                    error
-                );
 
-                return null;
-            }
-        }
+/* --------------------------------
+   EXPIRE RESULT
+-------------------------------- */
 
+function expireResult() {
 
-        /* =====================================
-           SHOW ERROR
-        ===================================== */
+    clearInterval(
+        expiryInterval
+    );
 
-        function showError(message) {
+    localStorage.removeItem(
+        temporaryResultKey
+    );
 
-            loadingBox.classList.add(
-                "hidden"
-            );
+    localStorage.removeItem(
+        submissionKey
+    );
 
-            resultCard.classList.add(
-                "hidden"
-            );
+    localStorage.removeItem(
+        "tnwarriors_mock_test_" +
+        testId
+    );
 
-            errorBox.textContent =
-                "Error: " + message;
+    resultWrapper.style.display =
+        "none";
 
-            errorBox.classList.remove(
-                "hidden"
-            );
+    errorBox.style.display =
+        "none";
 
-            console.error(message);
-        }
+    expiredBox.style.display =
+        "block";
+}
 
 
-        /* =====================================
-           FORMAT TIME
-        ===================================== */
+/* --------------------------------
+   START EXPIRY TIMER
+-------------------------------- */
 
-        function formatTime(seconds) {
+function startExpiryTimer(
+    expiresAt
+) {
 
-            const safeSeconds =
-                Math.max(
-                    0,
-                    Number(seconds) || 0
-                );
+    clearInterval(
+        expiryInterval
+    );
 
 
-            const minutes =
-                Math.floor(
-                    safeSeconds / 60
-                );
+    function update() {
 
-
-            const secs =
-                safeSeconds % 60;
-
-
-            return (
-                String(minutes).padStart(
-                    2,
-                    "0"
-                ) +
-                ":" +
-                String(secs).padStart(
-                    2,
-                    "0"
+        const remaining =
+            Math.max(
+                0,
+                Math.ceil(
+                    (
+                        expiresAt -
+                        Date.now()
+                    ) / 1000
                 )
             );
+
+
+        expiryTimer.textContent =
+            formatTime(
+                remaining
+            );
+
+
+        if (remaining <= 0) {
+
+            expireResult();
+        }
+    }
+
+
+    update();
+
+
+    expiryInterval =
+        setInterval(
+            update,
+            1000
+        );
+}
+
+
+/* --------------------------------
+   DISPLAY RESULT
+-------------------------------- */
+
+function displayResult(
+    resultData,
+    expiresAt
+) {
+
+    loadingBox.style.display =
+        "none";
+
+    errorBox.style.display =
+        "none";
+
+    expiredBox.style.display =
+        "none";
+
+    resultWrapper.style.display =
+        "block";
+
+
+    testTitle.textContent =
+        resultData.title ||
+        "Mock Test Result";
+
+
+    examName.textContent =
+        resultData.exam_name ||
+        "";
+
+
+    score.textContent =
+        (
+            Number(resultData.score || 0)
+        ).toFixed(2) +
+        " / " +
+        (
+            Number(
+                resultData.maximumMarks || 0
+            )
+        ).toFixed(2);
+
+
+    percentage.textContent =
+        (
+            Number(
+                resultData.percentage || 0
+            )
+        ).toFixed(2) +
+        "%";
+
+
+    correctCount.textContent =
+        Number(
+            resultData.correct_count || 0
+        );
+
+
+    wrongCount.textContent =
+        Number(
+            resultData.wrong_count || 0
+        );
+
+
+    skippedCount.textContent =
+        Number(
+            resultData.skipped_count || 0
+        );
+
+
+    timeTaken.textContent =
+        formatTime(
+            Number(
+                resultData.time_taken_seconds ||
+                0
+            )
+        );
+
+
+    startExpiryTimer(
+        expiresAt
+    );
+}
+
+
+/* --------------------------------
+   LOAD TEMPORARY RESULT
+-------------------------------- */
+
+function loadTemporaryResult() {
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                temporaryResultKey
+            );
+
+        if (!saved) {
+            return false;
         }
 
 
-        /* =====================================
-           CALL EDGE FUNCTION
-        ===================================== */
+        const data =
+            JSON.parse(saved);
 
-        async function calculateResult(
-            submission
+
+        if (
+            !data ||
+            !data.result ||
+            !data.expiresAt
         ) {
 
-            const response =
-                await fetch(
-                    EDGE_FUNCTION_URL,
-                    {
-                        method: "POST",
+            localStorage.removeItem(
+                temporaryResultKey
+            );
 
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
+            return false;
+        }
 
-                        body: JSON.stringify({
 
-                            test_id:
-                                submission.testId,
+        if (
+            Date.now() >=
+            Number(data.expiresAt)
+        ) {
 
-                            answers:
-                                submission.answers,
+            localStorage.removeItem(
+                temporaryResultKey
+            );
 
-                            time_taken_seconds:
+            return false;
+        }
+
+
+        displayResult(
+            data.result,
+            Number(data.expiresAt)
+        );
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "Temporary result error:",
+            error
+        );
+
+        localStorage.removeItem(
+            temporaryResultKey
+        );
+
+        return false;
+    }
+}
+
+
+/* --------------------------------
+   SUBMIT TO EDGE FUNCTION
+-------------------------------- */
+
+async function calculateResult() {
+
+    if (!testId) {
+
+        showError(
+            "Mock test ID is missing from the URL."
+        );
+
+        return;
+    }
+
+
+    /*
+       If a temporary result already exists,
+       do not submit the test again.
+    */
+
+    if (
+        loadTemporaryResult()
+    ) {
+
+        return;
+    }
+
+
+    let submission;
+
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                submissionKey
+            );
+
+
+        if (!saved) {
+
+            showError(
+                "Temporary test submission was not found."
+            );
+
+            return;
+        }
+
+
+        submission =
+            JSON.parse(saved);
+
+
+    } catch (error) {
+
+        console.error(
+            "Submission data error:",
+            error
+        );
+
+        showError(
+            "Unable to read temporary submission data."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                EDGE_FUNCTION_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        test_id:
+                            submission.testId,
+
+                        answers:
+                            submission.answers || {},
+
+                        time_taken_seconds:
+                            Number(
                                 submission.time_taken_seconds ||
                                 0
+                            )
+                    })
+                }
+            );
 
-                        })
-                    }
+
+        const responseText =
+            await response.text();
+
+
+        let data;
+
+
+        try {
+
+            data =
+                JSON.parse(
+                    responseText
                 );
 
+        } catch {
 
-            let data = null;
-
-
-            try {
-
-                data =
-                    await response.json();
-
-            } catch (error) {
-
-                throw new Error(
-                    "Invalid response from scoring server."
-                );
-            }
-
-
-            if (
-                !response.ok ||
-                !data.success
-            ) {
-
-                throw new Error(
-                    data.error ||
-                    "Could not calculate the result."
-                );
-            }
-
-
-            return data.result;
+            throw new Error(
+                "Invalid response from scoring server."
+            );
         }
 
 
-        /* =====================================
-           DISPLAY RESULT
-        ===================================== */
+        if (!response.ok) {
 
-        function displayResult(
-            result
+            throw new Error(
+                data.error ||
+                "Unable to calculate result."
+            );
+        }
+
+
+        if (
+            !data.success ||
+            !data.result
         ) {
 
-            resultData =
-                result;
-
-
-            document.getElementById(
-                "testTitle"
-            ).textContent =
-                result.title ||
-                "Mock Test";
-
-
-            document.getElementById(
-                "examName"
-            ).textContent =
-                result.exam_name ||
-                "";
-
-
-            document.getElementById(
-                "score"
-            ).textContent =
-                result.score +
-                " / " +
-                result.total_marks;
-
-
-            document.getElementById(
-                "percentage"
-            ).textContent =
-                result.percentage +
-                "%";
-
-
-            document.getElementById(
-                "correctCount"
-            ).textContent =
-                result.correct_count;
-
-
-            document.getElementById(
-                "wrongCount"
-            ).textContent =
-                result.wrong_count;
-
-
-            document.getElementById(
-                "skippedCount"
-            ).textContent =
-                result.skipped_count;
-
-
-            document.getElementById(
-                "timeTaken"
-            ).textContent =
-                formatTime(
-                    result.time_taken_seconds
-                );
-
-
-            loadingBox.classList.add(
-                "hidden"
-            );
-
-            errorBox.classList.add(
-                "hidden"
-            );
-
-            expiredBox.classList.add(
-                "hidden"
-            );
-
-            resultCard.classList.remove(
-                "hidden"
-            );
-
-
-            startExpiryTimer();
-        }
-
-
-        /* =====================================
-           2 MINUTE TIMER
-        ===================================== */
-
-        function startExpiryTimer() {
-
-            remainingSeconds =
-                RESULT_DURATION;
-
-
-            updateExpiryDisplay();
-
-
-            if (expiryTimer) {
-
-                clearInterval(
-                    expiryTimer
-                );
-            }
-
-
-            expiryTimer =
-                setInterval(
-                    function() {
-
-                        remainingSeconds--;
-
-                        updateExpiryDisplay();
-
-
-                        if (
-                            remainingSeconds <= 0
-                        ) {
-
-                            clearInterval(
-                                expiryTimer
-                            );
-
-                            expireResult();
-                        }
-
-                    },
-                    1000
-                );
-        }
-
-
-        function updateExpiryDisplay() {
-
-            expiryBox.textContent =
-                "Result: " +
-                formatTime(
-                    remainingSeconds
-                );
-
-
-            if (
-                remainingSeconds <= 30
-            ) {
-
-                expiryBox.classList.add(
-                    "warning"
-                );
-
-            } else {
-
-                expiryBox.classList.remove(
-                    "warning"
-                );
-            }
-        }
-
-
-        /* =====================================
-           EXPIRE RESULT
-        ===================================== */
-
-        function expireResult() {
-
-            /*
-              Clear all temporary result data.
-            */
-
-            const submission =
-                getSubmission();
-
-
-            if (submission) {
-
-                localStorage.removeItem(
-                    submission.storageKey
-                );
-            }
-
-
-            /*
-              Also clear the original
-              mock test progress.
-            */
-
-            const testId =
-                getTestId();
-
-
-            if (testId) {
-
-                localStorage.removeItem(
-                    "tnwarriors_mock_test_" +
-                    testId
-                );
-            }
-
-
-            resultData = null;
-
-
-            resultCard.classList.add(
-                "hidden"
-            );
-
-
-            loadingBox.classList.add(
-                "hidden"
-            );
-
-
-            errorBox.classList.add(
-                "hidden"
-            );
-
-
-            expiredBox.classList.remove(
-                "hidden"
-            );
-
-
-            expiryBox.textContent =
-                "Result expired";
-
-            expiryBox.classList.add(
-                "warning"
+            throw new Error(
+                data.error ||
+                "Scoring failed."
             );
         }
 
 
-        /* =====================================
-           BACK TO MOCK TESTS
-        ===================================== */
+        /*
+           Result is kept temporarily for 2 minutes.
+           It is NOT saved to mock_results table.
+        */
 
-        function goBackToMockTests() {
-
-            if (expiryTimer) {
-
-                clearInterval(
-                    expiryTimer
-                );
-
-                expiryTimer = null;
-            }
+        const expiresAt =
+            Date.now() +
+            (
+                RESULT_DURATION *
+                1000
+            );
 
 
-            const submission =
-                getSubmission();
+        const temporaryData = {
+
+            result: {
+
+                title:
+                    data.result.title,
+
+                exam_name:
+                    data.result.exam_name,
+
+                score:
+                    data.result.score,
+
+                maximumMarks:
+                    data.result.maximumMarks,
+
+                percentage:
+                    data.result.percentage,
+
+                correct_count:
+                    data.result.correct_count,
+
+                wrong_count:
+                    data.result.wrong_count,
+
+                skipped_count:
+                    data.result.skipped_count,
+
+                time_taken_seconds:
+                    submission.time_taken_seconds || 0
+            },
+
+            expiresAt:
+                expiresAt
+        };
 
 
-            if (submission) {
+        localStorage.setItem(
 
-                localStorage.removeItem(
-                    submission.storageKey
-                );
-            }
+            temporaryResultKey,
 
-
-            const testId =
-                getTestId();
-
-
-            if (testId) {
-
-                localStorage.removeItem(
-                    "tnwarriors_mock_test_" +
-                    testId
-                );
-            }
-
-
-            window.location.href =
-                "mock-tests.html";
-        }
-
-
-        /* =====================================
-           BUTTONS
-        ===================================== */
-
-        document
-            .getElementById(
-                "backButton"
+            JSON.stringify(
+                temporaryData
             )
-            .addEventListener(
-                "click",
-                goBackToMockTests
-            );
+        );
 
 
-        document
-            .getElementById(
-                "expiredBackButton"
+        displayResult(
+            temporaryData.result,
+            expiresAt
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Result calculation error:",
+            error
+        );
+
+        showError(
+            "Unable to calculate result: " +
+            (
+                error.message ||
+                "Unknown error"
             )
-            .addEventListener(
-                "click",
-                goBackToMockTests
-            );
+        );
+    }
+}
 
 
-        /* =====================================
-           LOAD RESULT
-        ===================================== */
+/* --------------------------------
+   RETRY
+-------------------------------- */
 
-        async function loadResult() {
+function retryTest() {
 
-            try {
+    localStorage.removeItem(
+        temporaryResultKey
+    );
 
-                const submission =
-                    getSubmission();
+    localStorage.removeItem(
+        submissionKey
+    );
 
+    localStorage.removeItem(
+        "tnwarriors_mock_test_" +
+        testId
+    );
 
-                if (!submission) {
-
-                    showError(
-                        "Temporary test submission was not found."
-                    );
-
-                    return;
-                }
-
-
-                const submissionData =
-                    submission.data;
-
-
-                /*
-                  Send the answers to the secure
-                  Edge Function.
-                */
-
-                const result =
-                    await calculateResult(
-                        submissionData
-                    );
+    window.location.href =
+        "mock-test.html?id=" +
+        encodeURIComponent(
+            testId
+        );
+}
 
 
-                displayResult(
-                    result
-                );
+/* --------------------------------
+   BACK
+-------------------------------- */
+
+function goBack() {
+
+    clearInterval(
+        expiryInterval
+    );
+
+    localStorage.removeItem(
+        temporaryResultKey
+    );
+
+    localStorage.removeItem(
+        submissionKey
+    );
+
+    localStorage.removeItem(
+        "tnwarriors_mock_test_" +
+        testId
+    );
+
+    window.location.href =
+        "mock-tests.html";
+}
 
 
-            } catch (error) {
+/* --------------------------------
+   START
+-------------------------------- */
 
-                showError(
-                    error.message ||
-                    "Something went wrong while loading the result."
-                );
-            }
-        }
+calculateResult();
 
-
-        /* =====================================
-           START
-        ===================================== */
-
-        loadResult();
-
-    </script>
+</script>
 
 </body>
 </html>
