@@ -1375,8 +1375,14 @@
 
     function manageQuestions(id) {
 
+        /*
+         * IMPORTANT:
+         * mock-questions.html expects
+         * "mock_test_id" as the URL parameter.
+         */
+
         window.location.href =
-            "mock-questions.html?test=" +
+            "mock-questions.html?mock_test_id=" +
             encodeURIComponent(id);
 
     }
