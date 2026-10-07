@@ -1,0 +1,5 @@
+[functions.submit-mock-test]
+verify_jwt = false
+
+[functions.get-study-material]
+verify_jwt = false
