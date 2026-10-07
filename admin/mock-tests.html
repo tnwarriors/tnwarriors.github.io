@@ -1376,13 +1376,26 @@
     function manageQuestions(id) {
 
         /*
-         * IMPORTANT:
-         * mock-questions.html expects
-         * "mock_test_id" as the URL parameter.
+         * mock-questions.html already supports:
+         * ?id=...
+         * ?test_id=...
+         *
+         * So we send the test ID using ?id=
          */
 
+        if (!id) {
+
+            alert(
+                "Mock Test ID is missing."
+            );
+
+            return;
+
+        }
+
+
         window.location.href =
-            "mock-questions.html?mock_test_id=" +
+            "mock-questions.html?id=" +
             encodeURIComponent(id);
 
     }
