@@ -1,3398 +1,1231 @@
-m<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manage Mock Questions - TN Warriors Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <title>Manage Mock Questions - TN Warriors Admin</title>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b0f14;
-      color: #ffffff;
-    }
-
-    header {
-      background: #111820;
-      border-bottom: 1px solid #26313d;
-      padding: 16px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-
-    .header-inner {
-      max-width: 1200px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .brand {
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    .header-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    button,
-    .button-link {
-      border: 0;
-      border-radius: 8px;
-      padding: 10px 14px;
-      cursor: pointer;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .primary {
-      background: #16a34a;
-      color: white;
-    }
-
-    .secondary {
-      background: #26313d;
-      color: white;
-    }
-
-    .danger {
-      background: #dc2626;
-      color: white;
-    }
-
-    .warning {
-      background: #d97706;
-      color: white;
-    }
-
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    main {
-      max-width: 1200px;
-      margin: auto;
-      padding: 25px 16px 60px;
-    }
-
-    .page-title {
-      margin-bottom: 20px;
-    }
-
-    .page-title h1 {
-      margin: 0 0 8px;
-      font-size: 28px;
-    }
-
-    .page-title p {
-      margin: 0;
-      color: #9ca3af;
-    }
-
-    .card {
-      background: #111820;
-      border: 1px solid #26313d;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .card h2,
-    .card h3 {
-      margin-top: 0;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 15px;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 15px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      font-size: 14px;
-      font-weight: 600;
-      color: #d1d5db;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      background: #0b0f14;
-      color: #ffffff;
-      border: 1px solid #344150;
-      border-radius: 8px;
-      padding: 11px 12px;
-      outline: none;
-      font-size: 15px;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: #16a34a;
-    }
-
-    textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-
-    .checkbox-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .checkbox-row input {
-      width: auto;
-    }
-
-    .actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 15px;
-    }
-
-    .status {
-      margin-bottom: 15px;
-      padding: 12px;
-      border-radius: 8px;
-      display: none;
-    }
-
-    .status.success {
-      display: block;
-      background: #12351f;
-      color: #86efac;
-      border: 1px solid #166534;
-    }
-
-    .status.error {
-      display: block;
-      background: #3a1515;
-      color: #fca5a5;
-      border: 1px solid #991b1b;
-    }
-
-    .test-info {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .info-box {
-      background: #0b0f14;
-      border: 1px solid #26313d;
-      padding: 12px;
-      border-radius: 8px;
-    }
-
-    .info-label {
-      color: #9ca3af;
-      font-size: 12px;
-      margin-bottom: 5px;
-    }
-
-    .info-value {
-      font-weight: 700;
-    }
-
-    .section-list,
-    .question-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .section-item,
-    .question-item {
-      background: #0b0f14;
-      border: 1px solid #26313d;
-      border-radius: 10px;
-      padding: 15px;
-    }
-
-    .section-header,
-    .question-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      align-items: flex-start;
-    }
-
-    .section-title,
-    .question-title {
-      font-weight: 700;
-      line-height: 1.5;
-    }
-
-    .muted {
-      color: #9ca3af;
-      font-size: 13px;
-    }
-
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 9px;
-    }
-
-    .tag {
-      background: #1f2937;
-      border: 1px solid #374151;
-      color: #d1d5db;
-      padding: 4px 8px;
-      border-radius: 999px;
-      font-size: 12px;
-    }
-
-    .question-image {
-      max-width: 260px;
-      max-height: 180px;
-      border-radius: 8px;
-      margin-top: 12px;
-      border: 1px solid #374151;
-      object-fit: contain;
-      background: #111820;
-    }
-
-    .options {
-      margin-top: 12px;
-      display: grid;
-      gap: 7px;
-    }
-
-    .option {
-      padding: 9px;
-      border-radius: 7px;
-      background: #151d26;
-      border: 1px solid #26313d;
-    }
-
-    .correct-option {
-      border-color: #16a34a;
-      background: #12351f;
-    }
-
-    .item-actions {
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
-      margin-top: 12px;
-    }
-
-    .small-button {
-      padding: 7px 10px;
-      font-size: 12px;
-    }
-
-    .empty {
-      text-align: center;
-      padding: 25px;
-      color: #9ca3af;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .preview-box {
-      margin-top: 10px;
-    }
-
-    .preview-box img {
-      max-width: 280px;
-      max-height: 200px;
-      border-radius: 8px;
-      border: 1px solid #374151;
-      object-fit: contain;
-    }
-
-    .file-info {
-      margin-top: 7px;
-      color: #9ca3af;
-      font-size: 13px;
-    }
-
-    @media (max-width: 800px) {
-      .grid,
-      .grid-3 {
-        grid-template-columns: 1fr;
-      }
-
-      .test-info {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .section-header,
-      .question-header {
-        flex-direction: column;
-      }
-    }
-
-    @media (max-width: 500px) {
-      .test-info {
-        grid-template-columns: 1fr;
-      }
-
-      .header-inner {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .page-title h1 {
-        font-size: 23px;
-      }
-    }
-  </style>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#0b0f14;color:#fff}
+header{background:#111820;border-bottom:1px solid #26313d;padding:16px 20px;position:sticky;top:0;z-index:20}
+.header-inner{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.brand{font-size:20px;font-weight:700}
+.header-actions{display:flex;gap:8px;flex-wrap:wrap}
+button,.button-link{border:0;border-radius:8px;padding:10px 14px;cursor:pointer;font-weight:600;text-decoration:none;display:inline-block}
+.primary{background:#16a34a;color:white}
+.secondary{background:#26313d;color:white}
+.danger{background:#dc2626;color:white}
+button:disabled{opacity:.5;cursor:not-allowed}
+main{max-width:1200px;margin:auto;padding:25px 16px 60px}
+.page-title{margin-bottom:20px}
+.page-title h1{margin:0 0 8px;font-size:28px}
+.page-title p{margin:0;color:#9ca3af}
+.card{background:#111820;border:1px solid #26313d;border-radius:12px;padding:20px;margin-bottom:20px}
+.card h2,.card h3{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field.full{grid-column:1/-1}
+label{font-size:14px;font-weight:600;color:#d1d5db}
+input,select,textarea{width:100%;background:#0b0f14;color:#fff;border:1px solid #344150;border-radius:8px;padding:11px 12px;outline:none;font-size:15px}
+input:focus,select:focus,textarea:focus{border-color:#16a34a}
+textarea{min-height:110px;resize:vertical}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.status{margin-bottom:15px;padding:12px;border-radius:8px;display:none}
+.status.success{display:block;background:#12351f;color:#86efac;border:1px solid #166534}
+.status.error{display:block;background:#3a1515;color:#fca5a5;border:1px solid #991b1b}
+.test-info{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:15px}
+.info-box{background:#0b0f14;border:1px solid #26313d;padding:12px;border-radius:8px}
+.info-label{color:#9ca3af;font-size:12px;margin-bottom:5px}
+.info-value{font-weight:700}
+.section-list,.question-list{display:grid;gap:12px}
+.section-item,.question-item{background:#0b0f14;border:1px solid #26313d;border-radius:10px;padding:15px}
+.section-header,.question-header{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}
+.section-title,.question-title{font-weight:700;line-height:1.5;overflow-wrap:anywhere}
+.muted{color:#9ca3af;font-size:13px;line-height:1.6}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.tag{background:#1f2937;border:1px solid #374151;color:#d1d5db;padding:4px 8px;border-radius:999px;font-size:12px}
+.question-image,.option-image{max-width:260px;max-height:180px;border-radius:8px;margin-top:8px;border:1px solid #374151;object-fit:contain;background:#111820}
+.options{margin-top:12px;display:grid;gap:9px}
+.option{padding:10px;border-radius:7px;background:#151d26;border:1px solid #26313d;display:flex;flex-direction:column;align-items:flex-start;gap:5px;overflow-wrap:anywhere}
+.correct-option{border-color:#16a34a;background:#12351f}
+.item-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.small-button{padding:7px 10px;font-size:12px}
+.empty{text-align:center;padding:25px;color:#9ca3af}
+.hidden{display:none!important}
+.preview-box{margin-top:8px}
+.preview-box img{max-width:280px;max-height:200px;border-radius:8px;border:1px solid #374151;object-fit:contain}
+.file-info,.help{margin-top:5px;color:#9ca3af;font-size:12px;line-height:1.5}
+.option-image-field{border:1px solid #26313d;background:#0b0f14;padding:12px;border-radius:9px;min-width:0}
+.option-image-field h3{font-size:15px;margin:0 0 10px}
+@media(max-width:800px){
+.grid{grid-template-columns:1fr}
+.test-info{grid-template-columns:repeat(2,1fr)}
+.section-header,.question-header{flex-direction:column}
+}
+@media(max-width:500px){
+.test-info{grid-template-columns:1fr}
+.header-inner{align-items:flex-start;flex-direction:column}
+.page-title h1{font-size:23px}
+.card{padding:15px}
+}
+</style>
 </head>
 
 <body>
-
 <header>
   <div class="header-inner">
     <div class="brand">TN Warriors Admin</div>
-
     <div class="header-actions">
-      <a href="dashboard.html" class="button-link secondary">
-        Dashboard
-      </a>
-
-      <a href="mock-tests.html" class="button-link secondary">
-        Mock Tests
-      </a>
-
-      <button id="logoutButton" class="danger">
-        Logout
-      </button>
+      <a href="dashboard.html" class="button-link secondary">Dashboard</a>
+      <a href="mock-tests.html" class="button-link secondary">Mock Tests</a>
+      <button id="logoutButton" class="danger">Logout</button>
     </div>
   </div>
 </header>
 
 <main>
-
   <div class="page-title">
     <h1>Mock Test Questions</h1>
-    <p id="pageSubtitle">
-      Manage sections and questions for this mock test.
-    </p>
+    <p>Manage sections, questions and option images for this mock test.</p>
   </div>
 
   <div id="statusBox" class="status"></div>
 
-  <!-- TEST INFORMATION -->
   <section class="card">
     <h2>Mock Test</h2>
-
-    <div id="testInfo">
-      Loading test...
-    </div>
+    <div id="testInfo">Loading test...</div>
   </section>
 
-
-  <!-- SECTION FORM -->
   <section class="card">
-
-    <h2 id="sectionFormTitle">
-      Add Section / Part
-    </h2>
-
+    <h2 id="sectionFormTitle">Add Section / Part</h2>
     <div class="grid">
-
       <div class="field">
-        <label for="sectionTitle">
-          Section Title *
-        </label>
-
-        <input
-          id="sectionTitle"
-          type="text"
-          placeholder="Example: General Intelligence & Reasoning"
-        />
+        <label for="sectionTitle">Section Title *</label>
+        <input id="sectionTitle" placeholder="Example: General Intelligence & Reasoning">
       </div>
 
-
       <div class="field">
-        <label for="sectionSubject">
-          Subject
-        </label>
-
-        <input
-          id="sectionSubject"
-          type="text"
-          placeholder="Example: Reasoning"
-        />
+        <label for="sectionSubject">Subject</label>
+        <input id="sectionSubject" placeholder="Example: Reasoning">
       </div>
 
-
       <div class="field">
-        <label for="sectionOrder">
-          Section Order *
-        </label>
-
-        <input
-          id="sectionOrder"
-          type="number"
-          min="1"
-          value="1"
-        />
+        <label for="sectionOrder">Section Order *</label>
+        <input id="sectionOrder" type="number" min="1" value="1">
       </div>
 
-
       <div class="field">
-        <label for="sectionQuestionCount">
-          Total Questions
-        </label>
-
-        <input
-          id="sectionQuestionCount"
-          type="number"
-          min="0"
-          placeholder="Example: 20"
-        />
+        <label for="sectionQuestionCount">Total Questions</label>
+        <input id="sectionQuestionCount" type="number" min="0" placeholder="Example: 20">
       </div>
 
-
       <div class="field">
-        <label for="sectionMarks">
-          Total Marks
-        </label>
-
-        <input
-          id="sectionMarks"
-          type="number"
-          min="0"
-          step="0.01"
-          placeholder="Example: 40"
-        />
+        <label for="sectionMarks">Total Marks</label>
+        <input id="sectionMarks" type="number" min="0" step="0.01" placeholder="Example: 40">
       </div>
 
-
       <div class="field">
-        <label for="sectionNegativeMark">
-          Negative Mark
-        </label>
-
-        <input
-          id="sectionNegativeMark"
-          type="number"
-          min="0"
-          step="0.01"
-          value="0"
-          placeholder="Example: 0.25"
-        />
+        <label for="sectionNegativeMark">Negative Mark</label>
+        <input id="sectionNegativeMark" type="number" min="0" step="0.01" value="0">
       </div>
-
 
       <div class="field full">
-        <label for="sectionDescription">
-          Section Description
-        </label>
-
-        <textarea
-          id="sectionDescription"
-          placeholder="Optional section instructions..."
-        ></textarea>
+        <label for="sectionDescription">Section Description</label>
+        <textarea id="sectionDescription" placeholder="Optional section instructions..."></textarea>
       </div>
-
     </div>
-
 
     <div class="actions">
-
-      <button
-        id="saveSectionButton"
-        class="primary"
-      >
-        Add Section
-      </button>
-
-      <button
-        id="cancelSectionButton"
-        class="secondary hidden"
-      >
-        Cancel Edit
-      </button>
-
+      <button id="saveSectionButton" class="primary">Add Section</button>
+      <button id="cancelSectionButton" class="secondary hidden">Cancel Edit</button>
     </div>
-
   </section>
 
-
-  <!-- SECTIONS -->
   <section class="card">
-
     <h2>Sections / Parts</h2>
-
-    <div
-      id="sectionList"
-      class="section-list"
-    >
-      <div class="empty">
-        Loading sections...
-      </div>
+    <div id="sectionList" class="section-list">
+      <div class="empty">Loading sections...</div>
     </div>
-
   </section>
 
-
-  <!-- QUESTION FORM -->
   <section class="card">
-
-    <h2 id="questionFormTitle">
-      Add Question
-    </h2>
-
+    <h2 id="questionFormTitle">Add Question</h2>
 
     <div class="grid">
-
-      <!-- SECTION -->
-
       <div class="field">
-        <label for="questionSection">
-          Section / Part *
-        </label>
-
+        <label for="questionSection">Section / Part *</label>
         <select id="questionSection">
-          <option value="">
-            Select Section
-          </option>
+          <option value="">Select Section</option>
         </select>
       </div>
 
-
-      <!-- SUBJECT -->
-
       <div class="field">
-        <label for="questionSubject">
-          Subject *
-        </label>
-
-        <input
-          id="questionSubject"
-          type="text"
-          placeholder="Example: Reasoning"
-        />
+        <label for="questionSubject">Subject *</label>
+        <input id="questionSubject" placeholder="Example: Reasoning">
       </div>
 
-
-      <!-- TOPIC -->
-
       <div class="field">
-        <label for="questionTopic">
-          Topic
-        </label>
-
-        <input
-          id="questionTopic"
-          type="text"
-          placeholder="Example: Clock"
-        />
+        <label for="questionTopic">Topic</label>
+        <input id="questionTopic" placeholder="Example: Venn Diagram">
       </div>
 
-
-      <!-- QUESTION TYPE -->
-
       <div class="field">
-        <label for="questionType">
-          Question Type *
-        </label>
-
+        <label for="questionType">Question Type *</label>
         <select id="questionType">
-
-          <option value="standard">
-            Standard
-          </option>
-
-          <option value="reasoning">
-            Reasoning
-          </option>
-
-          <option value="mathematics">
-            Mathematics
-          </option>
-
-          <option value="clock">
-            Clock
-          </option>
-
-          <option value="mirror_image">
-            Mirror Image
-          </option>
-
-          <option value="figure">
-            Figure
-          </option>
-
-          <option value="non_verbal">
-            Non-Verbal
-          </option>
-
-          <option value="gk">
-            General Knowledge
-          </option>
-
-          <option value="english">
-            English
-          </option>
-
-          <option value="hindi">
-            Hindi
-          </option>
-
-          <option value="comprehension">
-            Comprehension
-          </option>
-
-          <option value="image_based">
-            Image Based
-          </option>
-
-          <option value="extra">
-            Extra
-          </option>
-
+          <option value="standard">Standard</option>
+          <option value="reasoning">Reasoning</option>
+          <option value="mathematics">Mathematics</option>
+          <option value="clock">Clock</option>
+          <option value="mirror_image">Mirror Image</option>
+          <option value="figure">Figure</option>
+          <option value="non_verbal">Non-Verbal</option>
+          <option value="gk">General Knowledge</option>
+          <option value="english">English</option>
+          <option value="hindi">Hindi</option>
+          <option value="comprehension">Comprehension</option>
+          <option value="image_based">Image Based</option>
+          <option value="extra">Extra</option>
         </select>
       </div>
 
-
-      <!-- SOURCE -->
-
       <div class="field">
-        <label for="sourceType">
-          Question Source
-        </label>
-
+        <label for="sourceType">Question Source</label>
         <select id="sourceType">
-
-          <option value="practice">
-            Practice
-          </option>
-
-          <option value="pyq">
-            Previous Year Question
-          </option>
-
-          <option value="extra">
-            Extra Question
-          </option>
-
+          <option value="practice">Practice</option>
+          <option value="pyq">Previous Year Question</option>
+          <option value="extra">Extra Question</option>
         </select>
       </div>
 
-
-      <!-- ORDER -->
-
       <div class="field">
-        <label for="questionOrder">
-          Question Order *
-        </label>
-
-        <input
-          id="questionOrder"
-          type="number"
-          min="1"
-          value="1"
-        />
+        <label for="questionOrder">Question Order *</label>
+        <input id="questionOrder" type="number" min="1" value="1">
       </div>
 
-
-      <!-- MARKS -->
-
       <div class="field">
-        <label for="questionMarks">
-          Marks
-        </label>
-
-        <input
-          id="questionMarks"
-          type="number"
-          min="0"
-          step="0.01"
-          value="1"
-        />
+        <label for="questionMarks">Marks</label>
+        <input id="questionMarks" type="number" min="0" step="0.01" value="2">
       </div>
 
-
-      <!-- NEGATIVE -->
-
       <div class="field">
-        <label for="questionNegativeMark">
-          Negative Mark
-        </label>
-
-        <input
-          id="questionNegativeMark"
-          type="number"
-          min="0"
-          step="0.01"
-          value="0"
-        />
+        <label for="questionNegativeMark">Negative Mark</label>
+        <input id="questionNegativeMark" type="number" min="0" step="0.01" value="0.25">
+        <div class="help">This is displayed for reference. Scoring uses the mock test or section configuration.</div>
       </div>
 
-
-      <!-- PYQ YEAR -->
-
       <div class="field">
-        <label for="pyqYear">
-          PYQ Year
-        </label>
-
-        <input
-          id="pyqYear"
-          type="number"
-          min="1900"
-          max="2100"
-          placeholder="Example: 2024"
-        />
+        <label for="pyqYear">PYQ Year</label>
+        <input id="pyqYear" type="number" min="1900" max="2100" placeholder="Example: 2024">
       </div>
 
-
-      <!-- PYQ SHIFT -->
-
       <div class="field">
-        <label for="pyqShift">
-          PYQ Shift / Session
-        </label>
-
-        <input
-          id="pyqShift"
-          type="text"
-          placeholder="Example: Shift 2"
-        />
+        <label for="pyqShift">PYQ Shift / Session</label>
+        <input id="pyqShift" placeholder="Example: Shift 2">
       </div>
 
-
-      <!-- PYQ QUESTION NUMBER -->
-
       <div class="field">
-        <label for="pyqQuestionNumber">
-          PYQ Question Number
-        </label>
-
-        <input
-          id="pyqQuestionNumber"
-          type="number"
-          min="1"
-          placeholder="Example: 37"
-        />
+        <label for="pyqQuestionNumber">PYQ Question Number</label>
+        <input id="pyqQuestionNumber" type="number" min="1" placeholder="Example: 37">
       </div>
-
-
-      <!-- QUESTION -->
 
       <div class="field full">
-
-        <label for="questionText">
-          Question *
-        </label>
-
-        <textarea
-          id="questionText"
-          placeholder="Enter question..."
-        ></textarea>
-
+        <label for="questionText">Question Text</label>
+        <textarea id="questionText" placeholder="Enter question text. If the question is entirely an image, upload the image below."></textarea>
       </div>
 
-
-      <!-- OPTION A -->
-
-      <div class="field">
-        <label for="optionA">
-          Option A *
-        </label>
-
-        <input
-          id="optionA"
-          type="text"
-          placeholder="Option A"
-        />
+      <div class="field full">
+        <label for="questionImage">Question Image (optional)</label>
+        <input id="questionImage" type="file" accept="image/jpeg,image/png,image/webp">
+        <div class="file-info">JPG, PNG or WEBP. Maximum 5 MB.</div>
+        <div id="imagePreview" class="preview-box"></div>
       </div>
 
-
-      <!-- OPTION B -->
-
-      <div class="field">
-        <label for="optionB">
-          Option B *
-        </label>
-
-        <input
-          id="optionB"
-          type="text"
-          placeholder="Option B"
-        />
-      </div>
-
-
-      <!-- OPTION C -->
-
-      <div class="field">
-        <label for="optionC">
-          Option C *
-        </label>
-
-        <input
-          id="optionC"
-          type="text"
-          placeholder="Option C"
-        />
-      </div>
-
-
-      <!-- OPTION D -->
-
-      <div class="field">
-        <label for="optionD">
-          Option D *
-        </label>
-
-        <input
-          id="optionD"
-          type="text"
-          placeholder="Option D"
-        />
-      </div>
-
-
-      <!-- CORRECT ANSWER -->
-
-      <div class="field">
-        <label for="correctOption">
-          Correct Answer *
-        </label>
-
-        <select id="correctOption">
-
-          <option value="">
-            Select Correct Answer
-          </option>
-
-          <option value="A">
-            A
-          </option>
-
-          <option value="B">
-            B
-          </option>
-
-          <option value="C">
-            C
-          </option>
-
-          <option value="D">
-            D
-          </option>
-
-        </select>
-      </div>
-
-
-      <!-- IMAGE -->
-
-      <div class="field">
-
-        <label for="questionImage">
-          Question Image
-        </label>
-
-        <input
-          id="questionImage"
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-        />
-
-        <div class="file-info">
-          JPG, PNG or WEBP • Maximum 5 MB
+      <div class="field full">
+        <div class="help">
+          Option images are useful for mirror-image, figure, clock and non-verbal reasoning questions.
+          Each option can contain text, an image, or both.
         </div>
-
-        <div
-          id="imagePreview"
-          class="preview-box"
-        ></div>
-
       </div>
 
+      <div class="field">
+        <label for="optionA">Option A Text</label>
+        <input id="optionA" placeholder="Option A text">
+      </div>
 
-      <!-- EXPLANATION -->
+      <div class="field">
+        <label for="optionB">Option B Text</label>
+        <input id="optionB" placeholder="Option B text">
+      </div>
+
+      <div class="field">
+        <label for="optionC">Option C Text</label>
+        <input id="optionC" placeholder="Option C text">
+      </div>
+
+      <div class="field">
+        <label for="optionD">Option D Text</label>
+        <input id="optionD" placeholder="Option D text">
+      </div>
 
       <div class="field full">
+        <h3>Option Images (Optional)</h3>
+        <div class="grid">
+          <div class="option-image-field">
+            <h3>Option A Image</h3>
+            <input id="optionAImage" type="file" accept="image/jpeg,image/png,image/webp">
+            <div id="optionAPreview" class="preview-box"></div>
+          </div>
 
-        <label for="explanation">
-          Explanation
-        </label>
+          <div class="option-image-field">
+            <h3>Option B Image</h3>
+            <input id="optionBImage" type="file" accept="image/jpeg,image/png,image/webp">
+            <div id="optionBPreview" class="preview-box"></div>
+          </div>
 
-        <textarea
-          id="explanation"
-          placeholder="Explain the correct answer..."
-        ></textarea>
+          <div class="option-image-field">
+            <h3>Option C Image</h3>
+            <input id="optionCImage" type="file" accept="image/jpeg,image/png,image/webp">
+            <div id="optionCPreview" class="preview-box"></div>
+          </div>
 
+          <div class="option-image-field">
+            <h3>Option D Image</h3>
+            <input id="optionDImage" type="file" accept="image/jpeg,image/png,image/webp">
+            <div id="optionDPreview" class="preview-box"></div>
+          </div>
+        </div>
       </div>
 
-    </div>
+      <div class="field">
+        <label for="correctOption">Correct Answer *</label>
+        <select id="correctOption">
+          <option value="">Select Correct Answer</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+        </select>
+      </div>
 
+      <div class="field full">
+        <label for="explanation">Explanation</label>
+        <textarea id="explanation" placeholder="Explain the correct answer..."></textarea>
+      </div>
+    </div>
 
     <div class="actions">
-
-      <button
-        id="saveQuestionButton"
-        class="primary"
-      >
-        Add Question
-      </button>
-
-      <button
-        id="cancelQuestionButton"
-        class="secondary hidden"
-      >
-        Cancel Edit
-      </button>
-
+      <button id="saveQuestionButton" class="primary">Add Question</button>
+      <button id="cancelQuestionButton" class="secondary hidden">Cancel Edit</button>
     </div>
-
   </section>
 
-
-  <!-- QUESTIONS -->
   <section class="card">
-
     <h2>Questions</h2>
-
-    <div
-      id="questionList"
-      class="question-list"
-    >
-      <div class="empty">
-        Loading questions...
-      </div>
+    <div id="questionList" class="question-list">
+      <div class="empty">Loading questions...</div>
     </div>
-
   </section>
-
 </main>
 
-
 <script>
+const SUPABASE_URL = "https://nwipyqarobgelksdbkbk.supabase.co";
 
-  /* ========================================================
-     SUPABASE
-  ======================================================== */
+/* Use the publishable key already configured for your project. */
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
 
-  const SUPABASE_URL =
-    "https://nwipyqarobgelksdbkbk.supabase.co";
+const BUCKET = "tn-warriors-question-images";
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
 
-  const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
+let currentUser = null;
+let currentTest = null;
+let sections = [];
+let questions = [];
+let editingSectionId = null;
+let editingQuestionId = null;
+let oldQuestionImagePath = null;
 
-  const supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
-    );
+const optionKeys = ["a", "b", "c", "d"];
+const optionOldPaths = { a: null, b: null, c: null, d: null };
 
+const statusBox = document.getElementById("statusBox");
+const testInfo = document.getElementById("testInfo");
+const sectionList = document.getElementById("sectionList");
+const questionList = document.getElementById("questionList");
+const questionSection = document.getElementById("questionSection");
+const imagePreview = document.getElementById("imagePreview");
 
-  /* ========================================================
-     STATE
-  ======================================================== */
+const params = new URLSearchParams(window.location.search);
+const testId = params.get("id") || params.get("test_id");
 
-  let currentUser = null;
-  let currentTest = null;
+function showStatus(message, type = "success") {
+  statusBox.textContent = message;
+  statusBox.className = "status " + type;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
-  let sections = [];
-  let questions = [];
+function clearStatus() {
+  statusBox.textContent = "";
+  statusBox.className = "status";
+}
 
-  let editingSectionId = null;
-  let editingQuestionId = null;
+function escapeHtml(value) {
+  if (value === null || value === undefined) return "";
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
 
-  let oldQuestionImagePath = null;
+function fileInput(id) {
+  return document.getElementById(id);
+}
 
+function validateImage(file, label) {
+  if (!file) return null;
 
-  /* ========================================================
-     DOM
-  ======================================================== */
+  const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
 
-  const statusBox =
-    document.getElementById("statusBox");
-
-  const testInfo =
-    document.getElementById("testInfo");
-
-  const sectionList =
-    document.getElementById("sectionList");
-
-  const questionList =
-    document.getElementById("questionList");
-
-  const questionSection =
-    document.getElementById("questionSection");
-
-  const imagePreview =
-    document.getElementById("imagePreview");
-
-
-  /* ========================================================
-     URL
-  ======================================================== */
-
-  const params =
-    new URLSearchParams(window.location.search);
-
-  const testId =
-    params.get("id") ||
-    params.get("test_id");
-
-
-  /* ========================================================
-     STATUS
-  ======================================================== */
-
-  function showStatus(message, type = "success") {
-
-    statusBox.textContent = message;
-
-    statusBox.className =
-      "status " + type;
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+  if (!allowedTypes.includes(file.type)) {
+    return label + ": JPG, PNG or WEBP images only.";
   }
 
-
-  function clearStatus() {
-
-    statusBox.textContent = "";
-
-    statusBox.className =
-      "status";
-
+  if (file.size > 5 * 1024 * 1024) {
+    return label + ": image must be 5 MB or smaller.";
   }
 
+  return null;
+}
 
-  /* ========================================================
-     AUTH
-  ======================================================== */
+async function checkAdminAccess() {
+  const { data: { user }, error } =
+    await supabaseClient.auth.getUser();
 
-  async function checkAdminAccess() {
-
-    const {
-      data: {
-        user
-      },
-      error
-    } =
-      await supabaseClient.auth.getUser();
-
-    if (error || !user) {
-
-      window.location.href =
-        "index.html";
-
-      return false;
-    }
-
-    currentUser = user;
-
-    const {
-      data: profile,
-      error: profileError
-    } =
-      await supabaseClient
-        .from("profiles")
-        .select("role")
-        .eq("id", user.id)
-        .single();
-
-    if (
-      profileError ||
-      !profile ||
-      profile.role !== "admin"
-    ) {
-
-      alert("Admin access required.");
-
-      await supabaseClient.auth.signOut();
-
-      window.location.href =
-        "index.html";
-
-      return false;
-    }
-
-    return true;
+  if (error || !user) {
+    window.location.href = "index.html";
+    return false;
   }
 
+  currentUser = user;
 
-  /* ========================================================
-     LOAD TEST
-  ======================================================== */
+  const { data: profile, error: profileError } =
+    await supabaseClient
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
 
-  async function loadTest() {
-
-    if (!testId) {
-
-      showStatus(
-        "Mock test ID is missing.",
-        "error"
-      );
-
-      return false;
-    }
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("mock_tests")
-        .select(`
-          id,
-          title,
-          exam_name,
-          duration_minutes,
-          total_questions,
-          total_marks,
-          negative_mark,
-          is_premium,
-          is_published
-        `)
-        .eq("id", testId)
-        .single();
-
-    if (error) {
-
-      console.error(error);
-
-      showStatus(
-        "Unable to load mock test: " +
-        error.message,
-        "error"
-      );
-
-      return false;
-    }
-
-    currentTest = data;
-
-    renderTestInfo();
-
-    return true;
+  if (profileError || !profile || profile.role !== "admin") {
+    alert("Admin access required.");
+    await supabaseClient.auth.signOut();
+    window.location.href = "index.html";
+    return false;
   }
 
+  return true;
+}
 
-  function renderTestInfo() {
+async function loadTest() {
+  if (!testId) {
+    showStatus("Mock test ID is missing.", "error");
+    return false;
+  }
 
-    testInfo.innerHTML = `
+  const { data, error } = await supabaseClient
+    .from("mock_tests")
+    .select("id,title,exam_name,duration_minutes,total_questions,total_marks,negative_mark,is_premium,is_published")
+    .eq("id", testId)
+    .single();
 
-      <div>
-        <strong>${escapeHtml(currentTest.title)}</strong>
+  if (error) {
+    showStatus("Unable to load mock test: " + error.message, "error");
+    return false;
+  }
+
+  currentTest = data;
+  renderTestInfo();
+  return true;
+}
+
+function renderTestInfo() {
+  testInfo.innerHTML = `
+    <div><strong>${escapeHtml(currentTest.title)}</strong></div>
+    <div class="test-info">
+      <div class="info-box">
+        <div class="info-label">Exam</div>
+        <div class="info-value">${escapeHtml(currentTest.exam_name || "-")}</div>
       </div>
-
-      <div class="test-info">
-
-        <div class="info-box">
-          <div class="info-label">
-            Exam
-          </div>
-
-          <div class="info-value">
-            ${escapeHtml(
-              currentTest.exam_name || "-"
-            )}
-          </div>
-        </div>
-
-
-        <div class="info-box">
-          <div class="info-label">
-            Duration
-          </div>
-
-          <div class="info-value">
-            ${currentTest.duration_minutes || 0}
-            minutes
-          </div>
-        </div>
-
-
-        <div class="info-box">
-          <div class="info-label">
-            Questions
-          </div>
-
-          <div class="info-value">
-            ${currentTest.total_questions || 0}
-          </div>
-        </div>
-
-
-        <div class="info-box">
-          <div class="info-label">
-            Total Marks
-          </div>
-
-          <div class="info-value">
-            ${currentTest.total_marks || 0}
-          </div>
-        </div>
-
+      <div class="info-box">
+        <div class="info-label">Duration</div>
+        <div class="info-value">${currentTest.duration_minutes || 0} minutes</div>
       </div>
+      <div class="info-box">
+        <div class="info-label">Questions</div>
+        <div class="info-value">${currentTest.total_questions || 0}</div>
+      </div>
+      <div class="info-box">
+        <div class="info-label">Total Marks</div>
+        <div class="info-value">${currentTest.total_marks || 0}</div>
+      </div>
+    </div>
+  `;
+}
 
-    `;
+async function loadSections() {
+  const { data, error } = await supabaseClient
+    .from("mock_test_sections")
+    .select("id,mock_test_id,section_order,title,subject,description,total_questions,total_marks,negative_mark,created_at")
+    .eq("mock_test_id", testId)
+    .order("section_order", { ascending: true });
+
+  if (error) {
+    showStatus("Unable to load sections: " + error.message, "error");
+    return;
   }
 
+  sections = data || [];
+  renderSections();
+  populateSectionDropdown();
+}
 
-  /* ========================================================
-     LOAD SECTIONS
-  ======================================================== */
-
-  async function loadSections() {
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("mock_test_sections")
-        .select(`
-          id,
-          mock_test_id,
-          section_order,
-          title,
-          subject,
-          description,
-          total_questions,
-          total_marks,
-          negative_mark,
-          created_at
-        `)
-        .eq("mock_test_id", testId)
-        .order("section_order", {
-          ascending: true
-        });
-
-    if (error) {
-
-      console.error(error);
-
-      showStatus(
-        "Unable to load sections: " +
-        error.message,
-        "error"
-      );
-
-      return;
-    }
-
-    sections = data || [];
-
-    renderSections();
-
-    populateSectionDropdown();
+function renderSections() {
+  if (!sections.length) {
+    sectionList.innerHTML = '<div class="empty">No sections created yet.</div>';
+    return;
   }
 
-
-  function renderSections() {
-
-    if (!sections.length) {
-
-      sectionList.innerHTML = `
-        <div class="empty">
-          No sections created yet.
-        </div>
-      `;
-
-      return;
-    }
-
-
-    sectionList.innerHTML =
-      sections.map(section => `
-
-        <div
-          class="section-item"
-        >
-
-          <div class="section-header">
-
-            <div>
-
-              <div class="section-title">
-                ${section.section_order}.
-                ${escapeHtml(section.title)}
-              </div>
-
-              <div class="tag-row">
-
-                ${
-                  section.subject
-                    ? `
-                      <span class="tag">
-                        ${escapeHtml(section.subject)}
-                      </span>
-                    `
-                    : ""
-                }
-
-                <span class="tag">
-                  Questions:
-                  ${section.total_questions ?? 0}
-                </span>
-
-                <span class="tag">
-                  Marks:
-                  ${section.total_marks ?? 0}
-                </span>
-
-                <span class="tag">
-                  Negative:
-                  ${section.negative_mark ?? 0}
-                </span>
-
-              </div>
-
-              ${
-                section.description
-                  ? `
-                    <p class="muted">
-                      ${escapeHtml(
-                        section.description
-                      )}
-                    </p>
-                  `
-                  : ""
-              }
-
-            </div>
-
-
-            <div class="item-actions">
-
-              <button
-                class="secondary small-button"
-                onclick="editSection('${section.id}')"
-              >
-                Edit
-              </button>
-
-              <button
-                class="danger small-button"
-                onclick="deleteSection('${section.id}')"
-              >
-                Delete
-              </button>
-
-            </div>
-
+  sectionList.innerHTML = sections.map(section => `
+    <div class="section-item">
+      <div class="section-header">
+        <div>
+          <div class="section-title">
+            ${section.section_order}. ${escapeHtml(section.title)}
           </div>
-
+          <div class="tag-row">
+            ${section.subject ? `<span class="tag">${escapeHtml(section.subject)}</span>` : ""}
+            <span class="tag">Questions: ${section.total_questions ?? 0}</span>
+            <span class="tag">Marks: ${section.total_marks ?? 0}</span>
+            <span class="tag">Negative: ${section.negative_mark ?? 0}</span>
+          </div>
+          ${section.description ? `<p class="muted">${escapeHtml(section.description)}</p>` : ""}
         </div>
+        <div class="item-actions">
+          <button class="secondary small-button" onclick="editSection('${section.id}')">Edit</button>
+          <button class="danger small-button" onclick="deleteSection('${section.id}')">Delete</button>
+        </div>
+      </div>
+    </div>
+  `).join("");
+}
 
-      `).join("");
+function populateSectionDropdown() {
+  questionSection.innerHTML = '<option value="">Select Section</option>';
+
+  sections.forEach(section => {
+    const option = document.createElement("option");
+    option.value = section.id;
+    option.textContent = `${section.section_order}. ${section.title}`;
+    questionSection.appendChild(option);
+  });
+}
+
+document.getElementById("saveSectionButton")
+  .addEventListener("click", saveSection);
+
+async function saveSection() {
+  clearStatus();
+
+  const title = document.getElementById("sectionTitle").value.trim();
+  const subject = document.getElementById("sectionSubject").value.trim();
+  const order = Number(document.getElementById("sectionOrder").value);
+  const tq = document.getElementById("sectionQuestionCount").value;
+  const tm = document.getElementById("sectionMarks").value;
+  const nm = document.getElementById("sectionNegativeMark").value;
+  const description = document.getElementById("sectionDescription").value.trim();
+
+  if (!title) return showStatus("Section title is required.", "error");
+  if (!order || order < 1) return showStatus("Section order must be at least 1.", "error");
+
+  const payload = {
+    mock_test_id: testId,
+    section_order: order,
+    title,
+    subject: subject || null,
+    description: description || null,
+    total_questions: tq === "" ? null : Number(tq),
+    total_marks: tm === "" ? null : Number(tm),
+    negative_mark: nm === "" ? 0 : Number(nm)
+  };
+
+  const result = editingSectionId
+    ? await supabaseClient.from("mock_test_sections").update(payload).eq("id", editingSectionId)
+    : await supabaseClient.from("mock_test_sections").insert(payload);
+
+  if (result.error) {
+    showStatus("Unable to save section: " + result.error.message, "error");
+    return;
   }
 
+  showStatus(editingSectionId ? "Section updated successfully." : "Section added successfully.");
+  resetSectionForm();
+  await loadSections();
+}
 
-  function populateSectionDropdown() {
+window.editSection = function(id) {
+  const section = sections.find(item => item.id === id);
+  if (!section) return;
 
-    questionSection.innerHTML = `
-      <option value="">
-        Select Section
-      </option>
-    `;
+  editingSectionId = id;
+  document.getElementById("sectionFormTitle").textContent = "Edit Section / Part";
+  document.getElementById("sectionTitle").value = section.title || "";
+  document.getElementById("sectionSubject").value = section.subject || "";
+  document.getElementById("sectionOrder").value = section.section_order || 1;
+  document.getElementById("sectionQuestionCount").value = section.total_questions ?? "";
+  document.getElementById("sectionMarks").value = section.total_marks ?? "";
+  document.getElementById("sectionNegativeMark").value = section.negative_mark ?? 0;
+  document.getElementById("sectionDescription").value = section.description || "";
+  document.getElementById("saveSectionButton").textContent = "Update Section";
+  document.getElementById("cancelSectionButton").classList.remove("hidden");
 
-    sections.forEach(section => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
 
-      const option =
-        document.createElement("option");
+window.deleteSection = async function(id) {
+  const section = sections.find(item => item.id === id);
+  if (!section || !confirm(`Delete "${section.title}" and all questions inside it?`)) return;
 
-      option.value = section.id;
+  try {
+    const { data: rows, error: rowsError } = await supabaseClient
+      .from("mock_questions")
+      .select("id,question_image_path,option_a_image_path,option_b_image_path,option_c_image_path,option_d_image_path")
+      .eq("section_id", id);
 
-      option.textContent =
-        `${section.section_order}. ${section.title}`;
+    if (rowsError) throw rowsError;
 
-      questionSection.appendChild(option);
+    const paths = (rows || []).flatMap(row => [
+      row.question_image_path,
+      row.option_a_image_path,
+      row.option_b_image_path,
+      row.option_c_image_path,
+      row.option_d_image_path
+    ]).filter(Boolean);
 
-    });
-  }
-
-
-  /* ========================================================
-     SAVE SECTION
-  ======================================================== */
-
-  document
-    .getElementById("saveSectionButton")
-    .addEventListener(
-      "click",
-      saveSection
-    );
-
-
-  async function saveSection() {
-
-    clearStatus();
-
-    const title =
-      document
-        .getElementById("sectionTitle")
-        .value
-        .trim();
-
-    const subject =
-      document
-        .getElementById("sectionSubject")
-        .value
-        .trim();
-
-    const order =
-      Number(
-        document
-          .getElementById("sectionOrder")
-          .value
-      );
-
-    const totalQuestionsValue =
-      document
-        .getElementById("sectionQuestionCount")
-        .value;
-
-    const totalMarksValue =
-      document
-        .getElementById("sectionMarks")
-        .value;
-
-    const negativeValue =
-      document
-        .getElementById("sectionNegativeMark")
-        .value;
-
-    const description =
-      document
-        .getElementById("sectionDescription")
-        .value
-        .trim();
-
-
-    if (!title) {
-
-      showStatus(
-        "Section title is required.",
-        "error"
-      );
-
-      return;
+    if (paths.length) {
+      const { error } = await supabaseClient.storage.from(BUCKET).remove([...new Set(paths)]);
+      if (error) throw error;
     }
 
+    const { error } = await supabaseClient
+      .from("mock_test_sections")
+      .delete()
+      .eq("id", id);
 
-    if (!order || order < 1) {
+    if (error) throw error;
 
-      showStatus(
-        "Section order must be at least 1.",
-        "error"
-      );
+    showStatus("Section and its questions deleted successfully.");
 
-      return;
-    }
-
-
-    const payload = {
-
-      mock_test_id: testId,
-
-      section_order: order,
-
-      title,
-
-      subject:
-        subject || null,
-
-      description:
-        description || null,
-
-      total_questions:
-        totalQuestionsValue === ""
-          ? null
-          : Number(totalQuestionsValue),
-
-      total_marks:
-        totalMarksValue === ""
-          ? null
-          : Number(totalMarksValue),
-
-      negative_mark:
-        negativeValue === ""
-          ? 0
-          : Number(negativeValue)
-
-    };
-
-
-    let error;
-
-
-    if (editingSectionId) {
-
-      ({
-        error
-      } =
-        await supabaseClient
-          .from("mock_test_sections")
-          .update(payload)
-          .eq("id", editingSectionId));
-
-    } else {
-
-      ({
-        error
-      } =
-        await supabaseClient
-          .from("mock_test_sections")
-          .insert(payload));
-
-    }
-
-
-    if (error) {
-
-      console.error(error);
-
-      showStatus(
-        "Unable to save section: " +
-        error.message,
-        "error"
-      );
-
-      return;
-    }
-
-
-    showStatus(
-      editingSectionId
-        ? "Section updated successfully."
-        : "Section added successfully."
-    );
-
-
-    resetSectionForm();
+    if (editingSectionId === id) resetSectionForm();
 
     await loadSections();
+    await loadQuestions();
+  } catch (error) {
+    console.error(error);
+    showStatus("Unable to delete section: " + error.message, "error");
+  }
+};
+
+function resetSectionForm() {
+  editingSectionId = null;
+
+  document.getElementById("sectionFormTitle").textContent = "Add Section / Part";
+
+  ["sectionTitle", "sectionSubject", "sectionQuestionCount", "sectionMarks", "sectionDescription"]
+    .forEach(id => document.getElementById(id).value = "");
+
+  document.getElementById("sectionOrder").value = sections.length + 1;
+  document.getElementById("sectionNegativeMark").value = "0";
+  document.getElementById("saveSectionButton").textContent = "Add Section";
+  document.getElementById("cancelSectionButton").classList.add("hidden");
+}
+
+document.getElementById("cancelSectionButton")
+  .addEventListener("click", resetSectionForm);
+
+async function loadQuestions() {
+  const { data, error } = await supabaseClient
+    .from("mock_questions")
+    .select(`
+      id,mock_test_id,section_id,question_text,
+      option_a,option_b,option_c,option_d,
+      option_a_image_path,option_b_image_path,
+      option_c_image_path,option_d_image_path,
+      marks,question_order,subject,topic,question_type,
+      source_type,pyq_year,pyq_shift,pyq_question_number,
+      question_image_path,
+      mock_answers(correct_option,explanation)
+    `)
+    .eq("mock_test_id", testId)
+    .order("question_order", { ascending: true });
+
+  if (error) {
+    console.error(error);
+    showStatus("Unable to load questions: " + error.message, "error");
+    return;
   }
 
-
-  /* ========================================================
-     EDIT SECTION
-  ======================================================== */
-
-  window.editSection =
-    function(sectionId) {
-
-      const section =
-        sections.find(
-          item =>
-            item.id === sectionId
-        );
-
-      if (!section) return;
-
-      editingSectionId =
-        sectionId;
-
-      document
-        .getElementById("sectionFormTitle")
-        .textContent =
-          "Edit Section / Part";
-
-      document
-        .getElementById("sectionTitle")
-        .value =
-          section.title || "";
-
-      document
-        .getElementById("sectionSubject")
-        .value =
-          section.subject || "";
-
-      document
-        .getElementById("sectionOrder")
-        .value =
-          section.section_order || 1;
-
-      document
-        .getElementById("sectionQuestionCount")
-        .value =
-          section.total_questions ?? "";
-
-      document
-        .getElementById("sectionMarks")
-        .value =
-          section.total_marks ?? "";
-
-      document
-        .getElementById("sectionNegativeMark")
-        .value =
-          section.negative_mark ?? 0;
-
-      document
-        .getElementById("sectionDescription")
-        .value =
-          section.description || "";
-
-      document
-        .getElementById("saveSectionButton")
-        .textContent =
-          "Update Section";
-
-      document
-        .getElementById("cancelSectionButton")
-        .classList
-        .remove("hidden");
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    };
-
-
-  /* ========================================================
-     DELETE SECTION
-     Also deletes its question images.
-  ======================================================== */
-
-  window.deleteSection =
-    async function(sectionId) {
-
-      const section =
-        sections.find(
-          item =>
-            item.id === sectionId
-        );
-
-      if (!section) return;
-
-
-      const confirmed =
-        confirm(
-          `Delete "${section.title}" and all questions inside it?`
-        );
-
-      if (!confirmed) return;
-
-
-      try {
-
-        const {
-          data: questionRows,
-          error: questionError
-        } =
-          await supabaseClient
-            .from("mock_questions")
-            .select("id,question_image_path")
-            .eq("section_id", sectionId);
-
-
-        if (questionError) {
-          throw questionError;
-        }
-
-
-        const imagePaths =
-          (questionRows || [])
-            .map(row =>
-              row.question_image_path
-            )
-            .filter(Boolean);
-
-
-        if (imagePaths.length) {
-
-          const {
-            error: storageError
-          } =
-            await supabaseClient
-              .storage
-              .from(
-                "tn-warriors-question-images"
-              )
-              .remove(imagePaths);
-
-
-          if (storageError) {
-
-            throw storageError;
-
-          }
-        }
-
-
-        const {
-          error
-        } =
-          await supabaseClient
-            .from("mock_test_sections")
-            .delete()
-            .eq("id", sectionId);
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        showStatus(
-          "Section and its questions deleted successfully."
-        );
-
-
-        if (
-          editingSectionId === sectionId
-        ) {
-          resetSectionForm();
-        }
-
-
-        await loadSections();
-        await loadQuestions();
-
-      } catch (error) {
-
-        console.error(error);
-
-        showStatus(
-          "Unable to delete section: " +
-          error.message,
-          "error"
-        );
-      }
-    };
-
-
-  /* ========================================================
-     RESET SECTION
-  ======================================================== */
-
-  function resetSectionForm() {
-
-    editingSectionId = null;
-
-    document
-      .getElementById("sectionFormTitle")
-      .textContent =
-        "Add Section / Part";
-
-    document
-      .getElementById("sectionTitle")
-      .value = "";
-
-    document
-      .getElementById("sectionSubject")
-      .value = "";
-
-    document
-      .getElementById("sectionOrder")
-      .value =
-        sections.length + 1;
-
-    document
-      .getElementById("sectionQuestionCount")
-      .value = "";
-
-    document
-      .getElementById("sectionMarks")
-      .value = "";
-
-    document
-      .getElementById("sectionNegativeMark")
-      .value = "0";
-
-    document
-      .getElementById("sectionDescription")
-      .value = "";
-
-    document
-      .getElementById("saveSectionButton")
-      .textContent =
-        "Add Section";
-
-    document
-      .getElementById("cancelSectionButton")
-      .classList
-      .add("hidden");
+  questions = data || [];
+  renderQuestions();
+}
+
+function getAnswer(question) {
+  return Array.isArray(question.mock_answers)
+    ? question.mock_answers[0]
+    : question.mock_answers;
+}
+
+function renderQuestions() {
+  if (!questions.length) {
+    questionList.innerHTML = '<div class="empty">No questions added yet.</div>';
+    return;
   }
 
+  questionList.innerHTML = questions.map((question, index) => {
+    const answer = getAnswer(question);
+    const correct = String(answer?.correct_option || "").toUpperCase();
+    const section = sections.find(item => item.id === question.section_id);
 
-  document
-    .getElementById("cancelSectionButton")
-    .addEventListener(
-      "click",
-      resetSectionForm
-    );
+    const optionsHtml = optionKeys.map(key => {
+      const upper = key.toUpperCase();
+      const text = question["option_" + key] || "";
+      const imagePath = question["option_" + key + "_image_path"];
 
-
-  /* ========================================================
-     LOAD QUESTIONS
-  ======================================================== */
-
-  async function loadQuestions() {
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("mock_questions")
-        .select(`
-          id,
-          mock_test_id,
-          section_id,
-          question_text,
-          option_a,
-          option_b,
-          option_c,
-          option_d,
-          marks,
-          question_order,
-          subject,
-          topic,
-          question_type,
-          source_type,
-          pyq_year,
-          pyq_shift,
-          pyq_question_number,
-          question_image_path,
-          mock_answers(
-            correct_option,
-            explanation
-          )
-        `)
-        .eq("mock_test_id", testId)
-        .order("question_order", {
-          ascending: true
-        });
-
-
-    if (error) {
-
-      console.error(error);
-
-      showStatus(
-        "Unable to load questions: " +
-        error.message,
-        "error"
-      );
-
-      return;
-    }
-
-
-    questions = data || [];
-
-    renderQuestions();
-  }
-
-
-  /* ========================================================
-     RENDER QUESTIONS
-  ======================================================== */
-
-  function renderQuestions() {
-
-    if (!questions.length) {
-
-      questionList.innerHTML = `
-        <div class="empty">
-          No questions added yet.
+      return `
+        <div class="option ${correct === upper ? "correct-option" : ""}">
+          <strong>${upper}.</strong>
+          ${text ? `<span>${escapeHtml(text)}</span>` : ""}
+          ${imagePath ? `<img class="option-image" alt="Option ${upper} image" data-image-path="${escapeHtml(imagePath)}">` : ""}
+          ${!text && !imagePath ? '<span class="muted">No option content</span>' : ""}
         </div>
       `;
+    }).join("");
 
-      return;
-    }
-
-
-    questionList.innerHTML =
-      questions.map(
-        (question, index) => {
-
-          const answer =
-            Array.isArray(
-              question.mock_answers
-            )
-              ? question.mock_answers[0]
-              : question.mock_answers;
-
-
-          const section =
-            sections.find(
-              item =>
-                item.id ===
-                question.section_id
-            );
-
-
-          const correct =
-            answer?.correct_option
-              ? String(
-                  answer.correct_option
-                ).toUpperCase()
-              : "";
-
-
-          return `
-
-            <div
-              class="question-item"
-            >
-
-              <div class="question-header">
-
-                <div>
-
-                  <div class="question-title">
-
-                    Q${question.question_order || index + 1}.
-                    ${escapeHtml(
-                      question.question_text
-                    )}
-
-                  </div>
-
-
-                  <div class="tag-row">
-
-                    ${
-                      section
-                        ? `
-                          <span class="tag">
-                            ${escapeHtml(
-                              section.title
-                            )}
-                          </span>
-                        `
-                        : `
-                          <span class="tag">
-                            No Section
-                          </span>
-                        `
-                    }
-
-
-                    ${
-                      question.subject
-                        ? `
-                          <span class="tag">
-                            ${escapeHtml(
-                              question.subject
-                            )}
-                          </span>
-                        `
-                        : ""
-                    }
-
-
-                    ${
-                      question.topic
-                        ? `
-                          <span class="tag">
-                            ${escapeHtml(
-                              question.topic
-                            )}
-                          </span>
-                        `
-                        : ""
-                    }
-
-
-                    <span class="tag">
-                      ${escapeHtml(
-                        question.question_type ||
-                        "standard"
-                      )}
-                    </span>
-
-
-                    <span class="tag">
-                      ${escapeHtml(
-                        question.source_type ||
-                        "practice"
-                      )}
-                    </span>
-
-
-                    <span class="tag">
-                      Marks:
-                      ${question.marks ?? 0}
-                    </span>
-
-
-                    ${
-                      question.pyq_year
-                        ? `
-                          <span class="tag">
-                            PYQ:
-                            ${question.pyq_year}
-                          </span>
-                        `
-                        : ""
-                    }
-
-
-                    ${
-                      question.pyq_shift
-                        ? `
-                          <span class="tag">
-                            ${escapeHtml(
-                              question.pyq_shift
-                            )}
-                          </span>
-                        `
-                        : ""
-                    }
-
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              ${
-                question.question_image_path
-                  ? `
-                    <img
-                      id="image-${question.id}"
-                      class="question-image"
-                      alt="Question image"
-                      data-image-path="${escapeHtml(
-                        question.question_image_path
-                      )}"
-                    />
-                  `
-                  : ""
-              }
-
-
-              <div class="options">
-
-                <div class="option ${
-                  correct === "A"
-                    ? "correct-option"
-                    : ""
-                }">
-                  <strong>A.</strong>
-                  ${escapeHtml(
-                    question.option_a
-                  )}
-                </div>
-
-
-                <div class="option ${
-                  correct === "B"
-                    ? "correct-option"
-                    : ""
-                }">
-                  <strong>B.</strong>
-                  ${escapeHtml(
-                    question.option_b
-                  )}
-                </div>
-
-
-                <div class="option ${
-                  correct === "C"
-                    ? "correct-option"
-                    : ""
-                }">
-                  <strong>C.</strong>
-                  ${escapeHtml(
-                    question.option_c
-                  )}
-                </div>
-
-
-                <div class="option ${
-                  correct === "D"
-                    ? "correct-option"
-                    : ""
-                }">
-                  <strong>D.</strong>
-                  ${escapeHtml(
-                    question.option_d
-                  )}
-                </div>
-
-              </div>
-
-
-              ${
-                answer?.explanation
-                  ? `
-                    <div
-                      class="muted"
-                      style="margin-top:12px;"
-                    >
-                      <strong>
-                        Explanation:
-                      </strong>
-                      ${escapeHtml(
-                        answer.explanation
-                      )}
-                    </div>
-                  `
-                  : ""
-              }
-
-
-              ${
-                question.pyq_question_number
-                  ? `
-                    <div
-                      class="muted"
-                      style="margin-top:8px;"
-                    >
-                      PYQ Question No:
-                      ${question.pyq_question_number}
-                    </div>
-                  `
-                  : ""
-              }
-
-
-              <div class="item-actions">
-
-                <button
-                  class="secondary small-button"
-                  onclick="editQuestion('${question.id}')"
-                >
-                  Edit
-                </button>
-
-
-                <button
-                  class="danger small-button"
-                  onclick="deleteQuestion('${question.id}')"
-                >
-                  Delete
-                </button>
-
-              </div>
-
+    return `
+      <div class="question-item">
+        <div class="question-header">
+          <div>
+            <div class="question-title">
+              Q${question.question_order || index + 1}.
+              ${escapeHtml(question.question_text || "(Image-based question)")}
             </div>
 
-          `;
-        }
-      ).join("");
-
-
-    loadQuestionImages();
-  }
-
-
-  /* ========================================================
-     LOAD PRIVATE IMAGE SIGNED URLS
-  ======================================================== */
-
-  async function loadQuestionImages() {
-
-    const imageElements =
-      document.querySelectorAll(
-        "img[data-image-path]"
-      );
-
-
-    for (const image of imageElements) {
-
-      const path =
-        image.dataset.imagePath;
-
-      if (!path) continue;
-
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient
-          .storage
-          .from(
-            "tn-warriors-question-images"
-          )
-          .createSignedUrl(
-            path,
-            300
-          );
-
-
-      if (!error && data?.signedUrl) {
-
-        image.src =
-          data.signedUrl;
-
-      }
-
-    }
-  }
-
-
-  /* ========================================================
-     SAVE QUESTION
-  ======================================================== */
-
-  document
-    .getElementById("saveQuestionButton")
-    .addEventListener(
-      "click",
-      saveQuestion
-    );
-
-
-  async function saveQuestion() {
-
-    clearStatus();
-
-
-    const sectionId =
-      questionSection.value;
-
-    const subject =
-      document
-        .getElementById("questionSubject")
-        .value
-        .trim();
-
-    const topic =
-      document
-        .getElementById("questionTopic")
-        .value
-        .trim();
-
-    const questionType =
-      document
-        .getElementById("questionType")
-        .value;
-
-    const sourceType =
-      document
-        .getElementById("sourceType")
-        .value;
-
-    const order =
-      Number(
-        document
-          .getElementById("questionOrder")
-          .value
-      );
-
-    const marks =
-      Number(
-        document
-          .getElementById("questionMarks")
-          .value
-      );
-
-    const negativeMark =
-      Number(
-        document
-          .getElementById("questionNegativeMark")
-          .value
-      );
-
-    const pyqYearValue =
-      document
-        .getElementById("pyqYear")
-        .value;
-
-    const pyqShift =
-      document
-        .getElementById("pyqShift")
-        .value
-        .trim();
-
-    const pyqQuestionNumberValue =
-      document
-        .getElementById("pyqQuestionNumber")
-        .value;
-
-    const questionText =
-      document
-        .getElementById("questionText")
-        .value
-        .trim();
-
-    const optionA =
-      document
-        .getElementById("optionA")
-        .value
-        .trim();
-
-    const optionB =
-      document
-        .getElementById("optionB")
-        .value
-        .trim();
-
-    const optionC =
-      document
-        .getElementById("optionC")
-        .value
-        .trim();
-
-    const optionD =
-      document
-        .getElementById("optionD")
-        .value
-        .trim();
-
-    const correctOption =
-      document
-        .getElementById("correctOption")
-        .value;
-
-    const explanation =
-      document
-        .getElementById("explanation")
-        .value
-        .trim();
-
-    const imageFile =
-      document
-        .getElementById("questionImage")
-        .files[0];
-
-
-    /* ---------------------------
-       VALIDATION
-    --------------------------- */
-
-    if (!sectionId) {
-
-      showStatus(
-        "Please select a section.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    if (!subject) {
-
-      showStatus(
-        "Subject is required.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    if (!questionText) {
-
-      showStatus(
-        "Question is required.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    if (
-      !optionA ||
-      !optionB ||
-      !optionC ||
-      !optionD
-    ) {
-
-      showStatus(
-        "All four options are required.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    if (!correctOption) {
-
-      showStatus(
-        "Please select the correct answer.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    if (!order || order < 1) {
-
-      showStatus(
-        "Question order must be at least 1.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    if (
-      marks < 0 ||
-      negativeMark < 0
-    ) {
-
-      showStatus(
-        "Marks cannot be negative.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    if (imageFile) {
-
-      const allowedTypes = [
-        "image/jpeg",
-        "image/png",
-        "image/webp"
-      ];
-
-      if (
-        !allowedTypes.includes(
-          imageFile.type
-        )
-      ) {
-
-        showStatus(
-          "Only JPG, PNG and WEBP images are allowed.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      if (
-        imageFile.size >
-        5 * 1024 * 1024
-      ) {
-
-        showStatus(
-          "Question image must be 5 MB or smaller.",
-          "error"
-        );
-
-        return;
-      }
-    }
-
-
-    /* ---------------------------
-       IMAGE UPLOAD
-    --------------------------- */
-
-    let newImagePath =
-      oldQuestionImagePath;
-
-
-    try {
-
-      if (imageFile) {
-
-        const extension =
-          imageFile.name
-            .split(".")
-            .pop()
-            .toLowerCase();
-
-
-        const newPath =
-          `questions/${testId}/${crypto.randomUUID()}.${extension}`;
-
-
-        const {
-          error: uploadError
-        } =
-          await supabaseClient
-            .storage
-            .from(
-              "tn-warriors-question-images"
-            )
-            .upload(
-              newPath,
-              imageFile,
-              {
-                cacheControl: "3600",
-                upsert: false,
-                contentType:
-                  imageFile.type
-              }
-            );
-
-
-        if (uploadError) {
-          throw uploadError;
-        }
-
-
-        newImagePath =
-          newPath;
-      }
-
-
-      /* ---------------------------
-         QUESTION DATABASE
-      --------------------------- */
-
-      const questionPayload = {
-
-        mock_test_id:
-          testId,
-
-        section_id:
-          sectionId,
-
-        question_text:
-          questionText,
-
-        option_a:
-          optionA,
-
-        option_b:
-          optionB,
-
-        option_c:
-          optionC,
-
-        option_d:
-          optionD,
-
-        marks,
-
-        question_order:
-          order,
-
-        subject,
-
-        topic:
-          topic || null,
-
-        question_type:
-          questionType,
-
-        source_type:
-          sourceType,
-
-        pyq_year:
-          pyqYearValue === ""
-            ? null
-            : Number(pyqYearValue),
-
-        pyq_shift:
-          pyqShift || null,
-
-        pyq_question_number:
-          pyqQuestionNumberValue === ""
-            ? null
-            : Number(
-                pyqQuestionNumberValue
-              ),
-
-        question_image_path:
-          newImagePath || null
-
-      };
-
-
-      let savedQuestion;
-
-
-      if (editingQuestionId) {
-
-        const {
-          data,
-          error
-        } =
-          await supabaseClient
-            .from("mock_questions")
-            .update(questionPayload)
-            .eq("id", editingQuestionId)
-            .select()
-            .single();
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        savedQuestion =
-          data;
-
-      } else {
-
-        const {
-          data,
-          error
-        } =
-          await supabaseClient
-            .from("mock_questions")
-            .insert(
-              questionPayload
-            )
-            .select()
-            .single();
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        savedQuestion =
-          data;
-      }
-
-
-      /* ---------------------------
-         ANSWER
-      --------------------------- */
-
-      const {
-        error: answerError
-      } =
-        await supabaseClient
-          .from("mock_answers")
-          .upsert(
-            {
-              question_id:
-                savedQuestion.id,
-
-              correct_option:
-                correctOption,
-
-              explanation:
-                explanation || null
-            },
-            {
-              onConflict:
-                "question_id"
-            }
-          );
-
-
-      if (answerError) {
-        throw answerError;
-      }
-
-
-      /* ---------------------------
-         DELETE OLD IMAGE
-         AFTER NEW ONE IS SUCCESSFULLY SAVED
-      --------------------------- */
-
-      if (
-        imageFile &&
-        oldQuestionImagePath &&
-        oldQuestionImagePath !== newImagePath
-      ) {
-
-        const {
-          error: deleteOldImageError
-        } =
-          await supabaseClient
-            .storage
-            .from(
-              "tn-warriors-question-images"
-            )
-            .remove([
-              oldQuestionImagePath
-            ]);
-
-
-        if (deleteOldImageError) {
-
-          console.warn(
-            "Old image could not be deleted:",
-            deleteOldImageError
-          );
-
-        }
-      }
-
-
-      showStatus(
-        editingQuestionId
-          ? "Question updated successfully."
-          : "Question added successfully."
-      );
-
-
-      resetQuestionForm();
-
-      await loadQuestions();
-
-    } catch (error) {
-
-      console.error(error);
-
-      /*
-        If a new image was uploaded but the database
-        operation failed, remove the unused image.
-      */
-
-      if (
-        imageFile &&
-        newImagePath &&
-        newImagePath !== oldQuestionImagePath
-      ) {
-
-        await supabaseClient
-          .storage
-          .from(
-            "tn-warriors-question-images"
-          )
-          .remove([
-            newImagePath
-          ]);
-
-      }
-
-
-      showStatus(
-        "Unable to save question: " +
-        error.message,
-        "error"
-      );
-    }
-  }
-
-
-  /* ========================================================
-     EDIT QUESTION
-  ======================================================== */
-
-  window.editQuestion =
-    function(questionId) {
-
-      const question =
-        questions.find(
-          item =>
-            item.id === questionId
-        );
-
-      if (!question) return;
-
-
-      const answer =
-        Array.isArray(
-          question.mock_answers
-        )
-          ? question.mock_answers[0]
-          : question.mock_answers;
-
-
-      editingQuestionId =
-        questionId;
-
-      oldQuestionImagePath =
-        question.question_image_path ||
-        null;
-
-
-      document
-        .getElementById("questionFormTitle")
-        .textContent =
-          "Edit Question";
-
-
-      questionSection.value =
-        question.section_id || "";
-
-
-      document
-        .getElementById("questionSubject")
-        .value =
-          question.subject || "";
-
-
-      document
-        .getElementById("questionTopic")
-        .value =
-          question.topic || "";
-
-
-      document
-        .getElementById("questionType")
-        .value =
-          question.question_type ||
-          "standard";
-
-
-      document
-        .getElementById("sourceType")
-        .value =
-          question.source_type ||
-          "practice";
-
-
-      document
-        .getElementById("questionOrder")
-        .value =
-          question.question_order || 1;
-
-
-      document
-        .getElementById("questionMarks")
-        .value =
-          question.marks ?? 1;
-
-
-      document
-        .getElementById("questionNegativeMark")
-        .value =
-          "0";
-
-
-      document
-        .getElementById("pyqYear")
-        .value =
-          question.pyq_year || "";
-
-
-      document
-        .getElementById("pyqShift")
-        .value =
-          question.pyq_shift || "";
-
-
-      document
-        .getElementById("pyqQuestionNumber")
-        .value =
-          question.pyq_question_number || "";
-
-
-      document
-        .getElementById("questionText")
-        .value =
-          question.question_text || "";
-
-
-      document
-        .getElementById("optionA")
-        .value =
-          question.option_a || "";
-
-
-      document
-        .getElementById("optionB")
-        .value =
-          question.option_b || "";
-
-
-      document
-        .getElementById("optionC")
-        .value =
-          question.option_c || "";
-
-
-      document
-        .getElementById("optionD")
-        .value =
-          question.option_d || "";
-
-
-      document
-        .getElementById("correctOption")
-        .value =
-          answer?.correct_option ||
-          "";
-
-
-      document
-        .getElementById("explanation")
-        .value =
-          answer?.explanation ||
-          "";
-
-
-      document
-        .getElementById("questionImage")
-        .value = "";
-
-
-      imagePreview.innerHTML = "";
-
-
-      if (question.question_image_path) {
-
-        createAdminImagePreview(
-          question.question_image_path
-        );
-      }
-
-
-      document
-        .getElementById("saveQuestionButton")
-        .textContent =
-          "Update Question";
-
-
-      document
-        .getElementById("cancelQuestionButton")
-        .classList
-        .remove("hidden");
-
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    };
-
-
-  /* ========================================================
-     ADMIN IMAGE PREVIEW
-  ======================================================== */
-
-  async function createAdminImagePreview(
-    imagePath
-  ) {
-
-    imagePreview.innerHTML =
-      "Loading current image...";
-
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .storage
-        .from(
-          "tn-warriors-question-images"
-        )
-        .createSignedUrl(
-          imagePath,
-          300
-        );
-
-
-    if (
-      error ||
-      !data?.signedUrl
-    ) {
-
-      imagePreview.innerHTML =
-        "Current image could not be loaded.";
-
-      return;
-    }
-
-
-    imagePreview.innerHTML = `
-
-      <img
-        src="${data.signedUrl}"
-        alt="Current question image"
-      />
-
-      <div class="file-info">
-        Select a new image above to replace this image.
-      </div>
-
-    `;
-  }
-
-
-  /* ========================================================
-     IMAGE FILE PREVIEW
-  ======================================================== */
-
-  document
-    .getElementById("questionImage")
-    .addEventListener(
-      "change",
-      function() {
-
-        const file =
-          this.files[0];
-
-        if (!file) return;
-
-
-        const url =
-          URL.createObjectURL(file);
-
-
-        imagePreview.innerHTML = `
-
-          <img
-            src="${url}"
-            alt="New question image"
-          />
-
-          <div class="file-info">
-            New image selected.
+            <div class="tag-row">
+              ${section ? `<span class="tag">${escapeHtml(section.title)}</span>` : '<span class="tag">No Section</span>'}
+              ${question.subject ? `<span class="tag">${escapeHtml(question.subject)}</span>` : ""}
+              ${question.topic ? `<span class="tag">${escapeHtml(question.topic)}</span>` : ""}
+              <span class="tag">${escapeHtml(question.question_type || "standard")}</span>
+              <span class="tag">${escapeHtml(question.source_type || "practice")}</span>
+              <span class="tag">Marks: ${question.marks ?? 0}</span>
+              ${question.pyq_year ? `<span class="tag">PYQ: ${question.pyq_year}</span>` : ""}
+              ${question.pyq_shift ? `<span class="tag">${escapeHtml(question.pyq_shift)}</span>` : ""}
+            </div>
           </div>
+        </div>
 
+        ${question.question_image_path ? `<img class="question-image" alt="Question image" data-image-path="${escapeHtml(question.question_image_path)}">` : ""}
+
+        <div class="options">${optionsHtml}</div>
+
+        ${answer?.explanation ? `<div class="muted" style="margin-top:12px"><strong>Explanation:</strong> ${escapeHtml(answer.explanation)}</div>` : ""}
+
+        ${question.pyq_question_number ? `<div class="muted" style="margin-top:8px">PYQ Question No: ${question.pyq_question_number}</div>` : ""}
+
+        <div class="item-actions">
+          <button class="secondary small-button" onclick="editQuestion('${question.id}')">Edit</button>
+          <button class="danger small-button" onclick="deleteQuestion('${question.id}')">Delete</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  loadQuestionImages();
+}
+
+async function loadQuestionImages() {
+  const images = document.querySelectorAll("img[data-image-path]");
+
+  for (const img of images) {
+    const path = img.dataset.imagePath;
+    if (!path) continue;
+
+    const { data, error } = await supabaseClient
+      .storage
+      .from(BUCKET)
+      .createSignedUrl(path, 300);
+
+    if (!error && data?.signedUrl) {
+      img.src = data.signedUrl;
+    } else {
+      img.alt = "Image could not be loaded";
+    }
+  }
+}
+
+function setPreview(previewId, file, existingPath, label) {
+  const container = document.getElementById(previewId);
+
+  if (file) {
+    const url = URL.createObjectURL(file);
+    container.innerHTML = `
+      <img src="${url}" alt="${escapeHtml(label)} preview">
+      <div class="file-info">New image selected.</div>
+    `;
+    return;
+  }
+
+  container.innerHTML = "";
+
+  if (existingPath) {
+    container.innerHTML = `
+      <div class="file-info">Loading current image...</div>
+    `;
+
+    supabaseClient.storage.from(BUCKET)
+      .createSignedUrl(existingPath, 300)
+      .then(({ data, error }) => {
+        if (error || !data?.signedUrl) {
+          container.innerHTML = '<div class="file-info">Current image could not be loaded.</div>';
+          return;
+        }
+
+        container.innerHTML = `
+          <img src="${data.signedUrl}" alt="${escapeHtml(label)}">
+          <div class="file-info">Select a new image to replace it.</div>
         `;
+      });
+  }
+}
+
+document.getElementById("questionImage").addEventListener("change", function() {
+  const file = this.files[0];
+
+  if (!file) {
+    setPreview("imagePreview", null, oldQuestionImagePath, "Question image");
+    return;
+  }
+
+  const error = validateImage(file, "Question image");
+
+  if (error) {
+    this.value = "";
+    showStatus(error, "error");
+    return;
+  }
+
+  setPreview("imagePreview", file, null, "Question image");
+});
+
+for (const key of optionKeys) {
+  const upper = key.toUpperCase();
+
+  fileInput("option" + upper + "Image").addEventListener("change", function() {
+    const file = this.files[0];
+
+    if (!file) {
+      setPreview("option" + upper + "Preview", null, optionOldPaths[key], "Option " + upper + " image");
+      return;
+    }
+
+    const error = validateImage(file, "Option " + upper + " image");
+
+    if (error) {
+      this.value = "";
+      showStatus(error, "error");
+      return;
+    }
+
+    setPreview("option" + upper + "Preview", file, null, "Option " + upper + " image");
+  });
+}
+
+async function uploadImage(file, folder) {
+  const extension = (file.name.split(".").pop() || "png").toLowerCase();
+  const path = `${folder}/${testId}/${crypto.randomUUID()}.${extension}`;
+
+  const { error } = await supabaseClient
+    .storage
+    .from(BUCKET)
+    .upload(path, file, {
+      cacheControl: "3600",
+      upsert: false,
+      contentType: file.type
+    });
+
+  if (error) throw error;
+
+  return path;
+}
+
+document.getElementById("saveQuestionButton")
+  .addEventListener("click", saveQuestion);
+
+async function saveQuestion() {
+  clearStatus();
+
+  const sectionId = questionSection.value;
+  const subject = document.getElementById("questionSubject").value.trim();
+  const topic = document.getElementById("questionTopic").value.trim();
+  const questionType = document.getElementById("questionType").value;
+  const sourceType = document.getElementById("sourceType").value;
+  const order = Number(document.getElementById("questionOrder").value);
+  const marks = Number(document.getElementById("questionMarks").value);
+  const pyqYearValue = document.getElementById("pyqYear").value;
+  const pyqShift = document.getElementById("pyqShift").value.trim();
+  const pyqNumberValue = document.getElementById("pyqQuestionNumber").value;
+  const questionText = document.getElementById("questionText").value.trim();
+  const correctOption = document.getElementById("correctOption").value;
+  const explanation = document.getElementById("explanation").value.trim();
+
+  const optionText = {
+    a: document.getElementById("optionA").value.trim(),
+    b: document.getElementById("optionB").value.trim(),
+    c: document.getElementById("optionC").value.trim(),
+    d: document.getElementById("optionD").value.trim()
+  };
+
+  const questionFile = fileInput("questionImage").files[0] || null;
+
+  const optionFiles = {
+    a: fileInput("optionAImage").files[0] || null,
+    b: fileInput("optionBImage").files[0] || null,
+    c: fileInput("optionCImage").files[0] || null,
+    d: fileInput("optionDImage").files[0] || null
+  };
+
+  if (!sectionId) return showStatus("Please select a section.", "error");
+  if (!subject) return showStatus("Subject is required.", "error");
+
+  if (!questionText && !questionFile && !oldQuestionImagePath) {
+    return showStatus("Enter question text or upload a question image.", "error");
+  }
+
+  for (const key of optionKeys) {
+    if (!optionText[key] && !optionFiles[key] && !optionOldPaths[key]) {
+      return showStatus(`Option ${key.toUpperCase()} needs text or an image.`, "error");
+    }
+  }
+
+  if (!correctOption) return showStatus("Please select the correct answer.", "error");
+  if (!order || order < 1) return showStatus("Question order must be at least 1.", "error");
+  if (marks < 0) return showStatus("Marks cannot be negative.", "error");
+
+  const imageChecks = [
+    ["Question image", questionFile],
+    ...optionKeys.map(key => [`Option ${key.toUpperCase()} image`, optionFiles[key]])
+  ];
+
+  for (const [label, file] of imageChecks) {
+    const error = validateImage(file, label);
+    if (error) return showStatus(error, "error");
+  }
+
+  let newQuestionPath = oldQuestionImagePath;
+  const newOptionPaths = { ...optionOldPaths };
+  const uploadedPaths = [];
+  const saveButton = document.getElementById("saveQuestionButton");
+
+  saveButton.disabled = true;
+  saveButton.textContent = "Saving...";
+
+  try {
+    if (questionFile) {
+      newQuestionPath = await uploadImage(questionFile, "questions");
+      uploadedPaths.push(newQuestionPath);
+    }
+
+    for (const key of optionKeys) {
+      if (optionFiles[key]) {
+        newOptionPaths[key] = await uploadImage(optionFiles[key], `options/${key}`);
+        uploadedPaths.push(newOptionPaths[key]);
       }
-    );
+    }
 
+    const payload = {
+      mock_test_id: testId,
+      section_id: sectionId,
+      question_text: questionText,
+      option_a: optionText.a,
+      option_b: optionText.b,
+      option_c: optionText.c,
+      option_d: optionText.d,
 
-  /* ========================================================
-     DELETE QUESTION
-  ======================================================== */
+      option_a_image_path: newOptionPaths.a || null,
+      option_b_image_path: newOptionPaths.b || null,
+      option_c_image_path: newOptionPaths.c || null,
+      option_d_image_path: newOptionPaths.d || null,
 
-  window.deleteQuestion =
-    async function(questionId) {
-
-      const question =
-        questions.find(
-          item =>
-            item.id === questionId
-        );
-
-      if (!question) return;
-
-
-      const confirmed =
-        confirm(
-          "Delete this question permanently?"
-        );
-
-      if (!confirmed) return;
-
-
-      try {
-
-        if (
-          question.question_image_path
-        ) {
-
-          const {
-            error: imageError
-          } =
-            await supabaseClient
-              .storage
-              .from(
-                "tn-warriors-question-images"
-              )
-              .remove([
-                question.question_image_path
-              ]);
-
-
-          if (imageError) {
-            throw imageError;
-          }
-        }
-
-
-        const {
-          error
-        } =
-          await supabaseClient
-            .from("mock_questions")
-            .delete()
-            .eq("id", questionId);
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        showStatus(
-          "Question and image deleted successfully."
-        );
-
-
-        if (
-          editingQuestionId === questionId
-        ) {
-
-          resetQuestionForm();
-
-        }
-
-
-        await loadQuestions();
-
-      } catch (error) {
-
-        console.error(error);
-
-        showStatus(
-          "Unable to delete question: " +
-          error.message,
-          "error"
-        );
-      }
+      marks,
+      question_order: order,
+      subject,
+      topic: topic || null,
+      question_type: questionType,
+      source_type: sourceType,
+      pyq_year: pyqYearValue === "" ? null : Number(pyqYearValue),
+      pyq_shift: pyqShift || null,
+      pyq_question_number: pyqNumberValue === "" ? null : Number(pyqNumberValue),
+      question_image_path: newQuestionPath || null
     };
 
+    let savedQuestion;
 
-  /* ========================================================
-     RESET QUESTION FORM
-  ======================================================== */
+    if (editingQuestionId) {
+      const { data, error } = await supabaseClient
+        .from("mock_questions")
+        .update(payload)
+        .eq("id", editingQuestionId)
+        .select()
+        .single();
 
-  function resetQuestionForm() {
+      if (error) throw error;
+      savedQuestion = data;
+    } else {
+      const { data, error } = await supabaseClient
+        .from("mock_questions")
+        .insert(payload)
+        .select()
+        .single();
 
-    editingQuestionId = null;
-
-    oldQuestionImagePath = null;
-
-
-    document
-      .getElementById("questionFormTitle")
-      .textContent =
-        "Add Question";
-
-
-    questionSection.value = "";
-
-
-    document
-      .getElementById("questionSubject")
-      .value = "";
-
-
-    document
-      .getElementById("questionTopic")
-      .value = "";
-
-
-    document
-      .getElementById("questionType")
-      .value =
-        "standard";
-
-
-    document
-      .getElementById("sourceType")
-      .value =
-        "practice";
-
-
-    document
-      .getElementById("questionOrder")
-      .value =
-        questions.length + 1;
-
-
-    document
-      .getElementById("questionMarks")
-      .value =
-        "1";
-
-
-    document
-      .getElementById("questionNegativeMark")
-      .value =
-        "0";
-
-
-    document
-      .getElementById("pyqYear")
-      .value = "";
-
-
-    document
-      .getElementById("pyqShift")
-      .value = "";
-
-
-    document
-      .getElementById("pyqQuestionNumber")
-      .value = "";
-
-
-    document
-      .getElementById("questionText")
-      .value = "";
-
-
-    document
-      .getElementById("optionA")
-      .value = "";
-
-
-    document
-      .getElementById("optionB")
-      .value = "";
-
-
-    document
-      .getElementById("optionC")
-      .value = "";
-
-
-    document
-      .getElementById("optionD")
-      .value = "";
-
-
-    document
-      .getElementById("correctOption")
-      .value = "";
-
-
-    document
-      .getElementById("explanation")
-      .value = "";
-
-
-    document
-      .getElementById("questionImage")
-      .value = "";
-
-
-    imagePreview.innerHTML = "";
-
-
-    document
-      .getElementById("saveQuestionButton")
-      .textContent =
-        "Add Question";
-
-
-    document
-      .getElementById("cancelQuestionButton")
-      .classList
-      .add("hidden");
-  }
-
-
-  document
-    .getElementById("cancelQuestionButton")
-    .addEventListener(
-      "click",
-      resetQuestionForm
-    );
-
-
-  /* ========================================================
-     ESCAPE HTML
-  ======================================================== */
-
-  function escapeHtml(value) {
-
-    if (value === null ||
-        value === undefined) {
-      return "";
+      if (error) throw error;
+      savedQuestion = data;
     }
 
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
+    const { error: answerError } = await supabaseClient
+      .from("mock_answers")
+      .upsert({
+        question_id: savedQuestion.id,
+        correct_option: correctOption,
+        explanation: explanation || null
+      }, {
+        onConflict: "question_id"
+      });
 
+    if (answerError) throw answerError;
 
-  /* ========================================================
-     LOGOUT
-  ======================================================== */
+    const oldPaths = [
+      oldQuestionImagePath,
+      ...optionKeys.map(key => optionOldPaths[key])
+    ].filter(Boolean);
 
-  document
-    .getElementById("logoutButton")
-    .addEventListener(
-      "click",
-      async function() {
+    const keepPaths = [
+      newQuestionPath,
+      ...optionKeys.map(key => newOptionPaths[key])
+    ].filter(Boolean);
 
-        await supabaseClient
-          .auth
-          .signOut();
+    const removePaths = oldPaths.filter(path => !keepPaths.includes(path));
 
-        window.location.href =
-          "index.html";
-      }
-    );
+    if (removePaths.length) {
+      const { error } = await supabaseClient
+        .storage
+        .from(BUCKET)
+        .remove([...new Set(removePaths)]);
 
-
-  /* ========================================================
-     INITIALIZE
-     SINGLE INITIALIZATION PATH
-  ======================================================== */
-
-  async function initializePage() {
-
-    try {
-
-      const isAdmin =
-        await checkAdminAccess();
-
-      if (!isAdmin) {
-        return;
-      }
-
-
-      const testLoaded =
-        await loadTest();
-
-      if (!testLoaded) {
-        return;
-      }
-
-
-      await loadSections();
-
-      await loadQuestions();
-
-    } catch (error) {
-
-      console.error(error);
-
-      showStatus(
-        "Page initialization failed: " +
-        error.message,
-        "error"
-      );
+      if (error) console.warn("Some replaced images could not be removed.", error);
     }
+
+    showStatus(editingQuestionId ? "Question updated successfully." : "Question added successfully.");
+
+    resetQuestionForm();
+    await loadQuestions();
+
+  } catch (error) {
+    console.error(error);
+
+    if (uploadedPaths.length) {
+      const { error: cleanupError } = await supabaseClient
+        .storage
+        .from(BUCKET)
+        .remove(uploadedPaths);
+
+      if (cleanupError) console.warn("Unused uploaded files could not be removed.", cleanupError);
+    }
+
+    showStatus("Unable to save question: " + error.message, "error");
+
+  } finally {
+    saveButton.disabled = false;
+    saveButton.textContent = editingQuestionId ? "Update Question" : "Add Question";
+  }
+}
+
+window.editQuestion = function(id) {
+  const question = questions.find(item => item.id === id);
+  if (!question) return;
+
+  const answer = getAnswer(question);
+
+  editingQuestionId = id;
+  oldQuestionImagePath = question.question_image_path || null;
+
+  for (const key of optionKeys) {
+    optionOldPaths[key] = question[`option_${key}_image_path`] || null;
   }
 
+  document.getElementById("questionFormTitle").textContent = "Edit Question";
+  questionSection.value = question.section_id || "";
+  document.getElementById("questionSubject").value = question.subject || "";
+  document.getElementById("questionTopic").value = question.topic || "";
+  document.getElementById("questionType").value = question.question_type || "standard";
+  document.getElementById("sourceType").value = question.source_type || "practice";
+  document.getElementById("questionOrder").value = question.question_order || 1;
+  document.getElementById("questionMarks").value = question.marks ?? 2;
+  document.getElementById("questionNegativeMark").value = "0.25";
+  document.getElementById("pyqYear").value = question.pyq_year || "";
+  document.getElementById("pyqShift").value = question.pyq_shift || "";
+  document.getElementById("pyqQuestionNumber").value = question.pyq_question_number || "";
+  document.getElementById("questionText").value = question.question_text || "";
 
-  initializePage();
+  for (const key of optionKeys) {
+    document.getElementById("option" + key.toUpperCase()).value = question["option_" + key] || "";
+    fileInput("option" + key.toUpperCase() + "Image").value = "";
+    setPreview(
+      "option" + key.toUpperCase() + "Preview",
+      null,
+      optionOldPaths[key],
+      "Option " + key.toUpperCase() + " image"
+    );
+  }
 
+  document.getElementById("correctOption").value = answer?.correct_option || "";
+  document.getElementById("explanation").value = answer?.explanation || "";
+  document.getElementById("questionImage").value = "";
+
+  setPreview("imagePreview", null, oldQuestionImagePath, "Question image");
+
+  document.getElementById("saveQuestionButton").textContent = "Update Question";
+  document.getElementById("cancelQuestionButton").classList.remove("hidden");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+window.deleteQuestion = async function(id) {
+  const question = questions.find(item => item.id === id);
+  if (!question || !confirm("Delete this question permanently?")) return;
+
+  try {
+    const paths = [
+      question.question_image_path,
+      question.option_a_image_path,
+      question.option_b_image_path,
+      question.option_c_image_path,
+      question.option_d_image_path
+    ].filter(Boolean);
+
+    if (paths.length) {
+      const { error } = await supabaseClient
+        .storage
+        .from(BUCKET)
+        .remove([...new Set(paths)]);
+
+      if (error) throw error;
+    }
+
+    const { error } = await supabaseClient
+      .from("mock_questions")
+      .delete()
+      .eq("id", id);
+
+    if (error) throw error;
+
+    showStatus("Question and its images deleted successfully.");
+
+    if (editingQuestionId === id) resetQuestionForm();
+
+    await loadQuestions();
+
+  } catch (error) {
+    console.error(error);
+    showStatus("Unable to delete question: " + error.message, "error");
+  }
+};
+
+function resetQuestionForm() {
+  editingQuestionId = null;
+  oldQuestionImagePath = null;
+
+  for (const key of optionKeys) {
+    optionOldPaths[key] = null;
+  }
+
+  document.getElementById("questionFormTitle").textContent = "Add Question";
+  questionSection.value = "";
+
+  [
+    "questionSubject",
+    "questionTopic",
+    "pyqYear",
+    "pyqShift",
+    "pyqQuestionNumber",
+    "questionText",
+    "optionA",
+    "optionB",
+    "optionC",
+    "optionD",
+    "explanation"
+  ].forEach(id => {
+    document.getElementById(id).value = "";
+  });
+
+  document.getElementById("questionType").value = "standard";
+  document.getElementById("sourceType").value = "practice";
+  document.getElementById("questionOrder").value = questions.length + 1;
+  document.getElementById("questionMarks").value = "2";
+  document.getElementById("questionNegativeMark").value = "0.25";
+  document.getElementById("correctOption").value = "";
+  document.getElementById("questionImage").value = "";
+  imagePreview.innerHTML = "";
+
+  for (const key of optionKeys) {
+    const upper = key.toUpperCase();
+    fileInput("option" + upper + "Image").value = "";
+    document.getElementById("option" + upper + "Preview").innerHTML = "";
+  }
+
+  document.getElementById("saveQuestionButton").textContent = "Add Question";
+  document.getElementById("cancelQuestionButton").classList.add("hidden");
+}
+
+document.getElementById("cancelQuestionButton")
+  .addEventListener("click", resetQuestionForm);
+
+document.getElementById("logoutButton")
+  .addEventListener("click", async function() {
+    await supabaseClient.auth.signOut();
+    window.location.href = "index.html";
+  });
+
+async function initializePage() {
+  try {
+    const adminAllowed = await checkAdminAccess();
+    if (!adminAllowed) return;
+
+    const testLoaded = await loadTest();
+    if (!testLoaded) return;
+
+    await loadSections();
+    await loadQuestions();
+
+  } catch (error) {
+    console.error(error);
+    showStatus("Page initialization failed: " + error.message, "error");
+  }
+}
+
+initializePage();
 </script>
-
 </body>
 </html>
