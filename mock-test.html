@@ -2,13 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Mock Test - TN Warriors</title>
 
-<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -53,6 +50,7 @@ header {
 
 .timer-box {
     background: #dc2626;
+    color: white;
     padding: 10px 16px;
     border-radius: 8px;
     font-weight: bold;
@@ -71,7 +69,7 @@ header {
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 18px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
 }
 
 .test-title {
@@ -82,6 +80,7 @@ header {
 .test-info {
     color: #6b7280;
     font-size: 14px;
+    line-height: 1.6;
 }
 
 .layout {
@@ -90,11 +89,12 @@ header {
     gap: 18px;
 }
 
-.question-card {
+.question-card,
+.sidebar {
     background: white;
     border-radius: 12px;
     padding: 22px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
 }
 
 .question-number {
@@ -108,16 +108,31 @@ header {
     line-height: 1.6;
     margin-bottom: 20px;
     white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.question-image {
+    display: block;
+    max-width: 100%;
+    max-height: 420px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin: 12px 0 20px;
+    border-radius: 8px;
 }
 
 .option {
-    display: block;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
     border: 1px solid #d1d5db;
     border-radius: 9px;
-    padding: 13px;
+    padding: 14px;
     margin-bottom: 12px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: background .2s, border-color .2s;
+    overflow-wrap: anywhere;
 }
 
 .option:hover {
@@ -130,12 +145,47 @@ header {
 }
 
 .option input {
-    margin-right: 10px;
+    margin: 4px 0 0;
+    flex: 0 0 auto;
+}
+
+.option-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.option-label {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.option-text {
+    font-size: 16px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.option-image {
+    display: block;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+.image-loading {
+    color: #6b7280;
+    font-size: 13px;
+    margin-top: 8px;
 }
 
 .navigation {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 22px;
 }
@@ -165,20 +215,16 @@ button {
 
 .mark-btn {
     background: #f59e0b;
-    color: white;
+    color: #111827;
 }
 
 button:disabled {
-    opacity: 0.5;
+    opacity: .5;
     cursor: not-allowed;
 }
 
 .sidebar {
-    background: white;
-    border-radius: 12px;
-    padding: 18px;
     height: fit-content;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .sidebar h3 {
@@ -205,7 +251,7 @@ button:disabled {
 
 .q-btn.marked {
     background: #f59e0b;
-    color: white;
+    color: #111827;
 }
 
 .q-btn.current {
@@ -226,6 +272,7 @@ button:disabled {
     padding: 30px;
     border-radius: 12px;
     text-align: center;
+    overflow-wrap: anywhere;
 }
 
 .error {
@@ -233,7 +280,6 @@ button:disabled {
 }
 
 @media (max-width: 800px) {
-
     .layout {
         grid-template-columns: 1fr;
     }
@@ -257,26 +303,18 @@ button:disabled {
 }
 
 @media (max-width: 500px) {
-
     .container {
         padding: 0 10px;
     }
 
-    .question-card {
+    .question-card,
+    .sidebar {
         padding: 16px;
-    }
-
-    .navigation {
-        flex-wrap: wrap;
     }
 
     .navigation button {
         flex: 1;
         min-width: 110px;
-    }
-
-    .grid {
-        grid-template-columns: repeat(5, 1fr);
     }
 }
 </style>
@@ -286,15 +324,10 @@ button:disabled {
 
 <header>
     <div class="header-inner">
-
-        <div class="logo">
-            TN Warriors
-        </div>
-
+        <div class="logo">TN Warriors</div>
         <div class="timer-box">
             <span id="timer">00:00</span>
         </div>
-
     </div>
 </header>
 
@@ -304,115 +337,69 @@ button:disabled {
         Loading mock test...
     </div>
 
-    <div id="errorBox"
-         class="error"
-         style="display:none;">
-    </div>
+    <div id="errorBox" class="error" style="display:none;"></div>
 
-    <div id="testContent"
-         style="display:none;">
+    <div id="testContent" style="display:none;">
 
         <div class="test-header">
-
-            <h1 id="testTitle"
-                class="test-title">
-            </h1>
-
-            <div id="testInfo"
-                 class="test-info">
-            </div>
-
+            <h1 id="testTitle" class="test-title"></h1>
+            <div id="testInfo" class="test-info"></div>
         </div>
 
         <div class="layout">
 
             <main class="question-card">
 
-                <div id="questionNumber"
-                     class="question-number">
-                </div>
+                <div id="questionNumber" class="question-number"></div>
 
-                <div id="questionText"
-                     class="question-text">
-                </div>
+                <div id="questionText" class="question-text"></div>
 
-                <div id="optionsContainer">
-                </div>
+                <div id="questionImageContainer"></div>
+
+                <div id="optionsContainer"></div>
 
                 <div class="navigation">
-
-                    <button
-                        id="prevBtn"
-                        class="prev-btn">
-                        Previous
-                    </button>
-
-                    <button
-                        id="markBtn"
-                        class="mark-btn">
-                        Mark for Review
-                    </button>
-
-                    <button
-                        id="nextBtn"
-                        class="next-btn">
-                        Next
-                    </button>
-
-                    <button
-                        id="submitBtn"
-                        class="submit-btn">
-                        Submit Test
-                    </button>
-
+                    <button id="prevBtn" class="prev-btn">Previous</button>
+                    <button id="markBtn" class="mark-btn">Mark for Review</button>
+                    <button id="nextBtn" class="next-btn">Next</button>
+                    <button id="submitBtn" class="submit-btn">Submit Test</button>
                 </div>
 
             </main>
 
             <aside class="sidebar">
 
-                <h3>
-                    Questions
-                </h3>
+                <h3>Questions</h3>
 
-                <div id="questionGrid"
-                     class="grid">
-                </div>
+                <div id="questionGrid" class="grid"></div>
 
                 <div class="status-box">
-
-                    <div>
-                        Answered:
-                        <strong id="answeredCount">0</strong>
-                    </div>
-
-                    <div>
-                        Marked:
-                        <strong id="markedCount">0</strong>
-                    </div>
-
-                    <div>
-                        Unanswered:
-                        <strong id="unansweredCount">0</strong>
-                    </div>
-
+                    <div>Answered: <strong id="answeredCount">0</strong></div>
+                    <div>Marked: <strong id="markedCount">0</strong></div>
+                    <div>Unanswered: <strong id="unansweredCount">0</strong></div>
                 </div>
 
             </aside>
 
         </div>
-
     </div>
-
 </div>
 
 <script>
+"use strict";
+
+/* --------------------------------
+   SUPABASE CONFIGURATION
+-------------------------------- */
 
 const SUPABASE_URL =
-    "https://nwipyqarobgelksdbkbk.supabase.co";
+    "https://nwipyqarobgelksdbkbq.supabase.co";
 
 const SUPABASE_KEY =
     "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
+
+const IMAGE_BUCKET =
+    "tn-warriors-question-images";
 
 const supabaseClient =
     window.supabase.createClient(
@@ -426,176 +413,192 @@ const params =
 const testId =
     params.get("id");
 
-let testData = null;
-let questions = [];
-
-let currentIndex = 0;
-
-let selectedAnswers = {};
-
-let markedQuestions = new Set();
-
-let remainingSeconds = 0;
-
-let timerInterval = null;
-
-let hasSubmitted = false;
-
 const storageKey =
     "tnwarriors_mock_test_" + testId;
 
+let testData = null;
+let questions = [];
+let currentIndex = 0;
+let selectedAnswers = {};
+let markedQuestions = new Set();
+let remainingSeconds = 0;
+let timerInterval = null;
+let hasSubmitted = false;
+let progressDeadline = null;
 
 /* --------------------------------
    DOM ELEMENTS
 -------------------------------- */
 
-const loadingBox =
-    document.getElementById("loadingBox");
-
-const errorBox =
-    document.getElementById("errorBox");
-
-const testContent =
-    document.getElementById("testContent");
-
-const testTitle =
-    document.getElementById("testTitle");
-
-const testInfo =
-    document.getElementById("testInfo");
-
-const timerElement =
-    document.getElementById("timer");
-
-const questionNumber =
-    document.getElementById("questionNumber");
-
-const questionText =
-    document.getElementById("questionText");
-
-const optionsContainer =
-    document.getElementById("optionsContainer");
-
-const questionGrid =
-    document.getElementById("questionGrid");
-
-const answeredCount =
-    document.getElementById("answeredCount");
-
-const markedCount =
-    document.getElementById("markedCount");
-
-const unansweredCount =
-    document.getElementById("unansweredCount");
-
-const prevBtn =
-    document.getElementById("prevBtn");
-
-const nextBtn =
-    document.getElementById("nextBtn");
-
-const markBtn =
-    document.getElementById("markBtn");
-
-const submitBtn =
-    document.getElementById("submitBtn");
-
+const loadingBox = document.getElementById("loadingBox");
+const errorBox = document.getElementById("errorBox");
+const testContent = document.getElementById("testContent");
+const testTitle = document.getElementById("testTitle");
+const testInfo = document.getElementById("testInfo");
+const timerElement = document.getElementById("timer");
+const questionNumber = document.getElementById("questionNumber");
+const questionText = document.getElementById("questionText");
+const questionImageContainer = document.getElementById("questionImageContainer");
+const optionsContainer = document.getElementById("optionsContainer");
+const questionGrid = document.getElementById("questionGrid");
+const answeredCount = document.getElementById("answeredCount");
+const markedCount = document.getElementById("markedCount");
+const unansweredCount = document.getElementById("unansweredCount");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const markBtn = document.getElementById("markBtn");
+const submitBtn = document.getElementById("submitBtn");
 
 /* --------------------------------
-   ERROR
+   ERROR HANDLING
 -------------------------------- */
 
 function showError(message) {
-
+    clearInterval(timerInterval);
     loadingBox.style.display = "none";
-
     testContent.style.display = "none";
-
     errorBox.style.display = "block";
-
-    errorBox.textContent =
-        message;
+    errorBox.textContent = message;
 }
 
-
 /* --------------------------------
-   FORMAT TIME
+   SAFE TEXT
 -------------------------------- */
 
 function formatTime(seconds) {
+    seconds = Math.max(0, Number(seconds) || 0);
 
-    seconds =
-        Math.max(0, Number(seconds) || 0);
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
 
-    const minutes =
-        Math.floor(seconds / 60);
-
-    const secs =
-        seconds % 60;
-
-    return (
-        String(minutes).padStart(2, "0") +
-        ":" +
-        String(secs).padStart(2, "0")
-    );
+    return String(minutes).padStart(2, "0") +
+        ":" + String(secs).padStart(2, "0");
 }
 
+/* --------------------------------
+   STORAGE SIGNED URLS
+
+   Image paths are stored in
+   mock_questions table.
+
+   Bucket is private, so create
+   temporary signed URLs.
+-------------------------------- */
+
+async function getImageUrl(path) {
+    if (!path || typeof path !== "string") {
+        return null;
+    }
+
+    const cleanPath = path.trim();
+
+    if (!cleanPath) {
+        return null;
+    }
+
+    // Allow full URLs if a previous version
+    // of the admin page stored them.
+    if (/^https?:\/\//i.test(cleanPath)) {
+        return cleanPath;
+    }
+
+    const normalizedPath =
+        cleanPath.replace(/^\/+/, "");
+
+    const { data, error } =
+        await supabaseClient.storage
+            .from(IMAGE_BUCKET)
+            .createSignedUrl(normalizedPath, 3600);
+
+    if (error) {
+        console.error(
+            "Unable to create image URL:",
+            normalizedPath,
+            error
+        );
+        return null;
+    }
+
+    return data?.signedUrl || null;
+}
+
+/* --------------------------------
+   PREPARE IMAGE URLS
+-------------------------------- */
+
+async function prepareQuestionImages() {
+    const imageTasks = questions.map(async question => {
+        question._optionImageUrls = {};
+
+        const imageColumns = {
+            A: question.option_a_image_path,
+            B: question.option_b_image_path,
+            C: question.option_c_image_path,
+            D: question.option_d_image_path
+        };
+
+        for (const key of ["A", "B", "C", "D"]) {
+            const path = imageColumns[key];
+
+            if (!path) {
+                question._optionImageUrls[key] = null;
+                continue;
+            }
+
+            question._optionImageUrls[key] =
+                await getImageUrl(path);
+        }
+
+        // Also support question images if the
+        // question_image_path column exists.
+        question._questionImageUrl =
+            question.question_image_path
+                ? await getImageUrl(question.question_image_path)
+                : null;
+    });
+
+    await Promise.all(imageTasks);
+}
 
 /* --------------------------------
    SAVE PROGRESS
 -------------------------------- */
 
 function saveProgress() {
-
-    if (!testId || hasSubmitted) {
-        return;
-    }
+    if (!testId || hasSubmitted) return;
 
     const progress = {
-
-        testId: testId,
-
-        currentIndex: currentIndex,
-
-        selectedAnswers: selectedAnswers,
-
-        markedQuestions:
-            Array.from(markedQuestions),
-
-        remainingSeconds:
-            remainingSeconds,
-
-        savedAt:
-            new Date().toISOString()
+        testId,
+        currentIndex,
+        selectedAnswers,
+        markedQuestions: Array.from(markedQuestions),
+        remainingSeconds,
+        savedAt: new Date().toISOString()
     };
 
-    localStorage.setItem(
-        storageKey,
-        JSON.stringify(progress)
-    );
+    try {
+        localStorage.setItem(
+            storageKey,
+            JSON.stringify(progress)
+        );
+    } catch (error) {
+        console.error("Unable to save progress:", error);
+    }
 }
-
 
 /* --------------------------------
    LOAD PROGRESS
 -------------------------------- */
 
 function loadProgress() {
-
     try {
+        const saved = localStorage.getItem(storageKey);
 
-        const saved =
-            localStorage.getItem(storageKey);
+        if (!saved) return;
 
-        if (!saved) {
-            return;
-        }
+        const progress = JSON.parse(saved);
 
-        const progress =
-            JSON.parse(saved);
-
-        if (!progress ||
-            progress.testId !== testId) {
+        if (!progress || progress.testId !== testId) {
             return;
         }
 
@@ -603,57 +606,36 @@ function loadProgress() {
             progress.selectedAnswers || {};
 
         markedQuestions =
-            new Set(
-                progress.markedQuestions || []
-            );
+            new Set(progress.markedQuestions || []);
 
         if (
             Number.isInteger(progress.currentIndex) &&
             progress.currentIndex >= 0 &&
             progress.currentIndex < questions.length
         ) {
-
-            currentIndex =
-                progress.currentIndex;
+            currentIndex = progress.currentIndex;
         }
 
-        if (
-            Number.isFinite(
-                Number(progress.remainingSeconds)
-            )
-        ) {
-
+        if (Number.isFinite(Number(progress.remainingSeconds))) {
             remainingSeconds =
                 Number(progress.remainingSeconds);
         }
-
     } catch (error) {
-
-        console.error(
-            "Progress load error:",
-            error
-        );
+        console.error("Progress load error:", error);
     }
 }
-
 
 /* --------------------------------
    LOAD TEST
 -------------------------------- */
 
 async function loadTest() {
-
     if (!testId) {
-
-        showError(
-            "Mock test ID is missing from the URL."
-        );
-
+        showError("Mock test ID is missing from the URL.");
         return;
     }
 
     try {
-
         const {
             data: test,
             error: testError
@@ -674,19 +656,15 @@ async function loadTest() {
             .eq("is_published", true)
             .single();
 
-        if (testError) {
-            throw testError;
-        }
+        if (testError) throw testError;
 
         if (!test) {
-
             throw new Error(
                 "Mock test not found or not published."
             );
         }
 
         testData = test;
-
 
         const {
             data: questionData,
@@ -697,93 +675,64 @@ async function loadTest() {
                 id,
                 mock_test_id,
                 question_text,
+                question_image_path,
                 option_a,
                 option_b,
                 option_c,
                 option_d,
+                option_a_image_path,
+                option_b_image_path,
+                option_c_image_path,
+                option_d_image_path,
                 marks,
                 question_order
             `)
             .eq("mock_test_id", testId)
-            .order(
-                "question_order",
-                { ascending: true }
-            );
+            .order("question_order", { ascending: true });
 
-        if (questionError) {
-            throw questionError;
-        }
+        if (questionError) throw questionError;
 
-        questions =
-            questionData || [];
+        questions = questionData || [];
 
-        if (questions.length === 0) {
-
+        if (!questions.length) {
             throw new Error(
                 "No questions found for this mock test."
             );
         }
 
-
-        testTitle.textContent =
-            test.title;
+        testTitle.textContent = test.title || "Mock Test";
 
         testInfo.textContent =
-            test.exam_name +
-            " • " +
-            questions.length +
-            " Questions • " +
-            test.duration_minutes +
-            " Minutes • " +
-            test.total_marks +
-            " Marks";
-
+            (test.exam_name || "Mock Test") +
+            " • " + questions.length + " Questions" +
+            " • " + test.duration_minutes + " Minutes" +
+            " • " + test.total_marks + " Marks";
 
         remainingSeconds =
             Number(test.duration_minutes || 0) * 60;
 
+        if (remainingSeconds <= 0) {
+            throw new Error("Invalid test duration.");
+        }
 
         loadProgress();
 
+        // Generate temporary URLs for private images.
+        await prepareQuestionImages();
 
-        if (
-            remainingSeconds <= 0
-        ) {
-
-            throw new Error(
-                "Invalid test duration."
-            );
-        }
-
-
-        loadingBox.style.display =
-            "none";
-
-        errorBox.style.display =
-            "none";
-
-        testContent.style.display =
-            "block";
-
+        loadingBox.style.display = "none";
+        errorBox.style.display = "none";
+        testContent.style.display = "block";
 
         renderQuestion();
-
         renderQuestionGrid();
-
         updateCounts();
-
         updateTimer();
-
         startTimer();
-
         saveProgress();
 
     } catch (error) {
-
-        console.error(
-            "Mock test loading error:",
-            error
-        );
+        console.error("Mock test loading error:", error);
 
         showError(
             "Unable to load mock test: " +
@@ -792,595 +741,375 @@ async function loadTest() {
     }
 }
 
+/* --------------------------------
+   RENDER QUESTION IMAGE
+-------------------------------- */
+
+function renderQuestionImage(question) {
+    questionImageContainer.innerHTML = "";
+
+    if (!question._questionImageUrl) {
+        return;
+    }
+
+    const image = document.createElement("img");
+
+    image.className = "question-image";
+    image.src = question._questionImageUrl;
+    image.alt = "Question image";
+    image.loading = "lazy";
+
+    image.onerror = function() {
+        this.style.display = "none";
+    };
+
+    questionImageContainer.appendChild(image);
+}
 
 /* --------------------------------
    RENDER QUESTION
 -------------------------------- */
 
 function renderQuestion() {
+    if (!questions.length) return;
 
-    if (!questions.length) {
-        return;
-    }
-
-    const question =
-        questions[currentIndex];
+    const question = questions[currentIndex];
 
     questionNumber.textContent =
-        "Question " +
-        (currentIndex + 1) +
-        " of " +
-        questions.length;
+        "Question " + (currentIndex + 1) +
+        " of " + questions.length;
 
     questionText.textContent =
         question.question_text || "";
 
+    renderQuestionImage(question);
 
     optionsContainer.innerHTML = "";
 
-
     const options = [
-
         {
             key: "A",
-            text: question.option_a
+            text: question.option_a,
+            image: question._optionImageUrls?.A
         },
-
         {
             key: "B",
-            text: question.option_b
+            text: question.option_b,
+            image: question._optionImageUrls?.B
         },
-
         {
             key: "C",
-            text: question.option_c
+            text: question.option_c,
+            image: question._optionImageUrls?.C
         },
-
         {
             key: "D",
-            text: question.option_d
+            text: question.option_d,
+            image: question._optionImageUrls?.D
         }
-
     ];
 
-
     options.forEach(option => {
+        const label = document.createElement("label");
+        label.className = "option";
 
-        const label =
-            document.createElement("label");
-
-        label.className =
-            "option";
-
-
-        const input =
-            document.createElement("input");
-
-        input.type =
-            "radio";
-
-        input.name =
-            "question";
-
-        input.value =
-            option.key;
-
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = "question";
+        input.value = option.key;
 
         if (
-            selectedAnswers[question.id] ===
-            option.key
+            selectedAnswers[question.id] === option.key
         ) {
-
             input.checked = true;
-
-            label.classList.add(
-                "selected"
-            );
+            label.classList.add("selected");
         }
 
+        input.addEventListener("change", function() {
+            if (hasSubmitted) return;
 
-        input.addEventListener(
-            "change",
-            function() {
+            selectedAnswers[question.id] = option.key;
 
-                if (hasSubmitted) {
-                    return;
-                }
+            optionsContainer
+                .querySelectorAll(".option")
+                .forEach(item => {
+                    item.classList.remove("selected");
+                });
 
-                selectedAnswers[
-                    question.id
-                ] = option.key;
+            label.classList.add("selected");
 
-                document
-                    .querySelectorAll(
-                        ".option"
-                    )
-                    .forEach(item => {
-
-                        item.classList.remove(
-                            "selected"
-                        );
-                    });
-
-                label.classList.add(
-                    "selected"
-                );
-
-                saveProgress();
-
-                renderQuestionGrid();
-
-                updateCounts();
-            }
-        );
-
+            saveProgress();
+            renderQuestionGrid();
+            updateCounts();
+        });
 
         label.appendChild(input);
 
-        label.appendChild(
-            document.createTextNode(
-                " " +
-                option.key +
-                ". " +
-                (option.text || "")
-            )
-        );
+        const content = document.createElement("div");
+        content.className = "option-content";
 
+        const optionLabel = document.createElement("div");
+        optionLabel.className = "option-label";
+        optionLabel.textContent = option.key + ".";
 
-        optionsContainer.appendChild(
-            label
-        );
+        content.appendChild(optionLabel);
 
+        if (option.text) {
+            const text = document.createElement("div");
+            text.className = "option-text";
+            text.textContent = option.text;
+            content.appendChild(text);
+        }
+
+        if (option.image) {
+            const image = document.createElement("img");
+
+            image.className = "option-image";
+            image.src = option.image;
+            image.alt = "Option " + option.key + " image";
+            image.loading = "lazy";
+
+            image.onerror = function() {
+                this.style.display = "none";
+                console.error(
+                    "Unable to display option image:",
+                    option.key
+                );
+            };
+
+            content.appendChild(image);
+        }
+
+        label.appendChild(content);
+        optionsContainer.appendChild(label);
     });
 
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === questions.length - 1;
 
-    prevBtn.disabled =
-        currentIndex === 0;
-
-    nextBtn.disabled =
-        currentIndex === questions.length - 1;
-
-
-    if (
-        markedQuestions.has(
-            question.id
-        )
-    ) {
-
-        markBtn.textContent =
-            "Remove Review Mark";
-
-    } else {
-
-        markBtn.textContent =
-            "Mark for Review";
-    }
+    markBtn.textContent =
+        markedQuestions.has(question.id)
+            ? "Remove Review Mark"
+            : "Mark for Review";
 }
-
 
 /* --------------------------------
    QUESTION GRID
 -------------------------------- */
 
 function renderQuestionGrid() {
-
     questionGrid.innerHTML = "";
 
-    questions.forEach(
-        (question, index) => {
+    questions.forEach((question, index) => {
+        const button = document.createElement("button");
 
-            const button =
-                document.createElement("button");
+        button.className = "q-btn";
+        button.textContent = index + 1;
+        button.type = "button";
 
-            button.className =
-                "q-btn";
-
-            button.textContent =
-                index + 1;
-
-
-            if (
-                selectedAnswers[question.id]
-            ) {
-
-                button.classList.add(
-                    "answered"
-                );
-            }
-
-
-            if (
-                markedQuestions.has(
-                    question.id
-                )
-            ) {
-
-                button.classList.add(
-                    "marked"
-                );
-            }
-
-
-            if (
-                index === currentIndex
-            ) {
-
-                button.classList.add(
-                    "current"
-                );
-            }
-
-
-            button.addEventListener(
-                "click",
-                function() {
-
-                    if (hasSubmitted) {
-                        return;
-                    }
-
-                    currentIndex =
-                        index;
-
-                    renderQuestion();
-
-                    renderQuestionGrid();
-
-                    saveProgress();
-                }
-            );
-
-
-            questionGrid.appendChild(
-                button
-            );
+        if (selectedAnswers[question.id]) {
+            button.classList.add("answered");
         }
-    );
+
+        if (markedQuestions.has(question.id)) {
+            button.classList.add("marked");
+        }
+
+        if (index === currentIndex) {
+            button.classList.add("current");
+        }
+
+        button.addEventListener("click", function() {
+            if (hasSubmitted) return;
+
+            currentIndex = index;
+
+            renderQuestion();
+            renderQuestionGrid();
+            saveProgress();
+        });
+
+        questionGrid.appendChild(button);
+    });
 }
 
-
 /* --------------------------------
-   COUNTS
+   ANSWER COUNTS
 -------------------------------- */
 
 function updateCounts() {
+    const answered = questions.filter(
+        question => Boolean(selectedAnswers[question.id])
+    ).length;
 
-    const answered =
-        Object.keys(
-            selectedAnswers
-        ).filter(
-            id => selectedAnswers[id]
-        ).length;
+    const marked = markedQuestions.size;
+    const unanswered = Math.max(0, questions.length - answered);
 
-    const marked =
-        markedQuestions.size;
-
-    const unanswered =
-        Math.max(
-            0,
-            questions.length - answered
-        );
-
-
-    answeredCount.textContent =
-        answered;
-
-    markedCount.textContent =
-        marked;
-
-    unansweredCount.textContent =
-        unanswered;
+    answeredCount.textContent = answered;
+    markedCount.textContent = marked;
+    unansweredCount.textContent = unanswered;
 }
-
 
 /* --------------------------------
    TIMER
 -------------------------------- */
 
 function updateTimer() {
-
     timerElement.textContent =
-        formatTime(
-            remainingSeconds
-        );
-
+        formatTime(remainingSeconds);
 
     if (remainingSeconds <= 60) {
-
-        timerElement.style.color =
-            "#ffffff";
+        timerElement.style.background = "#991b1b";
     }
 }
-
 
 function startTimer() {
+    clearInterval(timerInterval);
 
-    clearInterval(
-        timerInterval
-    );
+    if (remainingSeconds <= 0) {
+        submitTest(true);
+        return;
+    }
 
+    timerInterval = setInterval(function() {
+        if (hasSubmitted) {
+            clearInterval(timerInterval);
+            return;
+        }
 
-    timerInterval =
-        setInterval(
-            function() {
+        remainingSeconds--;
+        updateTimer();
+        saveProgress();
 
-                if (hasSubmitted) {
-
-                    clearInterval(
-                        timerInterval
-                    );
-
-                    return;
-                }
-
-
-                remainingSeconds--;
-
-                updateTimer();
-
-                saveProgress();
-
-
-                if (
-                    remainingSeconds <= 0
-                ) {
-
-                    clearInterval(
-                        timerInterval
-                    );
-
-                    submitTest(true);
-                }
-
-            },
-            1000
-        );
+        if (remainingSeconds <= 0) {
+            clearInterval(timerInterval);
+            submitTest(true);
+        }
+    }, 1000);
 }
 
-
 /* --------------------------------
-   PREVIOUS
+   PREVIOUS / NEXT
 -------------------------------- */
 
-prevBtn.addEventListener(
-    "click",
-    function() {
+prevBtn.addEventListener("click", function() {
+    if (hasSubmitted || currentIndex <= 0) return;
 
-        if (hasSubmitted) {
-            return;
-        }
+    currentIndex--;
+    renderQuestion();
+    renderQuestionGrid();
+    saveProgress();
+});
 
-        if (currentIndex > 0) {
+nextBtn.addEventListener("click", function() {
+    if (
+        hasSubmitted ||
+        currentIndex >= questions.length - 1
+    ) return;
 
-            currentIndex--;
-
-            renderQuestion();
-
-            renderQuestionGrid();
-
-            saveProgress();
-        }
-    }
-);
-
-
-/* --------------------------------
-   NEXT
--------------------------------- */
-
-nextBtn.addEventListener(
-    "click",
-    function() {
-
-        if (hasSubmitted) {
-            return;
-        }
-
-        if (
-            currentIndex <
-            questions.length - 1
-        ) {
-
-            currentIndex++;
-
-            renderQuestion();
-
-            renderQuestionGrid();
-
-            saveProgress();
-        }
-    }
-);
-
+    currentIndex++;
+    renderQuestion();
+    renderQuestionGrid();
+    saveProgress();
+});
 
 /* --------------------------------
    MARK FOR REVIEW
 -------------------------------- */
 
-markBtn.addEventListener(
-    "click",
-    function() {
+markBtn.addEventListener("click", function() {
+    if (hasSubmitted) return;
 
-        if (hasSubmitted) {
-            return;
-        }
+    const question = questions[currentIndex];
 
-        const question =
-            questions[currentIndex];
-
-
-        if (
-            markedQuestions.has(
-                question.id
-            )
-        ) {
-
-            markedQuestions.delete(
-                question.id
-            );
-
-        } else {
-
-            markedQuestions.add(
-                question.id
-            );
-        }
-
-
-        renderQuestion();
-
-        renderQuestionGrid();
-
-        updateCounts();
-
-        saveProgress();
+    if (markedQuestions.has(question.id)) {
+        markedQuestions.delete(question.id);
+    } else {
+        markedQuestions.add(question.id);
     }
-);
 
+    renderQuestion();
+    renderQuestionGrid();
+    updateCounts();
+    saveProgress();
+});
 
 /* --------------------------------
-   SUBMIT
+   SUBMIT BUTTON
 -------------------------------- */
 
-submitBtn.addEventListener(
-    "click",
-    function() {
+submitBtn.addEventListener("click", function() {
+    if (hasSubmitted) return;
 
-        if (hasSubmitted) {
-            return;
-        }
+    const answered = questions.filter(
+        question => Boolean(selectedAnswers[question.id])
+    ).length;
 
-        const answered =
-            Object.keys(
-                selectedAnswers
-            ).length;
+    const unanswered = questions.length - answered;
 
-        const unanswered =
-            questions.length -
-            answered;
+    const confirmed = window.confirm(
+        "Are you sure you want to submit the test?\n\n" +
+        "Answered: " + answered + "\n" +
+        "Unanswered: " + unanswered + "\n\n" +
+        "Continue to submit?"
+    );
 
+    if (!confirmed) return;
 
-        const message =
-            "Are you sure you want to submit the test?\n\n" +
-            "Answered: " +
-            answered +
-            "\n" +
-            "Unanswered: " +
-            unanswered +
-            "\n\n" +
-            "Your result will be shown temporarily.";
-
-        const confirmed =
-            window.confirm(message);
-
-
-        if (!confirmed) {
-            return;
-        }
-
-
-        submitTest(false);
-    }
-);
-
+    submitTest(false);
+});
 
 /* --------------------------------
    FINAL SUBMISSION
 -------------------------------- */
 
-function submitTest(
-    isAutoSubmit
-) {
-
-    if (hasSubmitted) {
-        return;
-    }
+function submitTest(isAutoSubmit) {
+    if (hasSubmitted) return;
 
     hasSubmitted = true;
 
+    clearInterval(timerInterval);
 
-    clearInterval(
-        timerInterval
-    );
-
-
-    submitBtn.disabled =
-        true;
-
-    prevBtn.disabled =
-        true;
-
-    nextBtn.disabled =
-        true;
-
-    markBtn.disabled =
-        true;
-
+    submitBtn.disabled = true;
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+    markBtn.disabled = true;
 
     const totalDurationSeconds =
-        Number(
-            testData.duration_minutes || 0
-        ) * 60;
+        Number(testData?.duration_minutes || 0) * 60;
 
-
-    const timeTakenSeconds =
-        Math.max(
-            0,
-            Math.min(
-                totalDurationSeconds,
-                totalDurationSeconds -
-                remainingSeconds
-            )
-        );
-
-
-    const submissionData = {
-
-        testId: testId,
-
-        answers: selectedAnswers,
-
-        markedQuestions:
-            Array.from(
-                markedQuestions
-            ),
-
-        autoSubmitted:
-            Boolean(isAutoSubmit),
-
-        time_taken_seconds:
-            timeTakenSeconds,
-
-        submittedAt:
-            new Date().toISOString()
-    };
-
-
-    localStorage.setItem(
-
-        storageKey +
-        "_submission",
-
-        JSON.stringify(
-            submissionData
+    const timeTakenSeconds = Math.max(
+        0,
+        Math.min(
+            totalDurationSeconds,
+            totalDurationSeconds - remainingSeconds
         )
     );
 
+    const submissionData = {
+        testId,
+        answers: selectedAnswers,
+        markedQuestions: Array.from(markedQuestions),
+        autoSubmitted: Boolean(isAutoSubmit),
+        time_taken_seconds: timeTakenSeconds,
+        submittedAt: new Date().toISOString()
+    };
 
-    /*
-       Do NOT store result in database.
-       Result page will securely call
-       submit-mock-test Edge Function.
-    */
+    try {
+        localStorage.setItem(
+            storageKey + "_submission",
+            JSON.stringify(submissionData)
+        );
 
+        localStorage.removeItem(storageKey);
+    } catch (error) {
+        console.error("Unable to save submission:", error);
+    }
 
     window.location.href =
         "mock-test-result.html?id=" +
-        encodeURIComponent(
-            testId
-        );
+        encodeURIComponent(testId);
 }
-
 
 /* --------------------------------
    START
