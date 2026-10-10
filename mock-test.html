@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Mock Test - TN Warriors</title>
+<meta name="description" content="Attempt TN Warriors mock tests and practise for competitive examinations.">
 
+<!-- Google Analytics: Public page -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-403SNE66JG"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -85,7 +87,7 @@ header {
 
 .layout {
     display: grid;
-    grid-template-columns: 1fr 280px;
+    grid-template-columns: minmax(0, 1fr) 280px;
     gap: 18px;
 }
 
@@ -95,6 +97,7 @@ header {
     border-radius: 12px;
     padding: 22px;
     box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    min-width: 0;
 }
 
 .question-number {
@@ -106,7 +109,7 @@ header {
 .question-text {
     font-size: 18px;
     line-height: 1.6;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
 }
@@ -168,15 +171,15 @@ header {
 .option-image {
     display: block;
     max-width: 100%;
+    max-height: 300px;
     width: auto;
     height: auto;
-    max-height: 300px;
     object-fit: contain;
     margin-top: 10px;
     border-radius: 6px;
 }
 
-.image-loading {
+.image-error {
     color: #6b7280;
     font-size: 13px;
     margin-top: 8px;
@@ -273,6 +276,7 @@ button:disabled {
     border-radius: 12px;
     text-align: center;
     overflow-wrap: anywhere;
+    line-height: 1.6;
 }
 
 .error {
@@ -368,7 +372,6 @@ button:disabled {
             </main>
 
             <aside class="sidebar">
-
                 <h3>Questions</h3>
 
                 <div id="questionGrid" class="grid"></div>
@@ -378,7 +381,6 @@ button:disabled {
                     <div>Marked: <strong id="markedCount">0</strong></div>
                     <div>Unanswered: <strong id="unansweredCount">0</strong></div>
                 </div>
-
             </aside>
 
         </div>
@@ -388,12 +390,12 @@ button:disabled {
 <script>
 "use strict";
 
-/* --------------------------------
+/* =================================
    SUPABASE CONFIGURATION
--------------------------------- */
+================================= */
 
 const SUPABASE_URL =
-    "https://nwipyqarobgelksdbkbq.supabase.co";
+    "https://nwipyqarobgelksdbkbk.supabase.co";
 
 const SUPABASE_KEY =
     "sb_publishable_6FfBPZ1nc5AQqjVRi_VhgA_WZC1tQ-J";
@@ -410,8 +412,7 @@ const supabaseClient =
 const params =
     new URLSearchParams(window.location.search);
 
-const testId =
-    params.get("id");
+const testId = params.get("id");
 
 const storageKey =
     "tnwarriors_mock_test_" + testId;
@@ -424,11 +425,10 @@ let markedQuestions = new Set();
 let remainingSeconds = 0;
 let timerInterval = null;
 let hasSubmitted = false;
-let progressDeadline = null;
 
-/* --------------------------------
+/* =================================
    DOM ELEMENTS
--------------------------------- */
+================================= */
 
 const loadingBox = document.getElementById("loadingBox");
 const errorBox = document.getElementById("errorBox");
@@ -438,7 +438,8 @@ const testInfo = document.getElementById("testInfo");
 const timerElement = document.getElementById("timer");
 const questionNumber = document.getElementById("questionNumber");
 const questionText = document.getElementById("questionText");
-const questionImageContainer = document.getElementById("questionImageContainer");
+const questionImageContainer =
+    document.getElementById("questionImageContainer");
 const optionsContainer = document.getElementById("optionsContainer");
 const questionGrid = document.getElementById("questionGrid");
 const answeredCount = document.getElementById("answeredCount");
@@ -449,21 +450,22 @@ const nextBtn = document.getElementById("nextBtn");
 const markBtn = document.getElementById("markBtn");
 const submitBtn = document.getElementById("submitBtn");
 
-/* --------------------------------
-   ERROR HANDLING
--------------------------------- */
+/* =================================
+   ERROR DISPLAY
+================================= */
 
 function showError(message) {
     clearInterval(timerInterval);
+
     loadingBox.style.display = "none";
     testContent.style.display = "none";
     errorBox.style.display = "block";
     errorBox.textContent = message;
 }
 
-/* --------------------------------
-   SAFE TEXT
--------------------------------- */
+/* =================================
+   FORMAT TIME
+================================= */
 
 function formatTime(seconds) {
     seconds = Math.max(0, Number(seconds) || 0);
@@ -475,15 +477,13 @@ function formatTime(seconds) {
         ":" + String(secs).padStart(2, "0");
 }
 
-/* --------------------------------
-   STORAGE SIGNED URLS
+/* =================================
+   IMAGE URL
 
-   Image paths are stored in
-   mock_questions table.
-
-   Bucket is private, so create
-   temporary signed URLs.
--------------------------------- */
+   IMPORTANT:
+   Image URL failure must NOT stop
+   the complete mock test.
+================================= */
 
 async function getImageUrl(path) {
     if (!path || typeof path !== "string") {
@@ -496,8 +496,7 @@ async function getImageUrl(path) {
         return null;
     }
 
-    // Allow full URLs if a previous version
-    // of the admin page stored them.
+    // Support older records containing full URLs.
     if (/^https?:\/\//i.test(cleanPath)) {
         return cleanPath;
     }
@@ -505,67 +504,80 @@ async function getImageUrl(path) {
     const normalizedPath =
         cleanPath.replace(/^\/+/, "");
 
-    const { data, error } =
-        await supabaseClient.storage
-            .from(IMAGE_BUCKET)
-            .createSignedUrl(normalizedPath, 3600);
+    try {
+        const { data, error } =
+            await supabaseClient.storage
+                .from(IMAGE_BUCKET)
+                .createSignedUrl(normalizedPath, 3600);
 
-    if (error) {
+        if (error) {
+            console.error(
+                "Image signed URL error:",
+                normalizedPath,
+                error.message
+            );
+
+            return null;
+        }
+
+        return data?.signedUrl || null;
+
+    } catch (error) {
+        // A failed image request must not crash the test.
         console.error(
-            "Unable to create image URL:",
+            "Image network request failed:",
             normalizedPath,
             error
         );
+
         return null;
     }
-
-    return data?.signedUrl || null;
 }
 
-/* --------------------------------
+/* =================================
    PREPARE IMAGE URLS
--------------------------------- */
+
+   Each image is handled separately.
+   One failed image will not break others.
+================================= */
 
 async function prepareQuestionImages() {
-    const imageTasks = questions.map(async question => {
-        question._optionImageUrls = {};
+    await Promise.all(
+        questions.map(async question => {
+            question._optionImageUrls = {};
 
-        const imageColumns = {
-            A: question.option_a_image_path,
-            B: question.option_b_image_path,
-            C: question.option_c_image_path,
-            D: question.option_d_image_path
-        };
+            const imageColumns = {
+                A: question.option_a_image_path,
+                B: question.option_b_image_path,
+                C: question.option_c_image_path,
+                D: question.option_d_image_path
+            };
 
-        for (const key of ["A", "B", "C", "D"]) {
-            const path = imageColumns[key];
+            const tasks = ["A", "B", "C", "D"].map(
+                async key => {
+                    question._optionImageUrls[key] =
+                        await getImageUrl(imageColumns[key]);
+                }
+            );
 
-            if (!path) {
-                question._optionImageUrls[key] = null;
-                continue;
-            }
+            await Promise.all(tasks);
 
-            question._optionImageUrls[key] =
-                await getImageUrl(path);
-        }
-
-        // Also support question images if the
-        // question_image_path column exists.
-        question._questionImageUrl =
-            question.question_image_path
-                ? await getImageUrl(question.question_image_path)
-                : null;
-    });
-
-    await Promise.all(imageTasks);
+            question._questionImageUrl =
+                await getImageUrl(
+                    question.question_image_path
+                );
+        })
+    );
 }
 
-/* --------------------------------
+/* =================================
    SAVE PROGRESS
--------------------------------- */
+================================= */
 
 function saveProgress() {
-    if (!testId || hasSubmitted) return;
+    if (!testId || hasSubmitted) {
+        return;
+    }
 
     const progress = {
         testId,
@@ -582,19 +594,21 @@ function saveProgress() {
             JSON.stringify(progress)
         );
     } catch (error) {
-        console.error("Unable to save progress:", error);
+        console.error("Progress saving failed:", error);
     }
 }
 
-/* --------------------------------
+/* =================================
    LOAD PROGRESS
--------------------------------- */
+================================= */
 
 function loadProgress() {
     try {
         const saved = localStorage.getItem(storageKey);
 
-        if (!saved) return;
+        if (!saved) {
+            return;
+        }
 
         const progress = JSON.parse(saved);
 
@@ -616,18 +630,22 @@ function loadProgress() {
             currentIndex = progress.currentIndex;
         }
 
-        if (Number.isFinite(Number(progress.remainingSeconds))) {
+        if (
+            Number.isFinite(Number(progress.remainingSeconds)) &&
+            Number(progress.remainingSeconds) >= 0
+        ) {
             remainingSeconds =
                 Number(progress.remainingSeconds);
         }
+
     } catch (error) {
-        console.error("Progress load error:", error);
+        console.error("Progress loading failed:", error);
     }
 }
 
-/* --------------------------------
-   LOAD TEST
--------------------------------- */
+/* =================================
+   LOAD TEST FROM SUPABASE
+================================= */
 
 async function loadTest() {
     if (!testId) {
@@ -656,7 +674,11 @@ async function loadTest() {
             .eq("is_published", true)
             .single();
 
-        if (testError) throw testError;
+        if (testError) {
+            throw new Error(
+                "Test query failed: " + testError.message
+            );
+        }
 
         if (!test) {
             throw new Error(
@@ -688,9 +710,16 @@ async function loadTest() {
                 question_order
             `)
             .eq("mock_test_id", testId)
-            .order("question_order", { ascending: true });
+            .order("question_order", {
+                ascending: true
+            });
 
-        if (questionError) throw questionError;
+        if (questionError) {
+            throw new Error(
+                "Question query failed: " +
+                questionError.message
+            );
+        }
 
         questions = questionData || [];
 
@@ -700,7 +729,8 @@ async function loadTest() {
             );
         }
 
-        testTitle.textContent = test.title || "Mock Test";
+        testTitle.textContent =
+            test.title || "Mock Test";
 
         testInfo.textContent =
             (test.exam_name || "Mock Test") +
@@ -717,7 +747,10 @@ async function loadTest() {
 
         loadProgress();
 
-        // Generate temporary URLs for private images.
+        /*
+         * Image loading errors are caught individually.
+         * They cannot stop the test from displaying.
+         */
         await prepareQuestionImages();
 
         loadingBox.style.display = "none";
@@ -741,9 +774,9 @@ async function loadTest() {
     }
 }
 
-/* --------------------------------
+/* =================================
    RENDER QUESTION IMAGE
--------------------------------- */
+================================= */
 
 function renderQuestionImage(question) {
     questionImageContainer.innerHTML = "";
@@ -766,12 +799,14 @@ function renderQuestionImage(question) {
     questionImageContainer.appendChild(image);
 }
 
-/* --------------------------------
-   RENDER QUESTION
--------------------------------- */
+/* =================================
+   RENDER OPTIONS WITH TEXT + IMAGES
+================================= */
 
 function renderQuestion() {
-    if (!questions.length) return;
+    if (!questions.length) {
+        return;
+    }
 
     const question = questions[currentIndex];
 
@@ -814,6 +849,7 @@ function renderQuestion() {
         label.className = "option";
 
         const input = document.createElement("input");
+
         input.type = "radio";
         input.name = "question";
         input.value = option.key;
@@ -826,7 +862,9 @@ function renderQuestion() {
         }
 
         input.addEventListener("change", function() {
-            if (hasSubmitted) return;
+            if (hasSubmitted) {
+                return;
+            }
 
             selectedAnswers[question.id] = option.key;
 
@@ -856,8 +894,10 @@ function renderQuestion() {
 
         if (option.text) {
             const text = document.createElement("div");
+
             text.className = "option-text";
             text.textContent = option.text;
+
             content.appendChild(text);
         }
 
@@ -885,7 +925,9 @@ function renderQuestion() {
     });
 
     prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex === questions.length - 1;
+
+    nextBtn.disabled =
+        currentIndex === questions.length - 1;
 
     markBtn.textContent =
         markedQuestions.has(question.id)
@@ -893,9 +935,9 @@ function renderQuestion() {
             : "Mark for Review";
 }
 
-/* --------------------------------
-   QUESTION GRID
--------------------------------- */
+/* =================================
+   QUESTION NAVIGATION GRID
+================================= */
 
 function renderQuestionGrid() {
     questionGrid.innerHTML = "";
@@ -903,9 +945,9 @@ function renderQuestionGrid() {
     questions.forEach((question, index) => {
         const button = document.createElement("button");
 
+        button.type = "button";
         button.className = "q-btn";
         button.textContent = index + 1;
-        button.type = "button";
 
         if (selectedAnswers[question.id]) {
             button.classList.add("answered");
@@ -920,7 +962,9 @@ function renderQuestionGrid() {
         }
 
         button.addEventListener("click", function() {
-            if (hasSubmitted) return;
+            if (hasSubmitted) {
+                return;
+            }
 
             currentIndex = index;
 
@@ -933,26 +977,24 @@ function renderQuestionGrid() {
     });
 }
 
-/* --------------------------------
+/* =================================
    ANSWER COUNTS
--------------------------------- */
+================================= */
 
 function updateCounts() {
     const answered = questions.filter(
         question => Boolean(selectedAnswers[question.id])
     ).length;
 
-    const marked = markedQuestions.size;
-    const unanswered = Math.max(0, questions.length - answered);
-
     answeredCount.textContent = answered;
-    markedCount.textContent = marked;
-    unansweredCount.textContent = unanswered;
+    markedCount.textContent = markedQuestions.size;
+    unansweredCount.textContent =
+        Math.max(0, questions.length - answered);
 }
 
-/* --------------------------------
+/* =================================
    TIMER
--------------------------------- */
+================================= */
 
 function updateTimer() {
     timerElement.textContent =
@@ -960,6 +1002,8 @@ function updateTimer() {
 
     if (remainingSeconds <= 60) {
         timerElement.style.background = "#991b1b";
+    } else {
+        timerElement.style.background = "#dc2626";
     }
 }
 
@@ -978,6 +1022,7 @@ function startTimer() {
         }
 
         remainingSeconds--;
+
         updateTimer();
         saveProgress();
 
@@ -988,14 +1033,17 @@ function startTimer() {
     }, 1000);
 }
 
-/* --------------------------------
+/* =================================
    PREVIOUS / NEXT
--------------------------------- */
+================================= */
 
 prevBtn.addEventListener("click", function() {
-    if (hasSubmitted || currentIndex <= 0) return;
+    if (hasSubmitted || currentIndex <= 0) {
+        return;
+    }
 
     currentIndex--;
+
     renderQuestion();
     renderQuestionGrid();
     saveProgress();
@@ -1005,20 +1053,25 @@ nextBtn.addEventListener("click", function() {
     if (
         hasSubmitted ||
         currentIndex >= questions.length - 1
-    ) return;
+    ) {
+        return;
+    }
 
     currentIndex++;
+
     renderQuestion();
     renderQuestionGrid();
     saveProgress();
 });
 
-/* --------------------------------
+/* =================================
    MARK FOR REVIEW
--------------------------------- */
+================================= */
 
 markBtn.addEventListener("click", function() {
-    if (hasSubmitted) return;
+    if (hasSubmitted) {
+        return;
+    }
 
     const question = questions[currentIndex];
 
@@ -1034,12 +1087,14 @@ markBtn.addEventListener("click", function() {
     saveProgress();
 });
 
-/* --------------------------------
+/* =================================
    SUBMIT BUTTON
--------------------------------- */
+================================= */
 
 submitBtn.addEventListener("click", function() {
-    if (hasSubmitted) return;
+    if (hasSubmitted) {
+        return;
+    }
 
     const answered = questions.filter(
         question => Boolean(selectedAnswers[question.id])
@@ -1054,17 +1109,21 @@ submitBtn.addEventListener("click", function() {
         "Continue to submit?"
     );
 
-    if (!confirmed) return;
+    if (!confirmed) {
+        return;
+    }
 
     submitTest(false);
 });
 
-/* --------------------------------
+/* =================================
    FINAL SUBMISSION
--------------------------------- */
+================================= */
 
 function submitTest(isAutoSubmit) {
-    if (hasSubmitted) return;
+    if (hasSubmitted) {
+        return;
+    }
 
     hasSubmitted = true;
 
@@ -1087,7 +1146,7 @@ function submitTest(isAutoSubmit) {
     );
 
     const submissionData = {
-        testId,
+        testId: testId,
         answers: selectedAnswers,
         markedQuestions: Array.from(markedQuestions),
         autoSubmitted: Boolean(isAutoSubmit),
@@ -1102,18 +1161,23 @@ function submitTest(isAutoSubmit) {
         );
 
         localStorage.removeItem(storageKey);
+
     } catch (error) {
         console.error("Unable to save submission:", error);
     }
 
+    /*
+     * Preserve the existing result-page flow.
+     * The result page/Edge Function handles scoring.
+     */
     window.location.href =
         "mock-test-result.html?id=" +
         encodeURIComponent(testId);
 }
 
-/* --------------------------------
+/* =================================
    START
--------------------------------- */
+================================= */
 
 loadTest();
 
